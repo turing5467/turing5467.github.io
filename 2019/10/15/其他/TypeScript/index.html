@@ -1,0 +1,140 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> typescript入门 · 图小灵</title><meta name="description" content="typescript入门 - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="/tags/" target="_self" class="nav-list-link">标签</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">typescript入门</h1><div class="post-info">Oct 15, 2019</div><div class="post-content"><h3 id="基础类型"><a href="#基础类型" class="headerlink" title="基础类型"></a>基础类型</h3><ol>
+<li><p><code>boolean</code></p>
+</li>
+<li><p><code>number</code></p>
+</li>
+<li><p><code>string</code></p>
+</li>
+<li><p><strong>数组</strong>：<code>Array&lt;number&gt;</code> 或<code>number[]</code></p>
+</li>
+<li><p><strong>元组</strong>类型允许表示一个已知元素数量和类型的<strong>数组</strong>，各元素的类型可以<strong>不同</strong></p>
+</li>
+<li><p>枚举(<code>enum</code>：可以定义一些有名字的<strong>数字常量</strong>，索引默认从0递增</p>
+<p>可以从枚举值到枚举名进行<strong>反向映射</strong>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//ts</span></span><br><span class="line">enum Color &#123;Red = <span class="number">1</span>,Green = <span class="number">2</span>,Blue = <span class="number">4</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//js</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">Color</span>) </span>&#123;</span><br><span class="line">    Color[Color[<span class="string">"Red"</span>] = <span class="number">1</span>] = <span class="string">"Red"</span>; <span class="comment">//Color['red']=1; Color[1]='red'</span></span><br><span class="line">    Color[Color[<span class="string">"Green"</span>] = <span class="number">2</span>] = <span class="string">"Green"</span>;</span><br><span class="line">    Color[Color[<span class="string">"Blue"</span>] = <span class="number">4</span>] = <span class="string">"Blue"</span>;</span><br><span class="line">&#125;)(Color || (Color = &#123;&#125;));</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="7">
+<li><p><code>any</code> 表示任何类型</p>
+</li>
+<li><p><code>void</code> 表示没有任何类型,只能赋予<code>null</code>和<code>undefined</code>，一般用于无返回值的函数</p>
+</li>
+<li><p><code>null</code> 和<code>undefined</code></p>
+</li>
+<li><p><code>never</code> 永不存在的值的类型，</p>
+<p>例如 <code>throw new Error</code></p>
+<p>​        <code>return error(&#39;sth failed&#39;)</code> </p>
+<p>​         <code>while(true) {...}</code></p>
+</li>
+</ol>
+<ul>
+<li><p>类型断言<code>assert</code>：可以用来手动指定一个值的类型</p>
+<ol>
+<li><p>尖括号语法：<code>&lt;string&gt;variable</code></p>
+</li>
+<li><p>as语法：<code>variable as string</code></p>
+<p>当在TypeScript里使用<code>JSX</code>时，只有<code>as</code>语法断言是被允许的。</p>
+</li>
+</ol>
+<ul>
+<li><p>场景：在还不确定类型的时候 就得访问其中一个类型的属性或方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getLength</span>(<span class="params">something: string | number</span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">    <span class="comment">//当something为字符串时</span></span><br><span class="line">    <span class="keyword">if</span> ((<span class="xml"><span class="tag">&lt;<span class="name">string</span>&gt;</span>something).length) &#123;</span></span><br><span class="line">        return (&lt;string&gt;something).length;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        return something.toString().length;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>泛型：函数中的变量的类型与传入参数的类型相同</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//声明泛型的两种方式</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">gen_func1</span>&lt;<span class="title">T</span>&gt;(<span class="params">arg: T</span>): <span class="title">T</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> arg;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> gen_func2: &lt;T&gt;<span class="function">(<span class="params">arg: T</span>) =&gt;</span> T = <span class="function"><span class="keyword">function</span> (<span class="params">arg</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> arg;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//调用方式</span></span><br><span class="line">gen_func1&lt;<span class="built_in">string</span>&gt;(<span class="string">'Hello world'</span>);</span><br><span class="line">gen_func2(<span class="string">'Hello world'</span>);</span><br><span class="line"><span class="comment">// 第二种调用方式可省略类型参数，因为编译器会根据传入参数来自动识别对应的类型。</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>泛型约束</p>
+<ul>
+<li><p><code>extends</code>     </p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> hasLengthP&#123;</span><br><span class="line">  length: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//约束传入参数必须具有length属性</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>&lt;<span class="title">T</span> <span class="title">extends</span> <span class="title">hasLengthP</span>&gt;(<span class="params">arg:T</span>):<span class="title">T</span></span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">"打印length值 = "</span> + arg.length);</span><br><span class="line">	<span class="keyword">return</span> arg</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>- `keyof` 索引类型查询操作符。
+
+  `keyof T`产生的类型是T的**属性所属类型**构成的**联合类型**。</code></pre><ul>
+<li><p>函数 </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//箭头函数写法</span></span><br><span class="line"><span class="keyword">let</span> add = (a:number,<span class="attr">b</span>:number) :<span class="function"><span class="params">number</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>函数可选参数：参数后跟<code>?</code></p>
+<blockquote>
+<p>注意：可选参数必须位于参数列表的最后。</p>
+</blockquote>
+</li>
+<li><p>参数默认值：<code>形参名称 : 参数类型 = 默认值</code></p>
+</li>
+</ul>
+<h3 id="自定义类型"><a href="#自定义类型" class="headerlink" title="自定义类型"></a>自定义类型</h3><pre><code>1. `interface`
+ 2. `type`</code></pre><ul>
+<li><p>相同点：</p>
+<ol>
+<li><p>都可以用来描述一个对象或函数</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//对象</span></span><br><span class="line"><span class="keyword">interface</span> User &#123;</span><br><span class="line">    name: <span class="built_in">string</span></span><br><span class="line">    age: <span class="built_in">number</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> User = &#123;</span><br><span class="line">    name: <span class="built_in">string</span></span><br><span class="line">    age: <span class="built_in">number</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//函数</span></span><br><span class="line"><span class="keyword">interface</span> SetUser &#123;</span><br><span class="line">	(name: <span class="built_in">string</span>, age: <span class="built_in">number</span>): <span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> SetUser = (name: <span class="built_in">string</span>, age: <span class="built_in">number</span>): <span class="built_in">void</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+</li>
+</ul>
+<ol start="2">
+<li><p>都允许继承，且可相互继承</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">interface</span> Name_1 &#123;</span><br><span class="line">	name: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> Name_2 = &#123;</span><br><span class="line">    name:<span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//interface继承interface / type</span></span><br><span class="line"><span class="keyword">interface</span> User <span class="keyword">extends</span> [<span class="keyword">interface</span> | type] &#123;</span><br><span class="line">	age: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//type继承type / interface</span></span><br><span class="line"><span class="keyword">type</span> User = [<span class="keyword">interface</span> | type] &amp; &#123;</span><br><span class="line">    age:<span class="built_in">number</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ul>
+<li><p>不同点</p>
+<ol>
+<li><code>type</code>可以而<code>interface</code>不可以<ul>
+<li>声明基本类型别名，联合类型，元组等类型</li>
+<li>可以使用<code>typeof</code>获取实例的类型进行赋值</li>
+<li><code>| keyof</code>等</li>
+</ul>
+</li>
+<li><code>interface</code>可以而<code>type</code>不行<ul>
+<li>声明合并</li>
+<li>可选属性：后跟<code>?</code></li>
+<li>只读属性：前用<code>readonly</code></li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="实现与继承"><a href="#实现与继承" class="headerlink" title="实现与继承"></a>实现与继承</h3><ol>
+<li><code>implements</code> 明确的强制一个类去符合某种契约</li>
+<li><code>extends</code> 继承父类</li>
+</ol>
+<h3 id="访问修饰符"><a href="#访问修饰符" class="headerlink" title="访问修饰符"></a>访问修饰符</h3><ul>
+<li><code>public</code>默认</li>
+<li><code>private</code> 无法被外部访问</li>
+<li><code>protected</code>只能在子类中访问</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2019/10/15/js框架/Vue/" class="prev">上一篇</a><a href="/2019/10/13/工程化/webpack/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2019/10/15/其他/TypeScript/';
+var disqus_title = 'typescript入门';
+var disqus_url = 'https://turing5467.github.io/2019/10/15/其他/TypeScript/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

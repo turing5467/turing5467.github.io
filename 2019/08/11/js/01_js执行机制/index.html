@@ -1,0 +1,58 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 浏览器执行机制(1) · 图小灵</title><meta name="description" content="浏览器执行机制(1) - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="/tags/" target="_self" class="nav-list-link">标签</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">浏览器执行机制(1)</h1><div class="post-info">Aug 11, 2019</div><div class="post-content"><h2 id="js执行机制"><a href="#js执行机制" class="headerlink" title="js执行机制"></a>js执行机制</h2><h3 id="简单介绍"><a href="#简单介绍" class="headerlink" title="简单介绍"></a>简单介绍</h3><ol>
+<li><p>关于javascript</p>
+<p>javascript是一门<strong>单线程</strong>语言。所以一切javascript版的”多线程”都是用单线程模拟出来的，一切javascript多线程都是纸老虎！</p>
+</li>
+<li><p>js事件循环</p>
+<p>既然js是单线程，那就像只有一个窗口的银行，客户需要排队一个一个办理业务，同理js任务也要一个一个顺序执行。如果一个任务耗时过长，那么后一个任务也必须等着。那么问题来了，假如我们想浏览新闻，但是新闻包含的超清图片加载很慢，难道我们的网页要一直卡着直到图片完全显示出来？因此聪明的程序员将任务分为两类：</p>
+<ul>
+<li><strong>同步</strong>任务：严格按照编写顺序来执行，必须等到当前任务执行完才执行后面的任务</li>
+<li><strong>异步</strong>任务：不必等到当前任务执行完就可以执行后面的任务</li>
+</ul>
+<p>异步过程的构成元素· <code>A(args..., callbackFn)</code></p>
+<p>​    1. 发起函数(或叫<strong>注册函数</strong>) <code>A</code></p>
+<p>​    2. <strong>回调函数</strong> <code>callbackFn</code></p>
+</li>
+</ol>
+<p><img src="https://user-gold-cdn.xitu.io/2017/11/21/15fdd88994142347?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="1570799097771"></p>
+<ul>
+<li>用文字描述：<ol>
+<li><strong>同步</strong>的进入主线程，异步的进入<strong>Event Table</strong>并注册函数。</li>
+<li>当指定的事情(如页面加载，点击，setTimeout)完成时，Event Table会将这个函数移入<strong>Event Queue</strong>。</li>
+<li><strong>主线程</strong>内的任务执行完毕为空，会去<strong>Event Queue</strong>读取对应的函数，进入主线程执行。</li>
+<li>上述过程会不断重复，也就是常说的Event Loop(事件循环)。</li>
+</ol>
+</li>
+</ul>
+<h3 id="setTimeout"><a href="#setTimeout" class="headerlink" title="setTimeout"></a>setTimeout</h3><blockquote>
+<p><code>setTimeout</code>: 在间隔一定的时间后，将回调函数插入<strong>消息队列</strong>中，等栈中的同步任务都执行完毕后，再执行。</p>
+<p>因为栈中的同步任务也会耗时，所以间隔的时间一般会大于等于指定的时间。</p>
+<p>即便主线程为空，0毫秒实际上也是达不到的。根据HTML的标准，最低是4毫秒。</p>
+</blockquote>
+<h3 id="setInterval"><a href="#setInterval" class="headerlink" title="setInterval"></a>setInterval</h3><blockquote>
+<p>每隔指定的时间将注册的函数置入Event Queue，如果前面的任务耗时太久，那么同样需要等待。</p>
+</blockquote>
+<h3 id="宏任务-amp-微任务"><a href="#宏任务-amp-微任务" class="headerlink" title="宏任务 &amp; 微任务"></a>宏任务 &amp; 微任务</h3><ul>
+<li><strong>宏任务</strong>：包括整体代码<code>script</code>，<code>setTimeout</code>，<code>setInterval</code>、<code>requestAnimationFrame</code>等</li>
+<li><strong>微任务</strong>：<code>Promise.then</code>, <code>catch finally</code>，<code>MutationObserver</code></li>
+</ul>
+<blockquote>
+<p>不同类型的任务会进入对应的Event Queue，比如<code>setTimeout</code>和<code>setInterval</code>会进入相同的Event Queue。</p>
+</blockquote>
+<p>关系如图<img src="https://user-gold-cdn.xitu.io/2017/11/21/15fdcea13361a1ec?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="1570799625780"></p>
+<h4 id="代码测试"><a href="#代码测试" class="headerlink" title="代码测试"></a>代码测试</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'1'</span>);   <span class="comment">//loop1</span></span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;    <span class="comment">//loop1宏任务1 -&gt; loop2</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'2'</span>);      <span class="comment">//loop2</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>) </span>&#123;  <span class="comment">//loop2</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'3'</span>);</span><br><span class="line">        resolve();</span><br><span class="line">    &#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;              <span class="comment">//loop2微任务</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'4'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>) </span>&#123;        <span class="comment">//loop1</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'5'</span>);</span><br><span class="line">    resolve();</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;                <span class="comment">//loop1微任务1</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'6'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;              <span class="comment">//loop1宏任务2 -&gt;loop3</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'7'</span>);                <span class="comment">//loop3</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>) </span>&#123;        <span class="comment">//loop3</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'8'</span>);</span><br><span class="line">        resolve();</span><br><span class="line">    &#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;                    <span class="comment">//loop3微任务</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'9'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//1 5 6 2 3 4 7 8 9</span></span><br></pre></td></tr></table></figure>
+
+<p>执行顺序：loop1主线程(宏任务)：<code>1 5</code> =&gt; loop1微任务：<code>6</code> =&gt; loop1第一个宏任务loop2：<code>2 3</code> =&gt; 第一个宏任务的微任务：<code>4</code> =&gt; loop1第二个宏任务loop3：<code>7 8</code> =&gt; loop3微任务 <code>9</code></p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><ul>
+<li><p>本文运行环境为浏览器，由于node事件循环机制与浏览器差别较大，且听下回分解</p>
+<p>参考文章：<a href="https://juejin.im/post/59e85eebf265da430d571f89" target="_blank" rel="noopener">掘金</a></p>
+</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2019/08/11/js/02_typeof_instanceof/" class="prev">上一篇</a><a href="/2019/08/11/js/00_js开发技巧/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2019/08/11/js/01_js执行机制/';
+var disqus_title = '浏览器执行机制(1)';
+var disqus_url = 'https://turing5467.github.io/2019/08/11/js/01_js执行机制/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

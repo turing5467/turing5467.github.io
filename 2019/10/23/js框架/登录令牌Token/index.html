@@ -1,0 +1,51 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Token · 图小灵</title><meta name="description" content="Token - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="/tags/" target="_self" class="nav-list-link">标签</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Token</h1><div class="post-info">Oct 23, 2019</div><div class="post-content"><h2 id="Token"><a href="#Token" class="headerlink" title="Token"></a>Token</h2><ul>
+<li><p>登录令牌.利用 token 值来判断用户的登录状态.类似于 MD5 加密之后的长字符串.</p>
+</li>
+<li><p>一般的 app ,token值的失效时间都在 1 年以上.</p>
+</li>
+<li><p>银行类 app /支付类 app : token值失效时间 15 分钟左右.</p>
+</li>
+<li><ul>
+<li>一旦用户信息改变(密码改变),会在服务器生成新的 token 值,原来的 token值就会失效.需要再次输入账号和密码,以得到生成的新的 token 值.</li>
+<li>唯一性判断: 每次登录,都会生成一个新的token值.原来的 token 值就会失效.利用时间来判断登录的差异性.</li>
+</ul>
+</li>
+</ul>
+<h2 id="登录验证案例"><a href="#登录验证案例" class="headerlink" title="登录验证案例"></a>登录验证案例</h2><ol>
+<li><p>第一次登录的时候，前端调后端的<strong>登陆</strong>接口，发送用户名和密码</p>
+</li>
+<li><p>后端收到请求，验证用户名和密码，<strong>验证</strong>成功，就给前端返回一个token</p>
+</li>
+<li><p>前端拿到token，将token<strong>存储</strong>到<code>localStorage</code>和<code>vuex</code>中，并跳转路由页面</p>
+</li>
+<li><p>前端每次跳转路由，就判断 localStroage 中有无 token ，没有就跳转到登录页面，有则跳转到对应路由页面：<code>beforeEach</code></p>
+</li>
+<li><p>每次调后端接口，都要在<strong>请求头</strong>中加<code>token</code></p>
+</li>
+<li><p>后端判断请求头中有无token</p>
+<ul>
+<li>有token，就拿到token并验证token，验证成功就返回数据</li>
+<li>验证失败或请求头中没有token也返回401</li>
+</ul>
+</li>
+<li><p>如果前端拿到状态码为401，就清除token信息并跳转到登录页面</p>
+</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//4</span></span><br><span class="line">router.beforeEach(<span class="function">(<span class="params">to,<span class="keyword">from</span>,next</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> isLogin = localStorage.token ? <span class="literal">true</span> : <span class="literal">false</span></span><br><span class="line">  <span class="keyword">if</span>(to.path === <span class="string">'/login'</span> || to.path === <span class="string">'/register'</span>) &#123;</span><br><span class="line">    next()</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    isLogin ? next() : next(<span class="string">'/login'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="加密"><a href="#加密" class="headerlink" title="加密"></a>加密</h2><h3 id="buffer"><a href="#buffer" class="headerlink" title="buffer"></a>buffer</h3><ul>
+<li>令牌：同于保存登录信息</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//加密</span></span><br><span class="line"><span class="keyword">const</span> info = &#123;</span><br><span class="line">    user:<span class="string">'tr'</span>,</span><br><span class="line">    pwd:<span class="string">'tr5467'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> token = Buffer.from(<span class="built_in">JSON</span>.stringify(info)).toString(<span class="string">'base64'</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//解密</span></span><br><span class="line"><span class="keyword">let</span> key = <span class="string">'fdgfsd'</span>;</span><br><span class="line"><span class="keyword">const</span> token = Buffer.from(key, <span class="string">'base64'</span>).toString(<span class="string">'utf8'</span>);	<span class="comment">//string类型</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="crypto"><a href="#crypto" class="headerlink" title="crypto"></a>crypto</h3></div></article></div></main><footer><div class="paginator"><a href="/2019/10/23/js框架/Vue_6_Vuex/" class="prev">上一篇</a><a href="/2019/10/23/node/node_crypto模块/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2019/10/23/js框架/登录令牌Token/';
+var disqus_title = 'Token';
+var disqus_url = 'https://turing5467.github.io/2019/10/23/js框架/登录令牌Token/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

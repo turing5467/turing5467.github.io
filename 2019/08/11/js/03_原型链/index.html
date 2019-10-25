@@ -1,0 +1,29 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 构造函数、原型和原型链(3) · 图小灵</title><meta name="description" content="构造函数、原型和原型链(3) - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="/tags/" target="_self" class="nav-list-link">标签</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">构造函数、原型和原型链(3)</h1><div class="post-info">Aug 11, 2019</div><div class="post-content"><h2 id="1-构造函数"><a href="#1-构造函数" class="headerlink" title="1.构造函数"></a>1.构造函数</h2><ul>
+<li><p>定义：使用new生成实例的函数就是构造函数</p>
+</li>
+<li><p><code>construstor</code>: 返回创建实例对象时<strong>构造函数</strong>的<strong>引用</strong></p>
+<p>​    注：不是返回一个包含函数名称的字符串哦</p>
+</li>
+</ul>
+<h2 id="2-原型"><a href="#2-原型" class="headerlink" title="2.原型"></a>2.原型</h2><ul>
+<li>定义：构造函数在创建的过程中，系统<strong>自动</strong>创建出来与<strong>构造函数相关联</strong>的一个空的对象。可以由<code>构造函数.prototype</code>来访问到。</li>
+</ul>
+<blockquote>
+<p> 原型对象上的属性方法，会被所有实例共享。</p>
+</blockquote>
+<h3 id="2-1-proto-与-prototype"><a href="#2-1-proto-与-prototype" class="headerlink" title="2.1 __proto__与 prototype"></a>2.1 <code>__proto__</code>与 <code>prototype</code></h3><ul>
+<li><code>__proto__</code>是每个<strong>实例</strong>上都有的属性，指向<strong>自身构造函数</strong>的原型对象；</li>
+<li><code>prototype</code> 是<strong>构造函数</strong>的属性。</li>
+</ul>
+<blockquote>
+<p>这两个并不一样，但他们指向同一对象</p>
+</blockquote>
+</div></article></div></main><footer><div class="paginator"><a href="/2019/08/15/js框架/jQuery/" class="prev">上一篇</a><a href="/2019/08/11/js/02_typeof_instanceof/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2019/08/11/js/03_原型链/';
+var disqus_title = '构造函数、原型和原型链(3)';
+var disqus_url = 'https://turing5467.github.io/2019/08/11/js/03_原型链/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

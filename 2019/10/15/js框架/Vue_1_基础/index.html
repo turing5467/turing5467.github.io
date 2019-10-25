@@ -1,0 +1,191 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Vue简单使用(2) · 图小灵</title><meta name="description" content="Vue简单使用(2) - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="/tags/" target="_self" class="nav-list-link">标签</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Vue简单使用(2)</h1><div class="post-info">Oct 15, 2019</div><div class="post-content"><h2 id="模板语法"><a href="#模板语法" class="headerlink" title="模板语法"></a>模板语法</h2><ul>
+<li><p>文本插值：</p>
+<p>Mustache语法：<code></code></p>
+<p>无论何时，数据对象上 的<code>msg</code> 属性发生了改变，插值处的内容都会更新。</p>
+<blockquote>
+<p>插值语句或标签内部中的<code>data</code>和<code>computed</code>属性，不能跟<code>()</code>,而<code>methods</code>属性，必须跟<code>()</code></p>
+<p>特殊的是：<strong>事件</strong>中引用的 <code>methods</code>，如果不需要传参，则<code>()</code>可省略</p>
+</blockquote>
+</li>
+<li><p>HTML插值</p>
+<blockquote>
+<p>Mustache语法会将数据解释为<strong>普通文本</strong>，而非 <strong>HTML 代码</strong>。</p>
+<p>为了输出真正的 HTML，你需要使用 <code>v-html</code> 指令。</p>
+</blockquote>
+</li>
+<li><p>标签的prop</p>
+<p>Mustache语法不能用在标签属性上，这是用使用<code>v-bind</code>指令</p>
+</li>
+<li><p>表达式</p>
+<p>对于所有的数据绑定，Vue.js 都提供了完全的 JavaScript 表达式支持。</p>
+</li>
+</ul>
+<h2 id="Class-与-Style-绑定"><a href="#Class-与-Style-绑定" class="headerlink" title="Class 与 Style 绑定"></a>Class 与 Style 绑定</h2><ul>
+<li><p>Class</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//对象语法</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:class</span>=<span class="string">"&#123; active: isActive, 'text-danger': hasError &#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">data: &#123;</span><br><span class="line">  isActive: true,</span><br><span class="line">  hasError: false</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//数组语法</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:class</span>=<span class="string">"[isActive ? activeClass : '', errorClass]"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+<ul>
+<li><p>内联样式</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//属性名：fontSize、fontsize、'font-size'、'font-Size'</span><br><span class="line">//1. 对象语法</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:style</span>=<span class="string">"&#123; color: activeColor, fontSize: fontSize + 'px' &#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">data: &#123;</span><br><span class="line">  activeColor: 'red',</span><br><span class="line">  fontSize: 30</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//多重值 =&gt; 只会渲染数组中'最后'一个被浏览器支持的值。</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">:style</span>=<span class="string">"&#123; display: ['-webkit-box', '-ms-flexbox', 'flex'] &#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//数组语法</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">:style</span>=<span class="string">"[styleColor, styleSize]"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">data: &#123;</span><br><span class="line">  styleColor: &#123;</span><br><span class="line">   color: 'red'</span><br><span class="line">   &#125;,</span><br><span class="line">  styleSize:&#123;</span><br><span class="line">     fontSize:'23px'</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+<blockquote>
+<p>当 <code>v-bind:style</code> 使用需要添加<a href="https://developer.mozilla.org/zh-CN/docs/Glossary/Vendor_Prefix" target="_blank" rel="noopener">浏览器引擎前缀</a>的 CSS 属性时，如 <code>transform</code>，Vue.js </p>
+<p>会自动侦测并添加相应的前缀。</p>
+</blockquote>
+<h2 id="计算属性computed"><a href="#计算属性computed" class="headerlink" title="计算属性computed"></a>计算属性computed</h2><ul>
+<li><p><code>computed({ key: Function | { get: Function, set: Function } })</code>  </p>
+<p><strong>计算属性</strong>将被混入到 Vue 实例中。</p>
+</li>
+<li><p>键为属性名，值为返回键值的函数</p>
+<p>虽然值是函数，但它本质上是一个属性，调用时不可加上<code>()</code></p>
+</li>
+<li><p><code>get</code>与<code>set</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">fullName: &#123;</span><br><span class="line">    <span class="comment">//一般来说，我们不希望外部修改到计算属性，所以一般不声明set方法</span></span><br><span class="line">    set: function(newV)&#123;</span><br><span class="line">        <span class="comment">/* ... */</span></span><br><span class="line">    &#125;,</span><br><span class="line">    get: function()&#123;</span><br><span class="line">        <span class="keyword">return</span> v;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>计算属性的<strong>缓存</strong></p>
+<ul>
+<li><code>computed</code> 和 <code>methods</code><ul>
+<li><code>computed</code>只在相关响应式依赖发生<strong>改变</strong>时它们才会重新求值。</li>
+<li><code>methods</code>每次重新渲染，调用方法<strong>都会</strong>再次执行函数。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;getFullName()&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;getFullName()&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;getFullName()&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;fullName&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;fullName&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;fullName&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">        el: <span class="string">'#app'</span>,</span></span><br><span class="line">        data: &#123;</span><br><span class="line"><span class="javascript">            firstName: <span class="string">'Alan'</span>,</span></span><br><span class="line"><span class="javascript">            lastName: <span class="string">'Turing'</span></span></span><br><span class="line">        &#125;,</span><br><span class="line">        methods: &#123;</span><br><span class="line">            getFullName() &#123;</span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.count(<span class="string">'method'</span>);</span></span><br><span class="line"><span class="javascript">                <span class="keyword">return</span> <span class="keyword">this</span>.firstName + <span class="string">'  '</span> + <span class="keyword">this</span>.lastName</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        computed: &#123;</span><br><span class="line"><span class="javascript">            fullName: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.count(<span class="string">'computed'</span>)</span></span><br><span class="line"><span class="javascript">                <span class="keyword">return</span> <span class="keyword">this</span>.firstName + <span class="string">'  '</span> + <span class="keyword">this</span>.lastName</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">打印结果</span><br><span class="line">method: 1</span><br><span class="line">method: 2</span><br><span class="line">method: 3</span><br><span class="line">computed: 1</span><br><span class="line"></span><br><span class="line">修改firstName后(改变fullName响应式依赖)</span><br><span class="line">computed: 2</span><br><span class="line">method: 4</span><br><span class="line">method: 5</span><br><span class="line">method: 6</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="侦听watch"><a href="#侦听watch" class="headerlink" title="侦听watch"></a>侦听watch</h2><ul>
+<li><p><code>watch({ key: string | Function | Object | Array })</code> 监听<code>data</code>或<code>computed</code>属性的变化</p>
+<p>回调函数参数为<code>(newValue, oldValue)</code></p>
+</li>
+<li><p><code>computed({ key: Function | { get: Function, set: Function } })</code>  </p>
+<p><strong>计算属性</strong>将被混入到 Vue 实例中。所有 getter 和 setter 的 this 上下文自动地绑定为 Vue 实例。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">data: &#123;</span><br><span class="line">    firstName: <span class="string">'Alan'</span>,</span><br><span class="line">    lastName: <span class="string">'Turing'</span></span><br><span class="line">&#125;,</span><br><span class="line">...</span><br><span class="line">computed: &#123;</span><br><span class="line">    title: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.firstName + <span class="string">'  '</span> + <span class="keyword">this</span>.lastName</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h2 id="混入mixin"><a href="#混入mixin" class="headerlink" title="混入mixin"></a>混入mixin</h2><ul>
+<li><p>一个混入对象可以包含任意组件选项</p>
+</li>
+<li><p>当组件使用混入对象时，所有混入对象的选项将被“混合”进入该组件本身的选项。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//mixins/index.js</span></span><br><span class="line"><span class="keyword">export</span> deafult &#123;</span><br><span class="line">  created: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.hello()</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    hello: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'hello from mixin!'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>数据对象在内部会进行递归合并，并在发生冲突时以<strong>组件数据优先</strong>。</p>
+</li>
+<li><p>全局混入</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Vue.mixin(&#123;</span><br><span class="line">  created: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> myOption = <span class="keyword">this</span>.$options.myOption</span><br><span class="line">    <span class="keyword">if</span> (myOption) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(myOption)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>请谨慎使用全局混入，因为它会影响每个单独创建的 Vue 实例 </li>
+</ul>
+</li>
+</ul>
+<h2 id="过滤器filter"><a href="#过滤器filter" class="headerlink" title="过滤器filter"></a>过滤器filter</h2><ul>
+<li><p>只能在插值语句和<code>v-bind:</code>中使用</p>
+</li>
+<li><p><strong>调用</strong>：<code>msg | msgFilter</code></p>
+<p>可以调用多个过滤器 <code>a | fa |fb</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;msg | msgFilter('猪')&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span>	 <span class="comment">&lt;!--Hello 猪--&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;title | msgFilter&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span> <span class="comment">&lt;!--Bye React--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>定义一个过滤器</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//全局过滤器 Vue.filter(name, callback)</span></span><br><span class="line"><span class="comment">//回调 第一个参数为 待过滤的属性 ，该属性取决于调用时过滤器前面的属性</span></span><br><span class="line"><span class="comment">//剩余参数为 调用时传递进来的参数</span></span><br><span class="line">Vue.filter(<span class="string">'msgFilter'</span>, (msg, repl)=&gt;&#123;</span><br><span class="line">    <span class="keyword">return</span> msg.replace(<span class="string">'Vue'</span>, repl || <span class="string">'React'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el: <span class="string">'#app'</span>,</span><br><span class="line">    data: &#123;</span><br><span class="line">        title: <span class="string">'Hello Vue'</span>,</span><br><span class="line">        msg: <span class="string">'Bye Vue'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">//局部过滤器 优先级 &gt; 全局过滤器</span></span><br><span class="line">    filters: &#123; &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用较少，可以交给<code>computed</code>实现</p>
+</li>
+</ul>
+<h2 id="特殊特性"><a href="#特殊特性" class="headerlink" title="特殊特性"></a>特殊特性</h2><h3 id="v-for中的key"><a href="#v-for中的key" class="headerlink" title="v-for中的key"></a>v-for中的key</h3><p><a href="https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/1" target="_blank" rel="noopener">参考文章链接</a></p>
+<ul>
+<li><p><strong>key</strong>：每一个vnode的唯一id，可以判断两个节点是否相同，相同就复用，不相同就删除旧的创建新的。</p>
+</li>
+<li><p>作用：在diff算法执行时更快找到对应的节点，提升diff速度</p>
+</li>
+<li><p>使用建议</p>
+<ol>
+<li><p>最好不使用index作为key</p>
+<ul>
+<li>因为当列表中间发生改变时，会发现同一个<code>item</code>前后两个<code>index</code>却是不同的，无法发生复用，最好使用<code>item.id</code>（或与<code>item</code>相关的唯一值），那么<code>item</code>与<code>key</code>就是一一对应的，可以实现复用</li>
+</ul>
+</li>
+<li><p>输出<strong>简单列表</strong>的情况下，不带key的性能更高</p>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h3><ul>
+<li><code>$refs.xx</code></li>
+</ul>
+<h2 id="过渡-or-动画"><a href="#过渡-or-动画" class="headerlink" title="过渡 or 动画"></a>过渡 or 动画</h2><ul>
+<li><p>过渡</p>
+<blockquote>
+<p><code>&lt;transition&gt;</code>：内部只能有一个根标签</p>
+<p><code>&lt;transition-group tag=&quot;ul&quot; name=&quot;xx&quot;&gt;</code>：内部可以有多个</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--html--&gt;</span></span><br><span class="line">//1. 在要添加动画的元素外面套一层transition标签，并设置name属性</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"demo"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">v-on:click</span>=<span class="string">"show = !show"</span>&gt;</span></span><br><span class="line">    Toggle</span><br><span class="line">  <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">transition</span> <span class="attr">name</span>=<span class="string">"fade"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">v-if</span>=<span class="string">"show"</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">transition</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Vue实例化</span></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#demo'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    show: <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//拿到之前设置的name属性，类名均以name-开头</span></span><br><span class="line"><span class="selector-class">.fade-enter-active</span>, <span class="selector-class">.fade-leave-active</span> &#123;</span><br><span class="line">  <span class="attribute">transition</span>: opacity .<span class="number">5s</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.fade-enter</span>, <span class="selector-class">.fade-leave-to</span> &#123;</span><br><span class="line">  <span class="attribute">opacity</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>过渡类名(v指代设置的<code>name</code>属性)</p>
+<ol>
+<li><code>v-enter/leave</code> 进场、离场前</li>
+<li><code>v-enter/leave-active</code> 进场、离场的持续效果</li>
+<li><code>v-enter/leave-to</code> 进场、离场后</li>
+</ol>
+</li>
+<li><p><strong>动画</strong>：可搭配<code>animate.css</code>使用</p>
+<ul>
+<li>CSS 动画用法同 CSS 过渡，区别是在动画中 <code>v-enter</code> 类名在节点插入 DOM 后不会立即删除，而是在 <code>animationend</code> 事件触发时删除。</li>
+<li>一般只需两个类名<code>v-enter/leave-active</code></li>
+</ul>
+</li>
+<li><p>自定义过度类名</p>
+<p>利用<code>transition</code>标签中的<code>enter/..-class</code>来设置过度类名，它们的优先级高于普通类名</p>
+</li>
+<li><p>显示的过渡持续时间</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">transition</span> <span class="attr">:duration</span>=<span class="string">"1000"</span>&gt;</span>...<span class="tag">&lt;/<span class="name">transition</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">transition</span> <span class="attr">:duration</span>=<span class="string">"&#123; enter: 500, leave: 800 &#125;"</span>&gt;</span>...<span class="tag">&lt;/<span class="name">transition</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2019/10/16/js框架/Vue_2_组件/" class="prev">上一篇</a><a href="/2019/10/15/js框架/Vue/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2019/10/15/js框架/Vue_1_基础/';
+var disqus_title = 'Vue简单使用(2)';
+var disqus_url = 'https://turing5467.github.io/2019/10/15/js框架/Vue_1_基础/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

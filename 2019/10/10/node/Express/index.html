@@ -1,0 +1,58 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Express框架 · 图小灵</title><meta name="description" content="Express框架 - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="/tags/" target="_self" class="nav-list-link">标签</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Express框架</h1><div class="post-info">Oct 10, 2019</div><div class="post-content"><h2 id="Express"><a href="#Express" class="headerlink" title="Express"></a>Express</h2><ul>
+<li><strong>Express</strong> 是一个简洁而灵活的 node.js Web应用框架, 提供了一系列强大特性帮助你创建各种 Web 应用,和丰富的 HTTP 工具。</li>
+<li>核心概念：<strong>路由</strong>、<strong>中间件</strong>、<strong>模板引擎</strong></li>
+<li>API <a href="https://www.runoob.com/w3cnote/express-4-x-api.html" target="_blank" rel="noopener">express</a><blockquote>
+<p>可通过在命令行输入<code>curl localhost:3000</code>来测试路由<br>真实开发发请求使用 <code>axios</code>库</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h3><ul>
+<li><p>三个重要の匹配路由方法</p>
+<ol>
+<li><p><code>app.use()</code> 不限定请求方式，路径模糊匹配</p>
+</li>
+<li><p><code>app.Method()</code> 只能是特定请求，路径严格匹配</p>
+</li>
+<li><p><code>app.all()</code> 不限定请求方式，但是路径要求严格匹配</p>
+<p>这3个方法参数都可以是<code>path, callback [, callback ...]</code></p>
+</li>
+</ol>
+<ul>
+<li><p>路由分类</p>
+<ul>
+<li><p>字符串类型</p>
+</li>
+<li><p>字符串模式类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># * 匹配任意字符</span><br><span class="line"># ? 匹配一个或0个</span><br><span class="line"># + 匹配1个及以上</span><br><span class="line"># () 表示一串字符</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>正则表达式类型</p>
+</li>
+<li><p>参数类型<code>/path/:uid</code> 可通过<code>req.params</code>获取</p>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p> 当一个路径有多个匹配规则时，使用<code>app.use()</code>，否则使用相应的<code>app.Method()</code></p>
+</blockquote>
+</li>
+<li><p>路由拆分</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">router.get(<span class="string">'/list'</span>, () =&gt; &#123;&#125;);</span><br><span class="line"></span><br><span class="line">router.get(<span class="string">'/detail'</span>, () =&gt; &#123;&#125;);</span><br><span class="line"></span><br><span class="line">app.use(<span class="string">'/user'</span>, router);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>静态资源文件托管</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">app.use(express.static(<span class="string">'public'</span>));</span><br><span class="line"><span class="comment">//浏览器中便可通过127.0.0.1：3000/a.css访问/public/a.css</span></span><br><span class="line"></span><br><span class="line">app.use(<span class="string">'static'</span>,express.static(<span class="string">'public'</span>));</span><br><span class="line"><span class="comment">//浏览器中便可通过127.0.0.1：3000/static/a.css 访问 /public/a.css</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>跨域配置</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//放在匹配路由的最前面</span></span><br><span class="line">app.all(<span class="string">'*'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">    res.header(<span class="string">"Access-Control-Allow-Origin"</span>, <span class="string">"*"</span>);</span><br><span class="line">    res.header(<span class="string">"Access-Control-Allow-Headers"</span>, <span class="string">"Content-Type,Content-Length, Authorization, Accept,X-Requested-With"</span>);</span><br><span class="line">    res.header(<span class="string">"Access-Control-Allow-Methods"</span>,<span class="string">"PUT,POST,GET,DELETE,OPTIONS"</span>);</span><br><span class="line">    res.header(<span class="string">"X-Powered-By"</span>,<span class="string">' 3.2.1'</span>)</span><br><span class="line">    <span class="keyword">if</span>(req.method==<span class="string">"OPTIONS"</span>) &#123;</span><br><span class="line">      res.send(<span class="number">200</span>);<span class="comment">/*让options请求快速返回*/</span></span><br><span class="line">    &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">      next();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h3><h3 id="快速搭建-express"><a href="#快速搭建-express" class="headerlink" title="快速搭建 express"></a>快速搭建 express</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 全局安装express脚手架</span></span><br><span class="line">npm install -g express-generator@4</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建项目</span></span><br><span class="line">express 项目目录 &amp;&amp; <span class="built_in">cd</span> 项目目录</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装依赖</span></span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启服务</span></span><br><span class="line">npm start</span><br></pre></td></tr></table></figure></div></article></div></main><footer><div class="paginator"><a href="/2019/10/13/数据库/mongodb/" class="prev">上一篇</a><a href="/2019/10/09/node/Nodejs的eventLoop/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2019/10/10/node/Express/';
+var disqus_title = 'Express框架';
+var disqus_url = 'https://turing5467.github.io/2019/10/10/node/Express/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

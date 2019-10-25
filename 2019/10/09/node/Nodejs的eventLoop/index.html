@@ -1,0 +1,111 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Node中的event loop · 图小灵</title><meta name="description" content="Node中的event loop - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="/tags/" target="_self" class="nav-list-link">标签</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Node中的event loop</h1><div class="post-info">Oct 9, 2019</div><div class="post-content"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul>
+<li><code>Event Loop</code>即事件循环，是指浏览器或<code>Node</code>的一种解决<code>javaScript</code>单线程运行时不会阻塞的一种机制，也就是我们经常使用<strong>异步</strong>的原理。</li>
+<li></li>
+</ul>
+<h3 id="浏览器中的Event-Loop"><a href="#浏览器中的Event-Loop" class="headerlink" title="浏览器中的Event Loop"></a>浏览器中的Event Loop</h3><p>执行机制参考这一篇文章，这里不再赘述<a href="https://www.npmjs.com/package/npmjs.org" target="_blank" rel="noopener">执行机制</a></p>
+<p>两张核心图</p>
+<p>​    <img src="https://user-gold-cdn.xitu.io/2019/1/18/1685f037d48da0de?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img" style="zoom: 67%;"></p>
+<img src="https://user-gold-cdn.xitu.io/2017/11/21/15fdcea13361a1ec?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="1570799625780" style="zoom: 50%;">
+
+<ol>
+<li>浏览器端事件循环中的异步队列有两种：macro（宏任务）队列和 micro（微任务）队列。宏任务队列可以有多个，微任务队列只有一个。<ul>
+<li>常见的 macro-task：<code>setTimeout</code>、<code>setInterval</code>、<code>script</code>、 <code>I/O</code> 操作、<code>UI 渲染</code>等。</li>
+<li>常见的 micro-task:  <code>promise.then</code>、<code>MutationObserver</code>(html5新特性) 等。</li>
+</ul>
+</li>
+</ol>
+<h3 id="Node中的Event-Loop"><a href="#Node中的Event-Loop" class="headerlink" title="Node中的Event Loop"></a>Node中的Event Loop</h3><ul>
+<li><p>Node 中的 Event Loop 和浏览器中的是完全不相同的东西。Node.js采用V8作为js的解析引擎，而I/O处理方面使用了自己设计的<code>libuv</code></p>
+</li>
+<li><p>libuv是一个基于事件驱动的跨平台抽象层，封装了不同操作系统一些底层特性，对外提供统一的API，事件循环机制也是它里面的实现。</p>
+</li>
+<li><p>运行机制</p>
+<ol>
+<li>V8引擎解析js脚本</li>
+<li>解析后的代码，调用Node API</li>
+<li><code>libuv</code>库负责Node API 的执行。它将不同的任务分配给不同的线程，形成一个<strong>Event Loop</strong>（事件循环），以异步的方式将任务的执行结果返回给V8引擎。</li>
+<li>V8引擎再将结果返回给用户。</li>
+</ol>
+</li>
+<li><p>六个阶段</p>
+<blockquote>
+<p>libuv引擎中的事件循环分为 6 个阶段，它们会按照顺序反复运行。每当进入某一个阶段的时候，都会从对应的回调队列中取出函数去执行。当队列为空或者执行的回调函数数量到达系统设定的阈值，就会进入下一阶段。</p>
+</blockquote>
+<ol>
+<li><strong>timer</strong>: 执行<code>setTimeout</code>、<code>setInterval</code>的回调</li>
+<li><strong>I/O callback</strong>：处理一些上一轮循环中的少数未执行的 I/O 回调</li>
+<li><strong>idel、prepare</strong>：仅node内部使用</li>
+<li><strong>poll</strong>：获取新的I/O事件, 适当的条件下node将阻塞在这里</li>
+<li><strong>check</strong>：<code>setImmediate</code>的回调</li>
+<li><strong>close callback</strong>：执行socket的close事件回调</li>
+</ol>
+</li>
+</ul>
+<img src="https://user-gold-cdn.xitu.io/2019/1/12/16841bd9860c1ee9?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img">
+
+<p>从上图中，大致看出node中的事件循环的顺序：</p>
+<p>外部输入数据–&gt;轮询阶段(poll)–&gt;检查阶段(check)–&gt;关闭事件回调阶段(close callback)–&gt;定时器检测阶段(timer)–&gt;I/O事件回调阶段(I/O callbacks)–&gt;闲置阶段(idle, prepare)–&gt;轮询阶段（按照该顺序反复运行）…</p>
+<ul>
+<li><p>1-timer</p>
+<blockquote>
+<p>timers 阶段会执行<code>setTimeout</code> 和 <code>setInterval</code> 回调，并且是由 <strong>poll</strong> 阶段控制的。 同样，在 Node 中定时器指定的时间也不是准确时间，只能是尽快执行。</p>
+</blockquote>
+</li>
+<li><p>2-poll</p>
+<ul>
+<li><p>poll 是一个至关重要的阶段，这一阶段中，系统会做两件事情</p>
+<ul>
+<li><p>回到 <strong>timer</strong> 阶段执行回调</p>
+</li>
+<li><p>执行 I/O 回调<br>该阶段如果没有设定了 timer 的话，会发生以下两件事情</p>
+<ul>
+<li>如果 <strong>poll</strong> 队列不为空，会遍历回调队列并<strong>同步</strong>执行，直到队列为空或者达到系统限制</li>
+<li>如果 <strong>poll</strong> 队列为空时，会有两件事发生<ul>
+<li>如果有 <code>setImmediate</code> 回调需要执行，poll 阶段会停止并且进入到 <strong>check</strong> 阶段执行回调</li>
+<li>如果没有 <code>setImmediate</code> 回调需要执行，会等待回调被加入到队列中并立即执行回调，这里同样会有个超时时间设置防止一直等待下去</li>
+</ul>
+</li>
+</ul>
+<p>当然设定了 timer 的话且 poll 队列为空，则会判断是否有 timer 超时，如果有的话会回到 timer 阶段执行回调。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>3-check</p>
+<ul>
+<li><code>setImmediate</code>的回调</li>
+</ul>
+</li>
+</ul>
+<h3 id="Node中的宏任务与微任务"><a href="#Node中的宏任务与微任务" class="headerlink" title="Node中的宏任务与微任务"></a>Node中的宏任务与微任务</h3><ul>
+<li>常见的 macro-task ：<code>setTiumeout</code>、<code>setInterval</code>、 <code>setImmediate</code>、<code>script</code>、 I/O 操作等。</li>
+<li>常见的 micro-task：<code>process.nextTick</code> 、<code>promise.then()</code> 、<code>MutationObserver</code>等。</li>
+</ul>
+<blockquote>
+<p>setImmediate 设计在poll<strong>阶段完成时执行</strong>，即<strong>check</strong>阶段；</p>
+<p>setTimeout 设计在poll阶段为<strong>空闲</strong>时，且设定<strong><em>\</em>时间到达**</strong>后执行，但它在<strong>timer</strong>阶段执行</p>
+</blockquote>
+<h3 id="process-nextTick"><a href="#process-nextTick" class="headerlink" title="process.nextTick"></a>process.nextTick</h3><ul>
+<li>这个函数独立于 Event Loop 之外的，它有一个自己的队列</li>
+<li>当<strong>每个阶段</strong>完成后，如果存在 <code>nextTick</code> 队列，就会执行队列中的<strong>所有</strong>回调函数，并且<strong>优先</strong>于其他<strong>microtask</strong> 执行。</li>
+</ul>
+<h2 id="差异"><a href="#差异" class="headerlink" title="差异"></a>差异</h2><ul>
+<li><p>浏览器，<strong>每个宏任务</strong>执行完之后都会执行<strong>microtask</strong>队列中的所有函数。</p>
+</li>
+<li><p>Node.js中，<strong>每一个阶段</strong>执行完毕，就会去执行<strong>microtask</strong>队列的任务。</p>
+<p>注：node11版本中，一个宏任务执行完毕，就立刻执行微任务队列，这就跟浏览器端运行一致</p>
+</li>
+</ul>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><ul>
+<li>参考文章：<a href="https://juejin.im/post/5c337ae06fb9a049bc4cd218" target="_blank" rel="noopener">掘金</a></li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2019/10/10/node/Express/" class="prev">上一篇</a><a href="/2019/10/08/node/Nodejs/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2019/10/09/node/Nodejs的eventLoop/';
+var disqus_title = 'Node中的event loop';
+var disqus_url = 'https://turing5467.github.io/2019/10/09/node/Nodejs的eventLoop/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
