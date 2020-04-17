@@ -1,0 +1,487 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> node模块 · 快乐的图小灵</title><meta name="description" content="node模块 - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">node模块</h1><div class="post-info">Oct 23, 2019</div><div class="post-content"><h2 id="fs"><a href="#fs" class="headerlink" title="fs"></a>fs</h2><blockquote>
+<p>路径必须添加<code>./</code>前缀,目的: 跨平台兼容</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">const fs = require(&apos;fs&apos;);</span><br><span class="line">fs.readFile(&apos;./a.jpg&apos;,(err,data) =&gt; &#123;</span><br><span class="line">	//读取成功，data为数据，err为null</span><br><span class="line">	//读取失败,data为undefined，err为错误对象</span><br><span class="line"></span><br><span class="line">	//data默认是二进制数据(显示时为16进制),可通过.toString转为我们能识别的字符串</span><br><span class="line">	//通过网络发送文件，本质上发送的是文件的内容</span><br><span class="line">	//当浏览器收到服务器响应内容后，会根据content type进行对应的解析</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="写入文件"><a href="#写入文件" class="headerlink" title="写入文件"></a>写入文件</h3><blockquote>
+<p>同步 : 通过<strong>返回值</strong>返回结果，没有回调函数<br>异步 : 通过回调函数的<strong>参数</strong>获取，没有返回值</p>
+</blockquote>
+<blockquote>
+<p>文件描述符：操作系统会为每个打开的文件分配一个名为<strong>文件描述符</strong>的<strong>数值</strong>标识，文件操作使用这些文件描述符来识别与追踪每个特定的文件。<br>在 NodeJS 中，每操作一个文件，文件描述符是递增的，文件描述符一般从 <strong>3</strong> 开始，因为前面有 0、1、2 三个比较特殊的描述符，分别代表 <code>process.stdin</code>（标准输入）、<code>process.stdout</code>（标准输出）和 <code>process.stderr</code>（错误输出）</p>
+</blockquote>
+<blockquote>
+<p>标识符flags：代表着对文件的操作方式，如可读、可写等<br>r 读取文件，如果文件不存在则抛出异常。read</p>
+</blockquote>
+<p><img src="./1570543260613.png" alt="Alt text"></p>
+<ol>
+<li><p>同步写入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const fs = require(&apos;fs&apos;);</span><br><span class="line">//打开文件</span><br><span class="line">let f1 = fs.openSync(&apos;a.txt&apos;,&apos;w&apos;);</span><br><span class="line">//写入内容</span><br><span class="line">fs.writeSync(f1, &apos;今天天气真好&apos;, 2);</span><br><span class="line">//关闭文件</span><br><span class="line">fs.closeSync(f1);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>异步写入</p>
+<ul>
+<li><code>fs.open(path, flags[, mode], callback)</code><br>  回调函数参数<code>(err, fd) //fd为文件描述符</code></li>
+<li><code>fs.close(fd, string[, positiob[, encoding]],callback)</code><br>  回调函数参数<code>err</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">fs.open(&apos;a.txt&apos;, &apos;w&apos;, (err, fd) =&gt; &#123;</span><br><span class="line">    if (!err) &#123;</span><br><span class="line">        //写入</span><br><span class="line">        fs.write(fd,&apos;async contents&apos;,(err)=&gt;&#123;</span><br><span class="line">            if(!err)&#123;</span><br><span class="line">                //关闭</span><br><span class="line">                fs.close(fd, (err) =&gt; &#123;</span><br><span class="line">                    if (!err) &#123;</span><br><span class="line">                        console.log(&apos;file closed&apos;);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        console.log(&apos;write error&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>简单写入(操作文件的简单写法，内部自动打开、关闭等…)</p>
+<pre><code>`fs.writeFile(path, data[, options], callback)  //callback参数为err`
+`fs.writeFileSync(path, data[, options])`
+    `options`
+            encoding 默认utf-8，当data为buffer类型式，该值为ignored
+            mode   文件读写权限 默认438
+            flag 默认&apos;w&apos;</code></pre></li>
+<li><p>流式写入</p>
+<blockquote>
+<p>同步、异步、简单文件写入都不适合大文件的写入，<strong>性能差，易导致内存溢出</strong>，于是有了<strong>流式写入</strong></p>
+</blockquote>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">//1.创建流</span><br><span class="line">let ws = fs.createWriteStream(&apos;ws.txt&apos;);</span><br><span class="line"></span><br><span class="line">//监听open、close事件</span><br><span class="line">ws.once(&apos;open&apos;, () =&gt; &#123;</span><br><span class="line">    console.log(&apos;stream open&apos;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">ws.once(&apos;finish&apos;, () =&gt; &#123;</span><br><span class="line">    console.log(&apos;stream closed&apos;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//2.向流写入内容</span><br><span class="line">ws.write(&apos;--- 1 ---\n&apos;);</span><br><span class="line">ws.write(&apos;--- 2 ---\n&apos;);</span><br><span class="line">ws.write(&apos;--- 3 ---\n&apos;);</span><br><span class="line">ws.write(&apos;end ...&apos;)</span><br><span class="line"></span><br><span class="line">//关闭流*</span><br><span class="line">ws.close();   //同</span><br><span class="line">// ws.end();  标记写入完成，触发finish事件 =&gt; 触发close事件</span><br></pre></td></tr></table></figure>
+
+<h3 id="读-同写"><a href="#读-同写" class="headerlink" title="读(同写)"></a>读(同写)</h3><ul>
+<li><code>readFile(path[, options], callback)</code>  回调参数<code>err,data</code></li>
+</ul>
+<h4 id="流式读取"><a href="#流式读取" class="headerlink" title="流式读取"></a>流式读取</h4><ul>
+<li>继承<code>stream.Readable</code></li>
+<li>属性<ol>
+<li><code>bytesRead</code></li>
+<li><code>path</code></li>
+<li><code>pending</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">let rs = fs.createReadStream(&apos;a.txt&apos;);</span><br><span class="line">rs.on(&apos;data&apos;, (chunk) =&gt;&#123;</span><br><span class="line">	//一次最多读取65536个字节</span><br><span class="line">	console.log(chunk.toString());</span><br><span class="line">&#125;);</span><br><span class="line">rs.once(&apos;end&apos;, (chunk) =&gt; &#123;</span><br><span class="line">	console.log(&apos;读取完毕---&apos;);</span><br><span class="line">	//只有读取完所有数据才能关闭读取流</span><br><span class="line">	rs.close();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="其他API"><a href="#其他API" class="headerlink" title="其他API"></a>其他API</h3><ul>
+<li><code>fs.existsSync(path)</code> 检查文件是否存在</li>
+<li><strong>状态</strong>信息<ol>
+<li><code>fs.stat(path, callback)</code><br> 回调函数参数为<code>(err, stat)  //stat对象保存文件状态信息</code></li>
+<li><code>fs.statSync(path)</code> 返回<code>stat</code>对象</li>
+</ol>
+</li>
+<li><code>stat</code>类对象方法<ol>
+<li><code>stat.isFile()</code></li>
+<li><code>stat.isDirectory()</code></li>
+<li><a href="http://nodejs.cn/api/fs.html#fs_stats_birthtime" target="_blank" rel="noopener">stats类</a> <img src="./1570543414792.png" alt="Alt text"></li>
+</ol>
+</li>
+<li><strong>删除</strong>文件<br>  <code>fs.unlink(path, callback)</code> 回调函数参数为<code>err</code><br>  <code>fs.unlinkSync(path)</code></li>
+<li><strong>读取目录</strong><br>  <code>fs.readdir(path[, options], callback)</code> 回调函数参数为<code>(err, files)</code> <code>files</code>为目录中文件/目录名称组成的<strong>数组</strong></li>
+<li><strong>截取</strong>文件内容<br>  <code>fs.truncate(path, len)</code> <code>len</code>为截取后文件的长度,单位为字节<br>  <code>fs.truncate(path, len, callback)</code></li>
+<li><strong>追加</strong>内容<br>  <code>fs.appendFile(path, data[, options], callback)</code></li>
+<li>创建/删除<strong>目录</strong><br>  <code>fs.mkdirSync(path[, mode])</code> <code>fs.mkdir(path[, mode], callback)</code><br>  <code>fs.rmdirSync(path)</code> <code>fs.rmdir(path, callback)</code> 回调参数<code>err</code></li>
+<li><strong>重命名/移动</strong><br>  <code>rename(old, new, callback)</code><br>  <code>renameSync(old, new)</code><br>  若<code>path</code>不为当前文件夹文件,则可实现<strong>移动</strong>文件并重命名效果</li>
+<li><strong>监视</strong>文件变化<br>  <code>fs.watchFile(filename,[, options], callback)</code><pre><code>回调函数参数: `(curr, prev) = 当前/以前的stat对象`</code></pre><blockquote>
+<p>原理: 每隔一定的时间检查stat对象的信息,可通过<code>options.interval</code>配置该时间间隔, –会影响性能</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="管道流"><a href="#管道流" class="headerlink" title="管道流"></a>管道流</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">let rs = fs.createReadStream(&apos;./a.txt&apos;);</span><br><span class="line">let ws = fs.createWriteStream(&apos;./b.txt&apos;);</span><br><span class="line"></span><br><span class="line">//必须在pipe调用之前添加监听器</span><br><span class="line">ws.on(&apos;pipe&apos;, () =&gt; &#123;</span><br><span class="line">    console.log(&apos;pipe end&apos;);</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">rs.pipe(ws);</span><br></pre></td></tr></table></figure>
+
+<h3 id="链式流"><a href="#链式流" class="headerlink" title="链式流"></a>链式流</h3><ul>
+<li><p>压缩</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const fs = require(&apos;fs&apos;);</span><br><span class="line">const zlib = require(&apos;zlib&apos;);</span><br><span class="line"></span><br><span class="line">const rs = fs.createReadStream(&apos;./a.txt&apos;);</span><br><span class="line">const ws = fs.createWriteStream(&apos;./a.zip&apos;);</span><br><span class="line"></span><br><span class="line">rs.pipe(zlib.createGzip())</span><br><span class="line">    .pipe(ws);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解压缩</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const fs = require(&apos;fs&apos;);</span><br><span class="line">const zlib = require(&apos;zlib&apos;);</span><br><span class="line"></span><br><span class="line">const rs = fs.createReadStream(&apos;./a.zip&apos;);</span><br><span class="line">const ws = fs.createWriteStream(&apos;./a.txt&apos;);</span><br><span class="line"></span><br><span class="line">rs.pipe(zlib.createUnzip())</span><br><span class="line">    .pipe(ws);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="buffer"><a href="#buffer" class="headerlink" title="buffer"></a>buffer</h2><ul>
+<li>令牌：同于保存登录信息</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//加密</span></span><br><span class="line"><span class="keyword">const</span> info = &#123;</span><br><span class="line">    user:<span class="string">'tr'</span>,</span><br><span class="line">    pwd:<span class="string">'tr5467'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> token = Buffer.from(<span class="built_in">JSON</span>.stringify(info)).toString(<span class="string">'base64'</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//解密</span></span><br><span class="line"><span class="keyword">let</span> key = <span class="string">'fdgfsd'</span>;</span><br><span class="line"><span class="keyword">const</span> token = Buffer.from(key, <span class="string">'base64'</span>).toString(<span class="string">'utf8'</span>);	<span class="comment">//string类型</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>由于cookie存密码非常不安全，所以：第一次发密码到后端，如果校验正确，后端会将密码处理成一个<strong>令牌</strong>，我们只需要将令牌保存到cookie</li>
+</ul>
+<blockquote>
+<p>如果拿到令牌，我们不需要账号、密码也可以以该用户身份进入</p>
+</blockquote>
+<h2 id="http"><a href="#http" class="headerlink" title="http"></a>http</h2><p>状态码：<br>    4xx：前端<br>    5xx：后端</p>
+<h3 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//获取http.Server对象</span><br><span class="line">var server = new http.Server();</span><br><span class="line"></span><br><span class="line">//创建服务器并监听3000端口</span><br><span class="line">server.on(&apos;request&apos;,(req, res) =&gt; &#123;</span><br><span class="line">	// 中文操作系统默认编码为gbk(实际为utf8) =&gt; 浏览器按照默认编码来解码</span><br><span class="line">	// 即会带来乱码问题</span><br><span class="line">	res.setHeader(&apos;Content-Type&apos;, &apos;text/plain;charset=utf-8&apos;);</span><br><span class="line"></span><br><span class="line">	res.end(&apos;hello nodejs&apos;);</span><br><span class="line">&#125;).listen(3000, () =&gt; &#123;</span><br><span class="line">	console.log(&apos;server is listening 3000&apos;);	</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>简易写法<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//创建http.Server实例，并将callback添加到request事件的回调函数</span><br><span class="line">http.createServer((req, res) =&gt; &#123;</span><br><span class="line">    res.end(&apos;hello turing&apos;);</span><br><span class="line">&#125;).listen(3000, () =&gt; &#123;</span><br><span class="line">    console.log(&apos;server is listening 3000&apos;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>不同资源对应的Content-Type不一样(一般只有字符数据才指定编码，图片不需要),具体参照<a href="http://tool.oschina.net/commons" target="_blank" rel="noopener">content type</a></p>
+<ul>
+<li>http.Serverの事件<ol>
+<li><code>request</code>,请求到来时触发，提供两个参数<code>req</code>和<code>res</code>,分别是<code>http.IncomingMessage</code>类(实现<strong>可读流</strong>接口)和<code>http.ServerResponse</code>类(实现<strong>可写流</strong>接口)的实例。</li>
+<li><code>connection</code> TCP连接建立时被触发，提供一个参数<code>socket</code>，是<code>net.Socket</code>的实例</li>
+<li><code>close</code></li>
+</ol>
+</li>
+</ul>
+<h3 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h3><ul>
+<li><code>http.request(options, callback)</code><br>  返回一个<code>ClientRequest</code>对象，表示一个正在被处理的请求<br>  <code>options</code>常用参数: <code>host port(80) method(&#39;get&#39;) path(相对于根目录的路径 包含查询字符串)</code><br>  回调函数为<code>http.ClientResponse</code>的实例</li>
+<li><code>http.get(options, callback))</code>，是<code>http.request()</code>方法的简化版，主要区别是<code>get</code>自动将请求方法设为了”GET”，同时不需要手动调用<code>req.end()</code>。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">let options = &#123;</span><br><span class="line">    host: &apos;127.0.0.1&apos;,</span><br><span class="line">    port: 3000</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">let req = http.request(options, (res) =&gt; &#123;</span><br><span class="line">    res.on(&apos;data&apos;, (data) =&gt; &#123;</span><br><span class="line">        console.log(data.toString(&apos;utf-8&apos;));</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    res.once(&apos;end&apos;, () =&gt; &#123;</span><br><span class="line">        console.log(&apos;request end---&apos;);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">req.on(&apos;error&apos;, (err) =&gt; &#123;</span><br><span class="line">    console.log(err.message);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">//必须调用以表明请求的结束,即使没有数据被写入请求体</span><br><span class="line">req.end();</span><br></pre></td></tr></table></figure>
+
+<h3 id="重要API"><a href="#重要API" class="headerlink" title="重要API"></a>重要API</h3><h4 id="server-API"><a href="#server-API" class="headerlink" title="server API"></a>server API</h4><ul>
+<li>由<code>http.Server</code>或<code>http.createServer</code>返回的实例</li>
+<li><strong>方法</strong></li>
+</ul>
+<ol>
+<li><code>listen(handle[, backlog][, callback])</code> 在文件描述符上监听，windows不支持<pre><code>`(options, callback)`
+`(path[, backlog][, callback])` 启动一个 **IPC** 服务器监听给定 path 的连接。
+`([port[, host[, backlog]]][, callback])` 启动一个 **TCP** 服务监听输入的 port 和 host。
+        `backlog` 参数来指定待连接队列的最大长度</code></pre></li>
+<li><code>close([callback])</code></li>
+<li><code>setTimeout([time)[, callback]</code></li>
+</ol>
+<ul>
+<li><p><strong>属性</strong></p>
+<ol>
+<li><code>headersTimeout</code></li>
+<li><code>timeout</code></li>
+<li><code>keepAliveTimeout</code></li>
+</ol>
+</li>
+<li><p><strong>事件</strong></p>
+<ol>
+<li><code>request</code><pre><code>回调参数
+    `request &lt;http.IncomingMessage&gt;`
+    `response &lt;http.ServerResponse&gt;`</code></pre></li>
+<li><code>close</code></li>
+<li><code>connect</code> 每次客户端请求 HTTP CONNECT 方法时触发。</li>
+<li><code>upgrade</code></li>
+<li><code>connection</code> 建立新的 TCP 流时会触发此事件。<pre><code>回调参数为`socket`</code></pre></li>
+</ol>
+</li>
+</ul>
+<h4 id="http-IncomingMessage"><a href="#http-IncomingMessage" class="headerlink" title="http.IncomingMessage"></a>http.IncomingMessage</h4><ul>
+<li><p>继承自: <code>&lt;stream.Readable&gt;</code></p>
+</li>
+<li><p>由 <code>http.Server</code> 或 <code>http.ClientRequest</code> 创建，并分别作为第一个<strong>参数</strong>传给 <code>request</code> 和 <code>response</code> 事件。 它可用于访问响应状态、消息头、以及数据。<br><a href="http://nodejs.cn/api/http.html#http_class_http_incomingmessage" target="_blank" rel="noopener">参考网址</a></p>
+</li>
+<li><p>事件: 继承来的事件+<code>aborted</code> \ <code>close</code></p>
+</li>
+<li><p>属性: <img src="./1570180221038.png" alt="Alt text"></p>
+<ol>
+<li><code>url</code>: 端口号后面的路径，该属性决定了所有的路由设计<pre><code>涉及两个新模块： 1.`url` 2.`querystring`</code></pre></li>
+<li><code>statusCode</code></li>
+<li><code>statusMessage</code></li>
+</ol>
+</li>
+</ul>
+<h4 id="http-ServerResponse"><a href="#http-ServerResponse" class="headerlink" title="http.ServerResponse"></a>http.ServerResponse</h4><ul>
+<li><p>继承自:  <code>&lt;Stream.writable&gt;</code></p>
+</li>
+<li><p>由 HTTP 服务器在<strong>内部</strong>创建，而不是由用户创建。 它作为第二个<strong>参数</strong>传给 <code>request</code> 事件。<br><a href="http://nodejs.cn/api/http.html#http_class_http_incomingmessage" target="_blank" rel="noopener">参考网址</a></p>
+</li>
+<li><p>重要方法</p>
+<ol>
+<li><code>writeHead(statusCode[, statusMessage][, headers])</code>：向请求的客户端发送<strong>响应头</strong>，该函数在一个请求中最多调用<strong>一次</strong>，如果不调用，则会自动生成一个响应头。<br> setHeader(name, value) 作用相同，但<code>writeHead</code>优先级更高</li>
+<li><code>write(chunk[, encoding][, callback])</code>：向请求的客户端发送<strong>响应体</strong>，在end()方法被调用前可以<strong>多次</strong>调用。chunk是一个<code>buffer</code>或者字符串，如果chunk是字符串，则在第二个参数需要指定编码方式，默认为utf-8。</li>
+<li><code>end([chunk][, encoding][, callback])</code>：通知服务器，所有响应头和响应主体都已被发送，每次响应都必须调用end()方法来结束。(其参数默认使用utf8解码)</li>
+</ol>
+</li>
+<li><p>属性</p>
+<ol>
+<li><code>statusCode</code></li>
+<li><code>statusMessage</code></li>
+</ol>
+</li>
+</ul>
+<h5 id="http-ClientRequest"><a href="#http-ClientRequest" class="headerlink" title="http.ClientRequest"></a>http.ClientRequest</h5><ul>
+<li>继承自:  <code>&lt;Stream.writable&gt;</code></li>
+<li>由 <code>http.request()</code>或<code>http.get</code> 内部创建并<strong>返回</strong>。 它代表正在进行中的请求，其请求头已进入队列。</li>
+<li>要获得响应，则为请求对象添加 <code>response</code> 事件监听器。<br>   当接收到响应头时，会从请求对象中触发 <code>response</code> 事件。<pre><code>`response`事件执行时具有一个 `http.IncomingMessage(serverResponse)` 的实例参数。</code></pre></li>
+<li><strong>事件</strong>：继承来的+<ol>
+<li><code>response</code>，该事件等同于<code>get</code>或<code>request</code>方法中的<code>callback</code>参数<br> 回调参数 <code>response &lt;http.IncomingMessage&gt;</code></li>
+<li><code>abort</code>当请求被客户端中止时触发。</li>
+<li><code>connect</code>  服务器使用 CONNECT 方法响应请求时触发。<pre><code>回调参数
+    - `response &lt;http.IncomingMessage&gt;`
+    - `socket &lt;net.Socket&gt;`
+    - `head &lt;Buffer&gt;`</code></pre></li>
+</ol>
+</li>
+</ul>
+<ol start="4">
+<li><code>continue</code> 当服务器发送 100 Continue HTTP 响应时触发，通常是因为请求包含 Expect: 100-continue。 这是客户端应发送请求主体的指令。</li>
+<li><code>information</code> 服务器发送 1xx 中间响应（不包括 101 Upgrade）时触发。 此事件的监听器将会接收一个对象</li>
+<li><code>socket</code> 将套接字分配给此请求后触发。</li>
+<li><code>timeout</code> 当底层套接字因不活动而超时时触发。</li>
+<li><code>upgrade</code> <pre><code>回调参数同connect事件</code></pre></li>
+</ol>
+<ul>
+<li>方法<ol>
+<li><code>end()</code> <code>write()</code></li>
+<li><code>setHeader(name, val)</code></li>
+<li><code>getHeader(name)</code></li>
+<li><code>removeHeader(name)</code></li>
+<li><code>setTimeout(time, callback)</code> 一旦将套接字分配给此请求并且连接了套接字，就会调用 socket.setTimeout()。</li>
+</ol>
+</li>
+<li>属性<ol>
+<li><code>path</code> 等..</li>
+</ol>
+</li>
+</ul>
+<h4 id="http属性"><a href="#http属性" class="headerlink" title="http属性"></a>http属性</h4><ol>
+<li><code>http.STATUS_CODES</code> 响应状态码集合，以及简短描述</li>
+<li><code>METHODS</code>方法列表</li>
+<li><code>createServer([options][, requestlistener])</code></li>
+<li><code>get(options[, callback])</code><br> <code>get(url[, options][, callback])</code> 与 <code>http.request()</code> 的唯一区别是它将方法设置为 GET 并自动调用 <code>req.end()</code>。<pre><code>options ![Alt text](./1570609868451.png)</code></pre></li>
+<li><code>http.request(options[, callback])</code><br> <code>http.request(url[, options][, callback])</code><pre><code>tips: 使用`URL`对象作为options</code></pre></li>
+</ol>
+<h3 id="请求头"><a href="#请求头" class="headerlink" title="请求头"></a>请求头</h3><blockquote>
+<p>GET(请求的方式) /newcoder/hello.html(请求的目标资源) HTTP/1.1(请求采用的协议和版本号)<br>Accept: /(客户端能接收的资源类型)<br>Accept-Language: en-us(客户端接收的语言类型)<br>Connection: Keep-Alive(维护客户端和服务端的连接关系)<br>Host: localhost:8080(连接的目标主机和端口号)<br>Referer: <a href="http://localhost/links.jsp(告诉服务器我来自于哪里)" target="_blank" rel="noopener">http://localhost/links.jsp(告诉服务器我来自于哪里)</a><br>User-Agent: Mozilla/4.0(客户端版本号的名字)<br>Accept-Encoding: gzip, deflate(客户端能接收的压缩数据的类型)<br>If-Modified-Since: Tue, 11 Jul 2017 18:23:51 GMT(缓存时间)<br>Cookie(客户端暂存服务端的信息)<br>Date: Tue, 18 Jul 12:15:02 GMT(客户端请求服务端的时间)</p>
+</blockquote>
+<h3 id="响应头"><a href="#响应头" class="headerlink" title="响应头"></a>响应头</h3><blockquote>
+<p>HTTP/1.1(响应采用的协议和版本号) 200(状态码) OK(描述信息)<br>Location: <a href="http://www.baidu.com(服务端需要客户端访问的页面路径)&gt;" target="_blank" rel="noopener">http://www.baidu.com(服务端需要客户端访问的页面路径)&gt;</a> Server:apache tomcat(服务端的Web服务端名)<br>Content-Encoding: gzip(服务端能够发送压缩编码类型)<br>Content-Length: 80(服务端发送的压缩数据的长度)<br>Content-Language: zh-cn(服务端发送的语言类型)<br>Content-Type: text/html; charset=GB2312(服务端发送的类型及采用的编码方式)<br>Last-Modified: Tue, 18 Jul 2017 12:15:02 GMT(服务端对该资源最后修改的时间)<br>Refresh: 1;url=<a href="http://www.helloyoucan.com.(服务端要求客户端1秒钟后，刷新，然后访问指定的页面路径)" target="_blank" rel="noopener">http://www.helloyoucan.com.(服务端要求客户端1秒钟后，刷新，然后访问指定的页面路径)</a><br>Content-Disposition: attachment; filename=aaa.zip(服务端要求客户端以下载文件的方式打开该文件)<br>Transfer-Encoding: chunked(分块传递数据到客户端）<br>Set-Cookie:SS=Q0=5Lb_nQ; path=/search(服务端发送到客户端的暂存数据)<br>Expires: -1//3种(服务端禁止客户端缓存页面数据)<br>Cache-Control: no-cache(服务端禁止客户端缓存页面数据)<br>Pragma: no-cache(服务端禁止客户端缓存页面数据)<br>Connection: close(1.0)/(1.1)Keep-Alive(维护客户端和服务端的连接关系)<br>Date: Tue, 18 Jul 2017 12:18:03 GMT(服务端响应客户端的时间)</p>
+</blockquote>
+<h4 id="Cache-Control"><a href="#Cache-Control" class="headerlink" title="Cache-Control"></a>Cache-Control</h4><p><a href="https://blog.csdn.net/u012375924/article/details/82806617" target="_blank" rel="noopener">cache-control</a></p>
+<h2 id="events"><a href="#events" class="headerlink" title="events"></a>events</h2><ul>
+<li>。</li>
+</ul>
+<ol>
+<li>Node.js 是单进程单线程应用程序，但是通过事件和回调支持并发，所以<strong>性能</strong>非常高。</li>
+<li>Node.js 的每一个 API 都是异步的，并作为一个独立线程运行，使用异步函数调用，并处理并发。</li>
+<li>Node.js 基本上所有的事件机制都是用<strong>观察者模式</strong>实现。</li>
+<li>Node.js 单线程类似进入一个while(true)的事件循环，直到没有事件观察者退出，每个异步事件都生成一个事件观察者，如果有事件发生就调用该回调函数.</li>
+</ol>
+<ul>
+<li><input disabled type="checkbox"> <p>当 EventEmitter 对象触发一个事件时，所有绑定在该事件上的函数都会被<strong>同步</strong>地调用。</p>
+<pre><code>可以使用 setImmediate() 或 process.nextTick() 切换到异步模式：</code></pre></li>
+<li><p>被调用的监听器的任何<strong>返回值</strong>都将会被<strong>忽略</strong>并丢弃。</p>
+</li>
+<li><p>应该始终为 ‘error’ 事件注册监听器。</p>
+</li>
+<li><p>默认情况下，每个事件可以注册最多 10 个监听器。 可以使用 <code>emitter.setMaxListeners(n)</code> 方法改变<strong>单个</strong> EventEmitter 实例的限制。 可以使用 <code>EventEmitter.defaultMaxListeners</code> 属性改变<strong>所有</strong> EventEmitter 实例的默认值。 </p>
+</li>
+</ul>
+<h3 id="API"><a href="#API" class="headerlink" title="API"></a>API</h3><ul>
+<li><code>events</code>只暴露一个对外接口<code>EventEmitter</code><br>  eventEmitter.emit() 方法可以传任意数量的参数到监听器函数。 当监听器函数被调用时， <code>this</code> 关键词会被指向监听器所绑定的<code>EventEmitter</code> 实例。(如果使用箭头函数作为监听器，则this指向空<code>{}</code>)</li>
+<li><code>on()</code> 注册监听器(别名<code>addListener</code>)</li>
+<li><code>once</code> 注册一次性事件。事件被触发时，监听器被注销，然后调用。</li>
+<li><code>off(eventName, listener)</code>(别名<code>removeListener</code>)</li>
+<li><code>emit()</code>触发监听器(参数所有监听器共享)</li>
+<li><code>emitter.prependListener(eventName, listener)</code> 将事件监听器添加到监听器数组的开头。</li>
+<li><code>prependOnceListener(eventName, listener)</code></li>
+<li><code>removeAllListeners([eventName])</code> 移除全部或指定的 eventName 事件的监听器。</li>
+</ul>
+<blockquote>
+<p>返回对 EventEmitter 的引用，以便可以链式调用。</p>
+</blockquote>
+<ul>
+<li><p><code>events.once(eventName, listener)</code><br>  创建一个<code>Promise</code> 当触发给定的事件时则会被·resolve·，当 EventEmitter 触发 ‘error’ 时则会被<code>reject</code>。 </p>
+</li>
+<li><p>不太重要</p>
+<ol>
+<li><code>eventNames()</code> 返回已注册监听器的事件名数组。 数组中的值为字符串或 Symbol。</li>
+<li><code>getMaxListeners()</code> 当前的监听器最大限制数的值</li>
+<li><code>setMaxListeners(n)</code></li>
+<li><code>listenerCount(eventName)</code> xx事件的监听器数量</li>
+<li><code>listeners(eventName)</code> 监听器数组的副本</li>
+<li><code>rawListeners(eventName)</code> 返回监听器数组的拷贝，包括封装的监听器。</li>
+</ol>
+</li>
+</ul>
+<h2 id="stream"><a href="#stream" class="headerlink" title="stream"></a>stream</h2><ul>
+<li>流的类型<ol>
+<li>Writable</li>
+<li>Readable</li>
+<li>Duplex(可读又可写，如<code>net.Socket</code>)</li>
+<li>Transform 在读写过程中可以修改或转换数据的 Duplex 流（如 zlib.createDeflate()）</li>
+</ol>
+</li>
+</ul>
+<h3 id="可写流"><a href="#可写流" class="headerlink" title="可写流"></a>可写流</h3><ul>
+<li>包括<ol>
+<li>客户端的HTTP<strong>请求</strong>(ClientRequest)</li>
+<li>服务端的HTTP<strong>响应</strong>(ServerResponse)</li>
+<li><code>fs</code>的写入流</li>
+<li><code>zlib</code>流 提供<strong>压缩</strong>功能，Brotli 也是如此。</li>
+<li><code>crypto</code>流 提供<strong>加密</strong>功能 </li>
+<li><code>TCP Socket</code></li>
+<li>子进程 <code>stcin</code></li>
+<li><code>process.stdout</code> <code>process.stderr</code></li>
+</ol>
+</li>
+</ul>
+<h4 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h4><ol>
+<li><code>close</code> 当流或其底层资源（比如文件描述符）被关闭时触发。</li>
+<li><code>error</code></li>
+<li><code>finish</code> 调用 stream.end() 且缓冲数据都已传给底层系统之后触发。</li>
+<li><code>pipe</code> 当在可读流上调用 stream.pipe() 方法时会发出 ‘pipe’ 事件，并将此可写流添加到其目标集。<pre><code>回调参数 `src&lt;Readable&gt;` </code></pre></li>
+<li><code>unpipe</code></li>
+</ol>
+<h4 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h4><ul>
+<li><code>write(chunk[, encoding][, callback])</code></li>
+<li><code>end([chunk[, encoding]][, callback])</code></li>
+<li><code>setDefaultEncoding(encoding)</code></li>
+<li><code>destory([error])</code> </li>
+<li><code>cork()</code> 强制把所有写入的数据都缓冲到内存中。</li>
+<li><code>uncork()</code> 将调用 stream.cork() 后缓冲的所有数据输出到目标。</li>
+</ul>
+<h3 id="可读流"><a href="#可读流" class="headerlink" title="可读流"></a>可读流</h3><ul>
+<li>包括<ol>
+<li>客户端的HTTP<strong>响应</strong></li>
+<li>服务端的HTTP<strong>请求</strong></li>
+<li><code>fs</code>的读取流</li>
+<li><code>zlib</code>流</li>
+<li><code>crypto</code>流</li>
+<li><code>TCP Socket</code></li>
+<li>子进程 <code>stdout</code>和<code>stderr</code></li>
+<li><code>process.stdin</code></li>
+</ol>
+</li>
+</ul>
+<h4 id="两种读取模式"><a href="#两种读取模式" class="headerlink" title="两种读取模式"></a>两种读取模式</h4><ul>
+<li>流动模式(flowing)<br>  在流动模式中，数据自动从底层系统读取，并通过 EventEmitter 接口的事件尽可能快地被提供给应用程序。<br>  切换至<strong>暂停模式</strong><pre><code>1. 如果没有管道目标，则调用 `stream.pause()`。
+2. 如果有管道目标，则移除所有管道目标。调用 `stream.unpipe()` 可以移除多个管道目标。</code></pre></li>
+<li>暂停模式(paused)<br>  在暂停模式中，必须显式调用 <code>stream.read()</code> 读取数据块。<br>  所有可读流开始都处于暂停模式，如何切换至<strong>流动模式</strong><pre><code>1. 添加 `data`事件句柄。
+2. 调用 `stream.resume()` 方法。
+3. 调用 `stream.pipe()` 方法将数据发送到可写流。</code></pre></li>
+</ul>
+<h4 id="三种状态"><a href="#三种状态" class="headerlink" title="三种状态"></a>三种状态</h4><ol>
+<li><code>readable.readableFlowing === null</code> 不产生数据<pre><code>切换到流动模式  值变为`true`
+切换到暂停模式  值变为`false`</code></pre></li>
+<li><code>readable.readableFlowing === false</code> 暂时停止事件流动但不会停止数据的生成。<pre><code>在这个状态下，为 &apos;data&apos; 事件绑定监听器不会使 readable.readableFlowing 切换到 true。</code></pre></li>
+<li><code>readable.readableFlowing === true</code> 可读流开始主动地产生数据并触发事件。</li>
+</ol>
+<h4 id="事件-1"><a href="#事件-1" class="headerlink" title="事件"></a>事件</h4><ol>
+<li><code>data</code> 当流将数据块传送给消费者后触发。 <pre><code>回调参数`chunk`</code></pre></li>
+<li><code>end</code> 当流中没有数据可供消费时触发。</li>
+<li><code>close</code> 当流或其底层资源（比如文件描述符）被关闭时触发 <code>close</code> 事件。<pre><code>该事件表明不会再触发其他事件，也不会再发生操作。</code></pre></li>
+<li><code>error</code> <pre><code>回调参数`err`</code></pre></li>
+<li><code>pause</code>  当调用 stream.pause() 并且 readsFlowing 不为 false 时，触发。</li>
+<li><code>readable</code>当有数据可从流中读取 或  到达流数据的尽头 时触发</li>
+<li><code>resume</code> 当调用 stream.resume() 并且 readsFlowing 不为 true 时，触发。</li>
+</ol>
+<h4 id="方法-1"><a href="#方法-1" class="headerlink" title="方法"></a>方法</h4><ul>
+<li><code>destory([error])</code> 销毁流。 触发 ‘error’ 事件，并触发 ‘close’ 事件。<br>  对应属性 <code>destoryed</code></li>
+<li><code>pause()</code>使流动模式的流停止触发 ‘data’ 事件，并切换出流动模式。<br>  对应<code>isPaused()</code> </li>
+<li><code>pipe(dest&lt;writable&gt;[, options])</code>  绑定可写流到可读流，并将可读流的所有数据推送到绑定的可写流。<br>  <code>options</code> <pre><code>end当读取器结束时终止写入器。默认值: true。</code></pre></li>
+<li><code>unpipe([dest])</code> </li>
+<li><code>read([size])</code>  从内部缓冲拉取并返回数据。<pre><code> while 循环是必需的。 只有在 readable.read() 返回 null 之后，才会触发 &apos;readable&apos;
+如果 readable.read() 返回一个数据块，则 &apos;data&apos; 事件也会触发。
+对应属性`readable`</code></pre></li>
+<li><code>setEncoding(encoding)</code> <pre><code>默认情况下没有设置字符编码，流数据返回的是 Buffer 对象。
+如果设置了字符编码，则流数据返回指定编码的字符串。
+    对应属性`readableEncoding`</code></pre></li>
+<li><code>resume()</code> 将被暂停的可读流恢复触发 ‘data’ 事件</li>
+</ul>
+<h3 id="双工流"><a href="#双工流" class="headerlink" title="双工流"></a>双工流</h3><ul>
+<li>双工流（Duplex）是同时实现了 Readable 和 Writable 接口的流。</li>
+</ul>
+<ol>
+<li>TCP socket</li>
+<li>zlib 流</li>
+<li>crypto 流</li>
+</ol>
+<h3 id="转换流"><a href="#转换流" class="headerlink" title="转换流"></a>转换流</h3><ul>
+<li><p>转换流（Transform）是一种 Duplex 流，但它的输出与输入是相关联的。与 Duplex 流一样， Transform 流也同时实现了 Readable 和 Writable 接口。</p>
+<ol>
+<li>zlib 流</li>
+<li>crypto 流</li>
+</ol>
+</li>
+<li><p>方法</p>
+<ol>
+<li><code>destory([error])</code></li>
+</ol>
+</li>
+</ul>
+<h3 id="其他方法"><a href="#其他方法" class="headerlink" title="其他方法"></a>其他方法</h3><ul>
+<li><p><code>stream.finished(stream[, options], callback)</code> 当流不再可读、可写、或遇到错误、或过早关闭事件时，则该函数会获得通知。(可promise化)<br>  options</p>
+<pre><code>error 如果设置为 false, 则对 emit(&apos;error&apos;, err) 的调用不会被视为已完成. 默认true。
+readable 当设置为 false 时，即使流可能仍然可读，当流结束时也将会调用回调。
+writable 当设置为 false 时，即使流可能仍然可写，当流结束时也将会调用回调。</code></pre></li>
+<li><p><code>pipe;ine(...streams, callback)</code> 使用管道传送多个流，并转发错误和正确地清理，当管道完成时提供回调。(可promise化)<br>  会在所有的流上调用 <code>stream.destroy(err)</code>,除了已触发<code>end</code>或<code>close</code>事件的可读流 或 已触发<code>finish</code> 或 <code>close</code>的可写流</p>
+</li>
+</ul>
+<p>@(js后端)</p>
+<h2 id="url-querystring-path"><a href="#url-querystring-path" class="headerlink" title="url querystring path"></a>url querystring path</h2><h3 id="url模块"><a href="#url模块" class="headerlink" title="url模块"></a>url模块</h3><ul>
+<li>方法<ol>
+<li><code>fileURLToPath(url)</code>  返回完全正确的解析后的文件路径</li>
+<li><code>pathToFileURL(path)</code> 返回文件URL对象</li>
+</ol>
+</li>
+</ul>
+<h3 id="URL接口❤"><a href="#URL接口❤" class="headerlink" title="URL接口❤"></a>URL接口❤</h3><ul>
+<li><code>new URL(input, base)</code> 如果input不是绝对路径，则需要传入第二个参数<ol>
+<li><code>hash</code> 获取及设置片段部分</li>
+<li><code>host</code> 主机(包含端口)</li>
+<li><code>hostname</code> 主机名(不包含端口)</li>
+<li><code>href</code> 完整原始URL(协议名和主机名已转为小写)</li>
+<li><code>origin</code>  序列化的url的origin(<strong>只读</strong>)</li>
+<li><code>username</code> 用户名</li>
+<li><code>password</code>  密码部分</li>
+<li><code>pathname</code> url中路径部分</li>
+<li><code>port</code></li>
+<li><code>protocal</code> 协议 小写</li>
+<li><code>search</code> 查询字符串、包含?</li>
+<li><code>SearchParams</code> 查询参数的<code>URLSearchParams</code>对象(<strong>只读</strong>)</li>
+</ol>
+</li>
+<li>方法<ol>
+<li>toString()  返回序列化的url ，与 url.href 和 url.toJSON() 的返回值相同。</li>
+<li>toJSON()</li>
+</ol>
+</li>
+</ul>
+<h3 id="URLSearchParams类"><a href="#URLSearchParams类" class="headerlink" title="URLSearchParams类"></a>URLSearchParams类</h3><ul>
+<li>通过<code>url.searchParams</code> / 构造函数 获取</li>
+<li>与<code>querystring</code>模块相似，但<code>querystring</code>更通用</li>
+<li>构造函数<ol>
+<li><code>new URLSearchParams()</code></li>
+<li><code>new URLSearchParams(string)</code></li>
+<li><code>new URLSearchParams(obj)</code> obj的每一个属性的键和值都将被强制转换为字符串。</li>
+<li><code>new URLSearchParams(iterable)</code> 以一种类似于 Map 的构造函数的迭代映射方式实例化一个新的 URLSearchParams 对象。</li>
+</ol>
+</li>
+<li>实例方法<ol>
+<li><code>append(k, v)</code></li>
+<li><code>delete(k)</code></li>
+<li><code>set(k, v)</code></li>
+<li><code>get(k)</code></li>
+<li><code>getAll(k)</code></li>
+<li><code>sort()</code> 按名称排序，保留相同名称的键值对</li>
+<li><code>keys()</code></li>
+<li><code>values()</code></li>
+<li><code>entries()</code> 返回遍历器对象</li>
+<li><code>forEach(fn, thisArg)</code>  回调函数参数<code>(value, name, searchParams)</code></li>
+<li><code>toString()</code> 序列化后的字符串</li>
+</ol>
+</li>
+</ul>
+<h3 id="querystring模块"><a href="#querystring模块" class="headerlink" title="querystring模块"></a>querystring模块</h3><ol>
+<li><code>parse(str[, seperator=&quot;&amp;&quot;[, eq=&quot;=&quot;[,options]]])</code> 将 字符串 解析为 键值对 对象，别名<code>decode</code></li>
+<li><code>stringify(obj[, seperator[, eq[, options]]])</code> 将对象转换为查询字符串，别名<code>encode</code></li>
+<li><code>escape(str)</code> 对字符串进行百分比编码</li>
+<li><code>unescape(str)</code> 百分比解码</li>
+</ol>
+<h3 id="path模块"><a href="#path模块" class="headerlink" title="path模块"></a>path模块</h3><ul>
+<li>提供用于处理文件路径和目录路径的实用工具</li>
+</ul>
+<ol>
+<li><code>basename(path[, ext])</code>  若指定第二个参数则省略扩展名<pre><code>Windows: 文件名 + 扩展名
+POSIX:  文件完整路径 + 扩展名
+    Windows效果：`path.win32.basename(path)`
+    POSIX效果：`path.posix.basename(path)`</code></pre></li>
+<li><code>dirname(path)</code> 获取目录名</li>
+<li><code>extname(path)</code></li>
+<li><code>format(pathObject)</code><pre><code>dir root base name ext
+`dir &gt; root`  `base = name + ext` </code></pre></li>
+<li><code>parse(path)</code> 将路径转为pathObject(dir root base name ext)</li>
+<li><code>isAbsolute()</code></li>
+<li><code>join([...paths])</code></li>
+</ol>
+</div></article></div></main><footer><div class="paginator"><a href="/2019/10/24/js框架/vue/Vue_风格指南/" class="prev">上一篇</a><a href="/2019/10/23/js框架/登录令牌Token/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2019/10/23/node/Node模块/';
+var disqus_title = 'node模块';
+var disqus_url = 'https://turing5467.github.io/2019/10/23/node/Node模块/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

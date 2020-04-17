@@ -1,0 +1,136 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 数据存储技术 · 快乐的图小灵</title><meta name="description" content="数据存储技术 - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">数据存储技术</h1><div class="post-info">Aug 15, 2019</div><div class="post-content"><p>[toc]</p>
+<h2 id="数据存储技术"><a href="#数据存储技术" class="headerlink" title="数据存储技术"></a>数据存储技术</h2><ol>
+<li>cookie</li>
+<li>SessionStorage</li>
+<li>LocalStorage</li>
+<li>离线缓存</li>
+</ol>
+<h3 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h3><ul>
+<li>cookie是存储于访问者的计算机中的变量，可以让我们用<strong>同一个浏览器</strong>访问<strong>同一域名</strong>的时候共享数据。   </li>
+<li>特点<ul>
+<li>大小限制：&lt; 4kb</li>
+<li>数量限制：&lt; 50</li>
+<li>不能跨浏览器</li>
+<li>有效期：通过<code>expires/maxAge</code>属性设置</li>
+<li>无法跨域</li>
+</ul>
+</li>
+</ul>
+<h4 id="数据存取"><a href="#数据存取" class="headerlink" title="数据存取"></a>数据存取</h4><ul>
+<li>读取：<code>dicument.cookie</code>:返回一个字符串，不同cookie之间<code>;</code>相隔，键值之间<code>=</code>相隔</li>
+<li>设置：<code>document.cookie = &#39;name=value;xx=xxx&#39;</code></li>
+<li>删除：只要当前时间超过了<code>expire</code>值，数据就会被删除</li>
+</ul>
+<h4 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h4><ol>
+<li><p><code>name</code> cookie名 </p>
+</li>
+<li><p><code>value</code> cookie值 &gt; 由于cookie规定是名称/值是不允许包含<strong>分号，逗号，空格</strong>的，所以为了不给用户到来麻烦，考虑服务器的兼容性，任何存储cookie的数据都应该被编码。 </p>
+</li>
+<li><p><code>domain</code> cookie绑定的域名,默认为执行语句的当前域 </p>
+</li>
+<li><p><code>path</code> web的路由 默认<code>/</code> ，这个值<strong>匹配</strong>的是web的<strong>路由</strong></p>
+<ul>
+<li>当路径设置成<code>/blog</code>时，它会给<code>/blog</code>、<code>/blogabc</code>等等也绑定cookie </li>
+</ul>
+</li>
+<li><p>cookie的有效期 </p>
+<ol>
+<li><code>expires</code> 默认值<code>session(当前会话有效)</code>可以设置为一个<code>Date</code>类型的值,指定过期时间 </li>
+<li><code>maxAge</code> 以<code>s</code>为单位  (该属性逐渐取代<code>expires</code>)     <ul>
+<li>正数: <code>cookie</code>在n秒后被删除     </li>
+<li>0: 删除<code>cookie</code>,让cookie失效     </li>
+<li>负数: 临时储存，不会生出<code>cookie</code>文件，只会存在浏览器内存中         </li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p><code>secure</code>     HTTP不仅是无状态的，也是不安全的，容易被劫持     <code>secure=true</code>表示此<code>cookie</code>只在<code>https</code>和<code>ssl</code>等安全协议下传输 </p>
+<blockquote>
+<p>提示：这个属性并不能对客户端的cookie进行加密，不能保证绝对的安全性 </p>
+</blockquote>
+</li>
+<li><p><code>httpOnly</code>     <code>true</code>表示 不能通过<code>js</code>脚本来获取<code>cookie</code>值,可以有效的防止<code>xss</code>攻击 </p>
+</li>
+<li><p><code>size</code> </p>
+</li>
+<li><p><code>sameSite</code> </p>
+</li>
+</ol>
+<h4 id="服务端设置cookie"><a href="#服务端设置cookie" class="headerlink" title="服务端设置cookie"></a>服务端设置cookie</h4><ul>
+<li><p>通过响应头中的<code>Set-cookie</code>来设置</p>
+<p> <img src="https://user-gold-cdn.xitu.io/2017/10/2/ac1f0d4e46b21da20d76b8136dd7583f?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="setCookie"> </p>
+</li>
+</ul>
+<ul>
+<li>cookie部分参考文章链接：<a href="https://juejin.im/post/59d1f59bf265da06700b0934" target="_blank" rel="noopener">here</a></li>
+<li><a href="https://github.com/js-cookie/js-cookie" target="_blank" rel="noopener">cookie库</a></li>
+</ul>
+<h3 id="localStorage和sessionStorage"><a href="#localStorage和sessionStorage" class="headerlink" title="localStorage和sessionStorage"></a>localStorage和sessionStorage</h3><ul>
+<li>属性：只有 key 和 value</li>
+<li>方法<ol>
+<li><code>setItem</code></li>
+<li><code>getItem</code></li>
+<li><code>removeItem</code></li>
+<li><code>clear</code></li>
+<li><code>sessionStorage.keyA = &quot;tr&quot;</code></li>
+</ol>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>分类</th>
+<th>生命周期</th>
+<th>存储容量</th>
+<th>存储位置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>cookie</td>
+<td>默认保存在内存中，随浏览器关闭失效（如果设置过期时间，则在到过期时间后失效）</td>
+<td>4KB</td>
+<td>保存在客户端，<strong>每次请求时都会带上</strong></td>
+</tr>
+<tr>
+<td>localStorage</td>
+<td>理论上永久有效的，除非主动清除。</td>
+<td>4.98MB（不同浏览器情况不同，safari 2.49M）</td>
+<td>保存在客户端，不与服务端交互。<strong>节省网络流量</strong></td>
+</tr>
+<tr>
+<td>sessionStorage</td>
+<td>仅在当前网页会话下有效</td>
+<td>4.98MB（部分浏览器没有限制）</td>
+<td>同上</td>
+</tr>
+</tbody></table>
+<p> 应用场景：</p>
+<ul>
+<li>localStorage 适合持久化缓存数据，比如页面的默认偏好配置等；</li>
+<li>sessionStorage 适合一次性临时数据保存。 </li>
+<li>由于<strong>cookie每次都会携带在HTTP头</strong>上，保存过多则会带来<strong>性能</strong>问题</li>
+</ul>
+<blockquote>
+<p>LocalStorage有可直接使用的库<code>store</code></p>
+</blockquote>
+<h3 id="离线缓存"><a href="#离线缓存" class="headerlink" title="离线缓存"></a>离线缓存</h3><ul>
+<li>支持离线浏览</li>
+<li>速度更快，性能更好</li>
+<li>减轻服务端的压力</li>
+</ul>
+<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><ol>
+<li>创建 <code>xx.appcache</code> 文件，在该文件配置要缓存的内容  </li>
+<li>为<code>html</code>标签添加<code>manifest</code>属性,值为配置文件路径 </li>
+<li>通过注释插入<code>版本号</code>或是<code>更新日期</code>，就能够在各种情况下实现对缓存清单文件的更新了(若要精确控制,则需要使用<code>appilicationCache API</code>) </li>
+</ol>
+<h4 id="配置文件内容"><a href="#配置文件内容" class="headerlink" title="配置文件内容"></a>配置文件内容</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">配置文件内容</span><br><span class="line">CACHE MANIFEST</span><br><span class="line"><span class="comment"># revision 1    //版本</span></span><br><span class="line"></span><br><span class="line"> CACHE:</span><br><span class="line"> <span class="comment"># 需要缓存的列表</span></span><br><span class="line"> 0.jpg</span><br><span class="line"></span><br><span class="line"> NETWORK:</span><br><span class="line"> <span class="comment"># 不需要缓存的</span></span><br><span class="line"> 1.jpg</span><br><span class="line"></span><br><span class="line"> FALLBACK:</span><br><span class="line"> <span class="comment"># 指定某一资源无法被访问时的替代资源</span></span><br></pre></td></tr></table></figure>
+
+</div></article></div></main><footer><div class="paginator"><a href="/2019/08/15/js框架/jQuery/" class="prev">上一篇</a><a href="/2019/08/14/js/06_this/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2019/08/15/js/07_数据存储技术/';
+var disqus_title = '数据存储技术';
+var disqus_url = 'https://turing5467.github.io/2019/08/15/js/07_数据存储技术/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 移动端布局 · 快乐的图小灵</title><meta name="description" content="移动端布局 - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">移动端布局</h1><div class="post-info">Dec 26, 2019</div><div class="post-content"><h2 id="移动端布局"><a href="#移动端布局" class="headerlink" title="移动端布局"></a>移动端布局</h2><ul>
+<li>物理像素：设备能控制显示的最小单元</li>
+<li>设备独立像素：可以认为是计算系统坐标中的一个点，这个点代表了一个可以由程序使用并控制的虚拟像素，然后由相关系统转化成物理像素</li>
+<li>dpr：设备像素比，物理像素/设备独立像素。iphone6下，dpr=2</li>
+<li>ppi：一英寸显示屏上的像素点个数</li>
+<li>dpi：打印机在单位面积上打印的墨点数</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width"</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 保证在移动端设备中，页面宽度与屏幕宽度相等 --&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>百分比布局</li>
+<li>rem布局</li>
+<li>vw</li>
+<li>Media Query</li>
+</ol>
+<h3 id="百分比布局"><a href="#百分比布局" class="headerlink" title="百分比布局"></a>百分比布局</h3><ul>
+<li><p>所有需要动态调整的元素宽高采用百分比，字号固定像素</p>
+</li>
+<li><p>问题</p>
+<ul>
+<li>由于文字固定大小，文字占位在不同设备中不尽相同</li>
+</ul>
+</li>
+</ul>
+<h3 id="rem布局"><a href="#rem布局" class="headerlink" title="rem布局"></a>rem布局</h3><ul>
+<li><p>通过计算或者JS获取 设备像素/CSS像素 的比例，确定<strong>根元素的字体像素</strong>，然后所有单位根据根元素字体像素进行rem设置。</p>
+</li>
+<li><p>阿里的lib-flexible解决方案实际上就是利用了这个方式，通过给<code>html</code>标签绑定<code>font-size</code>和<code>data-dpr</code>来进行页面的适配</p>
+<ul>
+<li><p>方案将整个页面宽度分成100份，则每10个单位宽度作为1rem</p>
+</li>
+<li><p>假设设计稿为750px的，那么1rem代表75px，每次转换时只需要将设计稿的像素值/75 就可以得到相应的rem值</p>
+</li>
+<li><p>由于每个设备的可视宽度不同，所以根节点的字体大小是不固定的，需要通过<code>document.documentElement.style.fontSize = window.innerWidth/10 + &#39;px&#39;</code></p>
+</li>
+<li><p>然后写页面代码时只需要将 原始像素值/基准值 就能得到对应的rem值</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@function</span> px2rem($px)</span><br><span class="line">    <span class="variable">@return</span> ($px / $unit-px) * <span class="number">1rem</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>接着进行文字大小适配</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@mixin</span> font-dpr($font-size)</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="vw布局"><a href="#vw布局" class="headerlink" title="vw布局"></a>vw布局</h3><ul>
+<li>100vw = 当前设备的可见视口宽度</li>
+</ul>
+<h3 id="媒体查询"><a href="#媒体查询" class="headerlink" title="媒体查询"></a>媒体查询</h3><ul>
+<li>通过断点来进行不同宽度区间的设备样式适配</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2020/01/14/面试/Vue/" class="prev">上一篇</a><a href="/2019/12/24/面试/js/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2019/12/26/html-css/移动端布局/';
+var disqus_title = '移动端布局';
+var disqus_url = 'https://turing5467.github.io/2019/12/26/html-css/移动端布局/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

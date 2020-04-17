@@ -1,0 +1,335 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> React基本感知 · 快乐的图小灵</title><meta name="description" content="React基本感知 - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">React基本感知</h1><div class="post-info">Oct 30, 2019</div><div class="post-content"><h2 id="三大主流框架"><a href="#三大主流框架" class="headerlink" title="三大主流框架"></a>三大主流框架</h2><ul>
+<li><code>Angular</code> 出来<strong>较早</strong>的框架 。学习曲线较抖</li>
+<li><code>React</code> 最流行(用的人比较多)，设计很优秀，由中国人开发，文档友好</li>
+<li><code>Vue</code> 最火(关注的人较多)</li>
+</ul>
+<h3 id="React与Vue"><a href="#React与Vue" class="headerlink" title="React与Vue"></a>React与Vue</h3><ul>
+<li><p><strong>模块化</strong>：从<strong>代码</strong>的角度来进行分析，把一些可服用的代码，抽离为单个的模块，便于项目的维护与开发</p>
+</li>
+<li><p><strong>组件化</strong>：从<strong>UI界面</strong>的角度来进行分析，把一些可复用的<strong>UI元素</strong>，抽离为单独的组件，便于项目的维护与开发</p>
+<ol>
+<li><strong>Vue实现组件化</strong>：通过<code>.vue</code>文件，来创建对应的组件<ul>
+<li><code>template</code> 结构</li>
+<li><code>script</code> 行为</li>
+<li><code>style</code> 样式</li>
+</ul>
+</li>
+<li><strong>React实现组件化</strong>：一切都通过<code>js</code>表现，ES6和ES7(<code>async await</code>)需要会用</li>
+</ol>
+</li>
+<li><p><strong>移动APP开发</strong>体验方面</p>
+<ol>
+<li>vue:  结合<code>weex</code>这门技术,提供了迁移到移动端APP开发的体验(目前只是一个小的玩具，并没有很成功的大案例)</li>
+<li>React: 结合<code>ReactNative</code>，提供了无缝迁移到移动APP的开发体验(<code>RN</code>用的最多，最火最流行)</li>
+</ol>
+</li>
+</ul>
+<h2 id="虚拟DOM"><a href="#虚拟DOM" class="headerlink" title="虚拟DOM"></a>虚拟DOM</h2><ul>
+<li><p><code>DOM</code>：浏览器中的概念，用<code>js</code>对象来表示页面上的元素，并提供了操作DOM对象的API</p>
+</li>
+<li><p><strong>React中的虚拟DOM</strong>：框架中的概念，通过<code>js</code>对象来模拟页面上的DOM元素和嵌套关系</p>
+<ol>
+<li><strong>目的</strong>：实现页面中DOM元素的高效更新</li>
+</ol>
+</li>
+</ul>
+<h2 id="diff算法"><a href="#diff算法" class="headerlink" title="diff算法"></a>diff算法</h2><ul>
+<li><p><strong>tree diff</strong> 新旧两颗DOM树，逐层对比的过程，就是<strong>tree diff</strong>。</p>
+<pre><code>当整颗DOM树对比完毕，所有需要更新的元素，必然能够找到</code></pre></li>
+<li><p><strong>component diff</strong> 在进行<strong>tree diff</strong>的过程中，每一层中<strong>组件级别</strong>的对比，就是<strong>component diff</strong></p>
+<ul>
+<li>如果对比前后，组件类型相同，则<strong>暂时</strong>认为组价不需要更新</li>
+<li>如果类型不同，则移除旧组件，创建新组件，并追加到页面上</li>
+</ul>
+</li>
+<li><p><strong>element diff</strong>   在进行<strong>component diff</strong>的过程中，如果组件类型相同，则需要进行元素级别的对比，叫做<strong>element diff</strong></p>
+</li>
+</ul>
+<h2 id="在项目中使用react"><a href="#在项目中使用react" class="headerlink" title="在项目中使用react"></a><strong>在项目中使用</strong>react</h2><ul>
+<li><p><code>cnpm i react react-dom --save</code></p>
+<ul>
+<li><code>react</code>：专门用于创建组件和虚拟dom，同时包含组件的生命周期</li>
+<li><code>react-dom</code>：专门进行DOM操作</li>
+</ul>
+</li>
+<li><p>创建容器</p>
+<ul>
+<li><code>&lt;div id=&quot;app&quot;&gt;&lt;/div&gt;</code></li>
+</ul>
+</li>
+<li><p><code>React.createElement(tag, data, 子节点|文本节点...)</code> 创建虚拟DOM元素</p>
+<ol>
+<li><code>tag</code>：创建的元素标签</li>
+<li><code>data</code>： 创建元素标签身上的属性</li>
+<li>参数3：子节点(包括 虚拟DOM  和 文本节点 )</li>
+<li>参数n：其它子节点</li>
+</ol>
+</li>
+<li><p><code>ReactDOM.render(virtualDOM, mountElement &lt;HTMLDivElement&gt;)</code> 将元素渲染到页面上</p>
+<ol>
+<li><code>virtualDOM</code>：要渲染的虚拟DOM元素</li>
+<li><code>mountElement</code> ：元素挂载的容器</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">'react-dom'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//React.createElement(tag &lt;string&gt;, nodeAttr &lt;Object&gt;, 子节点|文本节点...)</span></span><br><span class="line"><span class="keyword">const</span> mydom = React.createElement(<span class="string">'h1'</span>, &#123;&#125;, <span class="string">'Hello React'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//ReactDOM.render(virtualDOM, mountElement &lt;HTMLDivElement&gt;)</span></span><br><span class="line">ReactDOM.render(mydom, <span class="string">'#app'</span>)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h2><h3 id="JSX"><a href="#JSX" class="headerlink" title="JSX"></a>JSX</h3><ul>
+<li><p>JSX：<strong>符合XML规范的JS语法</strong></p>
+</li>
+<li><p>可以用来替代<code>React.createElement()</code>，因为  JSX最终将被转换为<code>React.createElement()</code></p>
+</li>
+<li><p>启用JSX语法</p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20191031144332970.png" alt="image-20191031144332970"></p>
+<ul>
+<li>添加babel-loader配置项</li>
+</ul>
+</li>
+</ul>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20191031144509567.png" alt="image-20191031144509567"></p>
+<p>当然，用create-react-app就另当别论了</p>
+<h4 id="JSX语法"><a href="#JSX语法" class="headerlink" title="JSX语法"></a>JSX语法</h4><ul>
+<li>嵌入表达式：<code>{title}</code></li>
+<li>属性绑定：（不能加双引号）</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> title=<span class="string">"Hello React"</span></span><br><span class="line"><span class="keyword">const</span> mydom = <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">h1</span> <span class="attr">title</span>=<span class="string">&#123;title&#125;</span>&gt;</span>&#123;title&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>渲染jsx元素：<code>{mydom}</code></p>
+</li>
+<li><p>渲染jsx元素数组</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mydoms = [</span><br><span class="line">    &lt;h1&gt;Hello Vue&lt;<span class="regexp">/h1&gt;,</span></span><br><span class="line"><span class="regexp">    &lt;h2&gt;Hello React&lt;/</span>h2&gt;</span><br><span class="line">];</span><br><span class="line">ReactDOM.render(<span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">    	&#123;mydoms&#125;</span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将普通字符串数组，转为jsx数组并渲染：<code>forEach</code>和<code>map</code></p>
+</li>
+<li><p>React中的key与Vue中的key作用一样</p>
+</li>
+<li><p>注释：<code>{/* 注释 */}</code></p>
+</li>
+<li><p><strong>类名</strong>：<code>className</code> （原因：js关键字冲突）</p>
+</li>
+<li><p><strong>style</strong>：<code>style={{color: '#194'}}</code> 第一个大括号包裹变量，第二个为对象</p>
+<ul>
+<li>样式名采用驼峰命名法</li>
+</ul>
+</li>
+<li><p><code>label</code>的<code>for</code>属性： <code>htmlFor</code></p>
+</li>
+<li><p>JSX节点，必须有唯一的根元素进行包裹</p>
+</li>
+</ul>
+<blockquote>
+<p>在JavaScript的任何地方，都可以使用JSX语法 o.o</p>
+</blockquote>
+<h3 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h3><ul>
+<li><p>组件：用来实现特定功能效果的代码集合</p>
+</li>
+<li><p>创建方式</p>
+<blockquote>
+<p>小写开头的标签会被视为原生DOM标签</p>
+<p><strong>大写开头</strong>的标签会被视为<strong>组件</strong></p>
+</blockquote>
+<ol>
+<li><p><strong>函数组件</strong>：返回虚拟DOM元素（函数式组件）</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Hello</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello React<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line">&#125;</span><br><span class="line">React.render(<span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">        &#123;/* 下面两种写法一样 */&#125;</span></span><br><span class="line"><span class="xml">         &#123;Hello()&#125;</span></span><br><span class="line"><span class="xml">    	<span class="tag">&lt;<span class="name">Hello</span>&gt;</span><span class="tag">&lt;/<span class="name">Hello</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>, <span class="built_in">document</span>.getElementById(<span class="string">'app'</span>))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>语法简单，效率高</strong></li>
+<li>不具有生命周期</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<ol start="2">
+<li><p><strong>class组件</strong></p>
+<ul>
+<li>如果组件使用到<strong>状态</strong>，那么只能使用该方式创建组件</li>
+<li>拥有生命周期</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Welcome</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">component</span></span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">        <span class="keyword">super</span>(props);</span><br><span class="line">        <span class="comment">//将新增的方法强制绑定为this对象</span></span><br><span class="line">        <span class="keyword">this</span>.handleClick = <span class="keyword">this</span>.handleClick.bind(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    handleClick() &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'click'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">onClick</span>=<span class="string">&#123;this.handleClick&#125;</span>&gt;</span>Hello React<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ol>
+<pre><code>- 在类里，只有`constructor`和`render`中可以通过`this`拿到组件对象</code></pre><blockquote>
+<p>组件间通信：</p>
+<pre><code>1. 通过`props`传递（只能一层一层从父到子的传递）</code></pre><ol start="2">
+<li><p>发布订阅模式</p>
+<ol start="3">
+<li><p>redux</p>
+<p>从事件角度来讲：</p>
+<p>​    订阅就相当于绑定监听函数</p>
+<p>​    发布就相当于触发事件</p>
+</li>
+</ol>
+</li>
+</ol>
+</blockquote>
+<h3 id="props"><a href="#props" class="headerlink" title="props"></a>props</h3><ul>
+<li><p>构造函数接收的唯一参数<code>props</code>：  包含组件使用时接收的所有属性</p>
+</li>
+<li><p>指定属性默认值</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="xml">    	<span class="tag">&lt;<span class="name">li</span>&gt;</span>&#123;props.name&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>&#123;props.age&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>&#123;props.sex&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//指定属性默认值</span></span><br><span class="line">Person.defaultProps = &#123;</span><br><span class="line">    sex: <span class="string">'女'</span>,</span><br><span class="line">    age: <span class="string">'18'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可使用<code>...</code>直接传入数据，如<code>{...data}</code></p>
+</li>
+</ul>
+<h3 id="state"><a href="#state" class="headerlink" title="state"></a>state</h3><ul>
+<li>与 props 类似，但是 state 是<strong>私有</strong>的，并且<strong>完全受控于当前组件</strong>。 （相当于vue中的data）</li>
+<li>在<code>constructor</code>中为<code>state</code><strong>赋初值</strong></li>
+<li><code>this.setState(updater | Obejct, callback?)</code><strong>修改</strong>state</li>
+<li>updater:  参数为state 和 props<ul>
+<li>如果通过<code>this.state.xx = xx</code>修改，则不会触发视图的更新，需要主动调用<code>this.forceUpdate</code></li>
+<li>该方法是<strong>异步</strong>的，如果希望修改后执行某些操作，可以在其第二个参数中定义</li>
+</ul>
+</li>
+</ul>
+<h3 id="props与state"><a href="#props与state" class="headerlink" title="props与state"></a>props与state</h3><ul>
+<li>用途：props用于<strong>定义外部接口</strong>，state用于<strong>记录内部状态</strong> </li>
+<li>赋值： props的<strong>赋值</strong>在于<strong>外部</strong>世界使用组件，state的赋值在于组件<strong>内部</strong> </li>
+<li>是否可写： 组件不应该改变props的值，而state存在的目的就是让组件来修改的 </li>
+</ul>
+<blockquote>
+<p>没有 state 的组件叫无状态组件（stateless component），</p>
+<p>设置了 state 的叫做有状态组件（stateful component）。</p>
+<p>因为状态会带来管理的复杂性，我们尽量多地写<strong>无状态组件</strong>，尽量少地写有状态组件。</p>
+<p>这样会<strong>降低代码维护的难度(提高性能)</strong>，也会在一定程度上<strong>增强组件的可复用性</strong>。</p>
+<p><strong>函数式组件</strong>就只有props没有state，而react也非常鼓励我们编写函数式组件。</p>
+</blockquote>
+<ul>
+<li>默认props：<code>static defaultProps = {x: xx}</code></li>
+</ul>
+<h3 id="refs"><a href="#refs" class="headerlink" title="refs"></a>refs</h3><ul>
+<li>父组件调用子组件对象的方法：使用ref技术<ol>
+<li>父组件创建容器：<code>this.pw = React.creatRef()</code></li>
+<li>将容器交给子组件的ref属性上</li>
+<li>通过ref容器读取标签元素 <code>this.pw.current</code></li>
+</ol>
+</li>
+</ul>
+<h3 id="事件处理"><a href="#事件处理" class="headerlink" title="事件处理"></a>事件处理</h3><ul>
+<li><p>命名采用小驼峰：如<code>onClick</code></p>
+</li>
+<li><p>不能通过<code>return false</code>来阻止默认行为，必粗显式使用<code>e.preventDefault()</code></p>
+</li>
+<li><p>由于ES6中, class中的方法默认不会绑定<code>this</code>，需要在<code>constructor</code>中通过<code>bind</code>绑定<code>this</code></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>.handleClick = <span class="keyword">this</span>.handleClick.bind(<span class="keyword">this</span>);</span><br><span class="line">&#125;, </span><br><span class="line">render() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;this.handleClick&#125;</span>&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p> 当有参数时，不可以直接<code>onClick={this.xx(x)}</code>,否则会报<a href="https://www.it1352.com/1009356.html" target="_blank" rel="noopener">最大更新深度超出错误(ReactJS: Maximum update depth exceeded error)</a>，需用下面这种方式</p>
+</blockquote>
+<ul>
+<li>如果觉得麻烦，可以在标签回调/函数声明中使用箭头函数</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">handleSubmit = <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">    e.preventDefault();</span><br><span class="line">&#125;;</span><br><span class="line">&lt;button onClick=&#123;(e) =&gt; <span class="keyword">this</span>.handleClick(e)&#125;&gt; Click me &lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">&lt;button onClick=&#123;this.deleteRow.bind(this, id)&#125;&gt;Delete Row&lt;/</span>button&gt;</span><br><span class="line">&lt;button onClick=&#123;(e) =&gt; <span class="keyword">this</span>.handleClick(e, xx)&#125;&gt; Click me &lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">  &lt;!-- </span></span><br><span class="line"><span class="regexp">  	第一种情况：显式传递参数e</span></span><br><span class="line"><span class="regexp">  	第二种情况：事件对象作为第二(1+1)个参数被隐式传递</span></span><br><span class="line"><span class="regexp">·	第三种情况： 多参数</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">  --&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">### 条件渲染</span><br><span class="line"></span><br><span class="line">- `if`或者 条件运算符`xxx ? x : xx`  或 `switch`</span><br><span class="line"></span><br><span class="line">  ```jsx</span><br><span class="line">  //if写法</span><br><span class="line">  function Greeting(props) &#123;</span><br><span class="line">    const isLoggedIn = props.isLoggedIn;</span><br><span class="line">    if (isLoggedIn) &#123;</span><br><span class="line">      return &lt;UserGreeting /&gt;;</span><br><span class="line">    &#125;</span><br><span class="line">    return &lt;GuestGreeting /&gt;;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  ReactDOM.render(</span><br><span class="line">    &lt;Greeting isLoggedIn=&#123;false&#125; /&gt;,</span><br><span class="line">    document.getElementById(&apos;root&apos;)</span><br><span class="line">  );</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ? : 写法</span></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  isLogIn ? <span class="xml"><span class="tag">&lt;<span class="name">UserGreeting</span> /&gt;</span> : <span class="tag">&lt;<span class="name">GuestGreeting</span> /&gt;</span>,</span></span><br><span class="line"><span class="xml">  document.getElementById('root')</span></span><br><span class="line"><span class="xml">);</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>v-show</code></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div style=&#123;&#123;<span class="attr">display</span>: bool? <span class="string">'block'</span> : <span class="string">'none'</span>&#125;&#125;&gt;<span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h3 id="列表和key"><a href="#列表和key" class="headerlink" title="列表和key"></a>列表和key</h3><ul>
+<li><p><strong>循环/遍历</strong>：<code>Array.prototype.forEach()</code>函数 或     <code>for</code>  或 <code>for of</code> 等</p>
+</li>
+<li><p>映射：<code>Array.prototype.map()</code>函数</p>
+</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="string">'alan'</span>,<span class="string">'turing'</span>];</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">	&lt;ul&gt;&#123;arr.map(<span class="function">(<span class="params">ele</span>) =&gt;</span> <span class="xml"><span class="tag">&lt;<span class="name">li</span>&gt;</span>ele<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span>)&#125;&lt;<span class="regexp">/ul&gt;</span></span><br><span class="line"><span class="regexp">)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="组合和继承"><a href="#组合和继承" class="headerlink" title="组合和继承"></a>组合和继承</h3><ul>
+<li><p>子组件传递</p>
+<ul>
+<li><p><code>props.children</code> 表示组件的所有<strong>子节点</strong> </p>
+<ul>
+<li><p>无子节点：<code>undefined</code></p>
+</li>
+<li><p>一个子节点：<code>Object</code></p>
+</li>
+<li><p>多个子节点：<code>Array</code></p>
+<p> React 提供一个工具方法<code>React.Children.map(children, callback)</code>来遍历子节点，而不用担心 <code>props.children</code> 的数据类型。 </p>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">FancyBorder</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div className=&#123;<span class="string">'FancyBorder FancyBorder-'</span> + props.color&#125;&gt;</span><br><span class="line">      &#123;props.children&#125;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">WelcomeDialog</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;FancyBorder color=<span class="string">"blue"</span>&gt;</span><br><span class="line">      &lt;h1 className=<span class="string">"Dialog-title"</span>&gt;Welcome&lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp">      &lt;p className="Dialog-message"&gt;Thank you for visiting our space!&lt;/</span>p&gt;</span><br><span class="line">    &lt;<span class="regexp">/FancyBorder&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>显式结果</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">'FancyBorder FancyBorder-blue'</span>&gt;</span><br><span class="line">     &lt;h1 <span class="class"><span class="keyword">class</span></span>=<span class="string">"Dialog-title"</span>&gt;Welcome&lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp">     &lt;p class="Dialog-message"&gt;Thank you for visiting our space!&lt;/</span>p&gt;</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p><strong>插槽</strong>：将所需内容传入props，并使用响应的props</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SplitPane</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div className=<span class="string">"SplitPane"</span>&gt;</span><br><span class="line">      &lt;div className=<span class="string">"SplitPane-left"</span>&gt;</span><br><span class="line">        &#123;props.left&#125;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">      &lt;h1&gt; Hello React&lt;/</span>h1&gt;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">function App() &#123;</span></span><br><span class="line"><span class="regexp">  return (</span></span><br><span class="line"><span class="regexp">    &lt;SplitPane left=&#123;&lt;Contacts /</span>&gt;&#125;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<blockquote>
+<p> <code>&lt;Contacts /&gt;</code>之类的 React 元素本质就是<strong>对象</strong>（object），所以你可以把它们当作 props，像其他数据一样传递。这种方法可能使你想起别的库中“槽”（slot）的概念，但在 React 中没有“槽”这一概念的限制，你可以将任何东西作为 props 进行传递。 </p>
+</blockquote>
+<h3 id="获取真实DOM节点"><a href="#获取真实DOM节点" class="headerlink" title="获取真实DOM节点"></a>获取真实DOM节点</h3><ul>
+<li><code>this.refs.xx</code></li>
+</ul>
+<blockquote>
+<p>注：必在虚拟DOM插入文档后才能使用该属性</p>
+</blockquote>
+<h5 id="在react中渲染html代码"><a href="#在react中渲染html代码" class="headerlink" title="在react中渲染html代码"></a>在react中渲染html代码</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div dangerouslySetInnerHTML=&#123;&#123;<span class="attr">__html</span>: code&#125;&#125;&gt;<span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h2><p><a href="http://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/" target="_blank" rel="noopener">完整生命周期图谱</a></p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20191104194337150.png" alt="image-20191104194337150"></p>
+<h3 id="1-初始化"><a href="#1-初始化" class="headerlink" title="1. 初始化"></a>1. 初始化</h3><ol>
+<li><p><code>constructor</code>：设置组件的初始化状态</p>
+</li>
+<li><p><code>static getDerivedStateFromProps()</code></p>
+</li>
+<li><p><code>render</code></p>
+</li>
+<li><p><code>componentDidMount</code>：组件已经被<strong>渲染到页面</strong>中后触发</p>
+</li>
+</ol>
+<h3 id="2-运行中"><a href="#2-运行中" class="headerlink" title="2.运行中"></a>2.运行中</h3><ol>
+<li><p><code>static getDerivedStateFromProps()</code></p>
+</li>
+<li><p><code>shouldComponentUpdate(nextProps, nextState)</code></p>
+<p> 当 props 或 state 发生变化时 ， 会在渲染执行之前被调用。 </p>
+<p> 首次渲染或使用 <code>forceUpdate()</code> 时不会调用该方法。 </p>
+</li>
+<li><p><code>render()</code></p>
+</li>
+<li><p><code>getSnapshotBeforeUpdate()</code></p>
+</li>
+<li><p><code>componentDidUpdate</code></p>
+<p> 组件被更新完成后触发。页面中产生了新的DOM的元素，可以进行DOM操作 </p>
+</li>
+</ol>
+<h3 id="3-销毁阶段"><a href="#3-销毁阶段" class="headerlink" title="3.销毁阶段"></a>3.销毁阶段</h3><ol>
+<li><p><code>componentWillUnmount</code></p>
+<p> 组件被销毁时触发。这里我们可以进行一些清理操作，例如清理定时器，取消Redux的订阅事件等等。 </p>
+</li>
+</ol>
+<h3 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h3><ol>
+<li><code>static getDerivedStateFromError()</code></li>
+<li><code>componentDidCatch()</code></li>
+</ol>
+</div></article></div></main><footer><div class="paginator"><a href="/2019/11/01/其他/nginx/" class="prev">上一篇</a><a href="/2019/10/26/js框架/better-scroll/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2019/10/30/js框架/react/React/';
+var disqus_title = 'React基本感知';
+var disqus_url = 'https://turing5467.github.io/2019/10/30/js框架/react/React/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

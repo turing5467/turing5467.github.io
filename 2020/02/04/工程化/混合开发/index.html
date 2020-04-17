@@ -1,0 +1,32 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 混合开发 · 快乐的图小灵</title><meta name="description" content="混合开发 - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">混合开发</h1><div class="post-info">Feb 4, 2020</div><div class="post-content"><h3 id="基础步骤"><a href="#基础步骤" class="headerlink" title="基础步骤"></a>基础步骤</h3><ol>
+<li><p>安装Hbuilder-APP开发版本<a href="https://www.dcloud.io/hbuilderx.html" target="_blank" rel="noopener">链接</a></p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200204132006067.png" alt="image-20200204132006067"></p>
+</li>
+<li><p>文件 -&gt; 新建 -&gt; 项目 -&gt; uni-app</p>
+</li>
+</ol>
+<blockquote>
+<p> <code>uni-app</code> 是一个使用 <a href="https://vuejs.org/" target="_blank" rel="noopener">Vue.js</a> 开发所有前端应用的框架，开发者编写一套代码，可发布到iOS、Android、H5、以及各种小程序（微信/支付宝/百度/头条/QQ/钉钉）等多个平台。 </p>
+</blockquote>
+<ol start="3">
+<li>运行<a href="https://uniapp.dcloud.io/quickstart" target="_blank" rel="noopener">链接</a></li>
+</ol>
+<h3 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h3><h4 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">┌─components            uni-app组件目录</span><br><span class="line">│  └─comp-a.vue         可复用的a组件</span><br><span class="line"></span><br><span class="line">├─pages                 存放业务页面文件</span><br><span class="line">│  ├─index</span><br><span class="line">│  │  └─index.vue       index页面</span><br><span class="line">│  └─list</span><br><span class="line">│     └─list.vue        list页面</span><br><span class="line"></span><br><span class="line">├─static                存放应用引用静态资源的目录</span><br><span class="line"></span><br><span class="line">├─main.js               Vue初始化入口文件</span><br><span class="line">├─App.vue               应用配置，用来配置App全局样式以及监听 应用生命周期</span><br><span class="line">├─manifest.json         配置应用名称、appid、logo、版本等打包信息</span><br><span class="line">└─pages.json            配置页面路由、导航条、选项卡等页面类信息</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>wxcomponents：存放小程序组件的目录，<a href="https://uniapp.dcloud.io/frame?id=小程序组件支持" target="_blank" rel="noopener">详见</a> </p>
+</li>
+<li><p>hybrid：存放本地网页的目录，<a href="https://uniapp.dcloud.io/component/web-view" target="_blank" rel="noopener">详见</a> </p>
+</li>
+<li><p>platforms ：存放各平台专用页面的目录，<a href="https://uniapp.dcloud.io/platform?id=整体目录条件编译" target="_blank" rel="noopener">详见</a> </p>
+</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2020/03/09/js框架/react/bug/" class="prev">上一篇</a><a href="/2020/01/14/面试/浏览器/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2020/02/04/工程化/混合开发/';
+var disqus_title = '混合开发';
+var disqus_url = 'https://turing5467.github.io/2020/02/04/工程化/混合开发/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

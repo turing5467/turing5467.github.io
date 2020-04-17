@@ -1,0 +1,169 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>  · 快乐的图小灵</title><meta name="description" content=" - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title"></h1><div class="post-info">Dec 19, 2019</div><div class="post-content"><ol>
+<li><p>浏览器内核</p>
+<ul>
+<li>IE:  <strong>trident</strong>（新版已改用chrome的Blink内核）</li>
+<li>Firefox：<strong>gecko</strong> 内核 </li>
+<li>Safari：<strong>webkit</strong> 内核 </li>
+<li>Opera：以前是 <strong>presto</strong> 内核，现已改用 Chrome 的 <strong>Blink</strong> 内核 </li>
+<li>Chrome：<strong>Blink</strong> (基于 webkit，Google 与 Opera Software 共同开发)</li>
+</ul>
+</li>
+</ol>
+<ol start="2">
+<li><p>DocType是干什么的</p>
+<p> <code>&lt;!DOCTYPE&gt;</code>用于告知浏览器使用哪种HTML或XHTML<strong>规范</strong>来渲染文档</p>
+</li>
+</ol>
+<ol start="3">
+<li><p><strong>移动端布局</strong></p>
+<ol>
+<li></li>
+</ol>
+</li>
+</ol>
+<ol start="4">
+<li><p>渐进增强和优雅降级</p>
+<p><strong>渐进增强</strong>：针对低版本浏览器进行构建页面，保证最基本的功能，然后再针对高级浏览器进行效果、交互等改进和追加功能达到更好的用户体验。</p>
+<p><strong>优雅降级</strong>：一开始就构建完整的功能，然后再针对低版本浏览器进行兼容</p>
+</li>
+</ol>
+<ol start="5">
+<li><p><strong>src</strong>与<strong>href</strong>的区别</p>
+<ul>
+<li>src：指向外部资源的位置，用于替换当前元素<ul>
+<li>当浏览器解析到该元素时，会<strong>暂停</strong>其他资源的下载和处理，直到将该资源加载、编译、执行完毕</li>
+</ul>
+</li>
+<li>href：用于在当前文档和引用资源之间确立联系<ul>
+<li>当浏览器解析到该元素时，会<strong>并行</strong>下载资源并且不会停止对当前文档的处理</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<ol start="6">
+<li></li>
+<li>rgba和opacity的透明效果<ul>
+<li>rgba：只作用于元素的颜色或背景色</li>
+<li>opacity：作用于元素，以及元素内所有内容的透明度</li>
+</ul>
+</li>
+</ol>
+<ol start="8">
+<li><p>Sass和Less</p>
+<p>他们是CSS预处理器。是CSS上的一种抽象层，通过一种特殊的语法编译成CSS</p>
+<p>理由：</p>
+<pre><code>1. 结构清晰，便于扩展
+2. 轻松实现多重继承</code></pre></li>
+</ol>
+<ol start="9">
+<li><p>为什么要初始化样式？</p>
+<p>由于浏览器兼容的问题，不同的浏览器对标签的默认样式值不同，若不初始化则会造成不同浏览器之间的显示差异</p>
+</li>
+</ol>
+<ol start="10">
+<li><p><strong>BFC</strong>是什么</p>
+<ul>
+<li><p>BFC：块级格式化上下文</p>
+<p>​    它是一个独立的渲染区域，该区域内所有元素的布局不会影响到区域外部元素的布局，这个渲染区域只对<strong>块级元素</strong>起作用</p>
+</li>
+<li><p>布局规则</p>
+<ul>
+<li>属于同一BFC的的两个相邻box的垂直方向上的margin会发生重叠 </li>
+<li>BFC区域不会与浮动的元素重叠</li>
+<li>计算BFC高度时,浮动元素也参与计算 </li>
+</ul>
+</li>
+<li><p>如何开启BFC</p>
+<ul>
+<li><code>float: left/right</code></li>
+<li><code>position: absolute/fixed</code></li>
+<li><code>display: inline-block/table-cell/flex/inline-flex</code></li>
+<li><code>overflow: hidden/auto/scroll</code><ul>
+<li>ie6: <code>zoom: 1</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>应用</p>
+<ul>
+<li><p>自适应两栏布局（2）</p>
+</li>
+<li><p>清除内部浮动（3）</p>
+</li>
+<li><p>防止垂直margin重叠 （1）</p>
+<blockquote>
+<p>折叠结果遵循下列计算规则： </p>
+<ol>
+<li><p>两个相邻的外边距都是正数时，折叠结果是它们两者之间<strong>较大的值</strong>。 </p>
+</li>
+<li><p>两个相邻的外边距都是负数时，折叠结果是两者<strong>绝对值的较大值</strong>。 </p>
+</li>
+<li><p>两个外边距一正一负时，折叠结果是两者的<strong>相加的和</strong>。 </p>
+</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>HTML常见兼容性问题</p>
+<ol>
+<li><p>双边距 BUG float 引起的 使用 display </p>
+</li>
+<li><p>3 像素问题 使用 float 引起的 使用 dislpay:inline -3px  </p>
+</li>
+<li><p>超链接 hover 点击后失效 使用正确的书写顺序 link visited hover active </p>
+</li>
+<li><p>Ie z-index 问题 给父级添加 position:relative </p>
+</li>
+<li><p>Png 透明 使用 js 代码 改 </p>
+</li>
+<li><p>Min-height 最小高度 ！Important 解决’ </p>
+</li>
+<li><p>select 在 ie6 下遮盖 使用 iframe 嵌套 </p>
+</li>
+<li><p>为 什 么 没 有 办 法 定 义 1px 左 右 的 宽 度 容 器 （ IE6 默 认 的 行 高 造 成 的 ， 使 用 </p>
+</li>
+</ol>
+<p>over:hidden,zoom:0.08 line-height:1px） </p>
+<ol start="9">
+<li><p>IE5-8 不支持 opacity，解决办法： </p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.opacity</span> &#123; </span><br><span class="line"> <span class="attribute">opacity</span>: <span class="number">0.4</span> </span><br><span class="line"> filter: <span class="built_in">alpha</span>(opacity=60); <span class="comment">/* for IE5-7 */</span> </span><br><span class="line"> <span class="attribute">-ms-filter</span>: <span class="string">"progid:DXImageTransform.Microsoft.Alpha(Opacity=60)"</span>; <span class="comment">/* for IE8*/</span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>IE6 不支持 PNG 透明背景，解决办法: IE6 下使用 gif 图片</p>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="纯CSS面试题"><a href="#纯CSS面试题" class="headerlink" title="纯CSS面试题"></a>纯CSS面试题</h3><ol>
+<li>单行和多行文本溢出</li>
+</ol>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">//单行文本溢出...</span><br><span class="line"><span class="selector-class">.inoneline</span>&#123;</span><br><span class="line">    <span class="attribute">overflow</span>: hidden ;</span><br><span class="line">    <span class="attribute">white-space</span>: nowrap;</span><br><span class="line">    <span class="attribute">text-overflow</span>: ellipsis;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//多行文本溢出</span><br><span class="line"><span class="selector-class">.intwoline</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: -webkit-box <span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">overfLow</span>: hidden;</span><br><span class="line">    <span class="attribute">text-overflow</span>: ellipsis;</span><br><span class="line">    <span class="attribute">word-break</span>: break-all;</span><br><span class="line">    <span class="attribute">-webkit-box-orient</span>: vertical;</span><br><span class="line">    -webkit-line clamp: 2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>居中问题（参考文章：）</li>
+</ol>
+<h3 id="知识盲区"><a href="#知识盲区" class="headerlink" title="知识盲区"></a>知识盲区</h3><p><strong>1、为什么利用多个域名来存储网站资源会更有效？</strong>  </p>
+<p>​    CDN 缓存更方便 </p>
+<p>​    突破浏览器并发限制 </p>
+<p>​    节约 cookie 带宽 </p>
+<p>​    节约主域名的连接数，优化页面响应速度 </p>
+<p>​    防止不必要的安全问题</p>
+<p><strong>2、知道的网页制作会用到的图片格式有哪些？</strong>  </p>
+<p>png-8，png-24，jpeg，gif，svg。 </p>
+<p>但是上面的那些都不是面试官想要的最后答案。面试官希望听到是 Webp。（是否有关注新 </p>
+<p>技术，新鲜事物）科普一下 Webp：WebP 格式，谷歌（google）开发的一种旨在加快图片加载速度的图片格式。 </p>
+<p>图片压缩体积大约只有 JPEG 的 2/3，并能节省大量的服务器带宽资源和数据空间。Facebook  </p>
+<p>Ebay 等知名网站已经开始测试并使用 WebP 格式。 </p>
+<p>在质量相同的情况下，WebP 格式图像的体积要比 JPEG 格式图像小 40% </p>
+</div></article></div></main><footer><div class="paginator"><a href="/2019/12/24/面试/js/" class="prev">上一篇</a><a href="/2019/12/10/js框架/微信小程序/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2019/12/19/面试/HTML-CSS/';
+var disqus_title = '';
+var disqus_url = 'https://turing5467.github.io/2019/12/19/面试/HTML-CSS/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

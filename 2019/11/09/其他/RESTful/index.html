@@ -1,0 +1,61 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> RESTful API 最佳实践 · 快乐的图小灵</title><meta name="description" content="RESTful API 最佳实践 - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">RESTful API 最佳实践</h1><div class="post-info">Nov 9, 2019</div><div class="post-content"><h2 id="URL设计"><a href="#URL设计" class="headerlink" title="URL设计"></a>URL设计</h2><ul>
+<li><p>核心思想： 客户端发出的数据操作指令都是”<strong>动词 + 宾语</strong>“的结构。如<code>GET/articles</code> </p>
+</li>
+<li><p>动词：一律大写</p>
+<ol>
+<li>GET：读取</li>
+<li>POST：新建</li>
+<li>PUT：更新</li>
+<li>PATCH：部分更新</li>
+<li>DELETE：删除</li>
+</ol>
+</li>
+<li><p>避免多级URL，使用查询字符串替代。如<code>GET /authors/12?categories=2</code></p>
+</li>
+</ul>
+<h2 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h2><ul>
+<li>状态码必须精确</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">- </span>1xx：相关信息</span><br><span class="line"><span class="bullet">- </span>2xx：操作成功</span><br><span class="line"><span class="bullet">- </span>3xx：重定向</span><br><span class="line"><span class="bullet">- </span>4xx：客户端错误</span><br><span class="line"><span class="bullet">- </span>5xx：服务器错误</span><br></pre></td></tr></table></figure>
+
+<h3 id="2xx状态码"><a href="#2xx状态码" class="headerlink" title="2xx状态码"></a>2xx状态码</h3><ul>
+<li><code>200</code>状态码表示操作成功，但是不同的方法可以返回更精确的状态码。 </li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">- </span>GET: 200 OK</span><br><span class="line"><span class="bullet">- </span>POST: 201 Created</span><br><span class="line"><span class="bullet">- </span>PUT: 200 OK</span><br><span class="line"><span class="bullet">- </span>PATCH: 200 OK</span><br><span class="line"><span class="bullet">- </span>DELETE: 204 No Content</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>POST返回201状态码，表示生成了新资源</p>
+</li>
+<li><p>DELETE返回204状态码，表示资源已经不存在</p>
+</li>
+<li><p>此外，<code>202 Accepted</code>状态码表示服务器已经收到请求，但还未进行处理，会在未来再处理 ，通常用于异步操作</p>
+</li>
+</ul>
+<h3 id="3xx状态码"><a href="#3xx状态码" class="headerlink" title="3xx状态码"></a>3xx状态码</h3><h3 id="4xx状态码"><a href="#4xx状态码" class="headerlink" title="4xx状态码"></a>4xx状态码</h3><p><code>400 Bad Request</code>：服务器<strong>不理解</strong>客户端的请求，未做任何处理。</p>
+<p><code>401 Unauthorized</code>：用户未提供<strong>身份验证凭据</strong>，或者没有通过身份验证。</p>
+<p><code>403 Forbidden</code>：用户通过了身份验证，但是不具有访问资源所需的<strong>权限</strong>。</p>
+<p><code>404 Not Found</code>：所请求<strong>资源不存在</strong>，或不可用。</p>
+<p><code>405 Method Not Allowed</code>：用户已经通过身份验证，但是所用的 HTTP 方法不在他的权限之内。</p>
+<p><code>410 Gone</code>：所请求<strong>资源已转移</strong>，不再可用。</p>
+<p><code>415 Unsupported Media Type</code>：客户端要求的<strong>返回格式不支持</strong>。比如，API 只能返回 JSON 格式，但是客户端要求返回 XML 格式。</p>
+<p><code>422 Unprocessable Entity</code> ：客户端上传的<strong>附件无法处理</strong>，导致请求失败。</p>
+<p><code>429 Too Many Requests</code>：客户端的<strong>请求次数超过限额</strong>。</p>
+<h3 id="5xx状态码"><a href="#5xx状态码" class="headerlink" title="5xx状态码"></a>5xx状态码</h3><p><code>500 Internal Server Error</code>：客户端请求有效，服务器处理时发生了意外。</p>
+<p><code>503 Service Unavailable</code>：服务器无法处理请求，一般用于网站维护状态。</p>
+<h2 id="服务器回应"><a href="#服务器回应" class="headerlink" title="服务器回应"></a>服务器回应</h2><h3 id="不要返回纯文本"><a href="#不要返回纯文本" class="headerlink" title="不要返回纯文本"></a>不要返回纯文本</h3><ul>
+<li><p>API 返回的数据格式，不应该是纯文本，而应该是一个 JSON 对象，因为这样才能返回标准的结构化数据。</p>
+</li>
+<li><p>所以，服务器回应的 HTTP 头的<code>Content-Type</code>属性要设为<code>application/json</code>。</p>
+</li>
+<li><p>客户端请求时，请求的 HTTP 头的<code>ACCEPT</code>属性也要设成<code>application/json</code>。</p>
+</li>
+</ul>
+<h3 id="发送错误时，不要返回200状态码"><a href="#发送错误时，不要返回200状态码" class="headerlink" title="发送错误时，不要返回200状态码"></a>发送错误时，不要返回200状态码</h3></div></article></div></main><footer><div class="paginator"><a href="/2019/11/11/其他/styled-components/" class="prev">上一篇</a><a href="/2019/11/08/js框架/react/React项目实践/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2019/11/09/其他/RESTful/';
+var disqus_title = 'RESTful API 最佳实践';
+var disqus_url = 'https://turing5467.github.io/2019/11/09/其他/RESTful/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

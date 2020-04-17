@@ -1,0 +1,118 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>  · 快乐的图小灵</title><meta name="description" content=" - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title"></h1><div class="post-info">Oct 16, 2019</div><div class="post-content"><h2 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h2><blockquote>
+<p>一个项目中只需要一个<code>new Vue()</code>，作为根容器，上面挂载着许多组件</p>
+</blockquote>
+<ul>
+<li><p><code>Vue.component(id, [definition])</code> 全局注册组件</p>
+</li>
+<li><p><code>id</code>组件名</p>
+<ul>
+<li>短横线分隔命名：模板引用时也只能时<code>xx-xx</code></li>
+<li>首字母大写命名：模板引用时两种方式均可,但在DOM中只能使用<code>xx-xx</code><ul>
+<li>因此建议移植使用短横线分隔命名</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>definition</code>可接受选项同<code>new Vue()</code>，除了<code>el</code></p>
+<ol>
+<li><code>data</code>必须是一个<strong>函数</strong><ul>
+<li>因为这样每个实例的<code>data</code>属性都拥有独立的<strong>函数作用域</strong>，每个组件之间互不影响</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1. 定义一个名为 tr5467 的新组件</span></span><br><span class="line">Vue.component(<span class="string">'tr5467'</span>, &#123;</span><br><span class="line">    <span class="comment">// M层</span></span><br><span class="line">    data: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            title: <span class="string">'Hello Component'</span>,</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// V层</span></span><br><span class="line">    template: <span class="string">'&lt;button&gt;&#123;&#123;title&#125;&#125;&lt;/button&gt;'</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//2. 在Vue实例中，将该组件作为自定义标签来使用</span></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el: <span class="string">'#component'</span>,</span><br><span class="line">    template: <span class="string">`&lt;div&gt;</span></span><br><span class="line"><span class="string">        		   &lt;tr5467&gt;&lt;/tr5467&gt;</span></span><br><span class="line"><span class="string">        	   &lt;/div&gt;`</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>局部注册<code>components</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义组件，该对象选项与Vue.component的第二个参数一致</span></span><br><span class="line"><span class="keyword">var</span> ComponentA = &#123; <span class="comment">/* ... */</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用组件</span></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  components: &#123;</span><br><span class="line">    <span class="string">'component-a'</span>: ComponentA</span><br><span class="line">  &#125;,</span><br><span class="line">  template: <span class="string">`&lt;div id="component"&gt;</span></span><br><span class="line"><span class="string">        &lt;component-a&gt;&lt;/component-a&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;`</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="内置组件"><a href="#内置组件" class="headerlink" title="内置组件"></a>内置组件</h2><ul>
+<li><code>component</code> + <code>keep-alive</code></li>
+<li><code>transition</code> + <code>transition-group</code></li>
+<li><code>slot</code></li>
+</ul>
+<h2 id="组件通信"><a href="#组件通信" class="headerlink" title="组件通信"></a>组件通信</h2><ul>
+<li>子组件：注册一个组件的时候引用了另一个组件</li>
+<li>父组件：使用到组件的Vue实例</li>
+</ul>
+<h3 id="父传子"><a href="#父传子" class="headerlink" title="父传子"></a>父传子</h3><ul>
+<li><p><code>props</code>是你可以在组件上<strong>注册</strong>的一些自定义特性</p>
+</li>
+<li><p>在模板中，我们可以访问<code>props</code>中的值，如同<code>author</code></p>
+</li>
+<li><p>将数据传递进组件</p>
+<blockquote>
+<p>子组件只能在<strong>模板/HTML代码</strong>中使用到<code>props</code>中的变量，在js代码中无法使用，会报错</p>
+</blockquote>
+<ol>
+<li>传递静态<code>prop</code>：<code>&lt;com title=&quot;turing&#39;s mystery&quot;&gt;&lt;/com&gt;</code></li>
+<li>传递动态<code>prop</code>：<code>v-bind</code></li>
+</ol>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//注册组件</span></span><br><span class="line">Vue.component(<span class="string">'alan-turing'</span>,&#123;</span><br><span class="line">    <span class="comment">//data省略</span></span><br><span class="line">    <span class="comment">//注册组件的自定义特性</span></span><br><span class="line">    props: [<span class="string">'author'</span>],</span><br><span class="line">    template: <span class="string">'&lt;p @click="count++"&gt;&#123;&#123;author&#125;&#125; : &#123;&#123;count&#125;&#125;&lt;/p&gt;'</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用组件</span></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el: <span class="string">'#component'</span>,</span><br><span class="line">    <span class="comment">//通过data向组件传递数据</span></span><br><span class="line">    data: &#123;</span><br><span class="line">        author: <span class="string">'turing'</span></span><br><span class="line">    &#125;</span><br><span class="line">    template: <span class="string">`&lt;div id="component"&gt;</span></span><br><span class="line"><span class="string">					&lt;alan-turing :author="author"&gt;&lt;/alan-turing&gt;</span></span><br><span class="line"><span class="string">			   &lt;/div&gt;`</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>prop</code>验证</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">props: &#123;</span><br><span class="line">    <span class="comment">// 基础的类型检查 (`null` 和 `undefined` 会通过任何类型验证)</span></span><br><span class="line">    propA: <span class="built_in">Number</span>,</span><br><span class="line">    <span class="comment">// 多个可能的类型</span></span><br><span class="line">    propB: [<span class="built_in">String</span>, <span class="built_in">Number</span>],</span><br><span class="line">    <span class="comment">// 必填的字符串</span></span><br><span class="line">    propC: &#123;</span><br><span class="line">      type: <span class="built_in">String</span>,</span><br><span class="line">      required: <span class="literal">true</span>  <span class="comment">//default</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 自定义验证函数</span></span><br><span class="line">    propF: &#123;</span><br><span class="line">      validator: <span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 这个值必须匹配下列字符串中的一个</span></span><br><span class="line">        <span class="keyword">return</span> [<span class="string">'success'</span>, <span class="string">'warning'</span>, <span class="string">'danger'</span>].indexOf(value) !== <span class="number">-1</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h3 id="子传父"><a href="#子传父" class="headerlink" title="子传父"></a>子传父</h3><blockquote>
+<p>原理：<strong>观察者模式</strong></p>
+</blockquote>
+<ol>
+<li>子组件：通过<code>this.$emit(&#39;xxxx&#39;，[data])</code> 触发父组件的自定义事件，并将数据作为参数传递给父组件</li>
+<li>父组件：通过``v-bind:on`为子组件标签 绑定事件，接收子组件传来的数据</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Parent.vue</span></span><br><span class="line"><span class="comment">//在父子组件的衔接处，为子组件绑定xx事件，定义回调，接收子组件传来的数据</span></span><br><span class="line">&lt;Child @xx=<span class="string">"doSomething"</span>/&gt;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"><span class="comment">// Child.vue</span></span><br><span class="line">mounted() &#123;</span><br><span class="line">  <span class="keyword">this</span>.$emit(<span class="string">"xx"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="插槽"><a href="#插槽" class="headerlink" title="插槽"></a>插槽</h3><ul>
+<li><p>插槽：可以向组件标签内部写入内容的</p>
+</li>
+<li><p>通过在组件中添加<code>slot</code>标签，可以选择向组件中 传递/不传递/传递什么 内容/组件</p>
+</li>
+<li><p>通过插槽可以定义组件的不同<strong>状态</strong></p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(<span class="string">'alert-box'</span>, &#123;</span><br><span class="line">    template: <span class="string">`</span></span><br><span class="line"><span class="string">        &lt;div class="demo-alert-box"&gt;</span></span><br><span class="line"><span class="string">            &lt;strong&gt;Error!&lt;/strong&gt;</span></span><br><span class="line"><span class="string">            &lt;slot&gt;&lt;/slot&gt;</span></span><br><span class="line"><span class="string">        &lt;/div&gt;</span></span><br><span class="line"><span class="string">        `</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el: <span class="string">'#app'</span>,</span><br><span class="line">    template: <span class="string">`</span></span><br><span class="line"><span class="string">		&lt;div id="app"&gt;</span></span><br><span class="line"><span class="string">            &lt;alert-box&gt;Something bad happened.&lt;/alert-box&gt;</span></span><br><span class="line"><span class="string">        &lt;/div&gt;`</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>具名插槽：<code>v-slot</code>指令，缩写<code>#</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(<span class="string">'named-slot'</span>, &#123;</span><br><span class="line">    <span class="comment">//name属性与下方的v-slot相对应</span></span><br><span class="line">    template: <span class="string">`</span></span><br><span class="line"><span class="string">        &lt;div&gt;</span></span><br><span class="line"><span class="string">            &lt;header&gt;</span></span><br><span class="line"><span class="string">            	&lt;slot name="header"&gt;&lt;/slot&gt;</span></span><br><span class="line"><span class="string">            &lt;/header&gt;</span></span><br><span class="line"><span class="string">            &lt;main&gt;</span></span><br><span class="line"><span class="string">            	&lt;slot name="main"&gt;&lt;/slot&gt;</span></span><br><span class="line"><span class="string">            &lt;/main&gt;</span></span><br><span class="line"><span class="string">            &lt;footer&gt;</span></span><br><span class="line"><span class="string">            	&lt;slot name="footer"&gt;&lt;/slot&gt;</span></span><br><span class="line"><span class="string">            &lt;/footer&gt;</span></span><br><span class="line"><span class="string">        &lt;/div&gt;</span></span><br><span class="line"><span class="string">        `</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el: <span class="string">'#app'</span>,</span><br><span class="line">    template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;div id="app"&gt;</span></span><br><span class="line"><span class="string">        &lt;named-slot&gt;</span></span><br><span class="line"><span class="string">            &lt;template v-slot:header&gt;</span></span><br><span class="line"><span class="string">            	&lt;h1&gt;Here might be a page title&lt;/h1&gt;</span></span><br><span class="line"><span class="string">            &lt;/template&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">            &lt;template v-slot:main&gt;</span></span><br><span class="line"><span class="string">            	&lt;p&gt;A paragraph for the main content.&lt;/p&gt;</span></span><br><span class="line"><span class="string">            	&lt;p&gt;And another one.&lt;/p&gt; </span></span><br><span class="line"><span class="string">            &lt;/template&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">            &lt;template v-slot:footer&gt;</span></span><br><span class="line"><span class="string">            	&lt;p&gt;Here's some contact info&lt;/p&gt;</span></span><br><span class="line"><span class="string">            &lt;/template&gt;</span></span><br><span class="line"><span class="string">        &lt;/named-slot&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;</span></span><br><span class="line"><span class="string">`</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h3 id="动态组件"><a href="#动态组件" class="headerlink" title="动态组件"></a>动态组件</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//通过Vue自带的component元素，给其加一个特殊的is特性</span><br><span class="line"><span class="tag">&lt;<span class="name">component</span> <span class="attr">:is</span>=<span class="string">"当前显示组件id"</span>&gt;</span><span class="tag">&lt;/<span class="name">component</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>当在这些组件之间切换的时候，你有时会想保持这些组件的状态，以避免反复重渲染导致的性能问题。</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 失活的组件将会被缓存！--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">keep-alive</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">component</span> <span class="attr">v-bind:is</span>=<span class="string">"currentTabComponent"</span>&gt;</span><span class="tag">&lt;/<span class="name">component</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">keep-alive</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>缺点：</p>
+<ol>
+<li>组件被缓存，内存消耗大</li>
+</ol>
+</li>
+<li><p>优点：</p>
+</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2019/10/18/js框架/vue/Vue_3_生命周期/" class="prev">上一篇</a><a href="/2019/10/15/js框架/vue/Vue_1_基础/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2019/10/16/js框架/vue/Vue_2_组件/';
+var disqus_title = '';
+var disqus_url = 'https://turing5467.github.io/2019/10/16/js框架/vue/Vue_2_组件/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

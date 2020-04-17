@@ -1,9 +1,9 @@
-<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> js开发技巧 · 图小灵</title><meta name="description" content="js开发技巧 - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="/tags/" target="_self" class="nav-list-link">标签</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">js开发技巧</h1><div class="post-info">Aug 11, 2019</div><div class="post-content"><h3 id="字符串技巧"><a href="#字符串技巧" class="headerlink" title="字符串技巧"></a>字符串技巧</h3><ul>
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> js开发技巧 · 快乐的图小灵</title><meta name="description" content="js开发技巧 - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">js开发技巧</h1><div class="post-info">Aug 11, 2019</div><div class="post-content"><h3 id="字符串技巧"><a href="#字符串技巧" class="headerlink" title="字符串技巧"></a>字符串技巧</h3><ul>
 <li><p>对比时间</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> time1 = <span class="string">"2019-02-14 21:00:00"</span>;</span><br><span class="line"><span class="keyword">const</span> time2 = <span class="string">"2019-05-01 09:00:00"</span>;</span><br><span class="line"><span class="keyword">const</span> overtime = time1 &gt; time2;  <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> time1 = <span class="string">"2019-02-14 21:00:00"</span>;<span class="comment">//注意补零</span></span><br><span class="line"><span class="keyword">const</span> time2 = <span class="string">"2019-05-01 09:00:00"</span>;</span><br><span class="line"><span class="keyword">const</span> overtime = time1 &gt; time2;  <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>格式化金钱</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ThousandNumFn = <span class="function">(<span class="params">num</span>) =&gt;</span> num.toString().replace(<span class="regexp">/\B(?=(\d&#123;3&#125;)+(?!\d))/g</span>, <span class="string">","</span>);</span><br><span class="line">ThousandNumFn(<span class="number">20190214</span>)   <span class="comment">//20,190,214</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ThousandNumFn = <span class="function">(<span class="params">num</span>) =&gt;</span> num.toString().replace(<span class="regexp">/(?=(\d&#123;3&#125;)+(?!\d))/g</span>, <span class="string">","</span>);</span><br><span class="line">ThousandNumFn(<span class="number">20190214</span>)   <span class="comment">//20,190,214</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>生成随机id</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> RandomIdFn = <span class="function">(<span class="params">len</span>) =&gt;</span> <span class="built_in">Math</span>.random().toString(<span class="number">36</span>).substr(<span class="number">3</span>, len);</span><br></pre></td></tr></table></figure>
@@ -25,7 +25,7 @@
 </li>
 </ul>
 <h3 id="数字技巧"><a href="#数字技巧" class="headerlink" title="数字技巧"></a>数字技巧</h3><ul>
-<li><p>取整(正数向下取整，负数向上取整)：<code>~~num</code></p>
+<li><p>取整(正数向下取整，负数向上取整)：<code>~~num</code>、<code>num | 0</code></p>
 </li>
 <li><p>时间戳</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> timestamp = + <span class="keyword">new</span> <span class="built_in">Date</span>();</span><br></pre></td></tr></table></figure>
@@ -36,6 +36,21 @@
 <li><p>判断奇偶<code>num &amp; 1</code></p>
 </li>
 <li><p>取最大最小<code>Math.min/max(...arr)</code></p>
+</li>
+<li><p>不同进制表示：</p>
+<ol>
+<li>二进制：<code>ob11101</code></li>
+<li>八进制：<code>035</code>或<code>0o355</code>(ES6)</li>
+<li>十六进制：<code>0x1d</code></li>
+</ol>
+</li>
+<li><p>补0</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//利用slice可以传入负数(表示倒数第几个)的特性</span></span><br><span class="line"><span class="keyword">const</span> addZero1 = <span class="function">(<span class="params">num, len = <span class="number">2</span></span>) =&gt;</span> (<span class="string">`0<span class="subst">$&#123;num&#125;</span>`</span>).slice(-len)</span><br><span class="line"><span class="keyword">const</span> addZero2 = <span class="function">(<span class="params">num, len = <span class="number">2</span></span>) =&gt;</span> (<span class="string">`<span class="subst">$&#123;num&#125;</span>`</span>).padStart( len , <span class="string">'0'</span>) <span class="comment">//ES6</span></span><br><span class="line">addZero1(<span class="number">3</span>) <span class="comment">// 03</span></span><br><span class="line">addZero2(<span class="number">32</span>,<span class="number">4</span>) <span class="comment">// 0032</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
 </li>
 </ul>
 <h3 id="数组技巧"><a href="#数组技巧" class="headerlink" title="数组技巧"></a>数组技巧</h3><ul>
@@ -53,14 +68,14 @@
 <li><p>清空/截断数组</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">arr.length = <span class="number">0</span>;  <span class="comment">//清空</span></span><br><span class="line">arr.length = <span class="number">3</span>;  <span class="comment">//截断</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>过滤空值</p>
+<li><p>过滤假值</p>
 <blockquote>
 <p>空值：undefined、null、””、0、false、NaN</p>
 </blockquote>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> filterFalse = <span class="function">(<span class="params">arr</span>) =&gt;</span> arr.filter(<span class="built_in">Boolean</span>);</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>数组扁平化</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">flatten</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> [].concat(...arr.map(</span><br><span class="line">        x =&gt; <span class="built_in">Array</span>.isArray(x) ? flatten(x) : x)</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">flatten</span>(<span class="params">arr, depth=false</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(depth === <span class="number">0</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> arr;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//默认完全扁平化</span></span><br><span class="line">    <span class="keyword">return</span> depth === <span class="literal">false</span>?</span><br><span class="line">	arr.reduce(<span class="function">(<span class="params">a,v</span>) =&gt;</span> a.concat(<span class="built_in">Array</span>.isArray(v) ? flatten(v) : v), []):</span><br><span class="line">	arr.reduce(<span class="function">(<span class="params">a,v</span>) =&gt;</span> a.concat(<span class="built_in">Array</span>.isArray(v) ? flatten(v, depth<span class="number">-1</span>) : v), [])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>创建指定长度且值相等的数组</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> createArr = <span class="function">(<span class="params">len, val</span>) =&gt;</span> <span class="keyword">new</span> <span class="built_in">Array</span>(len).fill(val)</span><br></pre></td></tr></table></figure>
@@ -74,6 +89,13 @@
 </li>
 <li><p>将两个有序数组合并为一个排好序的大数组</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mergeAry</span>(<span class="params">left = [], right = []</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> result = [];</span><br><span class="line">    <span class="keyword">while</span> (left.length &amp;&amp; right.length) &#123;</span><br><span class="line">        result.push(left[<span class="number">0</span>] &lt;= right[<span class="number">0</span>] ? left.shift() : right.shift());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result.concat(left, right);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//缺点：会改变left如right数组的内容</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用reduce来代替map和filter</p>
+</li>
+<li><p>交换位置</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.prototype.swap = <span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">    arr[b] = <span class="keyword">this</span>.splice(a, <span class="number">1</span>, <span class="keyword">this</span>[b])[<span class="number">0</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
 
 
 
@@ -99,10 +121,22 @@
 <ul>
 <li><p><code>switch</code>、<code>case</code>使用区间</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span>(<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="keyword">case</span> xx: </span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    <span class="keyword">case</span> xxx: </span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>强制参数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mandatory = <span class="function"><span class="params">( )</span> =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Missing parameter!'</span>);</span><br><span class="line">&#125;</span><br><span class="line">foo = <span class="function">(<span class="params">bar = mandatory( </span>)) =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> bar;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>表单验证</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> schema = &#123;</span><br><span class="line">	first: &#123;</span><br><span class="line">		required:<span class="literal">true</span></span><br><span class="line">	&#125;,</span><br><span class="line">	last: &#123;</span><br><span class="line">		required:<span class="literal">true</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// universal validation function</span></span><br><span class="line"><span class="keyword">const</span> validate = <span class="function">(<span class="params">schema, values</span>) =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">for</span>(field <span class="keyword">in</span> schema) &#123;</span><br><span class="line">		<span class="keyword">if</span>(schema[field].required) &#123;</span><br><span class="line">			<span class="keyword">if</span>(!values[field]) &#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(validate(schema, &#123;<span class="attr">first</span>:<span class="string">'Bruce'</span>&#125;)); <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(validate(schema, &#123;<span class="attr">first</span>:<span class="string">'Bruce'</span>,<span class="attr">last</span>:<span class="string">'Wayne'</span>&#125;)); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
 
 </li>
 </ul>
-</div></article></div></main><footer><div class="paginator"><a href="/2019/08/11/js/01_js执行机制/" class="prev">上一篇</a><a href="/2019/07/23/html-css/css_CSS布局/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+</div></article></div></main><footer><div class="paginator"><a href="/2019/08/11/js/01_js执行机制/" class="prev">上一篇</a><a href="/2019/08/10/js/JS基础/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
 var disqus_identifier = '2019/08/11/js/00_js开发技巧/';
 var disqus_title = 'js开发技巧';
 var disqus_url = 'https://turing5467.github.io/2019/08/11/js/00_js开发技巧/';
@@ -110,4 +144,4 @@ var disqus_url = 'https://turing5467.github.io/2019/08/11/js/00_js开发技巧/'
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

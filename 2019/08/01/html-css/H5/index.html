@@ -1,0 +1,286 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> HTML5 · 快乐的图小灵</title><meta name="description" content="HTML5 - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">HTML5</h1><div class="post-info">Aug 1, 2019</div><div class="post-content"><p>@(html)</p>
+<p>[toc]</p>
+<h1 id="H5"><a href="#H5" class="headerlink" title="H5"></a>H5</h1><h2 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h2><h3 id="attribute"><a href="#attribute" class="headerlink" title="attribute"></a>attribute</h3><ul>
+<li>预定义属性: <code>HTML</code>标签预定义的属性</li>
+<li>自定义属性: 自己瞎定义的</li>
+<li>查看attribute<br><img src="./1564661039112.png" alt="Alt text"></li>
+</ul>
+<ol>
+<li>0: 属性节点(attributes对象的property</li>
+</ol>
+<ul>
+<li>debugger相关操作<br><img src="./1564660908604.png" alt="Alt text"><br><img src="./1564660978589.png" alt="Alt text"></li>
+</ul>
+<h3 id="property"><a href="#property" class="headerlink" title="property"></a>property</h3><ul>
+<li><code>js</code>原生对象的直接属性<br>attribute本身是一个property</li>
+<li>每一个<strong>预定义</strong>的atribute都会有一个property与之对应</li>
+</ul>
+<h3 id="attribute和property的同步问题"><a href="#attribute和property的同步问题" class="headerlink" title="attribute和property的同步问题"></a>attribute和property的同步问题</h3><ul>
+<li><code>turing.setAttribute(&quot;checked&quot;, &quot;turing1&quot;);  //操作attribute</code></li>
+<li><code>turing.checked = &quot;turing6&quot;;   //操作property</code><br><code>turing.name: &quot;turing6&quot;   //property</code><br><code>turing.attributes.name.nodeValue: &quot;turing6&quot;  //attribute</code></li>
+<li>非布尔值属性: 不管什么情况,property和attribute都会同步<br><code>turing.checked: true</code><br><code>turing.attributes.checked.nodeValue: &quot;turing3&quot;</code></li>
+<li>布尔值属性</li>
+</ul>
+<ol>
+<li>改变property, 不会同步到attribute</li>
+<li>在没有动过property时,<br> attribute会同步到property<br> 一旦动过property<br> attribute不会同步到property</li>
+</ol>
+<ul>
+<li>浏览器只认property(用户操作的是property)</li>
+<li>结论<ol>
+<li>操作布尔值属性最好使用prop()</li>
+<li>操作非布尔值属性最好使用attr() <code>//成本低</code><br><img src="./1564663655742.png" alt="Alt text"><br><img src="./1564663667849.png" alt="Alt text"></li>
+</ol>
+</li>
+</ul>
+<h4 id="H5的小功能"><a href="#H5的小功能" class="headerlink" title="H5的小功能"></a>H5的小功能</h4><ul>
+<li>class</li>
+</ul>
+<ol>
+<li>H4: className: 增删类名十分不方便<br> H5: ClassList 更加人性化(兼容性不太好,不过做后台可以用)<br> 方法: <code>textNode.classList.add(&quot;turing7&quot;) //添加类名</code><pre><code>`.remove(&quot;&quot;) //移除类名` `.toggle(&quot;&quot;)`</code></pre></li>
+<li>自定义属性<br> <code>data-name</code><br> <code>js获取/修改: node.dataset.name;</code></li>
+<li>属性<code>contenteditable=&quot;true&quot;</code> //可编辑div</li>
+</ol>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><img src="./1564665071639.png" alt="Alt text"><br><img src="./1564665235722.png" alt="Alt text"></p>
+<h3 id="DTD-渲染模式"><a href="#DTD-渲染模式" class="headerlink" title="DTD(渲染模式)"></a>DTD(渲染模式)</h3><p><img src="./1564665800216.png" alt="Alt text"><br>在<code>ie9</code>以上的浏览器中,三种模式渲染方面几乎没有区别<br><code>ie 7 8 9</code>,理论上存在<code>怪异模式</code>,实际只有<code>标准模式</code><br><code>ie6</code>,<code>标准模式</code>和<code>怪异模式</code>渲染的区别最大<br><code>ie6</code>以下,只有<code>怪异模式</code></p>
+<h3 id="根元素"><a href="#根元素" class="headerlink" title="根元素"></a>根元素</h3><p><img src="./1564666127638.png" alt="Alt text"></p>
+<h3 id="head元素"><a href="#head元素" class="headerlink" title="head元素"></a>head元素</h3><p><code>&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html;charset=UTF-8&quot; /&gt;</code><br><img src="./1564666205959.png" alt="Alt text"><br><img src="./1564666419276.png" alt="Alt text"></p>
+<h2 id="语义化标签"><a href="#语义化标签" class="headerlink" title="语义化标签"></a>语义化标签</h2><ul>
+<li><p>好处</p>
+<ol>
+<li>语义化结构化的代码标签代替大量的无意义的div标签</li>
+<li>提升了网页的质量和语义</li>
+<li>对<strong>搜索引擎</strong>更友好</li>
+</ol>
+</li>
+<li><p>常见语义化标签</p>
+</li>
+</ul>
+<ol>
+<li>hgroup<br> 代表网页或section的<code>标题</code>,当元素有多个层级时,可以将h1-h6元素放在其内,<br> (一般放在header标签)</li>
+<li>header<br> 网页或section的页眉,通常包含h1-h6或hgroup</li>
+<li>nav<br> 页面的导航链接区域,用于定义页面的<code>主要导航</code>部分</li>
+<li>section<br> 文档的节 或 段, <pre><code>节: 一个页面里的分组
+段: 一篇文章里按照主题的分段
+在`hgroup`标签内的h1-h6会自动降级</code></pre></li>
+<li>footer</li>
+</ol>
+<h2 id="Canvas"><a href="#Canvas" class="headerlink" title="Canvas"></a>Canvas</h2><ul>
+<li><p>画布: 用于通过JavaScript中的脚本来绘制图形(ie9+)</p>
+</li>
+<li><p><code>&lt;canvas&gt; &lt;/canvas&gt;</code> 标签的子元素只有在不支持canvas的浏览器才会显示</p>
+</li>
+<li><p>默认宽高: <code>w 300px;  h150px; //指定宽高必须用html属性</code><br><code>千万不要再CSS画布里指定宽高</code></p>
+</li>
+<li><p>有别于浏览器的渲染机制,Canvas为同步机制,所见即所得</p>
+<h3 id="获取Cnavas"><a href="#获取Cnavas" class="headerlink" title="获取Cnavas"></a>获取Cnavas</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//获取元素</span><br><span class="line">var testNode = document.querySelector(&quot;#test&quot;);</span><br><span class="line">// 检查支持性</span><br><span class="line">if (testNode.getContext) &#123;</span><br><span class="line">	//getContext()只有 一个参数,上下文的格式(一般为&quot;2d&quot;)</span><br><span class="line">	//获取&quot;渲染上下文&quot;和它的绘画功能</span><br><span class="line">	var ctx = testNode.getContext(&quot;2d&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>画布api</p>
+<ol>
+<li><code>oc.getContext(&quot;2d&quot;); //获取画布2d上下文</code></li>
+<li><code>oc.width/height   //画布横向/纵向css像素的个数</code></li>
+<li><code>oc.toDataURL()//拿到canvas图像的地址</code></li>
+</ol>
+</li>
+<li><p>上下文API</p>
+<ol>
+<li>fillRect(x,y,w,h) //填充矩形</li>
+<li>strokeRect(x,y,bw,bh)  //带边框的矩形</li>
+<li>clearRect(x,y,w,h)   // 以默认背景填充矩形</li>
+<li>fillStyle  //其值可以是 填充色/背景/渐变</li>
+<li>strokeStyle  //线条颜色</li>
+<li>lineWidth    //线条宽度</li>
+<li>lineCap      //线条两端</li>
+<li>lineJoin     //线条连接处的展现形式</li>
+<li>moveTo(x,y) //抬起画笔</li>
+<li>lineTo(x,y) //移动画笔</li>
+<li>rect(x,y,w,h)</li>
+<li>arc(x,y,r,degS,degE,anticlockwise)</li>
+<li>arcTo(x1,y1,x2,y2,r) //结合moveTo()使用</li>
+<li>quadraticCurveTo(x1,y1,x2,y2)   //结合moveTo()使用</li>
+<li>bezierCurveTo(x1,y1,x2,y2,x3,y3)   //结合moveTo()使用</li>
+<li>beginPath()清除路径容器</li>
+<li>closePath()闭合路径</li>
+<li>save() 将画布当前状态(样式/变换) 压入 样式栈</li>
+<li>restore() 将样式栈栈顶的信息 弹出到 样式容器</li>
+<li>translate(x,y) 移动原点</li>
+<li>rotate() 顺时针旋转坐标轴</li>
+<li>scale() 放大/缩小 画布的x,y轴的刻度</li>
+<li>fill()</li>
+<li>stroke()</li>
+<li>drawImage(img,x,y,w,h) //一定要在图片加载完成后操作图片</li>
+<li>measureText(“文本”) //返回一个持有文本渲染宽度的对象</li>
+<li>fillText() / strokeText()</li>
+<li>font / textAlign / textBaseline</li>
+<li><code>shadowOffsetX</code> <code>shadowOffsetY</code> <code>shadowBlur</code> <code>shadowColor(必须项)</code></li>
+<li><code>getImageData(x,y,w,h) / putImageData(img,x,y) / createImageData(w,h)</code></li>
+<li><code>imageData.width/height/data</code></li>
+<li><code>globaleAlpha  //(0-1)</code></li>
+<li><code>globalCompositeOperation //source/destination-over/in/out/atop</code></li>
+<li><code>isPointInPath(x,y)</code></li>
+</ol>
+</li>
+<li><p>实例</p>
+<ol>
+<li>时钟,结合了所有基础api</li>
+<li>飞鸟动画,结合图片创建动画</li>
+<li>马赛克,像素操作</li>
+<li>刮刮卡,合成+像素操作<h3 id="绘制矩形"><a href="#绘制矩形" class="headerlink" title="绘制矩形"></a>绘制矩形</h3></li>
+</ol>
+</li>
+<li><p>HTML中的元素Canvas只支持一种原生的图形绘制: 矩形</p>
+</li>
+<li><p>其他的图形的绘制至少需要生成一条<code>路径</code></p>
+</li>
+</ul>
+<h4 id="1-绘制矩形"><a href="#1-绘制矩形" class="headerlink" title="1. 绘制矩形"></a>1. 绘制矩形</h4><ul>
+<li>Canvas只支持一种图像的直接渲染: 矩形<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">调用这些方法的对象为画笔(ctx)</span><br><span class="line">	--&gt;绘制一个填充矩形(填充色默认黑)</span><br><span class="line">	fillRect(x, y, width, height)</span><br><span class="line">	--&gt;绘制矩形边框(默认一像素实心边框)</span><br><span class="line">	strokeRect(x, y, width, height)</span><br><span class="line">	--&gt;填充指定矩形区域(填充部分背景透明)</span><br><span class="line">	clearRect(x, y, width, height)</span><br><span class="line">		注：是填充而不是重排，一层一层叠上去的</span><br><span class="line">		这样做: 不会发生重绘重拍，性能高</span><br><span class="line">		应用: clearRect(0,0,oc,width,oc.height) //填充整个画布,遮住之前画的东西</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><code>strokeRect()</code>画边框原理: 往上/下(左/右)画0.5像素(0.5为默认lineWidth的一半)<br><code>这是因为css不支持小数</code><br><code>(100,100,width,height) -&gt; 99.5,100.5 -&gt; 99 - 101 //原</code><br><code>解决atrokeRect(100.5, 100.5,width, height) -&gt; 100 - 101  //后</code><br><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200417134047048.png" alt="image-20200417134047048"></p>
+<ul>
+<li>添加样式和颜色</li>
+</ul>
+<ol>
+<li><code>fillStyle</code>设置图形的填充颜色(与填充(fill)有关的API使用)</li>
+<li><code>strokeStyle</code>设置图形轮廓的颜色</li>
+<li><code>lineWidth</code>设置绘线的粗细,必须为整数(不需要+单位)<br><code>0、负数、Infinity和NaN会被忽略</code></li>
+<li><code>lineJoin</code>设定线条与线条接合处的样式(默认<code>miter</code>直角)<br><code>round(圆角)</code> <code>bevel(斜角))</code></li>
+</ol>
+<h4 id="2-路径"><a href="#2-路径" class="headerlink" title="2.路径"></a>2.路径</h4><blockquote>
+<ol>
+<li>路径容器</li>
+<li>样式容器</li>
+<li>样式栈</li>
+</ol>
+</blockquote>
+<ul>
+<li>通过不用颜色和宽度的线段或曲线项链形成的不同形状的点的集合</li>
+<li>步骤<ol>
+<li>创建路径起始点</li>
+<li>使用命令画出路径</li>
+<li>把路径封存</li>
+<li>一旦路径生成,就可以通过描边或填充路径来渲染图形</li>
+</ol>
+</li>
+<li>相应API</li>
+</ul>
+<ol>
+<li><p><code>beginPath()  //新建一条路径(清空之前的路径容器)</code></p>
+</li>
+<li><p><code>moveTo(x,y)  //移动/抬起画笔</code></p>
+</li>
+<li><p><code>lineTo(x, y) //绘制一条从当前位置到(x, y)的一条直线  //一条路径可以有多条直线</code></p>
+</li>
+<li><p><code>stroke()绘制图形轮廓(空心)</code><br><code>fill()填充这些路径的内容区域(实心)</code><br>每调用一次<code>fill()/stroke()</code>函数,就会将之前的路径全部绘制一遍<br>那么最后调用的函数会作用于之前所有的路径/图形(除非在绘制每个新图形之前<code>beginPath()</code>)</p>
+</li>
+<li><p><code>closePath()  //闭合路径</code><br>如果之前绘制的直线没有闭合,则迪调用该函数后会自闭合<br>(对<code>fill()</code>不起作用,因为它会自动调用<code>closePath()</code>函数)<br><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200417134027362.png" alt="image-20200417134027362"></p>
+</li>
+<li><p><code>rect(x, y, width, height)</code>绘制矩形<strong>路径</strong><br>绘制路径后没有任何效果,需要调用<code>stroke()/fill()</code>来绘制图形<br><code>rect() + fill() = fillRect()</code><br><code>rect() + stroke() = strokeRect()</code></p>
+</li>
+<li><p><code>lineCap属性</code>指定如何绘制每一条直线的首尾端<br><code>butt //默认值</code><br><code>round //圆角结束</code><br><code>square //方形结束</code><br><code>绘制的大小与lineWidth属性有直接关系,上下各绘制一半lineWidth的半圆/矩形, 合起来就是一个完整的圆/正方形</code><br><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200417134019609.png" alt="image-20200417134019609"></p>
+</li>
+<li><p><code>save()</code>将样式相关的属性<strong>压入样式栈</strong><br><code>restore()</code>将样式相关的属性<strong>弹出到样式栈</strong>,覆盖原样式<br><code>样式栈： 先进后出</code></p>
+</li>
+</ol>
+<p>保存到栈中的绘制状态:<br>当前应用的变形(即translate/scale/rotate)/剪切区域/虚线列表<br>strokeStyle/fillStyle/lineWidth/lineCap/LineJoin</p>
+<ol start="8">
+<li><p>基本模板</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">ctx.save();       //保存初始化样式信息</span><br><span class="line">/* 下面要绘制图形的样式 */</span><br><span class="line">/* 变形信息 */</span><br><span class="line">ctx.beginPath()   //清空路径容器</span><br><span class="line">/* 绘制路径 */</span><br><span class="line">ctx.restore()    //绘制完一个图形,进行弹栈操作</span><br><span class="line"></span><br><span class="line">ctx.save();</span><br><span class="line">//样式 and 变换</span><br><span class="line">ctx.beginPath();</span><br><span class="line">//路径</span><br><span class="line">ctx.restore();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>弧形<code>路径</code>(圆)<br><code>arc(x, y, radius, startAngle, endAngle, anticlockwise)//绘制圆的路径函数</code><br>0deg: x轴正方向<br>endAngle如果不写,默认画圆<br><code>注: 以弧度为单位 angle * Math.PI / 180</code><br>anticlockwise: 指定绘制方向: 顺时针(false,默认值)/逆时针(true)<br><code>stroke/fill()</code>  //完成画图</p>
+</li>
+<li><p><code>arcTo(x1, y1, x2, y2, radius)</code>根据给定的控制点和半径画一段圆弧<br>需要三个控制点: 先抬起画笔<code>moveTo(x, y)</code><br><code>(x, y) -&gt; (x1, y1)  //路径末端画一个半径为radius的弧形</code><br><code>(x1, y1) -&gt; (x2, y2) //路径首端画一个半径为radius的弧形,弧形后的路径不画</code><br><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200417133934822.png" alt="image-20200417133934822"></p>
+</li>
+<li><p>二次贝塞尔<br><code>quadraticCurveTo(cp1x, cp1y, x, y)</code><br>起始点<code>moveTo(x, y)</code><br>控制点<code>(cp1x, cp1y)</code><br>结束点<code>(x, y)</code><br><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200417133940409.png" alt="image-20200417133940409"></p>
+</li>
+<li><p>三次贝塞尔<br><code>bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y)</code><br><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200417133949919.png" alt="image-20200417133949919"></p>
+</li>
+<li><p>变换</p>
+</li>
+</ol>
+<ul>
+<li><code>translate()  //移动原点的位置</code> <code>可累加</code></li>
+<li><code>rotate()     //旋转原点所在的x/y轴</code> <code>可累加</code></li>
+<li><code>scale()</code><br>  作用的是x,y轴的像素刻度,而不是图形<br>  画布中像素增加/减少,但是画布中图像包含的像素个数不变</li>
+</ul>
+<h4 id="图片和背景"><a href="#图片和背景" class="headerlink" title="图片和背景"></a>图片和背景</h4><ul>
+<li><p>插入图片<br><code>必须等图片加载完才能操作</code><br><code>drawImage(img, x, y[, w, h])</code><br><code>//img是Image对象或canvas对象</code></p>
+</li>
+<li><p>设置背景<br><code>ctx.createPattern(Image, repetition)  //&quot;repeat&quot;/&quot;no-repeat&quot;/&quot;repeat-x&quot;/&quot;repeat-y&quot;</code><br><code>//一般情况下,该函数返回值作为fillStyle的值</code></p>
+</li>
+<li><p>渐变<br><code>var gradient = ctx.createLinearGradient(x1, y1, x2, y2)  //控制渐变方向以及纯色分布区域</code><br><code>gradient.addColorStop(position, color)  //position: 0.0 - 1.0</code><br><code>createRadialGradient(x1, y1, r1, x2, y2, r2) //在两个圆之间发生渐变</code></p>
+</li>
+</ul>
+<h4 id="文本"><a href="#文本" class="headerlink" title="文本"></a>文本</h4><p><code>fillText(text, x,y)</code><br><code>strokeText(text, x, y)</code><br><code>font //必须同时指定字体大小&amp;&amp;字体(只支持sans-serif)</code><br><code>textAlign  //left / right / center  //文本的xx向x=x靠齐</code></p>
+<p><code>textBaseline  //top middle bottom   //文本的xx向y=y靠齐</code><br><code>measureText(&quot;&quot;)  //返回一个TextMetrics对象 包含关于文本尺寸的信息</code></p>
+<p><code>shadowOffsetX</code><br><code>shadowOffsetY</code><br><code>shadowBlur</code><br><code>shadowColor</code></p>
+<h4 id="像素操作"><a href="#像素操作" class="headerlink" title="像素操作"></a>像素操作</h4><ul>
+<li><p><code>getImageData(sx, sy, sw, sh)  //获取一个包含画布场景像素数据的ImageData对象,代表画布区域的对象数据</code></p>
+</li>
+<li><p>ImageData</p>
+<ol>
+<li>width: 横向像素点个数</li>
+<li>height: </li>
+<li>data: 数组,存放每一个像素点的rgba信息(a: 0 - 255)<br> 该数组长度为<code>width * height * 4</code></li>
+</ol>
+</li>
+<li><p><code>putImageData(ImageData, x, y);  //对场景进行像素数据的写入</code></p>
+</li>
+<li><p><code>createImageData(width, height); //创建ImageData对象 , 默认rgba(0,0,0,0)</code></p>
+</li>
+<li><p>单像素操作</p>
+</li>
+<li><p><code>globalAlpha = value //全局透明度 0.0 - 1.0</code></p>
+</li>
+</ul>
+<h4 id="合成"><a href="#合成" class="headerlink" title="合成"></a>合成</h4><ul>
+<li><p>合成: 叠在一块的图形如何处理</p>
+</li>
+<li><p><code>source</code>新的图像</p>
+</li>
+<li><p><code>destination</code>已经绘制过的图形(目标)</p>
+</li>
+<li><p><code>globalCompositeOperation</code><br><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200417133817369.png" alt="image-20200417133817369"><br><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200417133823384.png" alt="image-20200417133823384"></p>
+</li>
+<li><p><code>canvas.toDataURL()  //返回一个URL，存储图片的链接</code></p>
+</li>
+<li><p><code>ctx.isPointInPath(x,y)  //判断(x,y)是否在当前路径内</code><br><code>注: 此方法制作用于最新画出的canvas图像  // fillRect/strokeRect/clearRect()不算图像</code></p>
+</li>
+</ul>
+<h2 id="音-视频"><a href="#音-视频" class="headerlink" title="音/视频"></a>音/视频</h2><ul>
+<li>必须有controls属性才可播放..</li>
+<li>chrome对本地服务器资源有限制,无法拖动进度条</li>
+<li>不同浏览器渲染控件的样式不同<h3 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h3></li>
+</ul>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200417133703606.png" alt="image-20200417133703606"></p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200417133709750.png" alt="image-20200417133709750"></p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200417133714202.png" alt="image-20200417133714202"></p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200417133608951.png" alt="image-20200417133608951"></p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200417133737821.png" alt="image-20200417133737821"></p>
+<h4 id="相关js属性"><a href="#相关js属性" class="headerlink" title="相关js属性"></a>相关js属性</h4><ol>
+<li>currentTime  :  当前播放位置(单位: s)  (r w)</li>
+<li>duration  :  媒体总时间(s) r<br> 注: 如果资源未加载完,会返回NaN</li>
+<li>muted  :  是否静音 (r w,优先级高于volumn,最好同时设置)</li>
+<li>volumn  : 0.0 - 1.0 的音量相对值 (r/w)</li>
+<li>paused r</li>
+<li>ended  r</li>
+<li>error : 发生错误时,返回错误代码  r</li>
+<li>currentSrc : 以字符串的形式返回媒体地址  r</li>
+</ol>
+<p>视频多的部分<br>9. poster r w<br>10. width/height 设置视频尺寸 r w<br>11. videoWidth\videoHeight 视频的实际尺寸 (r)</p>
+<h4 id="js函数"><a href="#js函数" class="headerlink" title="js函数"></a>js函数</h4><ul>
+<li><code>play();</code></li>
+<li><code>pause()</code>;</li>
+<li><code>load();   //重新加载媒体</code></li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2019/08/10/js/JS基础/" class="prev">上一篇</a><a href="/2019/07/25/html-css/Less &amp; Sass/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2019/08/01/html-css/H5/';
+var disqus_title = 'HTML5';
+var disqus_url = 'https://turing5467.github.io/2019/08/01/html-css/H5/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

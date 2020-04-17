@@ -1,0 +1,166 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Less & Sass · 快乐的图小灵</title><meta name="description" content="Less &amp; Sass - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Less & Sass</h1><div class="post-info">Jul 25, 2019</div><div class="post-content"><h1 id="Less-amp-Sass"><a href="#Less-amp-Sass" class="headerlink" title="Less &amp; Sass"></a>Less &amp; Sass</h1><h2 id="Less"><a href="#Less" class="headerlink" title="Less"></a>Less</h2><h3 id="1-语言特性"><a href="#1-语言特性" class="headerlink" title="1. 语言特性"></a>1. 语言特性</h3><h4 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h4><p>注释不会保留到<code>css</code>文件中</p>
+<h4 id="嵌套"><a href="#嵌套" class="headerlink" title="嵌套"></a>嵌套</h4><ul>
+<li>(基本 and 平级(&amp;))</li>
+</ul>
+<h4 id="运算"><a href="#运算" class="headerlink" title="运算"></a>运算</h4><ul>
+<li>计算的一方带单位即可<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@fontSize: 10px;</span><br><span class="line">.myclass &#123;</span><br><span class="line">	 font-size: @fontSize * 2;</span><br><span class="line">	 color:green;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="避免编译-动态构建选择器，并使用属性或变量值作为任意字符串。"><a href="#避免编译-动态构建选择器，并使用属性或变量值作为任意字符串。" class="headerlink" title="避免编译:动态构建选择器，并使用属性或变量值作为任意字符串。"></a>避免编译:动态构建选择器，并使用属性或变量值作为任意字符串。</h4><p><code>content: ~&quot;^//* some horrible but needed css hack&quot;;</code>less<br><code>content: ^//* some horrible but needed css hack;</code>css</p>
+<ul>
+<li><p>命名空间与访问器: 避免名称冲突，并从外部封装mixin组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">less</span><br><span class="line">	.class1 &#123;</span><br><span class="line">		.class2 &#123;</span><br><span class="line">		    .val(@param) &#123;</span><br><span class="line">			    font-size: @param;</span><br><span class="line">			    color:green;</span><br><span class="line">		    &#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	.myclass &#123;</span><br><span class="line">	  .class1 &gt; .class2 &gt; .val(20px);</span><br><span class="line">	&#125;</span><br><span class="line">css</span><br><span class="line">	.myclass &#123;</span><br><span class="line">	  font-size: 20px;</span><br><span class="line">	  color: green;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注释(单行: //(编译后不可见)   or   多行 /*  */)</p>
+</li>
+<li><p>导入: <code>@import &quot;//www.w3cschool.cn/less/myfile.less&quot;;</code>css或less</p>
+</li>
+</ul>
+<h4 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h4><ul>
+<li><p><code>@变量名: 变量值;</code></p>
+<ol>
+<li><p>选择器变量(不常用)<br><code>@selector: header h2;</code>定义<br><code>@{selector} {}</code>使用</p>
+</li>
+<li><p>url<br> <code>@path: &quot;http://www.w3cschool.cn&quot;;</code><br> <code>.myclass {     background : url(&quot;@{path}/images/birds.jpg&quot;    );</code><br> <code>或@import &quot;@{path}/external1.less&quot;;</code></p>
+</li>
+<li><p>块级作用域<br><code>首先会从本地查找变量或者混合模块，如果没找到的话会去父级作用域中查找，直到找到为止.</code></p>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="继承-extend"><a href="#继承-extend" class="headerlink" title="继承 extend"></a>继承 extend</h4><ol>
+<li><p>在选择器之后扩展.(相当于,语法)</p>
+</li>
+<li><p>允许多个扩展 [例如： <code>pre:hover:extend(div pre,.bucket tr)</code> ]<br> <code>h2 {    &amp;:extend(.style);    /*内部扩展*/    }</code></p>
+</li>
+<li><p>扩展必须在选择器的末尾定义。</p>
+</li>
+</ol>
+<blockquote>
+<p>选择器默认完全匹配 =&gt; 必须完全相同<br>后面个 <code>all</code> 表示完全继承(继承该选择器以及该选择器中嵌套的样式以及包含该选择器的所有)</p>
+</blockquote>
+<h4 id="混合-mix-in"><a href="#混合-mix-in" class="headerlink" title="混合(mix in)"></a>混合(mix in)</h4><ul>
+<li>将一系列属性从一个规则集引入到另一个规则集的方式<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">	普通混合: .name &#123; /*样式*/&#125;    //会编译到原生css文件</span><br><span class="line">	不带输出的混合: .name() &#123;/*样式*/&#125;</span><br><span class="line">	带参数的混合: .name(@w, @h, @c)&#123;&#125;</span><br><span class="line">	带参数且有默认值: .name(@w: 10px, @c: #f0f) &#123;&#125;</span><br><span class="line">	可变数量参数</span><br><span class="line">		...  (0-n)</span><br><span class="line">		@x, ... (1-n)</span><br><span class="line">	匹配模式(模式不需要加@前缀)</span><br><span class="line">		.mixin (dark, @color) &#123;</span><br><span class="line">		    color: darken(@color, 10%);</span><br><span class="line">		&#125;</span><br><span class="line">		.mixin (light, @color) &#123;</span><br><span class="line">		    color: lighten(@color, 10%);</span><br><span class="line">		&#125;</span><br><span class="line">		.mixin (@_, @color) &#123;   /*全局匹配,@_后面的参数必须与其他一致*/</span><br><span class="line">		    background-color: #0f5;</span><br><span class="line">		&#125;</span><br><span class="line">	实参列表@arguments(不怎么用)</span><br><span class="line">		.border(...) &#123; border: @arguments;&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	传参时不想按顺序,可以指定参数名称</span><br><span class="line">		如: 三角形 .triangle(@w, @c1:transparent, @c2:transparent, @c3: transparent, @c4: transparent) &#123; &#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<blockquote>
+<p>继承不灵活,但<strong>性能</strong>高<br>混合<strong>灵活</strong>, 但性能低</p>
+</blockquote>
+<h3 id="2-函数"><a href="#2-函数" class="headerlink" title="2. 函数"></a>2. 函数</h3><h4 id="color函数"><a href="#color函数" class="headerlink" title="color函数"></a>color函数</h4><ul>
+<li><p>颜色通道<br><code>hue/saturation/lightness(@color)</code>提取颜色信息(h, s, l)<br><code>fade(@color, %)</code> 返回指定透明度的color值<br><code>red/green/blue/lppha</code>提取对象的x色通道</p>
+</li>
+<li><p>颜色操作<br><code>spin(@color, &lt;number&gt;)</code> 改变<strong>hue</strong>值,number可正可负<br><code>saturate / desaturate(@color, %)</code> 改变<strong>satarate</strong>值<br><code>lighten / darken(@color, %)</code> 改变<strong>light</strong><br><code>fadein / fadeout(@color, %)</code> 改变<strong>alpha</strong>值<br><code>mix(@c1, @c2[, @weight]) //weight: @c1的权重</code><br><code>tint/shade(@color, weight)</code>与<strong>白色/黑色</strong>混合<code>//weight: 白色/黑色的权重</code><br><code>greyscale(@color)</code> 丢弃颜色<strong>饱和度</strong></p>
+</li>
+<li><p>颜色混合函数<br><code>multiply(@color1, @color2) //将两种颜色的十六进制相**与**</code><br><code>screen(@color1, @color2) //将两种颜色的十六进制相**或**</code><br><code>avarage(@color1, @color2) = mix(@c1, @c2)</code><br><code>negation(@color1, @color2) //r1-r2, g1+g2, b1+b2</code><br><code>difference(@color2, @color2) //r1-r2, g1-g2, b1+b2</code></p>
+</li>
+<li><p>颜色定义<br><code>rgb/hsl() -&gt; #ffffff</code><br><code>rgba/hsla() -&gt; rgba()</code></p>
+</li>
+</ul>
+<h4 id="math函数"><a href="#math函数" class="headerlink" title="math函数"></a>math函数</h4><p><code>round()</code><br><code>ceil()</code><br><code>floor()</code><br><code>percentage()</code><br><code>sqrt()</code><br><code>abs()</code><br><code>sin/asin/cos/acos/tan/atan()</code><br><code>pi/pow/mod/min/max()</code></p>
+<h4 id="杂项函数"><a href="#杂项函数" class="headerlink" title="杂项函数"></a>杂项函数</h4><p><code>image-size(&quot;file.png&quot;) //output: 10px 10px</code> 同时获取宽高<br><code>image-width/height(url)</code> 获取图片宽度/高度<br><code>unit(5,px) -&gt; 5px</code> <code>unit(5px) -&gt; 5</code> 添加单位<br><code>color() //返回#...</code><br><code>convert(number, &quot;单位&quot;)</code><br><code>get-unit(5px) -&gt; px</code>  </p>
+<h4 id="字符串函数"><a href="#字符串函数" class="headerlink" title="字符串函数"></a>字符串函数</h4><p><code>escape()   //通过对特殊字符使用URL编码来对字符串或信息进行编码。</code><br><code>e()        //返回一个不带引号的信息</code><br>        注: <code>~</code>不是一个函数,而是运算符  <code>~&quot;test&quot;</code><br><code>%()           //格式化字符串</code><br><code>replace()        //替换文本</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">format-a-d: %(&quot;myvalues: %a myfile: %d&quot;, 2 + 3, &quot;mydir/less_demo.less&quot;);</span><br><span class="line"></span><br><span class="line">format-a-d: &quot;myvalues: 5 myfile: &quot;mydir/less_demo.less&quot;&quot;;</span><br></pre></td></tr></table></figure>
+
+<h3 id><a href="#" class="headerlink" title></a></h3><h2 id="Sass"><a href="#Sass" class="headerlink" title="Sass"></a>Sass</h2><ul>
+<li>需安装ruby + easy Sass</li>
+<li>.scss</li>
+<li>输出格式<ol>
+<li>:nested 嵌套输出</li>
+<li>:expanded 不嵌套</li>
+<li>:compact 每个规则只占一行(嵌套过的输出时没有空行,…)</li>
+<li>compressed 删除所有无意义的空格、空白行、以及注释</li>
+</ol>
+</li>
+</ul>
+<h3 id="变量-1"><a href="#变量-1" class="headerlink" title="变量"></a>变量</h3><p><code>$arg: value;</code><br>块级作用域<br><code>局部变量 -&gt; 全局变量  $val: value!global;</code><br><code>!default //给未赋值变量赋值</code></p>
+<ul>
+<li>插值语句<br><code>#{var} //在选择器或属性名中使用变量</code></li>
+</ul>
+<h3 id="嵌套-1"><a href="#嵌套-1" class="headerlink" title="嵌套"></a>嵌套</h3><ul>
+<li><p>调用父选择器 &amp; <code>也可表示平级</code> <code>也可表示选择器</code></p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.nav</span> &#123;</span><br><span class="line">    &amp; &amp;-text &#123;</span><br><span class="line">        <span class="attribute">font-size</span>: <span class="number">15px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//转换后</span></span><br><span class="line"><span class="selector-class">.nav</span> <span class="selector-class">.nav-text</span> &#123;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">15px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li>属性嵌套(:)<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.funky</span> &#123;</span><br><span class="line">  <span class="attribute">font</span>: &#123;</span><br><span class="line">    family: fantasy;</span><br><span class="line">    size: <span class="number">30em</span>;</span><br><span class="line">    weight: bold;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>命名空间可以包含自己的属性值</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.funky</span> &#123;</span><br><span class="line">  <span class="attribute">font</span>: <span class="number">20px</span>/<span class="number">24px</span> &#123;</span><br><span class="line">    family: fantasy;</span><br><span class="line">    weight: bold;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="混合"><a href="#混合" class="headerlink" title="混合"></a>混合</h3><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义</span></span><br><span class="line">	@<span class="keyword">mixin</span> 名字[(<span class="number">1</span>, 2...)] &#123;          <span class="comment">/* 如果没有参数可以不写括号  */</span></span><br><span class="line">		...</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line"><span class="comment">//使用</span></span><br><span class="line">	@<span class="keyword">include</span> 名字[(<span class="number">1</span>, 2...)];</span><br><span class="line">	<span class="comment">//参数可以改变顺序,通过命名的方式</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><p><code>@extend .selecotr;</code><br>将 .selector 下的所有样式继承给 当前选择器<br><code>.selector .xx 的样式 同样会继承给 .当前选择器 .xx(相当于,语法)</code></p>
+<h3 id="import-“”"><a href="#import-“”" class="headerlink" title="@import “”"></a>@import “”</h3><p>_开头的scss文件不会被编译，而是通过在其他<code>scss</code>文件中<code>@import</code>引入<br>引入时<code>_</code>需要去掉,且不需要写后缀;</p>
+<h3 id="注释-1"><a href="#注释-1" class="headerlink" title="注释"></a>注释</h3><ul>
+<li>多行注释(<code>/**/</code>)<br>  <code>css</code>文件中保留<br>  压缩输出的<code>css</code>文件中会去掉</li>
+<li>单行(// )<br>  不保留</li>
+<li>强制注释(/*!   */)<br>  保留</li>
+</ul>
+<blockquote>
+<p>注: 中文注释报错,需要在开头@charset “utf-8”; </p>
+</blockquote>
+<h3 id="2-数据类型"><a href="#2-数据类型" class="headerlink" title="2.数据类型"></a>2.数据类型</h3><ol>
+<li>数字<code>number</code>(5 | 5px)</li>
+<li><code>string</code></li>
+<li>color(#fff red  rgb() hsl())</li>
+<li>布尔值 <code>true / false</code></li>
+<li>空值  <code>null</code></li>
+<li>数组<code>list</code> 以空格 或 逗号 作分隔符</li>
+<li>键值对 <code>maps</code></li>
+</ol>
+<h4 id="2-1-字符串"><a href="#2-1-字符串" class="headerlink" title="2.1 字符串"></a>2.1 字符串</h4><ul>
+<li>有引号字符串</li>
+<li>无引号字符串<br><code>编译时不改变类型</code><br><code>#{}内的有引号字符串会被编译为无引号字符串</code></li>
+</ul>
+<h4 id="运算-1"><a href="#运算-1" class="headerlink" title="运算"></a>运算</h4><ul>
+<li><p>又有运算都支持<code>== !=</code></p>
+</li>
+<li><p>数字运算:  必要时会在不同类型键转换<br><code>+ - &amp; / %</code></p>
+</li>
+<li><p>颜色值运算<br><code>+ *</code><br><code>如果颜色值包含alpha,两边的颜色必须具有相同的alpha值才能进行运算</code></p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">IE 滤镜要求所有的颜色值包含 alpha 层，而且格式必须固定 <span class="selector-id">#AABBCCDD</span>，使用 ie_hex_str 函数可以很容易地将颜色转化为 IE 滤镜要求的格式。</span><br><span class="line"></span><br><span class="line">	<span class="variable">$translucent-red</span>: rgba(<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.5</span>);</span><br><span class="line">	<span class="variable">$green</span>: <span class="number">#00ff00</span>;</span><br><span class="line">	<span class="selector-tag">div</span> &#123;</span><br><span class="line">	  <span class="attribute">filter</span>: progid:DXImageTransform.Microsoft.gradient(enabled=<span class="string">'false'</span>, startColorstr=<span class="string">'#&#123;ie-hex-str($green)&#125;'</span>, endColorstr=<span class="string">'#&#123;ie-hex-str($translucent-red)&#125;'</span>);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>字符串运算<br><code>+</code> <code>有引号 + 无引号 = 有引号</code> <code>无引号 + 有引号 = 无引号</code></p>
+</li>
+<li><p>布尔运算<br><code>and or not</code></p>
+</li>
+</ul>
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><ul>
+<li><p>数字类型函数<br><code>abs()</code><br><code>round()</code><br><code>ceil()</code> <code>floor()</code><br><code>percentage()</code><br><code>min()</code> <code>max()</code></p>
+</li>
+<li><p>字符串类型函数<br><code>to-upper-case()</code><br><code>to-lower-case()</code><br><code>str-length()</code><br><code>str-index(str, check-str)</code>//index从1开始,<br><code>str-insert(str, &quot;.com&quot;, index)</code>//插入字符串的起始索引</p>
+</li>
+<li><p>颜色相关<br><code>adjust-hue($color, deg)</code><br><code>saturate($color, %)</code>//增加饱和度<br><code>desaturate($color, %)</code>//降低饱和度<br><code>lighten($color, %)</code><br><code>darken($color, %)</code><br>  <code>transparentize()     //增加透明度(alpha值降低)</code><br>  <code>opacify()          //降低透明度(alpha值增加)</code> </p>
+</li>
+<li><p>列表相关<br><code>length()  //数组长度,索引号从1开始</code><br>  <code>nth($list, index)        //返回指定索引值对应的值</code><br><code>index($list, $value)   //返回指定值对应的索引</code><br>  <code>append(old, new[, separator] )          //添加</code><br><code>join($list1, $list2[, separator] )</code></p>
+</li>
+<li><p>map<br><code>定义变量：$map-name( key1: value1, key1: value2,... )</code><br><code>map-get($map-name, key1)   //获取键对应的值</code><br>  <code>map-values($map-name)      //获取所有的值</code><br><code>map-has-key($map-name, keyname)</code><br><code>map-merge()</code><br><code>map-remove</code></p>
+</li>
+</ul>
+<h3 id="控制指令"><a href="#控制指令" class="headerlink" title="控制指令"></a>控制指令</h3><ul>
+<li><p><code>@if condition { } @else if {}...@else {}</code><br><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200417132824903.png" alt="image-20200417132824903"></p>
+</li>
+<li><p><code>@for $var from x through y  //[x, y]</code><br><code>@for $var from x to y       //[x, y)</code><br>$var 可以为任何变量 x,y必须为整数<br><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200417132854366.png" alt="image-20200417132854366"></p>
+</li>
+<li><p><code>@each $var in &lt;list&gt;</code><br><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200417132905917.png" alt="image-20200417132905917"><br>多重分配<br><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200417132930444.png" alt="image-20200417132930444"><br>map<br><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200417133015741.png" alt="image-20200417133015741"></p>
+</li>
+<li><p><code>@while语句</code><br><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200417133025023.png" alt="image-20200417133025023"></p>
+</li>
+</ul>
+<h3 id="自定义函数"><a href="#自定义函数" class="headerlink" title="自定义函数"></a>自定义函数</h3><p><code>@function 名称(参1, 参2...) {  }</code><br><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200417133040067.png" alt="image-20200417133040067"><br><code>@warn语句:</code> 在控制台输出报错信息<br><code>@error:</code>在css文件中以注释形式输出错误信息</p>
+</div></article></div></main><footer><div class="paginator"><a href="/2019/08/01/html-css/H5/" class="prev">上一篇</a><a href="/2019/07/23/html-css/CSS布局/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2019/07/25/html-css/Less &amp; Sass/';
+var disqus_title = 'Less &amp; Sass';
+var disqus_url = 'https://turing5467.github.io/2019/07/25/html-css/Less &amp; Sass/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

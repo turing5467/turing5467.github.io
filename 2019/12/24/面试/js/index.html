@@ -1,0 +1,165 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>  · 快乐的图小灵</title><meta name="description" content=" - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title"></h1><div class="post-info">Dec 24, 2019</div><div class="post-content"><p>[toc]</p>
+<h4 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h4><h5 id="1-闭包是什么"><a href="#1-闭包是什么" class="headerlink" title="1. 闭包是什么"></a>1. 闭包是什么</h5><ul>
+<li>闭包是基于词法作用域书写代码时所产生的自然结果，它的创建和使用在代码中随处可见</li>
+<li>当函数可以记住并访问所在的<strong>词法作用域</strong>时,就产生了<strong>闭包</strong>,即使函数是在当前词法作用域之外执行   </li>
+<li>特点<ol>
+<li>闭包可以访问<strong>外部函数</strong>中定义的变量，即使外部函数已经执行完毕</li>
+<li>闭包还可以访问<strong>外部函数</strong>中定义的<strong>形参</strong>(理论上来说属于第一点)</li>
+<li>闭包可以访问<strong>外部块</strong>中定义的变量，即使外部块已经执行完毕</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<p>  <strong>词法作用域</strong>是由你在<strong>写代码</strong>时将变量和块作用域写在哪里来决定的   </p>
+</blockquote>
+<ul>
+<li>缺点：滥用闭包会在成内存泄漏，因为闭包中引用到的包裹函数中定义的变量永远不会被释放，所以我们应该在必要的时候，及时释放这个闭包函数</li>
+</ul>
+<h5 id="2-apply和call的区别"><a href="#2-apply和call的区别" class="headerlink" title="2. apply和call的区别"></a>2. apply和call的区别</h5><ul>
+<li><p>共同点：都是借用了一个原本不属于一个对象的方法，让当前对象使用</p>
+</li>
+<li><p>传参方式</p>
+<ol>
+<li><code>call</code>：待调用函数的参数以第2, 3, 4, … n,个参数的形式传递给call</li>
+<li><code>apply</code>：待调用函数的参数以<strong>数组</strong>形式传递给apply的第二个参数</li>
+</ol>
+</li>
+<li><p>形参个数</p>
+<ol>
+<li><code>call.length == 1</code></li>
+<li><code>apply.length == 2</code></li>
+</ol>
+</li>
+<li><p>使用场景</p>
+<ul>
+<li><strong>参数数量/顺序</strong>确定就用<code>call</code>，参数数量/顺序不确定的话就用apply。</li>
+<li>考虑可读性：参数<strong>数量</strong>不多就用<code>call</code>，参数数量比较多的话，把参数整合成数组，使用apply。</li>
+<li>参数集合已经是一个数组的情况，用<code>apply</code>，比如获取数组最大值/最小值。</li>
+</ul>
+</li>
+</ul>
+<h5 id="3-原型和原型链"><a href="#3-原型和原型链" class="headerlink" title="3. 原型和原型链"></a>3. 原型和原型链</h5><ul>
+<li><p>原型：  <strong>构造函数</strong>在创建的过程中，系统自动创建出来与构造函数相关联的一个空的对象。可以由<code>构造函数.prototype</code>来访问到。   </p>
+</li>
+<li><p>每个对象拥有一个原型对象，通过 <strong><strong>proto</strong></strong> 指针指向上一个原型 ，并从中继承方法和属性，同时原型对象也可能拥有原型，这样一层一层，最终指向 null。这种关系被称为<strong>原型链 (prototype chain)</strong>，通过原型链一个对象会拥有定义在其他对象中的属性和方法。    </p>
+</li>
+</ul>
+<blockquote>
+<p>补充：</p>
+<ul>
+<li><p><code>__proto__</code>是每个<strong>实例</strong>上都有的属性，指向<strong>自身构造函数</strong>的原型对象   </p>
+</li>
+<li><p><code>constructor</code>属性是<strong>原型对象</strong>的属性，指向这个原型对象所对应的构造函数。 </p>
+</li>
+</ul>
+</blockquote>
+<h5 id="4-new运算符的执行过程"><a href="#4-new运算符的执行过程" class="headerlink" title="4. new运算符的执行过程"></a>4. new运算符的执行过程</h5><ul>
+<li>新生成一个对象</li>
+<li>链接到原型: <code>obj.__proto__ = Con.prototype</code></li>
+<li>绑定this: <code>apply</code></li>
+<li>返回新对象(如果构造函数有自己 retrun 时，则返回该值)</li>
+</ul>
+<h5 id="5-对象的拷贝"><a href="#5-对象的拷贝" class="headerlink" title="5.对象的拷贝"></a>5.对象的拷贝</h5><ul>
+<li><p>浅拷贝：以复制的形式拷贝引用对象，仍指向同一个地址，修改时原对象也会受到影响</p>
+<ul>
+<li><code>Object.assign</code></li>
+<li>展开运算符(…)</li>
+</ul>
+</li>
+<li><p>深拷贝：完全拷贝一个新对象，修改时原对象不再受到任何影</p>
+<ul>
+<li><p><code>JSON.parse(JSON.stringify(obj))</code>: 性能最快</p>
+<ul>
+<li>具有循环引用的对象时，报错</li>
+<li>当值为函数、<code>undefined</code>、或<code>symbol</code>时，无法拷贝</li>
+</ul>
+</li>
+<li><p>递归进行逐一赋值</p>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="6-函数柯里化"><a href="#6-函数柯里化" class="headerlink" title="6.函数柯里化"></a>6.函数柯里化</h5><ul>
+<li><p>在一个函数中，首先填充几个参数，然后返回一个新的函数的技术，称为函数的柯里化。</p>
+</li>
+<li><p>通常可用于在不侵入函数的前提下，为函数 <strong>预置通用参数</strong>，供多次重复调用。 </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> add = <span class="function"><span class="keyword">function</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">y</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> x + y</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> add1 = add(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">add1(<span class="number">2</span>) === <span class="number">3</span></span><br><span class="line">add1(<span class="number">20</span>) === <span class="number">21</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+</li>
+</ul>
+<h4 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h4><h5 id="1-let和const"><a href="#1-let和const" class="headerlink" title="1. let和const"></a>1. let和const</h5><ol>
+<li><p>共同点</p>
+<ul>
+<li>块级作用域有效</li>
+<li>不存在变量提升(暂时性死区TDZ)</li>
+<li>不允许重复声明</li>
+</ul>
+</li>
+<li><p>const</p>
+<ul>
+<li><p>一旦声明，就不能改变，且必须立即初始化</p>
+</li>
+<li><p>对于<strong>复合类型的变量</strong>，变量指向数据所在的<strong>地址</strong>。 const 命令只保证变量名指向的<strong>地址</strong>不变，并不保证该地址的数据不变。</p>
+</li>
+</ul>
+</li>
+</ol>
+<h5 id="2-Promise"><a href="#2-Promise" class="headerlink" title="2. Promise"></a>2. Promise</h5><h4 id="ajax"><a href="#ajax" class="headerlink" title="ajax"></a>ajax</h4><h5 id="1-GET和POST的区别"><a href="#1-GET和POST的区别" class="headerlink" title="1.GET和POST的区别"></a>1.GET和POST的区别</h5><ul>
+<li>get: 缓存、请求长度受限、会被历史保存记录<br>无副作用(不修改资源)，幂等(请求次数与资源无关)的场景</li>
+<li>post: 安全、大数据、更多编码类型<img src="https://user-gold-cdn.xitu.io/2019/2/14/168e9d9050b9d08a?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"> </li>
+</ul>
+<h4 id="纯JS代码题"><a href="#纯JS代码题" class="headerlink" title="纯JS代码题"></a>纯JS代码题</h4><h5 id="1-数组去重"><a href="#1-数组去重" class="headerlink" title="1. 数组去重"></a>1. 数组去重</h5><ol>
+<li><p>双重循环：笨重，时间复杂度为O(n^2)</p>
+</li>
+<li><p>indexOf方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">unique</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> res = []</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (res.indexOf(arr[i]) === <span class="number">-1</span>) &#123;</span><br><span class="line">            res.push(arr[i])</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>排序 + 相邻元素去重</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">unique</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">    arr = arr.sort()</span><br><span class="line">    <span class="keyword">let</span> res = []</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (arr[i] !== arr[i<span class="number">-1</span>]) &#123;</span><br><span class="line">            res.push(arr[i])</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>reduce</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.prototype.unique = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.sort().reduce(<span class="function">(<span class="params">init, current</span>) =&gt;</span> &#123; </span><br><span class="line">        <span class="keyword">if</span>(init.length === <span class="number">0</span> || init[init.length - <span class="number">1</span>] !== current)&#123; </span><br><span class="line">            init.push(current); </span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">return</span> init; </span><br><span class="line">    &#125;, []); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Set与解构</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">unique</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Array</span>.from(<span class="keyword">new</span> <span class="built_in">Set</span>(arr))</span><br><span class="line">    <span class="comment">//或解构</span></span><br><span class="line">    <span class="comment">//return [...new Set(arr)]</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<h5 id="2-防抖和节流"><a href="#2-防抖和节流" class="headerlink" title="2. 防抖和节流"></a>2. 防抖和节流</h5><ul>
+<li><p><strong>防抖</strong>：任务频繁触发的情况下，只有任务触发的<strong>间隔超过指定时间</strong>的时候，任务才会执行。 </p>
+<ul>
+<li><p>即：短时间内多次触发某一任务，只会执行<strong>最后一次</strong>触发  </p>
+</li>
+<li><p>代码实现</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">fn</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> timeout = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        clearTimeout(timeout);</span><br><span class="line">        timeout = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            fn.call(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">        &#125;, <span class="number">1000</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用场景： 用户输入，只需再输入完成后做一次输入校验即可。 </p>
+</li>
+</ul>
+</li>
+<li><p><strong>实：现节流</strong>：指定时间间隔内只会执行一次任务</p>
+<ul>
+<li><p>应用：监听滚动条位置</p>
+</li>
+<li><p>代码实现：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">fn,delay</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> canRun = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!canRun) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        canRun = <span class="literal">false</span>;</span><br><span class="line">        setTimeout( <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            fn.call(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">            canRun = <span class="literal">true</span>;</span><br><span class="line">        &#125;, delay);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2019/12/26/html-css/移动端布局/" class="prev">上一篇</a><a href="/2019/12/19/面试/HTML-CSS/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2019/12/24/面试/js/';
+var disqus_title = '';
+var disqus_url = 'https://turing5467.github.io/2019/12/24/面试/js/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

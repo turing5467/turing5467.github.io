@@ -1,0 +1,153 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> JS知识点扫盲 · 快乐的图小灵</title><meta name="description" content="JS知识点扫盲 - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">JS知识点扫盲</h1><div class="post-info">Aug 10, 2019</div><div class="post-content"><h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><ul>
+<li>一个完整的JavaScript实现应该由以下三个部分构成<ol>
+<li>ECMAScript</li>
+<li>DOM(文档对象模型)</li>
+<li>BOM(浏览器对象模型)</li>
+</ol>
+</li>
+</ul>
+<h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><ul>
+<li><p>基本数据类型</p>
+<ol>
+<li><p>String</p>
+<p>a. 引号必须在同一行<br>  b. 引号不可嵌套</p>
+</li>
+<li><p>Number</p>
+<ul>
+<li><code>tofixed(n)</code> 返回<strong>小数</strong>形式的字符串(n为小数位数)</li>
+<li><code>toExceptional(n)</code>   返回<strong>指数</strong>形式的字符串(n为小数位数)   </li>
+<li><code>toPrecision</code>n为有效数字位数</li>
+<li><code>toString(radix)</code>返回指定<strong>基数</strong>形式的字符串</li>
+</ul>
+</li>
+<li><p>Boolean</p>
+</li>
+<li><p>Null：<code>typeof null === &quot;object&quot;</code></p>
+</li>
+<li><p>Undefined：<code>typeof undefined === &quot;undefined&quot;</code></p>
+</li>
+</ol>
+</li>
+<li><p>引用数据类型</p>
+<ol>
+<li>Object</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li><p>为了便于操作基本类型值，ES提供了3种特殊的引用类型</p>
+<ol>
+<li>String</li>
+<li>Number</li>
+<li>Boolean</li>
+</ol>
+<ul>
+<li><p>每当基本类型值调用引用类型所属的方法时,后台会自动完成下列处理   </p>
+<ol>
+<li>创建一个相应的引用类型的实例   </li>
+<li>在这个实例上调用指定的方法   </li>
+<li>销毁这个实例   </li>
+</ol>
+<ul>
+<li>这意味着：不能再运行时为基本类型值添加属性和方法</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="数据类型转换"><a href="#数据类型转换" class="headerlink" title="数据类型转换"></a>数据类型转换</h4><ul>
+<li><p>转String</p>
+<ol>
+<li><code>xx.toString</code><ul>
+<li>null和undefined这两个值没有toString()方法   </li>
+</ul>
+</li>
+<li><code>String(xx)</code><ul>
+<li>对Number和Boolean,实际上是调用toString()方法</li>
+<li>对于null和undefined,就不会调用toString(),而是直接转成<code>&quot;null&quot;或&quot;undefined&quot;</code></li>
+</ul>
+</li>
+<li><code>xx + &quot;&quot;</code></li>
+</ol>
+</li>
+<li><p>转Number</p>
+<ol>
+<li>Number()</li>
+<li>字符串转数字：<code>parseInt(str, radix)</code>和<code>parseFloat</code></li>
+<li><code>xx-0</code> <code>xx*1</code> <code>xx/1</code></li>
+<li><code>+xx</code>正号而非加号</li>
+</ol>
+</li>
+<li><p>转Boolean</p>
+<ol>
+<li><code>Boolean()</code></li>
+<li><code>!!xx</code></li>
+</ol>
+</li>
+</ul>
+<h3 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h3><h4 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符"></a>算术运算符</h4><ul>
+<li>+</li>
+<li>-</li>
+<li>*</li>
+<li>/</li>
+<li>%：正负只与左值有关</li>
+<li>所有运算符搭配NaN或undefined结果都是NaN   </li>
+</ul>
+<h4 id="一元运算符"><a href="#一元运算符" class="headerlink" title="一元运算符"></a>一元运算符</h4><ul>
+<li>+</li>
+<li>-</li>
+<li>++</li>
+</ul>
+<hr>
+<h4 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h4><ul>
+<li>!</li>
+<li>&amp;&amp; ：短路与</li>
+<li>||： 短路或</li>
+</ul>
+<h4 id="赋值运算符"><a href="#赋值运算符" class="headerlink" title="赋值运算符"></a>赋值运算符</h4><ul>
+<li>= += -= *= /= %=</li>
+</ul>
+<h4 id="关系运算符"><a href="#关系运算符" class="headerlink" title="关系运算符"></a>关系运算符</h4><ul>
+<li><p><code>== ===</code></p>
+</li>
+<li><p><code>!= !==</code></p>
+</li>
+<li><p><code>&lt; &lt;=</code></p>
+</li>
+<li><p><code>&gt; &gt;=</code></p>
+</li>
+</ul>
+<h4 id="条件-三元运算符"><a href="#条件-三元运算符" class="headerlink" title="条件/三元运算符"></a>条件/三元运算符</h4><ul>
+<li><code>条件表达式 ? 语句1 : 语句2;</code></li>
+</ul>
+<h4 id="位运算符"><a href="#位运算符" class="headerlink" title="位运算符"></a>位运算符</h4><ul>
+<li><code>&amp;</code>按位与<code>|</code>按位或<code>^</code>异或<code>~</code>取反</li>
+<li><code>&lt;&lt;</code>左移 <code>&gt;&gt;</code>最左位保持原符号不变<code>&gt;&gt;&gt;</code>无符号右移(最左位置0)</li>
+</ul>
+<h4 id="void"><a href="#void" class="headerlink" title="void"></a>void</h4><ul>
+<li><p>流程:</p>
+<ol>
+<li>令expr为解释执行的结果</li>
+<li>调用getValue(expr)</li>
+<li>返回undefined</li>
+</ol>
+</li>
+<li><p>为什么 要用void<br>因为undefined在js中不是保留字,因而可以作为变量名被赋值,所以不是绝对可靠的而void能保证渠道undefined值</p>
+</li>
+<li><p>作用</p>
+<ol>
+<li><code>void 0</code>取undefined</li>
+<li>填充<code>&lt;a&gt;</code>的<code>href</code>确保点击不会发生页面跳转</li>
+<li>填充<code>&lt;img&gt;</code>的<code>src</code>,确保不会向服务器发出垃圾请求</li>
+</ol>
+</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2019/08/11/js/00_js开发技巧/" class="prev">上一篇</a><a href="/2019/08/01/html-css/H5/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2019/08/10/js/JS基础/';
+var disqus_title = 'JS知识点扫盲';
+var disqus_url = 'https://turing5467.github.io/2019/08/10/js/JS基础/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

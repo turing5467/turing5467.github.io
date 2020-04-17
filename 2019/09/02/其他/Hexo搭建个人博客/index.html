@@ -1,0 +1,62 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Hexo搭建个人博客 · 快乐的图小灵</title><meta name="description" content="Hexo搭建个人博客 - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Hexo搭建个人博客</h1><div class="post-info">Sep 2, 2019</div><div class="post-content"><h3 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h3><ol>
+<li>安装hexo <code>$ cnpm install hexo -g</code></li>
+</ol>
+<h3 id="搭建博客"><a href="#搭建博客" class="headerlink" title="搭建博客"></a>搭建博客</h3><ul>
+<li><p>主要流程<br>❏ 在本地目录中使用hexo来<strong>初始化</strong>博客仓库。<br>❏ 在Github网站使用自己的账号来创建对应的<strong>托管</strong>仓库。<br>❏ 对本地的hexo博客项目进行<strong>配置</strong>和Github官网的托管仓库<strong>对接</strong>。<br>❏ 在命令行中通过hexo命令来<strong>生成博客</strong>、预览博客和发布博客到远程仓库。</p>
+</li>
+<li><p>选择主题<a href="https://hexo.io/themes/" target="_blank" rel="noopener">themes</a></p>
+</li>
+</ul>
+<h4 id="1-初始化"><a href="#1-初始化" class="headerlink" title="1-初始化"></a>1-初始化</h4><ol>
+<li>进入自己创建的<code>blog</code>文件夹</li>
+<li><code>hexo init</code> 初始化</li>
+<li>编写文章</li>
+</ol>
+<h4 id="2-托管到github"><a href="#2-托管到github" class="headerlink" title="2-托管到github"></a>2-托管到github</h4><ol>
+<li>新建一个仓库命名为<code>用户名.github.io</code>(复制一下https地址)</li>
+<li>安装一个模块 <code>cnpm i --save hexo-deployer-git</code></li>
+<li>配置根目录下的<code>_config.yml</code>(注：每个<code>:</code>后必须有空格)</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: https://github.com/turing5467/turing5467.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li><code>hexo d</code>  对接到远程仓库</li>
+</ol>
+<h4 id="hexo基础命令"><a href="#hexo基础命令" class="headerlink" title="hexo基础命令"></a>hexo基础命令</h4><ul>
+<li><code>hexo n [layout] &lt;title&gt;</code></li>
+<li><code>hexo g</code> 生成博客文件</li>
+<li><code>hexo s</code> 开启hexo服务器(访问<code>localhost:4000</code>)</li>
+<li><code>hexo server -p [端口号]</code> 配置端口号</li>
+</ul>
+<h3 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">├── _config.yml                 //整个博客的配置文件：非常重要</span><br><span class="line">├── db.json</span><br><span class="line">├── node_modules</span><br><span class="line">....省略</span><br><span class="line">│   ├── yallist</span><br><span class="line">│   └── yargs</span><br><span class="line">├── package-lock.json</span><br><span class="line">├── package.json</span><br><span class="line">├── public                      //使用hexo命令生成后的博客内容，自动生成，不要修改</span><br><span class="line">│   ├── 2018</span><br><span class="line">│   ├── archives</span><br><span class="line">│   ├── css</span><br><span class="line">│   ├── fancybox</span><br><span class="line">│   ├── index.html</span><br><span class="line">│   └── js</span><br><span class="line">├── scaffolds                   //模板，新建文章时，会根据模板中对应的文件来创建文章</span><br><span class="line">│   ├── draft.md</span><br><span class="line">│   ├── page.md</span><br><span class="line">│   └── post.md</span><br><span class="line">├── source                      //该目录控制博客的内容，非常重要</span><br><span class="line">│   └── _posts</span><br><span class="line">└── themes                      //该目录保存博客的主题(皮肤)，可以下载并使用自己喜欢的皮肤</span><br><span class="line">    └── landscape</span><br></pre></td></tr></table></figure>
+
+<h3 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h3><p><a href="https://hexo.io/themes/" target="_blank" rel="noopener">主题地址</a></p>
+<ul>
+<li>目录: <code>d:\\myBlog</code></li>
+</ul>
+<ol>
+<li>找到对应仓库，<code>git clone xx themes/主题名</code> <pre><code>按照其说明文档，可能需要安装其它依赖</code></pre></li>
+<li>修改根目录下的<code>_config.yml</code>的theme字段为主题名称</li>
+<li><code>hexo clean</code></li>
+<li><code>hexo g</code></li>
+<li><code>hexo d</code>同步到github仓库</li>
+</ol>
+<h3 id="更新文章后"><a href="#更新文章后" class="headerlink" title="更新文章后"></a>更新文章后</h3><ol>
+<li><p>切换至myblog文件夹</p>
+</li>
+<li><p><code>hexo clean</code></p>
+</li>
+<li><p><code>hexo g</code></p>
+</li>
+<li><p><code>hexo d</code>同步到github仓库</p>
+</li>
+</ol>
+</div></article></div></main><footer><div class="paginator"><a href="/2019/10/01/其他/编码规范/" class="prev">上一篇</a><a href="/2019/09/01/其他/Git/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2019/09/02/其他/Hexo搭建个人博客/';
+var disqus_title = 'Hexo搭建个人博客';
+var disqus_url = 'https://turing5467.github.io/2019/09/02/其他/Hexo搭建个人博客/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

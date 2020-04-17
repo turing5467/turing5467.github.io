@@ -2,28 +2,385 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://turing5467.github.io/tags/index.html</loc>
+    <loc>https://turing5467.github.io/2019/12/10/js%E6%A1%86%E6%9E%B6/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/</loc>
     
-    <lastmod>2019-10-25T06:41:30.594Z</lastmod>
+    <lastmod>2020-04-17T07:39:55.868Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/01/01/js%E6%A1%86%E6%9E%B6/vue/Vue_%E9%9D%A2%E8%AF%95%E9%A2%98/</loc>
+    
+    <lastmod>2020-04-17T07:37:13.741Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/11/06/js%E6%A1%86%E6%9E%B6/react/Redux/</loc>
+    
+    <lastmod>2020-04-17T07:11:54.564Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/07/25/html-css/Less%20&%20Sass/</loc>
+    
+    <lastmod>2020-04-17T07:11:25.663Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/11/01/%E5%85%B6%E4%BB%96/nginx/</loc>
+    
+    <lastmod>2020-04-17T07:11:15.189Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/11/09/%E5%85%B6%E4%BB%96/RESTful/</loc>
+    
+    <lastmod>2020-04-17T07:10:36.113Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/08/19/js/11_%E9%97%AD%E5%8C%85/</loc>
+    
+    <lastmod>2020-04-17T07:08:10.197Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/08/20/js/12_%E5%AF%B9%E8%B1%A1/</loc>
+    
+    <lastmod>2020-04-17T07:02:19.171Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/10/01/%E5%85%B6%E4%BB%96/%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/</loc>
+    
+    <lastmod>2020-04-17T06:55:05.924Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/1998/07/12/todo/</loc>
+    
+    <lastmod>2020-04-17T06:54:20.134Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/10/14/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/</loc>
+    
+    <lastmod>2020-04-17T06:51:42.301Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/10/23/node/Node%E6%A8%A1%E5%9D%97/</loc>
+    
+    <lastmod>2020-04-17T06:40:42.582Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/07/15/html-css/HTML%E4%B8%8ECSS/</loc>
+    
+    <lastmod>2020-04-17T06:24:47.937Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/07/23/html-css/CSS%E5%B8%83%E5%B1%80/</loc>
+    
+    <lastmod>2020-04-17T05:52:57.925Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/08/01/html-css/H5/</loc>
+    
+    <lastmod>2020-04-17T05:41:05.392Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/09/02/%E5%85%B6%E4%BB%96/Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</loc>
+    
+    <lastmod>2020-04-17T05:19:05.031Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/08/15/js%E6%A1%86%E6%9E%B6/jQuery/</loc>
+    
+    <lastmod>2020-04-17T05:14:22.605Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/10/13/%E6%95%B0%E6%8D%AE%E5%BA%93/mongodb/</loc>
+    
+    <lastmod>2020-04-12T13:43:25.044Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/08/15/js/07_%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E6%8A%80%E6%9C%AF/</loc>
+    
+    <lastmod>2020-04-03T06:39:43.460Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/10/30/js%E6%A1%86%E6%9E%B6/react/React/</loc>
+    
+    <lastmod>2020-04-01T15:02:36.471Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/12/26/html-css/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80/</loc>
+    
+    <lastmod>2020-03-26T06:13:54.024Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2020/03/09/js%E6%A1%86%E6%9E%B6/react/bug/</loc>
+    
+    <lastmod>2020-03-20T08:10:18.088Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/12/24/%E9%9D%A2%E8%AF%95/js/</loc>
+    
+    <lastmod>2020-03-04T11:45:53.984Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/11/05/js%E6%A1%86%E6%9E%B6/react/React-Router/</loc>
+    
+    <lastmod>2020-03-04T08:39:53.882Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2020/02/04/%E5%B7%A5%E7%A8%8B%E5%8C%96/%E6%B7%B7%E5%90%88%E5%BC%80%E5%8F%91/</loc>
+    
+    <lastmod>2020-02-04T06:41:39.474Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2020/01/14/%E9%9D%A2%E8%AF%95/%E6%B5%8F%E8%A7%88%E5%99%A8/</loc>
+    
+    <lastmod>2020-01-14T11:49:03.514Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2020/01/14/%E9%9D%A2%E8%AF%95/Vue/</loc>
+    
+    <lastmod>2020-01-14T11:20:50.266Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/11/15/%E9%9D%A2%E8%AF%95/interview/</loc>
+    
+    <lastmod>2020-01-14T11:20:03.395Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/10/16/js%E6%A1%86%E6%9E%B6/vue/Vue_2_%E7%BB%84%E4%BB%B6/</loc>
+    
+    <lastmod>2020-01-08T10:22:43.183Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/08/18/js/10_%E5%90%8C%E6%BA%90&%E8%B7%A8%E5%9F%9F/</loc>
+    
+    <lastmod>2019-12-24T08:05:13.130Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/07/15/html-css/00_css%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/</loc>
+    
+    <lastmod>2019-12-23T11:59:48.611Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/12/19/%E9%9D%A2%E8%AF%95/HTML-CSS/</loc>
+    
+    <lastmod>2019-12-23T10:26:37.718Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/08/10/js/JS%E5%9F%BA%E7%A1%80/</loc>
+    
+    <lastmod>2019-11-28T13:17:00.088Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/08/11/js/00_js%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/</loc>
+    
+    <lastmod>2019-11-26T14:27:12.488Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/08/17/js/09_%E6%8B%96%E6%8B%BD/</loc>
+    
+    <lastmod>2019-11-26T13:09:08.928Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/08/16/js/08_Web%20API/</loc>
+    
+    <lastmod>2019-11-26T12:57:32.713Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/08/15/js/07_Cookie%E5%92%8CSession/</loc>
+    
+    <lastmod>2019-11-26T12:26:34.744Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/10/24/js%E6%A1%86%E6%9E%B6/axios/</loc>
+    
+    <lastmod>2019-11-26T02:58:48.226Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/08/14/js/06_this/</loc>
+    
+    <lastmod>2019-11-25T13:23:35.542Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/11/18/%E9%9D%A2%E8%AF%95/%E4%BB%A3%E7%A0%81%E6%89%8B%E5%86%99%E9%A2%98/</loc>
+    
+    <lastmod>2019-11-25T13:19:40.085Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/08/13/js/05_%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</loc>
+    
+    <lastmod>2019-11-25T13:07:41.361Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/08/11/js/03_%E5%8E%9F%E5%9E%8B%E9%93%BE/</loc>
+    
+    <lastmod>2019-11-25T12:00:58.121Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/08/12/js/04_%E6%AD%A3%E5%88%99/</loc>
+    
+    <lastmod>2019-11-25T11:30:17.420Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/11/04/js%E6%A1%86%E6%9E%B6/react/React%E9%AB%98%E7%BA%A7%E6%8C%87%E5%BC%95/</loc>
+    
+    <lastmod>2019-11-14T11:35:07.647Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/11/11/js%E6%A1%86%E6%9E%B6/react/antd/</loc>
+    
+    <lastmod>2019-11-13T12:52:29.672Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/11/08/js%E6%A1%86%E6%9E%B6/react/React%E9%A1%B9%E7%9B%AE%E5%AE%9E%E8%B7%B5/</loc>
+    
+    <lastmod>2019-11-11T08:23:39.079Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/11/11/%E5%85%B6%E4%BB%96/styled-components/</loc>
+    
+    <lastmod>2019-11-11T03:57:55.471Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/11/04/%E5%85%B6%E4%BB%96/Chrome%20Extensions/</loc>
+    
+    <lastmod>2019-11-04T08:09:36.435Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/10/26/js%E6%A1%86%E6%9E%B6/better-scroll/</loc>
+    
+    <lastmod>2019-10-25T14:39:13.445Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/09/01/%E5%85%B6%E4%BB%96/Git/</loc>
+    
+    <lastmod>2019-10-25T12:43:26.459Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/10/15/js%E6%A1%86%E6%9E%B6/vue/Vue/</loc>
+    
+    <lastmod>2019-10-25T09:23:34.678Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/10/21/js%E6%A1%86%E6%9E%B6/vue/Vue_4_%E5%8D%95%E6%96%87%E4%BB%B6%E7%BB%84%E4%BB%B6/</loc>
+    
+    <lastmod>2019-10-25T07:32:21.942Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://turing5467.github.io/2019/10/13/%E5%B7%A5%E7%A8%8B%E5%8C%96/webpack/</loc>
     
-    <lastmod>2019-10-25T06:36:35.501Z</lastmod>
+    <lastmod>2019-10-25T06:43:45.759Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://turing5467.github.io/2019/10/25/js%E6%A1%86%E6%9E%B6/Vue_%E6%B7%B1%E5%85%A5%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/</loc>
+    <loc>https://turing5467.github.io/2019/10/25/js%E6%A1%86%E6%9E%B6/vue/Vue_%E6%B7%B1%E5%85%A5%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/</loc>
     
     <lastmod>2019-10-25T06:01:06.537Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://turing5467.github.io/2019/10/18/js%E6%A1%86%E6%9E%B6/Vue_3_%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</loc>
+    <loc>https://turing5467.github.io/2019/10/18/js%E6%A1%86%E6%9E%B6/vue/Vue_3_%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</loc>
     
     <lastmod>2019-10-25T04:04:34.823Z</lastmod>
     
@@ -37,20 +394,6 @@
   </url>
   
   <url>
-    <loc>https://turing5467.github.io/2019/10/25/js%E6%A1%86%E6%9E%B6/Vue_%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2%20/</loc>
-    
-    <lastmod>2019-10-25T03:36:22.996Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://turing5467.github.io/2019/10/23/node/node_crypto%E6%A8%A1%E5%9D%97/</loc>
-    
-    <lastmod>2019-10-25T03:05:18.104Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://turing5467.github.io/2019/10/10/node/Express/</loc>
     
     <lastmod>2019-10-25T03:05:10.154Z</lastmod>
@@ -58,65 +401,30 @@
   </url>
   
   <url>
-    <loc>https://turing5467.github.io/2019/10/25/js%E6%A1%86%E6%9E%B6/Vue_MVVM/</loc>
-    
-    <lastmod>2019-10-25T03:03:51.730Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://turing5467.github.io/2019/10/24/js%E6%A1%86%E6%9E%B6/Vue_%E9%A3%8E%E6%A0%BC%E6%8C%87%E5%8D%97/</loc>
+    <loc>https://turing5467.github.io/2019/10/24/js%E6%A1%86%E6%9E%B6/vue/Vue_%E9%A3%8E%E6%A0%BC%E6%8C%87%E5%8D%97/</loc>
     
     <lastmod>2019-10-25T03:02:54.556Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://turing5467.github.io/2019/10/23/js%E6%A1%86%E6%9E%B6/Vue_6_Vuex/</loc>
+    <loc>https://turing5467.github.io/2019/10/23/js%E6%A1%86%E6%9E%B6/vue/Vue_6_Vuex/</loc>
     
     <lastmod>2019-10-25T03:02:38.725Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://turing5467.github.io/2019/10/21/js%E6%A1%86%E6%9E%B6/Vue_5_Router/</loc>
+    <loc>https://turing5467.github.io/2019/10/21/js%E6%A1%86%E6%9E%B6/vue/Vue_5_Router/</loc>
     
     <lastmod>2019-10-25T03:02:32.273Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://turing5467.github.io/2019/10/21/js%E6%A1%86%E6%9E%B6/Vue_4_%E5%8D%95%E6%96%87%E4%BB%B6%E7%BB%84%E4%BB%B6/</loc>
-    
-    <lastmod>2019-10-25T03:02:25.808Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://turing5467.github.io/2019/10/16/js%E6%A1%86%E6%9E%B6/Vue_2_%E7%BB%84%E4%BB%B6/</loc>
-    
-    <lastmod>2019-10-25T03:01:49.053Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://turing5467.github.io/2019/10/15/js%E6%A1%86%E6%9E%B6/Vue_1_%E5%9F%BA%E7%A1%80/</loc>
+    <loc>https://turing5467.github.io/2019/10/15/js%E6%A1%86%E6%9E%B6/vue/Vue_1_%E5%9F%BA%E7%A1%80/</loc>
     
     <lastmod>2019-10-25T03:01:38.904Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://turing5467.github.io/2019/10/15/js%E6%A1%86%E6%9E%B6/Vue/</loc>
-    
-    <lastmod>2019-10-25T03:01:19.668Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://turing5467.github.io/2019/08/11/js/03_%E5%8E%9F%E5%9E%8B%E9%93%BE/</loc>
-    
-    <lastmod>2019-10-25T02:58:43.257Z</lastmod>
     
   </url>
   
@@ -131,27 +439,6 @@
     <loc>https://turing5467.github.io/2019/08/11/js/01_js%E6%89%A7%E8%A1%8C%E6%9C%BA%E5%88%B6/</loc>
     
     <lastmod>2019-10-25T02:58:28.372Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://turing5467.github.io/2019/07/15/html-css/00_css%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/</loc>
-    
-    <lastmod>2019-10-25T02:55:01.848Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://turing5467.github.io/2019/08/11/js/00_js%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/</loc>
-    
-    <lastmod>2019-10-25T02:53:32.348Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://turing5467.github.io/2019/10/24/js%E6%A1%86%E6%9E%B6/axios%E5%85%A5%E9%97%A8/</loc>
-    
-    <lastmod>2019-10-24T14:34:51.854Z</lastmod>
     
   </url>
   
@@ -177,30 +464,9 @@
   </url>
   
   <url>
-    <loc>https://turing5467.github.io/2019/08/15/js%E6%A1%86%E6%9E%B6/jQuery/</loc>
-    
-    <lastmod>2019-10-15T06:49:18.562Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://turing5467.github.io/2019/10/13/%E6%95%B0%E6%8D%AE%E5%BA%93/mongodb/</loc>
-    
-    <lastmod>2019-10-15T04:35:01.047Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://turing5467.github.io/2019/10/15/%E5%85%B6%E4%BB%96/TypeScript/</loc>
     
     <lastmod>2019-10-15T04:14:47.055Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://turing5467.github.io/2019/07/23/html-css/css_CSS%E5%B8%83%E5%B1%80/</loc>
-    
-    <lastmod>2019-10-12T01:54:38.132Z</lastmod>
     
   </url>
   

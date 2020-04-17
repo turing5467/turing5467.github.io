@@ -1,0 +1,88 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Vue风格指南(8) · 快乐的图小灵</title><meta name="description" content="Vue风格指南(8) - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Vue风格指南(8)</h1><div class="post-info">Oct 24, 2019</div><div class="post-content"><h3 id="优先级A：必要的"><a href="#优先级A：必要的" class="headerlink" title="优先级A：必要的"></a>优先级A：必要的</h3><ul>
+<li><p><strong>组件名为多个单词</strong>，避免与未来的HTML元素冲突</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(<span class="string">'todo-item'</span>, &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  name: <span class="string">'TodoItem'</span>,</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>组件的 data 必须是一个函数。</strong></p>
+</li>
+<li><p><strong><code>props</code>尽量详细</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">props: &#123;</span><br><span class="line">  status: &#123;</span><br><span class="line">    type: <span class="built_in">String</span>,</span><br><span class="line">    required: <span class="literal">true</span>,</span><br><span class="line">    validator: <span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> [</span><br><span class="line">        <span class="string">'syncing'</span>,</span><br><span class="line">        <span class="string">'synced'</span>,</span><br><span class="line">        <span class="string">'version-conflict'</span>,</span><br><span class="line">        <span class="string">'error'</span></span><br><span class="line">      ].indexOf(value) !== <span class="number">-1</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>总是用 key 配合 v-for。</strong></p>
+</li>
+<li><p><strong>避免<code>v-for</code>和<code>v-if</code>用在一起</strong></p>
+</li>
+<li><p>为组件<strong>样式</strong>设置<strong>作用域</strong></p>
+</li>
+</ul>
+<h3 id="优先级B：强烈推荐"><a href="#优先级B：强烈推荐" class="headerlink" title="优先级B：强烈推荐"></a>优先级B：强烈推荐</h3><ul>
+<li><p>组件模块化</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">components/</span><br><span class="line">|- TodoList.vue</span><br><span class="line">|- TodoItem.vue</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>单文件组件的文件名应该要么始终是<strong>单词大写开头</strong>（PascalCase），要么始终是<strong>横线连接</strong>（kebab-case）</p>
+</li>
+<li><p>应用<strong>特定样式</strong>和约定的<strong>基础组件</strong> (也就是展示类的、无逻辑的或无状态的组件) 应该全部以一个<strong>特定的前缀开头</strong>，比如 Base、App 或 V。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">components/</span><br><span class="line">|- BaseButton.vue</span><br><span class="line">|- BaseTable.vue</span><br><span class="line">|- BaseIcon.vue</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>只应该拥有<strong>单个活跃实例</strong>的组件应该以 <strong>The 前缀</strong>命名，以示其唯一性。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">components/</span><br><span class="line">|- TheHeading.vue</span><br><span class="line">|- TheSidebar.vue</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>和父组件紧密耦合的子组件应该<strong>以父组件名作为前缀</strong>命名。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">components/</span><br><span class="line">|- TodoList.vue</span><br><span class="line">|- TodoListItem.vue</span><br><span class="line">|- TodoListItemButton.vue</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>组件名应该以高级别的 (通常是一般化描述的) 单词开头，以描述性的修饰词结尾。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">components/</span><br><span class="line">|- SearchButtonClear.vue</span><br><span class="line">|- SearchButtonRun.vue</span><br><span class="line">|- SearchInputQuery.vue</span><br><span class="line">|- SearchInputExcludeGlob.vue</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在<strong>单文件组件、字符串模板和 JSX</strong> 中没有内容的组件应该是<strong>自闭合</strong>的——但在 DOM 模板里永远不要这样做。</p>
+</li>
+<li><p><strong>对于绝大多数项目来说，在单文件组件和字符串模板中组件名应该总是 PascalCase 的——但是在 DOM 模板中总是 kebab-case 的。</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 在所有地方都适用 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">my-component</span>&gt;</span><span class="tag">&lt;/<span class="name">my-component</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>JS/JSX 中的组件名应该始终是 PascalCase 的</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> MyComponent <span class="keyword">from</span> <span class="string">'./MyComponent.vue'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>完整单词的组件名</strong></p>
+</li>
+<li><p><strong>在声明 prop 的时候，其命名应该始终使用 camelCase</strong></p>
+</li>
+<li><p><strong>多个特性的元素应该分多行撰写，每个特性一行。</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span></span></span><br><span class="line"><span class="tag">  <span class="attr">src</span>=<span class="string">"https://vuejs.org/images/logo.png"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">alt</span>=<span class="string">"Vue Logo"</span></span></span><br><span class="line"><span class="tag">&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>组件模板应该只包含简单的表达式，复杂的表达式则应该重构为计算属性或方法。</strong></p>
+</li>
+<li><p><strong>应该把复杂计算属性分割为尽可能多的更简单的属性。</strong></p>
+</li>
+<li><p><strong>非空 HTML 特性值应该始终带引号 (单引号或双引号，选你 JS 里不用的那个)。</strong></p>
+</li>
+<li><p>指令缩写（<code>:</code> <code>@</code>  <code>#</code>）</p>
+</li>
+<li><p><strong>元素 (包括组件) 的特性应该有统一的顺序。</strong></p>
+<ol>
+<li>定义 <code>is</code></li>
+<li>列表渲染 <code>v-for</code></li>
+<li>条件渲染</li>
+<li>渲染方式 <code>v-pre</code> <code>v-once</code></li>
+<li>全局感知：<code>id</code></li>
+<li>唯一特性：<code>ref</code> <code>key</code> </li>
+<li>双向绑定 ：<code>v-model</code></li>
+<li>事件：<code>@</code></li>
+<li>内容：<code>v-html</code> <code>v-text</code></li>
+</ol>
+</li>
+<li><p>单文件徐建的顶级元素顺序</p>
+<ul>
+<li><code>script =&gt; template =&gt; style</code></li>
+<li><code>template =&gt; script =&gt; style</code></li>
+</ul>
+</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2019/10/24/js框架/axios/" class="prev">上一篇</a><a href="/2019/10/23/node/Node模块/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2019/10/24/js框架/vue/Vue_风格指南/';
+var disqus_title = 'Vue风格指南(8)';
+var disqus_url = 'https://turing5467.github.io/2019/10/24/js框架/vue/Vue_风格指南/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

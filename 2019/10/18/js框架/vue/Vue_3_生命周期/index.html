@@ -1,0 +1,124 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Vue_生命周期(4) · 快乐的图小灵</title><meta name="description" content="Vue_生命周期(4) - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Vue_生命周期(4)</h1><div class="post-info">Oct 18, 2019</div><div class="post-content"><h3 id="Vue-的生命周期"><a href="#Vue-的生命周期" class="headerlink" title="Vue 的生命周期"></a>Vue 的生命周期</h3><p><img src="https://cn.vuejs.org/images/lifecycle.png" alt="Vue å®ä¾çå½å¨æ"></p>
+<ul>
+<li><p>三大阶段</p>
+<ol>
+<li>初始化：<code>mounted</code>之前</li>
+<li>更新：</li>
+<li>死亡：<code>vm.$destroy()</code></li>
+</ol>
+</li>
+<li><p>常用声明周期方法</p>
+<ol>
+<li><p><code>mounted()</code>初始化显示之后立即调用(1次)</p>
+<p>□ 发送ajax请求，启动定时器等异步任务</p>
+</li>
+<li><p><code>beforeDestroy</code>：实例销毁之前调用，这一步时，实例还是可用的</p>
+<p>□ 做收尾工作，如清除定时器</p>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="生命周期钩子函数"><a href="#生命周期钩子函数" class="headerlink" title="生命周期钩子函数"></a>生命周期钩子函数</h3><ul>
+<li>创建前后<ul>
+<li><code>beforeCreate</code> </li>
+<li><code>created</code></li>
+</ul>
+</li>
+<li>挂载<ul>
+<li><code>beforeMount</code> 如果有<code>el</code>属性，则<code>$el</code>可用，但数据还未渲染</li>
+<li><code>mounted</code> 处理<code>template</code></li>
+</ul>
+</li>
+<li>更新<ul>
+<li><code>beforeUpdate</code></li>
+<li><code>updated</code></li>
+</ul>
+</li>
+<li>激活 <code>keep-alive</code>：销毁真实DOM,保留虚拟DM，<ul>
+<li><code>activated</code> 组件是否被激活</li>
+<li><code>dectivated</code></li>
+</ul>
+</li>
+<li>销毁：真实DOM和虚拟DOM都会销毁，如<code>componnet :is</code>或<code>v-if</code>都会触发激活事件<ul>
+<li>可用来关闭定时器</li>
+<li><code>beforeDestory</code></li>
+<li><code>destroyed</code></li>
+</ul>
+</li>
+<li>监听路由错误<ul>
+<li><code>errorCaptured</code> 当捕获一个来自子孙组件的错误时被调用<ul>
+<li>参数：<code>(错误对象，发生错误的组件实例， 错误信息字符串)</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>注意点，Vue的所有生命周期函数都是自动绑定到<code>this</code>的上下文上。</p>
+<p>编译模板优先级：<code>render</code>函数  &gt;  内部<code>template</code>  &gt;   外部 <code>html</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>钩子</th>
+<th align="left">详细介绍（ 完成 后执行 钩子函数）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>beforeCreate</code></td>
+<td align="left">实例在内存中被创建，初始化事件和生命周期</td>
+</tr>
+<tr>
+<td><code>created</code></td>
+<td align="left">初始化  <code>props</code>,<code>methods</code> ,<code>data</code>,<code>computed</code> 和 <code>watch</code></td>
+</tr>
+<tr>
+<td><code>beforeMount</code></td>
+<td align="left">检查是否存在 <code>el</code> ，存在的话<strong>编译</strong>模板，<code>render</code> =&gt; 生成虚拟DOM</td>
+</tr>
+<tr>
+<td><code>mounted</code></td>
+<td align="left">挂载点将虚拟DOM<strong>渲染</strong>为真实DOM</td>
+</tr>
+<tr>
+<td><code>beforeUpdate</code></td>
+<td align="left">实例上的数据已经更新，但是还没有同步到页面上</td>
+</tr>
+<tr>
+<td><code>updated</code></td>
+<td align="left">数据已同步至页面，<br>检查当前的 <code>watcher</code> 列表中，是否存在当前要更新数据的 <code>watcher</code> ，如果存在就执行 <code>updated</code> ；</td>
+</tr>
+<tr>
+<td><code>beforeDestroy</code></td>
+<td align="left">检查是否已经被卸载，如果已经被卸载，就直接 <code>return</code> 出去，否则执行 <code>beforeDestroy</code> ；</td>
+</tr>
+<tr>
+<td><code>destroyed</code></td>
+<td align="left">把所有有关自己痕迹的地方，都给删除掉；</td>
+</tr>
+</tbody></table>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;msg&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//测试 beforeMount 和 mounted</span></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el: <span class="string">'#app'</span>,</span><br><span class="line">    data: &#123;</span><br><span class="line">        msg: <span class="string">'Hello Vue'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    beforeMount() &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">document</span>.getElementById(<span class="string">'app'</span>).innerHTML);</span><br><span class="line">        <span class="comment">// &lt;p&gt;&#123;&#123;msg&#125;&#125;&lt;/p&gt;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    mounted() &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">document</span>.getElementById(<span class="string">'app'</span>).innerHTML);</span><br><span class="line">        <span class="comment">//&lt;p&gt;Hello Vue&lt;/p&gt;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//测试 beforeUpdate 和 updated</span></span><br><span class="line"><span class="comment">//点击修改msg，后打印结果如下</span></span><br><span class="line"><span class="comment">//开发中一般使用watch，监听某个数据</span></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    ...,</span><br><span class="line">    beforeUpdate() &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.$el.innerText);<span class="comment">//Hello Vue(未改变)</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.msg);		<span class="comment">//Hello React(已改变)</span></span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    updated() &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.$el.innerText);<span class="comment">//Hello React</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.msg); 		<span class="comment">//Hello React</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Vue-nextTick"><a href="#Vue-nextTick" class="headerlink" title="Vue.nextTick"></a>Vue.nextTick</h3><ul>
+<li><p>数据层变化的时候，并不会立即更新真实DOM，它需要一个差异对比的更新过程</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Vue.set(data,<span class="string">'name'</span>,<span class="string">'turing'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">document</span>.getElementById(<span class="string">'app'</span>).innerHTML);  <span class="comment">//tr(原来的name)</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>为了让数据完全渲染到视图后再去触发逻辑，我们可以使用<code>Vue.nextTick()</code>函数</p>
+<ul>
+<li><code>Vue.nextTick</code>实现原理其实就是<code>setTimeout()</code></li>
+</ul>
+</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2019/10/21/js框架/vue/Vue_4_单文件组件/" class="prev">上一篇</a><a href="/2019/10/16/js框架/vue/Vue_2_组件/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2019/10/18/js框架/vue/Vue_3_生命周期/';
+var disqus_title = 'Vue_生命周期(4)';
+var disqus_url = 'https://turing5467.github.io/2019/10/18/js框架/vue/Vue_3_生命周期/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
