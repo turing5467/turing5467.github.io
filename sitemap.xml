@@ -2,16 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://turing5467.github.io/2019/12/10/js%E6%A1%86%E6%9E%B6/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/</loc>
+    <loc>https://turing5467.github.io/2019/12/19/%E9%9D%A2%E8%AF%95/HTML-CSS/</loc>
     
-    <lastmod>2020-04-17T07:39:55.868Z</lastmod>
+    <lastmod>2020-04-17T09:20:41.327Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://turing5467.github.io/2019/01/01/js%E6%A1%86%E6%9E%B6/vue/Vue_%E9%9D%A2%E8%AF%95%E9%A2%98/</loc>
+    <loc>https://turing5467.github.io/2020/01/14/%E9%9D%A2%E8%AF%95/%E6%B5%8F%E8%A7%88%E5%99%A8/</loc>
     
-    <lastmod>2020-04-17T07:37:13.741Z</lastmod>
+    <lastmod>2020-04-17T09:00:15.629Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2020/01/14/%E9%9D%A2%E8%AF%95/Vue/</loc>
+    
+    <lastmod>2020-04-17T07:45:23.105Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://turing5467.github.io/2019/12/10/js%E6%A1%86%E6%9E%B6/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/</loc>
+    
+    <lastmod>2020-04-17T07:39:55.868Z</lastmod>
     
   </url>
   
@@ -177,20 +191,6 @@
   </url>
   
   <url>
-    <loc>https://turing5467.github.io/2020/01/14/%E9%9D%A2%E8%AF%95/%E6%B5%8F%E8%A7%88%E5%99%A8/</loc>
-    
-    <lastmod>2020-01-14T11:49:03.514Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://turing5467.github.io/2020/01/14/%E9%9D%A2%E8%AF%95/Vue/</loc>
-    
-    <lastmod>2020-01-14T11:20:50.266Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://turing5467.github.io/2019/11/15/%E9%9D%A2%E8%AF%95/interview/</loc>
     
     <lastmod>2020-01-14T11:20:03.395Z</lastmod>
@@ -215,13 +215,6 @@
     <loc>https://turing5467.github.io/2019/07/15/html-css/00_css%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/</loc>
     
     <lastmod>2019-12-23T11:59:48.611Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://turing5467.github.io/2019/12/19/%E9%9D%A2%E8%AF%95/HTML-CSS/</loc>
-    
-    <lastmod>2019-12-23T10:26:37.718Z</lastmod>
     
   </url>
   

@@ -17,7 +17,9 @@
 <ol start="3">
 <li><p><strong>移动端布局</strong></p>
 <ol>
-<li></li>
+<li>百分比布局</li>
+<li>rem布局</li>
+<li>vw布局</li>
 </ol>
 </li>
 </ol>
@@ -40,10 +42,9 @@
 </li>
 </ul>
 </li>
-</ol>
-<ol start="6">
 <li></li>
-<li>rgba和opacity的透明效果<ul>
+<li><p>rgba和opacity的透明效果</p>
+<ul>
 <li>rgba：只作用于元素的颜色或背景色</li>
 <li>opacity：作用于元素，以及元素内所有内容的透明度</li>
 </ul>
@@ -65,7 +66,7 @@
 <li><p><strong>BFC</strong>是什么</p>
 <ul>
 <li><p>BFC：块级格式化上下文</p>
-<p>​    它是一个独立的渲染区域，该区域内所有元素的布局不会影响到区域外部元素的布局，这个渲染区域只对<strong>块级元素</strong>起作用</p>
+<p>​    它是一个独立的渲染区域，该区域内所有元素的布局不会影响到区域外部元素的布局，这个渲染区域只对<strong>块级元素</strong>起作用。</p>
 </li>
 <li><p>布局规则</p>
 <ul>
@@ -110,34 +111,40 @@
 </li>
 <li><p>HTML常见兼容性问题</p>
 <ol>
-<li><p>双边距 BUG float 引起的 使用 display </p>
+<li>IE6双边距 BUG： float 引起 =&gt;  使用 <code>display : inline</code></li>
+</ol>
 </li>
-<li><p>3 像素问题 使用 float 引起的 使用 dislpay:inline -3px  </p>
+<li><p>ie8以下图片边框bug：图片为a标签 =&gt; <code>border: 0 none;</code></p>
+<ol start="3">
+<li>div中图片下方撑大3px：<code>div { font-size:0 }</code></li>
+</ol>
 </li>
-<li><p>超链接 hover 点击后失效 使用正确的书写顺序 link visited hover active </p>
+<li><p>ie6部分块元素拥有默认高16px：<code>font-size:0</code></p>
+<ol start="5">
+<li>表单行高对齐不一致：<code>float: left</code>或<code>vertical-align: middle</code></li>
+</ol>
 </li>
-<li><p>Ie z-index 问题 给父级添加 position:relative </p>
-</li>
-<li><p>Png 透明 使用 js 代码 改 </p>
-</li>
-<li><p>Min-height 最小高度 ！Important 解决’ </p>
+<li><p>各浏览器按钮大小不一样：用a标签模拟</p>
+<ol start="7">
+<li>ie6百分比bug 50+50&gt;100：<code>.right { clear: right }</code></li>
+</ol>
 </li>
 <li><p>select 在 ie6 下遮盖 使用 iframe 嵌套 </p>
-</li>
-<li><p>为 什 么 没 有 办 法 定 义 1px 左 右 的 宽 度 容 器 （ IE6 默 认 的 行 高 造 成 的 ， 使 用 </p>
-</li>
-</ol>
-<p>over:hidden,zoom:0.08 line-height:1px） </p>
 <ol start="9">
+<li><p>为 什 么 没 有 办 法 定 义 1px 左 右 的 宽 度 容 器 （ IE6 默 认 的 行 高 造 成 的 ， 使 用 </p>
+<p><code>overflow:hidden,zoom:0.08 line-height:1px</code>） </p>
+</li>
 <li><p>IE5-8 不支持 opacity，解决办法： </p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.opacity</span> &#123; </span><br><span class="line"> <span class="attribute">opacity</span>: <span class="number">0.4</span> </span><br><span class="line"> filter: <span class="built_in">alpha</span>(opacity=60); <span class="comment">/* for IE5-7 */</span> </span><br><span class="line"> <span class="attribute">-ms-filter</span>: <span class="string">"progid:DXImageTransform.Microsoft.Alpha(Opacity=60)"</span>; <span class="comment">/* for IE8*/</span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>IE6 不支持 PNG 透明背景，解决办法: IE6 下使用 gif 图片</p>
-</li>
-</ol>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.opacity</span> &#123; </span><br><span class="line">     <span class="attribute">opacity</span>: <span class="number">0.4</span> </span><br><span class="line"> filter: <span class="built_in">alpha</span>(opacity=60); <span class="comment">/* for IE5-7 */</span> </span><br><span class="line">     <span class="attribute">-ms-filter</span>: <span class="string">"progid:DXImageTransform.Microsoft.Alpha(Opacity=60)"</span>; <span class="comment">/* for IE8*/</span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
 </li>
 </ol>
-<h3 id="纯CSS面试题"><a href="#纯CSS面试题" class="headerlink" title="纯CSS面试题"></a>纯CSS面试题</h3><ol>
+</li>
+</ol>
+<pre><code>10. IE6 不支持 PNG 透明背景，解决办法: IE6 下使用 gif 图片
+
+11. margin塌陷(margin-top转移至父元素)：父或子设置浮动   或   父：`overflow: hidden`</code></pre><h3 id="纯CSS面试题"><a href="#纯CSS面试题" class="headerlink" title="纯CSS面试题"></a>纯CSS面试题</h3><ol>
 <li>单行和多行文本溢出</li>
 </ol>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">//单行文本溢出...</span><br><span class="line"><span class="selector-class">.inoneline</span>&#123;</span><br><span class="line">    <span class="attribute">overflow</span>: hidden ;</span><br><span class="line">    <span class="attribute">white-space</span>: nowrap;</span><br><span class="line">    <span class="attribute">text-overflow</span>: ellipsis;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//多行文本溢出</span><br><span class="line"><span class="selector-class">.intwoline</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: -webkit-box <span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">overfLow</span>: hidden;</span><br><span class="line">    <span class="attribute">text-overflow</span>: ellipsis;</span><br><span class="line">    <span class="attribute">word-break</span>: break-all;</span><br><span class="line">    <span class="attribute">-webkit-box-orient</span>: vertical;</span><br><span class="line">    -webkit-line clamp: 2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -158,7 +165,7 @@
 <p>图片压缩体积大约只有 JPEG 的 2/3，并能节省大量的服务器带宽资源和数据空间。Facebook  </p>
 <p>Ebay 等知名网站已经开始测试并使用 WebP 格式。 </p>
 <p>在质量相同的情况下，WebP 格式图像的体积要比 JPEG 格式图像小 40% </p>
-</div></article></div></main><footer><div class="paginator"><a href="/2019/12/24/面试/js/" class="prev">上一篇</a><a href="/2019/12/10/js框架/微信小程序/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+</div></article></div></main><footer><div class="paginator"><a href="/2019/12/24/面试/js/" class="prev">PREV</a><a href="/2019/12/10/js框架/微信小程序/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
 var disqus_identifier = '2019/12/19/面试/HTML-CSS/';
 var disqus_title = '';
 var disqus_url = 'https://turing5467.github.io/2019/12/19/面试/HTML-CSS/';
