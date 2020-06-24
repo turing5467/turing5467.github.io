@@ -1,0 +1,281 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 面试题--React · 快乐的图小灵</title><meta name="description" content="面试题--React - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">面试题--React</h1><div class="post-info">Apr 19, 2020</div><div class="post-content"><p><a href="https://github.com/Advanced-Interview-Question/front-end-interview/blob/master/docs/guide/react.md" target="_blank" rel="noopener">原文链接</a></p>
+<h4 id="1-什么是React"><a href="#1-什么是React" class="headerlink" title="1.什么是React"></a>1.什么是React</h4><p> <a href="https://reactjs.org/" target="_blank" rel="noopener">React</a> 是一个<strong>开源前端 JavaScript 库</strong>，用于构建用户界面，尤其是单页面应用。它用于处理网页和移动应用程序的视图层。</p>
+<blockquote>
+<p>单页面应用(single-page application)，是一个应用程序，它可以加载单个 HTML 页面，以及运行应用程序所需的所有必要资源（例如 JavaScript 和 CSS）。与页面或后续页面的任何交互，都不再需要往返 server 加载资源，即页面不会重新加载。</p>
+</blockquote>
+<h4 id="2-主要特点"><a href="#2-主要特点" class="headerlink" title="2. 主要特点"></a>2. 主要特点</h4><ol>
+<li>使用虚拟DOM，考虑到真实DOM操作成本高</li>
+<li>支持服务端渲染</li>
+<li>单向数据流或数据绑定</li>
+<li>使用可复用/可组合的UI组件开发视图</li>
+</ol>
+<blockquote>
+<p>服务端渲染：用户发出请求时，在服务端生成一个我们希望看到的网页内容的HTML字符串，返回给客户端</p>
+</blockquote>
+<h4 id="3-什么是JSX"><a href="#3-什么是JSX" class="headerlink" title="3.什么是JSX"></a>3.什么是JSX</h4><p> JSX 是 ECMAScript 一个类似 XML 的语法扩展。基本上，它只是为 <code>React.createElement()</code> 函数提供语法糖，从而让在我们在 JavaScript 中，使用类 HTML 模板的语法，进行页面描述。 </p>
+<h4 id="4-函数组件与类组件"><a href="#4-函数组件与类组件" class="headerlink" title="4.函数组件与类组件"></a>4.函数组件与类组件</h4><ul>
+<li>函数组件：创建组件最简单的方式，接受props对象作为第一个参数<ol>
+<li>不具有生命周期</li>
+<li>无法使用<code>state</code></li>
+</ol>
+</li>
+<li>类组件<ol>
+<li>如果需要使用到<code>state</code>，则只能使用类组件来定义</li>
+<li>具有生命周期</li>
+</ol>
+</li>
+</ul>
+<h4 id="5-Pure-Component"><a href="#5-Pure-Component" class="headerlink" title="5.Pure Component"></a>5.Pure Component</h4><ul>
+<li>出现背景：在React .Component的生命周期中，有一个<code>shouldComponentUpdate</code>方法，默认返回值是true。这意味着就算没有改变组件的props或者state，也会导致组件的重绘，这极大的降低了React的渲染效率。</li>
+<li>PureComponent：创建了默认的<code>shouldComponentUpdate</code>行为。这个默认的shouldComponentUpdate行为会一一比较props和state中所有的属性，只有当一项发生改变时，才会进行重绘。</li>
+</ul>
+<h4 id="6-state和props"><a href="#6-state和props" class="headerlink" title="6.state和props"></a>6.state和props</h4><ul>
+<li>state 和 props 都是普通的 JavaScript 对象，但他们在组件方面的功能不同。Props 以类似于函数参数的方式传递给组件，而状态则类似于在函数内声明变量并对它进行管理。 </li>
+</ul>
+<h4 id="7-React合成事件"><a href="#7-React合成事件" class="headerlink" title="7.React合成事件"></a>7.React合成事件</h4><ul>
+<li>React合成事件一套机制：React并不是将click事件直接绑定在dom上面，而是采用<strong>事件冒泡</strong>的形式冒泡到document上面，然后React将事件封装给正式的函数处理运行。 <ol>
+<li>当用户在为<code>onClick</code>添加函数时，React并没有将Click事件绑定在DOM上面。 </li>
+<li>而是在document处监听所有支持的事件，当事件发生并冒泡至document处时，React将事件内容封装交给中间层<code>SyntheticEvent</code>（负责所有事件合成） </li>
+<li>当事件触发的时候，使用统一的分发函数<code>dispatchEvent</code>执行指定函数。 </li>
+</ol>
+</li>
+</ul>
+<h4 id="8-在元素数组中使用key的好处"><a href="#8-在元素数组中使用key的好处" class="headerlink" title="8.在元素数组中使用key的好处"></a>8.在元素数组中使用key的好处</h4><ul>
+<li><p><code>key</code> 是一个特殊的字符串属性，你在创建元素数组时需要包含它。<em>Keys</em> 帮助 React 识别哪些项已更改、添加或删除。 </p>
+</li>
+<li><p>好处：在diff算法执行时更快找到对应的节点，<strong>提升diff速度</strong></p>
+<blockquote>
+<p> 由于列表项的顺序可能发生改变，因此并不推荐使用 <em>indexes</em> 作为 <em>keys</em>。这可能会对性能产生负面影响，并可能导致组件状态出现问题。 </p>
+</blockquote>
+</li>
+</ul>
+<h4 id="9-如何创建ref"><a href="#9-如何创建ref" class="headerlink" title="9. 如何创建ref"></a>9. 如何创建ref</h4><ul>
+<li><em>ref</em> 用于返回对元素的引用。但在大多数情况下，应该避免使用它们。当你需要直接访问 DOM 元素或组件的实例时，它们可能非常有用。 </li>
+</ul>
+<ol>
+<li><p><code>React.createRef()</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class MyComponent extends React.Component &#123;</span><br><span class="line">  myRef = React.creatRef()</span><br><span class="line">  render() &#123;</span><br><span class="line">    return &lt;div ref=&#123;this.myRef&#125; /&gt;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ref回调</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class MyComponent extends Component &#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    return &lt;div ref=&#123;node =&gt; this.node = node&#125; /&gt;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h4 id="10-虚拟DOM"><a href="#10-虚拟DOM" class="headerlink" title="10.虚拟DOM"></a>10.虚拟DOM</h4><ul>
+<li><p>在react、vue等技术出现之前，要改变页面内容只能通过<strong>遍历查询</strong>DOM树的方式找到需要修改的DOM然后修改样式行为，相当耗费资源。</p>
+</li>
+<li><p>虚拟DOM：建立一个与虚拟DOM树对应的虚拟DOM对象，以对象嵌套的方式来表示DOM树，那么每次DOM的更改就只需要查找js对象的属性变化，性能开销小</p>
+</li>
+<li><p>如何工作</p>
+<ol>
+<li>每当任何底层数据发生更改时，整个 <strong>UI</strong> 都将以 Virtual DOM 的形式<strong>重新渲染</strong>。</li>
+<li>然后<strong>计算</strong>先前 Virtual DOM 对象和新的 Virtual DOM 对象之间的<strong>差异</strong>。</li>
+<li>一旦计算完成，<strong>真实 DOM</strong> 将只更新实际<strong>更改</strong>的内容</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<p> 改变真实的DOM状态远比改变一个JavaScript对象的花销要大得多。 </p>
+</blockquote>
+<h4 id="11-受控组件-amp-非受控组件"><a href="#11-受控组件-amp-非受控组件" class="headerlink" title="11.受控组件&amp;非受控组件"></a>11.受控组件&amp;非受控组件</h4><ul>
+<li><p>受控组件： 在随后的用户输入中，能够控制表单中输入元素的组件被称为受控组件，即每个状态更改都有一个相关联的处理程序。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//例如，我们使用下面的 handleChange 函数将输入框的值转换成大写</span><br><span class="line">handleChange(event) &#123;</span><br><span class="line">  this.setState(&#123;value: event.target.value.toUpperCase()&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>非受控组件： 在内部存储其自身状态的组件，当需要时，可以使用<code>ref</code>查询 DOM 并查找其当前值。 </p>
+</li>
+<li><p>在大多数情况下，建议使用<strong>受控组件</strong>来实现表单。 </p>
+</li>
+</ul>
+<h4 id="12-生命周期"><a href="#12-生命周期" class="headerlink" title="12.生命周期"></a>12.生命周期</h4><p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20191104194337150.png" alt="image-20191104194337150"></p>
+<p>React 16之后有三个生命周期被废弃(但并未删除)</p>
+<ul>
+<li><code>componentWillMount</code><ul>
+<li><code>componentWillReceiveProps</code></li>
+<li><code>componentWillUpdate</code></li>
+</ul>
+</li>
+</ul>
+<p>官方计划在17版本完全删除这三个函数，只保留UNSAVE_前缀的三个函数，目的是为了向下兼容，但是对于开发者而言应该尽量避免使用他们，而是使用新增的生命周期函数替代它们<br>目前React 16.8 +的生命周期分为三个阶段,分别是挂载阶段、更新阶段、卸载阶段</p>
+<h5 id="1-挂载阶段"><a href="#1-挂载阶段" class="headerlink" title="1.挂载阶段"></a>1.挂载阶段</h5><ul>
+<li><code>constructor</code>: 构造函数，最先被执行,我们通常在构造函数里初始化state对象或者给自定义方法绑定this</li>
+</ul>
+<ul>
+<li><code>getDerivedStateFromProps(nextProps, prevState)</code>:这是个静态方法,当我们接收到新的属性想去修改我们state，可以使用</li>
+<li><code>render</code>：纯函数，只返回需要渲染的东西，不应该包含其它的业务逻辑,可以返回原生的DOM、React组件、Fragment、Portals、字符串和数字、Boolean和null等内容</li>
+<li><code>componentDidMount</code>： 组件装载之后调用，此时我们可以获取到DOM节点并操作，比如对canvas，svg的操作，服务器请求，订阅都可以写在这个里面，但是记得在<code>componentWillUnmount</code>中取消订阅</li>
+</ul>
+<h5 id="2-更新阶段"><a href="#2-更新阶段" class="headerlink" title="2.更新阶段:"></a>2.更新阶段:</h5><ul>
+<li><code>getDerivedStateFromProps</code>: 此方法在更新个挂载阶段都可能会调用</li>
+</ul>
+<ul>
+<li><code>shouldComponentUpdate(nextProps, nextState)</code>:：返回一个布尔值，true表示会触发重新渲染，false表示不会触发重新渲染，默认返回true,我们通常利用此生命周期来<strong>优化React程序性能</strong></li>
+<li><code>render</code>: 更新阶段也会触发此生命周期</li>
+<li>getSnapshotBeforeUpdate: getSnapshotBeforeUpdate(prevProps, prevState),这个方法在render之后，componentDidUpdate之前调用，有两个参数prevProps和prevState，表示之前的属性和之前的state，这个函数有一个返回值，会作为第三个参数传给componentDidUpdate，如果你不想要返回值，可以返回null，此生命周期必须与componentDidUpdate搭配使用</li>
+<li><code>componentDidUpdate(prevProps, prevState, snapshot)</code>：参数表示之前的props，state和snapshot。第三个参数是<code>getSnapshotBeforeUpdate</code>返回的,如果触发某些回调函数时需要用到 DOM 元素的状态，则将对比或计算的过程迁移至 <code>getSnapshotBeforeUpdate</code>，然后在 <code>componentDidUpdate</code>中统一触发回调或更新状态。</li>
+</ul>
+<h5 id="3-卸载阶段"><a href="#3-卸载阶段" class="headerlink" title="3.卸载阶段:"></a>3.卸载阶段:</h5><ul>
+<li><code>componentWillUnmount</code>: 当我们的组件被卸载或者销毁了就会调用，我们可以在这个函数里去清除一些定时器，取消网络请求，清理无效的DOM元素等垃圾清理工作</li>
+</ul>
+<h4 id="13-无-有状态组件"><a href="#13-无-有状态组件" class="headerlink" title="13.无/有状态组件"></a>13.无/有状态组件</h4><ul>
+<li><p>无状态组件： 行为独立于其状态 ，可以通过函数来创建无状态组件</p>
+<p>好处：易于编写，理解和测试，可以完全避免this关键字</p>
+</li>
+<li><p>有状态组件：组件的行为依赖于state，只能通过类来创建有状态组件。</p>
+</li>
+</ul>
+<h4 id="14-Context"><a href="#14-Context" class="headerlink" title="14.Context"></a>14.Context</h4><ul>
+<li><em>Context</em> 通过组件树提供了一个传递数据的方法，从而避免了在每一个层级手动的传递<code>props</code>。 </li>
+</ul>
+<h4 id="15-Context与React-redux的区别"><a href="#15-Context与React-redux的区别" class="headerlink" title="15.Context与React-redux的区别"></a>15.Context与React-redux的区别</h4><ul>
+<li>如果项目体量较小，只是需要一个<code>公共的store存储state</code>，而不讲究使用action来管理state，那context完全可以胜任。反之，则是redux的优点。 </li>
+<li>Context缺点<ol>
+<li>Provider 和 Consumer 必须来自同一次 React.createContext 调用 </li>
+<li>因为没有action，state都是被直接修改，数据<strong>安全性</strong>不及redux。 </li>
+<li>不能使用redux的中间件，比如thunk/saga，在一些异步的情况需要自己来处理。 </li>
+</ol>
+</li>
+</ul>
+<h4 id="16-Fragments"><a href="#16-Fragments" class="headerlink" title="16.Fragments"></a>16.Fragments</h4><ul>
+<li><p>背景： <code>render</code> 函数的返回必须有一个根节点，否则报错 </p>
+</li>
+<li><p>Fragments：用于组件返回多个元素而无需根元素。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">render() &#123;</span><br><span class="line">  return (</span><br><span class="line">    &lt;React.Fragment&gt;</span><br><span class="line">      &lt;ChildA /&gt;</span><br><span class="line">      &lt;ChildB /&gt;</span><br><span class="line">      &lt;ChildC /&gt;</span><br><span class="line">    &lt;/React.Fragment&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>好处</p>
+<ol>
+<li>通过不创建额外的 DOM 节点，Fragments 更快并且使用<strong>更少的内存</strong>。</li>
+<li>一些 CSS 机制如<em>Flexbox</em>和<em>CSS Grid</em>具有特殊的父子关系，如果在中间添加 div 将使得很难保持所需的结构。 </li>
+</ol>
+</li>
+</ul>
+<h4 id="17-React的优点"><a href="#17-React的优点" class="headerlink" title="17.React的优点"></a>17.React的优点</h4><ol>
+<li>使用虚拟DOM提高程序性能</li>
+<li>JSX使代码易于读写</li>
+<li>支持服务端和客户端渲染</li>
+<li>易于与框架集成，因为他只是一个视图层</li>
+<li>使用Jest等工具轻松编写单元与集成测试</li>
+</ol>
+<h4 id="18-React局限性"><a href="#18-React局限性" class="headerlink" title="18.React局限性"></a>18.React局限性</h4><ol>
+<li>React只是一个视图库，而不是一个完整的框架</li>
+<li></li>
+</ol>
+<h4 id="19-如何手动触发点击事件"><a href="#19-如何手动触发点击事件" class="headerlink" title="19.如何手动触发点击事件"></a>19.如何手动触发点击事件</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.在render方法创建一个ref</span></span><br><span class="line">&lt;input ref=&#123;input =&gt; <span class="keyword">this</span>.inputElement = input&#125; /&gt;</span><br><span class="line"><span class="comment">//2.在事件处理器中触发点击事件</span></span><br><span class="line"><span class="keyword">this</span>.inputElement.clickj()</span><br></pre></td></tr></table></figure>
+
+<h4 id="20-最流行的动画软件包"><a href="#20-最流行的动画软件包" class="headerlink" title="20.最流行的动画软件包"></a>20.最流行的动画软件包</h4><ul>
+<li><em>React Transition Group</em> 和 <em>React Motion</em> 是React生态系统中流行的动画包。 </li>
+</ul>
+<h4 id="21-如何实现默认页面或404页面"><a href="#21-如何实现默认页面或404页面" class="headerlink" title="21.如何实现默认页面或404页面"></a>21.如何实现默认页面或404页面</h4><p><code>Switch</code>呈现匹配的第一个子<code>Route</code>。 没有路径的<code>Route</code>总是匹配。所以你只需要简单地删除 path 属性，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;Switch&gt;</span><br><span class="line">  &lt;Route exact path=&quot;/&quot; component=&#123;Home&#125;/&gt;</span><br><span class="line">  &lt;Route path=&quot;/user&quot; component=&#123;User&#125;/&gt;</span><br><span class="line">  &lt;Route component=&#123;NotFound&#125; /&gt;</span><br><span class="line">&lt;/Switch&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="22-登录后自动重定向"><a href="#22-登录后自动重定向" class="headerlink" title="22.登录后自动重定向"></a>22.登录后自动重定向</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">export default class LoginComponent extends Component &#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    if (this.state.isLoggedIn === true) &#123;</span><br><span class="line">      return &lt;Redirect to=&quot;/your/redirect/page&quot; /&gt;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      return &lt;div&gt;&#123;&apos;Login Please&apos;&#125;&lt;/div&gt;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="23-redux中展示组件和容器组件"><a href="#23-redux中展示组件和容器组件" class="headerlink" title="23.redux中展示组件和容器组件"></a>23.redux中展示组件和容器组件</h4><p><strong>展示组件</strong>是一个类或功能组件，用于描述应用程序的展示部分。</p>
+<p><strong>容器组件</strong>是连接到 Redux Store的组件的非正式术语。容器组件<em>订阅</em> Redux 状态更新和<em>dispatch</em>操作，它们通常不呈现 DOM 元素；他们将渲染委托给展示性的子组件。</p>
+<h4 id="24-React-Native"><a href="#24-React-Native" class="headerlink" title="24.React Native"></a>24.React Native</h4><ul>
+<li><strong>React Native</strong>是一个使用Javascript构建移动端原生应用程序（iOS，Android）的库。 它与React.js相同，只是不使用Web组件，而是使用原生组件。 </li>
+</ul>
+<h4 id="25-在React中如何使用Font-Awesome图表"><a href="#25-在React中如何使用Font-Awesome图表" class="headerlink" title="25.在React中如何使用Font Awesome图表"></a>25.在React中如何使用Font Awesome图表</h4><ol>
+<li>安装：<code>npm i -s font-awesome</code></li>
+<li>在index.js中导入：<code>import &#39;font-awesome/css/font-awesome.min.css&#39;</code></li>
+<li>应用：<code>&lt;i className={&#39;fa fa-spinner&#39;} /&gt;</code></li>
+</ol>
+<h4 id="26-React-lazy函数"><a href="#26-React-lazy函数" class="headerlink" title="26.React lazy函数"></a>26.React lazy函数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">const OtherComponent = React.lazy(() =&gt; import(&apos;./OtherComponent&apos;));</span><br><span class="line"></span><br><span class="line">function MyComponent() &#123;</span><br><span class="line"> return (</span><br><span class="line">   &lt;div&gt;</span><br><span class="line">     &lt;OtherComponent /&gt;</span><br><span class="line">   &lt;/div&gt;</span><br><span class="line"> );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="27-React与Vue"><a href="#27-React与Vue" class="headerlink" title="27.React与Vue"></a><a href="https://juejin.im/post/5c0a92f2e51d455b3d3dc181" target="_blank" rel="noopener">27.React与Vue</a></h4><ul>
+<li><p>相似之处</p>
+<ol>
+<li>虚拟DOM： 改变真实的DOM状态远比改变虚拟DOM(一个JS对象)的花销要大得多。 </li>
+<li>响应式和组件化</li>
+<li>构建工具</li>
+</ol>
+</li>
+<li><p>不同点</p>
+<ol>
+<li><p>模板 &amp; JSX</p>
+<ul>
+<li><p>Vue鼓励你去写近似常规HTML的模板。只是多了一些属性。 </p>
+</li>
+<li><p>React/JSX使用JavaScript而不是模板来开发，赋予了开发者许多编程能力。 </p>
+</li>
+</ul>
+</li>
+<li><p>状态管理 &amp; 对象属性</p>
+<ul>
+<li>Vue中，state对象并不是必须的，数据由data属性在Vue对象中进行管理。 </li>
+<li>在React中你需要使用<code>setState()</code>方法去更新状态。 </li>
+</ul>
+</li>
+<li><p>HTML &amp; CSS</p>
+<ul>
+<li>Vue通过.vue文件把html、css、js组合到一起，用各自的处理方式</li>
+<li>在React中，一切都是JS</li>
+</ul>
+</li>
+<li><p>diff、patch、update</p>
+<ul>
+<li>Vue：vue的响应式使用的是<code>Object.defineProperty</code>api，并且由于在getter中实现了<strong>依赖收集</strong>，所以不会像react一样去<strong>比较整颗组件树</strong>，而是更加细粒度的去更新状态有变化的组件，同时<code>defineProperty</code>也不存在引用的问题。</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>React： 状态发生改变后，会比较以此组件为根的整颗组件树 ，开销较大。 解决方案是<code>shouldComponentUpdate</code>，以此函数的返回结果来判断是否需要执行后面的diff、patch与update。  实际的开发过程中我们常常会用<code>pureComponent</code>（浅比较）来帮助我们做这一层逻辑判断 </li>
+</ul>
+<ol start="5">
+<li><p><strong>数据绑定</strong>：都是<strong>单向数据流</strong>（父-&gt;子），至于Vue中的v-model不过是逻辑复用的一种方式</p>
+</li>
+<li><p><strong>逻辑复用</strong>：把通用的一些逻辑复用到需要这些逻辑的组件中</p>
+<ul>
+<li>Vue：使用指令或 mixin(容易污染，也不容易debug) </li>
+<li>React（ 高阶组件其实更多的是选择传入什么，而renderProps则是暴漏什么 ）<ul>
+<li>renderProps： 在 React 组件之间使用一个值为函数的 prop 共享代码的简单技术 </li>
+<li>高阶组件：传入一个组件并返回一个新组件</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>使用场景</p>
+<ul>
+<li>Vue应用的渲染系统更快且体积更小</li>
+<li>React适用于构建大型应用项目，同时适用于Web端和原生APP:</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="28-React与Angular"><a href="#28-React与Angular" class="headerlink" title="28.React与Angular"></a>28.React与Angular</h4><table>
+<thead>
+<tr>
+<th>React</th>
+<th>Angular</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>React 是一个库，只有View层</td>
+<td>Angular是一个框架，具有完整的 MVC 功能</td>
+</tr>
+<tr>
+<td>React 可以处理服务器端的渲染</td>
+<td>AngularJS 仅在客户端呈现，但 Angular 2 及更高版本可以在服务器端渲染</td>
+</tr>
+<tr>
+<td>React 在 JS 中使用看起来像 HTML 的 JSX，这可能令人困惑</td>
+<td>Angular 遵循 HTML 的模板方法，这使得代码更短且易于理解</td>
+</tr>
+<tr>
+<td>React Native 是一种 React 类型，它用于构建移动应用程序，它更快，更稳定</td>
+<td>Ionic，Angular 的移动 app 相对原生 app 来说不太稳定和慢</td>
+</tr>
+<tr>
+<td>在 Reac t中，数据只以单一方向传递，因此调试很容易</td>
+<td>在 Angular 中，数据以两种方式传递，即它在子节点和父节点之间具有双向数据绑定，因此调试通常很困难</td>
+</tr>
+</tbody></table>
+</div></article></div></main><footer><div class="paginator"><a href="/2020/05/14/js/性能优化/懒加载/" class="prev">PREV</a><a href="/2020/04/18/工程化/Dart Flutter/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2020/04/19/面试/React/';
+var disqus_title = '面试题--React';
+var disqus_url = 'https://turing5467.github.io/2020/04/19/面试/React/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

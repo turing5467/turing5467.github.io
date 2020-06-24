@@ -1,0 +1,315 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 前端面试视频笔记 · 快乐的图小灵</title><meta name="description" content="前端面试视频笔记 - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">前端面试视频笔记</h1><div class="post-info">Jun 3, 2020</div><div class="post-content"><p>1</p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200603091751928.png" alt="image-20200603091751928"></p>
+<p>2 3</p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200603091849574.png" alt="image-20200603091849574"></p>
+<p>4</p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200603092023557.png" alt="image-20200603092023557"></p>
+<h3 id="什么是面试"><a href="#什么是面试" class="headerlink" title="什么是面试"></a>什么是面试</h3><p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200603092544423.png" alt="image-20200603092544423"></p>
+<h3 id="面试准备"><a href="#面试准备" class="headerlink" title="面试准备"></a>面试准备</h3><ul>
+<li><p>职业描述（JD）分析</p>
+<p>通过分析决定该职位是否为我想要的/我能胜任的，之后，对所需要的技术做准备</p>
+<p>根据JD对简历进行相应的修改</p>
+</li>
+<li><p>业务分析或实战模拟</p>
+<p>去公司的网站看使用了什么技术 ，如Vue、Webpack、存储技术</p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200603101707355.png" alt="image-20200603101707355"></p>
+<p>第一行：处理兼容性</p>
+<p>第二行：使用双核浏览器时，优先使用哪个内核</p>
+<p>三、四行：DNS预解析，可以做性能优化</p>
+</li>
+<li><p>技术栈准备</p>
+<p>jQuery、Vue、React、node（源码、原理（看文章））</p>
+<p>Less、Sass、Gulp、webpack、grunt、npm、browserify</p>
+</li>
+</ul>
+<ul>
+<li><p>自我介绍</p>
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200603103925701.png" alt="image-20200603103925701" style="zoom:67%;">
+
+<ol>
+<li>把握面试的沟通方向（面试官会根据你说的来提问）</li>
+<li>豁达、自信的适度发挥（声音清晰，自信）    </li>
+</ol>
+</li>
+<li><p>实例</p>
+<ol>
+<li><p>适时讨疑问：</p>
+<p>当面试官问到了一些 你还不会的问题，不要回答：我不知道…</p>
+<p>而是，这个问题我要回去思考一下（面试官可以指导一下吗，给我点建议之类）</p>
+</li>
+<li><p>节奏要适宜 ，切记小聪明</p>
+</li>
+<li><p>方向要对，过程要细：</p>
+<p>如性能优化，有哪几个方向，如何实现…</p>
+</li>
+<li><p>胆子要大，心态要和：</p>
+<p>遇见难题不要怕，要多想，答错也比什么都不想强</p>
+<p>勇于承担责任，敢于挑战未知，不要轻易放弃</p>
+<p>：<em>面试官可不可以给我一点提示呀</em></p>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="一面"><a href="#一面" class="headerlink" title="一面"></a>一面</h3><h4 id="页面布局"><a href="#页面布局" class="headerlink" title="页面布局"></a>页面布局</h4><ul>
+<li>语义化掌握到位</li>
+<li>页面布局理解深刻</li>
+<li>CSS基础扎实</li>
+<li>思维灵活且积极上进（会用grid布局…）</li>
+<li>代码书写规范</li>
+</ul>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200603151616502.png" alt="image-20200603151616502"></p>
+<h4 id="CSS盒模型"><a href="#CSS盒模型" class="headerlink" title="CSS盒模型"></a>CSS盒模型</h4><p>1.基本概念：标准模型 + IE模型</p>
+<ul>
+<li><p>标准模型：    BoxWidth = contentWidth</p>
+</li>
+<li><p>IE模型：BoxWidth = contentWidth + padding + border</p>
+</li>
+</ul>
+<p>2.如何设置这两种模型：<code>box-sizing: content/border-box;</code></p>
+<p>3.JS如何获取盒模型对应的宽高：</p>
+<ol>
+<li><code>dom.style.width</code>：只能获取内联属性，没有则返回空串</li>
+<li><code>dom.currentStyle.width</code>：获取css中的属性，只有IE支持</li>
+<li><code>window.getComputedStyle(dom).width</code>：获取的是content-box的宽度（带单位），所有浏览器支持</li>
+<li><code>dom.getBoundingClientRect().width</code>：获取的是border-box的宽度同上（不带单位）</li>
+</ol>
+<p>4.根据盒模型解释边距重叠：</p>
+<ol>
+<li>父子</li>
+<li>兄弟</li>
+</ol>
+<p>BFC（边距重叠解决方案）：</p>
+<ul>
+<li>BFC：块级格式化上下文</li>
+<li>两栏布局时，左边浮动</li>
+<li>清除浮动</li>
+</ul>
+<h4 id="DOM事件类"><a href="#DOM事件类" class="headerlink" title="DOM事件类"></a>DOM事件类</h4><p>1.DOM事件级别：</p>
+<ul>
+<li>DOM0：<code>ele.onclick = function(){}</code></li>
+<li>DOM2：<code>ele.addEventListener(&#39;click&#39;, fucntion(){}, false)</code>false表示在冒泡阶段触发，true表示在捕获阶段触发</li>
+<li>DOM3：<code>ele.addEventListener(&#39;keyup&#39;, function(){}, false)</code>添加了很多事件类型</li>
+</ul>
+<p>2.DOM事件模型：捕获、冒泡</p>
+<p>3.DOM事件流：捕获-&gt;目标-&gt;冒泡</p>
+<p>​    事件通过捕获到达目标元素 =&gt; 目标阶段</p>
+<p>​    事件从目标元素冒泡到window对象 =&gt; 冒泡</p>
+<p>4.事件捕获具体流程：</p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200603201243266.png" alt="image-20200603201243266"></p>
+<p>5.Event对象的常见应用：</p>
+<ol>
+<li><code>e.preventDefault()</code></li>
+<li><code>e.stopPropogation()</code></li>
+<li><code>e.stopImmediatePropagation()</code> 阻止事件冒泡,同时将该元素の同类型事件也阻止</li>
+<li><code>e.target/srcElement</code>触发当前事件的元素</li>
+<li><code>e.currentTarget</code>绑定当前事件的元素</li>
+</ol>
+<p>6.自定义事件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//无法向回调函数添加数据</span></span><br><span class="line"><span class="keyword">var</span> eve = <span class="keyword">new</span> Event(<span class="string">'jump'</span>)</span><br><span class="line">ele.addEventListener(<span class="string">'jump'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; </span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'jump'</span>); </span><br><span class="line">&#125;)</span><br><span class="line">ele.dispatchEvent(eve);  <span class="comment">//参数不能写字符串</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//customEvent: 可以向回调函数添加数据</span></span><br><span class="line"><span class="keyword">var</span> event = <span class="keyword">new</span> CustomEvent(<span class="string">"build"</span>, &#123;</span><br><span class="line">    <span class="comment">//参数写在这里</span></span><br><span class="line">    detail: &#123;</span><br><span class="line">        name: <span class="string">'turing'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    bubbles: <span class="literal">true</span>,</span><br><span class="line">    cancelable: <span class="literal">false</span> <span class="comment">//是否取消默认事件</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">ele.addEventListener(<span class="string">"build"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"我叫"</span> + e.detail.name)</span><br><span class="line">&#125;, <span class="literal">false</span>)</span><br><span class="line"></span><br><span class="line">ele.dispatchEvent(event); <span class="comment">// 触发事件</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="HTTP协议类"><a href="#HTTP协议类" class="headerlink" title="HTTP协议类"></a>HTTP协议类</h4><p>1.主要特点</p>
+<p>​        简单快速  灵活   </p>
+<ul>
+<li><strong>无连接</strong>：连接一次就会断开</li>
+<li><strong>无状态</strong>：无法区分不同连接</li>
+</ul>
+<p>2.报文的组成部分</p>
+<p>3.HTTP方法</p>
+<ul>
+<li>GET：获取资源</li>
+<li>POST：传输资源</li>
+<li>PUT：更新资源</li>
+<li>DELETE：删除资源</li>
+<li>HEAD：获得报文首部</li>
+</ul>
+<p>4.GET和POST的区别</p>
+<p>5.HTTP状态码</p>
+<p>6.什么是持久连接</p>
+<p>7.什么是管线化</p>
+<h4 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h4><p>1.创建对象的几种方式</p>
+<p>2.原型、构造函数、实例、原型链</p>
+<p>3.instanceof</p>
+<p>4.new运算符</p>
+<h4 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h4><p>继承的几种方式和优缺点</p>
+<h4 id="通信类"><a href="#通信类" class="headerlink" title="通信类"></a>通信类</h4><p>1.什么是同源策略及限制</p>
+<p>2.前后端如何通信</p>
+<ul>
+<li>Ajax</li>
+<li>WebSocket：不受同源策略限制</li>
+<li>CORS：都支持</li>
+</ul>
+<p>3.如何创建Ajax</p>
+<ul>
+<li>XHR对象的工作流程</li>
+<li>兼容性处理</li>
+<li>事件的触发条件</li>
+<li>事件的触发顺序</li>
+</ul>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200604103713775.png" alt="image-20200604103713775"></p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200604103233402.png" alt="image-20200604103233402"></p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200604103435122.png" alt="image-20200604103435122"></p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200604103400308.png" alt="image-20200604103400308"></p>
+<p>4.跨域通信的几种方式</p>
+<ul>
+<li>jsonp</li>
+<li>Hash（原理：Hash的改变不会刷新页面，?xx=xx会）</li>
+<li>postMessage（H5）</li>
+<li>Websocket</li>
+<li>CORS（原理：改变Ajax请求头中的origin）</li>
+<li>nginx</li>
+</ul>
+<h4 id="安全类"><a href="#安全类" class="headerlink" title="安全类"></a><a href="https://juejin.im/post/5cd6ad7a51882568d3670a8e" target="_blank" rel="noopener">安全类</a></h4><h4 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h4><ul>
+<li><p><a href="https://segmentfault.com/a/1190000009426421" target="_blank" rel="noopener">排序</a>：快速、选择、希尔、冒泡</p>
+<p> <img src="https://segmentfault.com/img/bVNIpc?w=554&h=337/view" alt="preview"> </p>
+</li>
+<li><p><a href="https://juejin.im/entry/58759e79128fe1006b48cdfd" target="_blank" rel="noopener">堆栈、队列、链表</a></p>
+</li>
+<li><p><a href="https://segmentfault.com/a/1190000009857470" target="_blank" rel="noopener">递归</a></p>
+</li>
+<li><p>波兰式和逆波兰式：<a href="https://www.cnblogs.com/chenying99/p/3675876.html" target="_blank" rel="noopener">理论</a>、<a href="https://github.com/Tairraos/rpn.js/blob/master/rpn.js" target="_blank" rel="noopener">源码</a></p>
+</li>
+</ul>
+<h3 id="二面"><a href="#二面" class="headerlink" title="二面"></a>二面</h3><h4 id="渲染机制"><a href="#渲染机制" class="headerlink" title="渲染机制"></a>渲染机制</h4><p>1.<a href="https://blog.csdn.net/sunhl951/article/details/79763727" target="_blank" rel="noopener">什么是DOCTYPE及作用</a></p>
+<p>2.浏览器渲染过程</p>
+<p>3.重排Reflow、重绘Repaint</p>
+<p>4.布局Layout</p>
+<h4 id="JS运行机制"><a href="#JS运行机制" class="headerlink" title="JS运行机制"></a>JS运行机制</h4><p>1.理解JS单线程的概念</p>
+<p>2.理解任务队列</p>
+<p>3.理解Event Loop</p>
+<h4 id="页面性能"><a href="#页面性能" class="headerlink" title="页面性能"></a>页面性能</h4><ul>
+<li>提升页面性能的方法有哪些<ol>
+<li>资源压缩合并，减少HTTP请求</li>
+<li>非核心代码异步加载 </li>
+<li>利用浏览器缓存 =&gt; 缓存的分类 =&gt; 缓存的原理</li>
+<li>使用CDN(内容分发网络)：使网络快速到达服务端然后下载下来</li>
+<li>预解析DNS<ul>
+<li><code>&lt;meta http-equiv=&quot;x-dns-prefetch-control&quot; content=&quot;on&quot;&gt;</code>强制打开a标签的DNS预解析（大部分默认on，https默认off）</li>
+<li><code>&lt;link rel=&quot;dns-prefetch&quot; href=&quot;//hostname_to_prefetch.com&quot;&gt;</code></li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li><p>异步加载：①动态加载脚本 ② defer  ③async</p>
+</li>
+<li><p>缓存</p>
+<ol>
+<li><p>强缓存（不询问直接缓存）</p>
+<ul>
+<li><p><code>Expires:Thu,21 Jan 2020 23:59:59 GMT</code>绝对时间</p>
+</li>
+<li><p><code>Cache-Control: max-age=3600(s)</code>相对时间，优先级更高</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3174701-8ff981603cdfded0?imageMogr2/auto-orient/strip%7CimageView2/2/w/562/format/webp" alt="img"> </p>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<ol start="2">
+<li><p>协商缓存（询问服务器资源能否使用后再决定缓不缓存）</p>
+<ul>
+<li><p><code>Last-Modified</code> 、<code>If-Modified-Since</code>：将<code>Last-Moodified</code>值发送给服务端，询问资源是否已经过期，过期则返回新资源</p>
+<p>  缺点：修改时间变化，而内容没变时，也会返回新资源</p>
+<ul>
+<li><code>Etag</code>、<code>If-None-Match</code>： 当且仅当服务器上没有任何资源的 <code>ETag</code>属性值与这个首部中列出的相匹配的时候，服务器端会才返回所请求的资源，响应码为 <code>200</code> 。 </li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="错误监控"><a href="#错误监控" class="headerlink" title="错误监控"></a><a href="https://www.cnblogs.com/gaoning/p/7928497.html" target="_blank" rel="noopener">错误监控</a></h4><ul>
+<li><p>错误分类</p>
+<ol>
+<li>即时运行错误：代码错误</li>
+<li>资源加载错误</li>
+</ol>
+</li>
+<li><p>错误的捕获方式</p>
+<ol>
+<li><p>即时运行错误的捕获方式：</p>
+<ul>
+<li><code>try...catch</code></li>
+<li><code>window.onerror</code></li>
+</ul>
+</li>
+<li><p>资源加载错误的捕获</p>
+<ul>
+<li><p><code>ele.onerror</code>：ele指的是img、script需要加载资源的标签，且这种事件<strong>无法冒泡</strong>，无法通过window.onerror捕获</p>
+</li>
+<li><p><code>performance.getEntries(filterOption)</code>获取已成功加载的资源的<code>PerformanceEntry</code>对象数组</p>
+</li>
+<li><p>Error事件<strong>捕获</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'error'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'捕获'</span>, e)</span><br><span class="line">&#125;, <span class="literal">true</span>) <span class="comment">//事件捕获</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ol>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200604172559631.png" alt="image-20200604172559631"></p>
+</li>
+</ul>
+<ul>
+<li><p>上报错误的基本原理</p>
+<ol>
+<li><p>Ajax通信的方式上报</p>
+</li>
+<li><p>利用Image对象上报</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">new</span> Image()).src = <span class="string">'http://baidu.com/sdfsd?r=fdsfds'</span></span><br></pre></td></tr></table></figure>
+
+<p>通过Network可以看到请求已经发出了</p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200604172941479.png" alt="image-20200604172941479"></p>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="三面"><a href="#三面" class="headerlink" title="三面"></a>三面</h3><h4 id="业务"><a href="#业务" class="headerlink" title="业务"></a>业务</h4><p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200604174051451.png" alt="image-20200604174051451"></p>
+<h4 id="团队协作能力"><a href="#团队协作能力" class="headerlink" title="团队协作能力"></a>团队协作能力</h4><p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200604175054428.png" alt="image-20200604175054428"></p>
+<h4 id="事务推动能力"><a href="#事务推动能力" class="headerlink" title="事务推动能力"></a>事务推动能力</h4><p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200604175304851.png" alt="image-20200604175304851"></p>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200604175423737.png" alt="image-20200604175423737"></p>
+<h3 id="HR面"><a href="#HR面" class="headerlink" title="HR面"></a>HR面</h3><ol>
+<li>乐观积极</li>
+<li>主动沟通</li>
+<li>逻辑顺畅</li>
+<li>上进有责任心</li>
+<li>有主张、做事果断</li>
+</ol>
+<h4 id="职业竞争力"><a href="#职业竞争力" class="headerlink" title="职业竞争力"></a>职业竞争力</h4><ol>
+<li><p>业务能力</p>
+</li>
+<li><p>思考能力</p>
+<p> 对同一件事可以从不同角度去思考，找到最优解</p>
+</li>
+<li><p>学习能力</p>
+<p>不断学习新的业务和技术，沉淀、总结</p>
+</li>
+<li><p>无上限的付出</p>
+<p>对于无法解决的问题可以熬夜、加班</p>
+</li>
+</ol>
+<h4 id="职业规划"><a href="#职业规划" class="headerlink" title="职业规划"></a>职业规划</h4><p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200604180149862.png" alt="image-20200604180149862"></p>
+<p>5、学会赞美（公司、HR ）</p>
+<h4 id="还有什么想要问我的吗？"><a href="#还有什么想要问我的吗？" class="headerlink" title="还有什么想要问我的吗？"></a>还有什么想要问我的吗？</h4><ul>
+<li>团队人员分布情况</li>
+<li>技术栈</li>
+<li>我进去主要是负责哪块内容</li>
+<li>年终奖/季度奖</li>
+<li>调薪的频率以及幅度</li>
+<li>加班多不多</li>
+</ul>
+<h3 id="课程总结"><a href="#课程总结" class="headerlink" title="课程总结"></a>课程总结</h3><p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200604182437767.png" alt="image-20200604182437767"></p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200604182705610.png" alt="image-20200604182705610"></p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200604183055883.png" alt="image-20200604183055883"></p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200604183454802.png" alt="image-20200604183454802"></p>
+</div></article></div></main><footer><div class="paginator"><a href="/2020/06/05/js/库/Immutable/" class="prev">PREV</a><a href="/2020/06/01/js/性能优化/缓存/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2020/06/03/面试/视频笔记/';
+var disqus_title = '前端面试视频笔记';
+var disqus_url = 'https://turing5467.github.io/2020/06/03/面试/视频笔记/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

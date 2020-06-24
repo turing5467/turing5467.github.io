@@ -1,0 +1,103 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 你不知道的JS--对象 · 快乐的图小灵</title><meta name="description" content="你不知道的JS--对象 - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">你不知道的JS--对象</h1><div class="post-info">Aug 20, 2019</div><div class="post-content"><h3 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h3><h4 id="1-语法"><a href="#1-语法" class="headerlink" title="1.语法"></a>1.语法</h4><ul>
+<li>两种定义形式<ol>
+<li>文字(声明)形式<code>var obj = {key:value};</code></li>
+<li>构造形式<code>var obj = new Object();</code></li>
+</ol>
+</li>
+</ul>
+<h4 id="2类型"><a href="#2类型" class="headerlink" title="2类型"></a>2类型</h4><ul>
+<li>语言类型</li>
+</ul>
+<ol>
+<li>简单基本类型: string、number、boolean、null、undefined、</li>
+<li>复杂基本类型: object</li>
+</ol>
+<ul>
+<li>内置对象: 对象の子类型<ol>
+<li>String</li>
+<li>Number</li>
+<li>Boolean</li>
+<li>Object</li>
+<li>Function</li>
+<li>Array</li>
+<li>Date</li>
+<li>RegExp</li>
+<li>Error<br>null 和 undefined 没有对应的构造形式，只有文字形式。<br>Date 只有构造，没有 文字形式。<br>对于 Object、Array、Function 和 RegExp（正则表达式）来说，无论使用文字形式还是构 造形式，它们都是对象，不是字面量。<br>在某些情况下，相比用文字形式创建对象，构造形 式可以提供一些额外选项。<br>首选更简单的文字 形式。建议只在需要那些额外选项时使用构造形式。</li>
+</ol>
+</li>
+</ul>
+<h4 id="3-内容"><a href="#3-内容" class="headerlink" title="3 内容"></a>3 内容</h4><ul>
+<li><p>内容</p>
+<ol>
+<li><code>.</code>: 属性访问</li>
+<li><code>[]</code>: 键访问</li>
+</ol>
+</li>
+<li><p>对象与数组</p>
+<ol>
+<li>在<strong>对象</strong>中,属性名永远是字符串</li>
+<li>在<strong>数组</strong>中,下标为数字</li>
+</ol>
+</li>
+<li><p><code>Oject.assign()实现浅拷贝</code></p>
+</li>
+</ul>
+<h4 id="4-属性描述符"><a href="#4-属性描述符" class="headerlink" title="4 属性描述符"></a>4 属性描述符</h4><ul>
+<li><p><code>Object.getOwnPropertyDescriptors( myObject, &quot;a&quot; );</code><br>  该函数返回指定对象的所有<strong>自身属性描述符</strong>(在对象自身内定义,而不是通过原型链继承来的属性)</p>
+</li>
+<li><p><strong>属性描述符</strong>: configurable\enumerable\writable\value\get\set</p>
+<ol>
+<li>writable: 是否可重新赋值</li>
+<li>configurable: 属性描述符是否能改变,属性是否可被删除</li>
+<li>enumerable: 是否会出现在对象の可枚举属性中,如<code>for..in循环</code><br>注意: in运算符是用来检查属性在对象中是否存在，同样会查找对象的整条原型链（无论属性是否可枚举）<br><code>propertyIsEnumerable()  //检查给定属性名是否直接存在于对象中并满足enumerable</code><br><code>Object.keys()</code>  //返回包含对象自身所有可枚举属性的数组<br><code>Object.getOwnPropertyNames(..)</code> //返回包含对象自身所有属性</li>
+</ol>
+</li>
+<li><p>属性描述符默认值</p>
+<ol>
+<li>使用<code>=</code>赋值时，属性的属性描述符value是可以修改的，writable、enumerable和configurable都为true。</li>
+<li><code>Object.defineProperty()</code><br> 已存在属性,默认缺省值为true<br> 新定义属性,默认缺省值为false</li>
+<li>使用<code>Object.create(proto[,options])</code>中的options参数中的属性的属性描述符默认值均为false</li>
+</ol>
+</li>
+<li><p>添加或修改一个已有(configurable)属性: Object.defineProperty<br><code>Object.defineProperty(obj,&quot;name&quot;,{</code><br>  <code>value: &quot;value&quot;,</code><br>  <code>...</code><br><code>})</code> </p>
+</li>
+</ul>
+<h4 id="5-不变性"><a href="#5-不变性" class="headerlink" title="5.不变性"></a>5.不变性</h4><ul>
+<li>对象常量<br>  <code>writable:false</code>和<code>configurable:false</code></li>
+<li>禁止扩展<br>  禁止一个对象添加新属性并保留已有属性<br>  <code>Object.preventExtensions(obj)</code></li>
+<li>密封<br>  不能添加新属性，也不能重新配置或者删除任何现有属性<br>  <code>Object.seal()</code>  -&gt; <code>Object.preventExtensions() &amp; configurable:false</code>    </li>
+<li>冻结<br>  可以应用在对象上的级别最高的不可变性，它会禁止对于对象本身及其任意 直接属性的修改<br>  <code>Object.freeze()</code> -&gt; <code>Object.seal() &amp; writable: false;</code></li>
+</ul>
+<h5 id="Get"><a href="#Get" class="headerlink" title="[[Get]]"></a>[[Get]]</h5><ul>
+<li>在语言规范中,obj.a在obj上实际是实现了[[Get]]操作</li>
+<li>对象默认内置[[Get]]操作:<br>  首先在对象中查找是否有名称相同的属性， 如果找到就会返回这个属性的值。<br>  如果没有找到名称相同的属性，遍历可能存在的 [[Prototype]] 链， 也就是原型链<br>  如果无论如何都没有找到名称相同的属性，那 [[Get]] 操作会返回值 undefined.</li>
+</ul>
+<h5 id="Put"><a href="#Put" class="headerlink" title="[[Put]]"></a>[[Put]]</h5><ul>
+<li>[[Put]]算法大致流程<ol>
+<li>属性是否是访问描述符,如果是并且存在 setter 就调用 setter。 </li>
+<li>属性的数据描述符中 writable 是否是 false ？如果是，在非严格模式下静默失败，在 严格模式下抛出 TypeError 异常。 </li>
+<li>如果都不是，将该值设置为属性的值。</li>
+</ol>
+</li>
+</ul>
+<h5 id="Getter-和-Setter"><a href="#Getter-和-Setter" class="headerlink" title="Getter 和 Setter"></a>Getter 和 Setter</h5><ul>
+<li>getter和setter是隐藏函数,在获取/设置属性值时调用,属于访问器属性</li>
+<li>当你给一个属性定义 getter、setter 或者两者都有时，这个属性会被定义为“<strong>访问描述符</strong>”<br>对于访问描述符来说，JavaScript 会忽略它们的 value 和 writable 特性，取而代之的是关心 set 和 get（还有 configurable 和 enumerable）特性。</li>
+<li>只指定getter意味着不能写,严格模式会抛出错误</li>
+<li>只指定setter意味着不能读,非严格模式返回undefined,严格模式会抛出错误<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">var myObject = &#123; </span><br><span class="line">	// 给 a 定义一个 getter </span><br><span class="line">	get a() &#123;          //不够优雅</span><br><span class="line">		return 2; </span><br><span class="line">	&#125; </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Object.defineProperty( </span><br><span class="line">	myObject, // 目标对象 </span><br><span class="line">	&quot;b&quot;, // 属性名</span><br><span class="line">	&#123;    </span><br><span class="line">		 // 给 b 设置一个 getter </span><br><span class="line">		get: function()&#123; </span><br><span class="line">			return this.a * 2 </span><br><span class="line">		&#125;, </span><br><span class="line">		// 确保 b 会出现在对象的属性列表中 </span><br><span class="line">		enumerable: true </span><br><span class="line">	&#125; </span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h5 id="存在性"><a href="#存在性" class="headerlink" title="存在性"></a>存在性</h5><ul>
+<li>in操作符: 会检查属性名是否在对象及其 [[Prototype]] 原型链中</li>
+<li>hasOwnProperty(“a”): 检查属性是否在指定对象中,不检查[[prototype]]链<br>  对于没有连接到<code>Object.prototype</code>的对象(通过Object.create(null)创建的),无法直接调用该方法,需用更加强硬的方法: <code>Object.prototype.hasOwnProperty.call(obj,&quot;a&quot;)</code></li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2019/08/21/js/基础/13_Ajax/" class="prev">PREV</a><a href="/2019/08/20/js/基础/12_深拷贝与浅拷贝/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2019/08/20/js/你不知道的JS/02_对象/';
+var disqus_title = '你不知道的JS--对象';
+var disqus_url = 'https://turing5467.github.io/2019/08/20/js/你不知道的JS/02_对象/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

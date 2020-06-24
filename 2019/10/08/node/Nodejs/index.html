@@ -47,6 +47,36 @@
 <li><p><code>run</code> 运行<code>package.json</code>中的script字段的指定代码</p>
 </li>
 </ol>
+<h4 id="npm发布自己的库"><a href="#npm发布自己的库" class="headerlink" title="npm发布自己的库"></a>npm发布自己的库</h4><ol>
+<li><p>创建npm账号并验证邮箱</p>
+</li>
+<li><p>创建文件夹并编写代码</p>
+</li>
+<li><p><code>npm login</code>输入账号、密码、邮箱</p>
+</li>
+<li><p><code>npm init</code>初始化，并输入相关信息</p>
+</li>
+<li><p><code>npm publish</code></p>
+</li>
+<li><p>更新：</p>
+<ol>
+<li><p><code>npm view 包名 versions</code>查看包的版本</p>
+</li>
+<li><p><code>npm version &lt;update_type&gt;</code>更新本地包版本</p>
+<ul>
+<li><p>patch（打补丁，版本会从 1.0.0 更新到 1.0.1，只是第三位增长）</p>
+</li>
+<li><p>minor（小修改，版本会从1.0.0 更新到 1.1.0，更新的是第二位）</p>
+</li>
+<li><p>major（较大的改动，版本从 1.0.0 更新到 2.0.0，更新的是第一位）</p>
+</li>
+</ul>
+</li>
+<li><p><code>npm publish</code>发布</p>
+</li>
+</ol>
+</li>
+</ol>
 <h3 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h3><blockquote>
 <p>在Node中，每个js文件都是一个模块</p>
 <p>因此，没有全局作用域，只有模块作用域</p>
@@ -72,7 +102,7 @@
 <blockquote>
 <p><strong>文件</strong>路径中，<code>./</code>表示的是相对于执行node命令时所处的路径<br>因此在文件操作中，使用相对路径是不可靠的，于是，<code>__dirname</code>和<code>__filename</code>就派上用场，它们不受执行node命令位置的影响。通过<code>path.join(__dirname,&#39;a.txt&#39;)</code>能很好处理路径拼接<br>注：<strong>模块</strong>路径中的<code>./</code>始终相对于当前文件模块，与执行node命令的位置无关</p>
 </blockquote>
-</div></article></div></main><footer><div class="paginator"><a href="/2019/10/09/node/Nodejs的eventLoop/" class="prev">PREV</a><a href="/2019/10/01/其他/编码规范/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+<h3 id="Node-js获取Cookie"><a href="#Node-js获取Cookie" class="headerlink" title="Node.js获取Cookie"></a><a href="https://www.cnblogs.com/wujianmin-web/p/10707072.html" target="_blank" rel="noopener">Node.js获取Cookie</a></h3></div></article></div></main><footer><div class="paginator"><a href="/2019/10/09/node/Nodejs的eventLoop/" class="prev">PREV</a><a href="/2019/10/01/其他/编码规范/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
 var disqus_identifier = '2019/10/08/node/Nodejs/';
 var disqus_title = 'Nodejs入门';
 var disqus_url = 'https://turing5467.github.io/2019/10/08/node/Nodejs/';

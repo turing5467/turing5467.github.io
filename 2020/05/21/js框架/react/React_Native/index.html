@@ -1,0 +1,54 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> React Native(未完) · 快乐的图小灵</title><meta name="description" content="React Native(未完) - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">React Native(未完)</h1><div class="post-info">May 21, 2020</div><div class="post-content"><h2 id="React-Native"><a href="#React-Native" class="headerlink" title="React Native"></a>React Native</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><ul>
+<li><p>目前比较成熟的跨平台方案</p>
+<ol>
+<li><strong>React Native</strong>， Vue + Weex</li>
+<li>AppCan：</li>
+<li>Flutter：基于dart语言，学习成本较大</li>
+</ol>
+</li>
+<li><p>React Native已经完成了对多端的支持，实现了真正意义上的面向配置开发：开发人员可以只使用JavaScript也能编写原生移动，结合React语法构建组件，实现Android，IOS两端代码的复用，并发布上线。</p>
+</li>
+<li><p>本质上还是用Objective-C或Java编写的，只是用JS对其进行了封装</p>
+<p>所以它产出的是一个真正的移动应用，在使用感受上和用OC或Java几乎无法区分</p>
+</li>
+</ul>
+<h4 id="开发平台选择"><a href="#开发平台选择" class="headerlink" title="开发平台选择"></a>开发平台选择</h4><ol>
+<li>MacOS系统：支持Android和IOS</li>
+<li>Windows和Linux：目前只支持Android</li>
+</ol>
+<h4 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h4><ol>
+<li><p>跨平台开发</p>
+</li>
+<li><p>追求极致的用户体验：<strong>热更新</strong>和<strong>热部署</strong></p>
+</li>
+<li><p>learn one，write everywhere</p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200521130850845.png" alt="image-20200521130850845"></p>
+</li>
+</ol>
+<h4 id="开发注意事项"><a href="#开发注意事项" class="headerlink" title="开发注意事项"></a>开发注意事项</h4><ul>
+<li>良好的JS 功底，最好还需要懂一些IOS和Android原生开发，才能够很好驾驭<strong>中大型</strong>移动端跨平台项目<ul>
+<li>功能适中，交互一般，不需要特别多的系统原生支持</li>
+<li>对于部分复杂的应用，可以考虑原生+React Native混合开发</li>
+</ul>
+</li>
+</ul>
+<h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><p><a href="https://reactnative.cn/docs/getting-started.html" target="_blank" rel="noopener">官网教程</a></p>
+<h4 id="MacOS"><a href="#MacOS" class="headerlink" title="MacOS"></a>MacOS</h4><h4 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h4><ul>
+<li>必须安装的以来有：Node（&gt;= 12）、Python（2.x）、JDK（1.8）和Android Studio</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用nrm工具切换淘宝源</span></span><br><span class="line">npx nrm use taobao</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果之后需要切换回官方源可使用</span></span><br><span class="line">npx nrm use npm</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><a href="http://yarnpkg.com/" target="_blank" rel="noopener">Yarn</a>是 Facebook 提供的替代 npm 的工具，可以加速 node 模块的下载。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install -g yarn</span><br><span class="line"><span class="comment"># 安装完 yarn 之后就可以用 yarn 代替 npm 了</span></span><br></pre></td></tr></table></figure>
+
+</div></article></div></main><footer><div class="paginator"><a href="/2020/06/01/js/性能优化/缓存/" class="prev">PREV</a><a href="/2020/05/15/js/性能优化/防抖节流/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2020/05/21/js框架/react/React_Native/';
+var disqus_title = 'React Native(未完)';
+var disqus_url = 'https://turing5467.github.io/2020/05/21/js框架/react/React_Native/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

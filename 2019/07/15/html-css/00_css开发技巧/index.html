@@ -1,6 +1,20 @@
-<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> css开发技巧 · 快乐的图小灵</title><meta name="description" content="css开发技巧 - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">css开发技巧</h1><div class="post-info">Jul 15, 2019</div><div class="post-content"><h3 id="布局"><a href="#布局" class="headerlink" title="布局"></a>布局</h3><ul>
-<li><p>vw自适应布局</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">html</span> &#123;</span><br><span class="line">	<span class="attribute">font-size</span>: <span class="built_in">calc</span>(100vw / 7.5);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> css开发技巧 · 快乐的图小灵</title><meta name="description" content="css开发技巧 - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">css开发技巧</h1><div class="post-info">Jul 15, 2019</div><div class="post-content"><ul>
+<li><a href="https://juejin.im/post/5d4d0ec651882549594e7293" target="_blank" rel="noopener">参考文章</a></li>
+</ul>
+<h3 id="布局技巧"><a href="#布局技巧" class="headerlink" title="布局技巧"></a>布局技巧</h3><ul>
+<li><p>规定图像尺寸</p>
+<ul>
+<li><p>通过object-fit使图像脱离background-size的约束，使用<code>&lt;img&gt;</code>来标记图像背景尺寸 </p>
+<ol>
+<li>contain：  被替换的内容将被缩放，以在填充元素的内容框时保持其宽高比。   </li>
+<li>cover：  被替换的内容在保持其宽高比的同时填充元素的整个内容框。如果对象的宽高比与内容框不相匹配，该对象将被剪裁以适应内容框。   </li>
+<li>fill：  被替换的内容正好填充元素的内容框。整个对象将完全填充此框。如果对象的宽高比与内容框不相匹配，那么该对象将被拉伸以适应内容框。   </li>
+<li>none：  被替换的内容将保持其原有的尺寸。   </li>
+<li>scale-down：  内容的尺寸与 none 或 contain 中的尺寸更小的相同。   </li>
+</ol>
+<p><img src="https://yangzw.vip/static/article/css-skill/%E4%BD%BF%E7%94%A8object-fit%E8%A7%84%E5%AE%9A%E5%9B%BE%E5%83%8F%E5%B0%BA%E5%AF%B8.png" alt></p>
+</li>
+</ul>
 </li>
 <li><p>文字竖向排版</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.vertical-text-wrapper</span> &#123;</span><br><span class="line">	<span class="attribute">writing-mode</span>: vertical-rl;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -8,17 +22,176 @@
 <li><p>两端对齐</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">	<span class="attribute">text-align-last</span>:justify    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
+<li><p>横向列表</p>
+<ul>
+<li>要点：通过<code>flexbox</code>或<code>inline-block</code>的形式横向排列元素，对父元素设置<code>overflow-x:auto</code>横向滚动查看</li>
+<li>场景：横向滚动列表、元素过多但位置有限的导航栏</li>
+<li>兼容：<a href="https://caniuse.com/#search=overflow-x" target="_blank" rel="noopener">overflow-x</a></li>
+<li>代码：<a href="https://codepen.io/JowayYoung/pen/jONqyVd" target="_blank" rel="noopener">在线演示</a></li>
+</ul>
+</li>
 <li><p>1px边框</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> </span><br></pre></td></tr></table></figure>
+<ul>
+<li>要点：分辨率比较低的屏幕下显示1px的边框会显得模糊，通过<code>::before</code>或<code>::after</code>和<code>transform</code>模拟细腻的1px边框 </li>
+<li><a href="https://codepen.io/JowayYoung/pen/YzKqMVO" target="_blank" rel="noopener">在线演示</a></li>
+</ul>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.normal</span> &#123;</span><br><span class="line">	<span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#f66</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.thin</span> &#123;</span><br><span class="line">	<span class="attribute">position</span>: relative;</span><br><span class="line">	&amp;::after &#123;</span><br><span class="line">		<span class="attribute">position</span>: absolute;</span><br><span class="line">		<span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">		<span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">		<span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#f66</span>;</span><br><span class="line">		<span class="attribute">width</span>: <span class="number">200%</span>;</span><br><span class="line">		<span class="attribute">height</span>: <span class="number">200%</span>;</span><br><span class="line">		<span class="attribute">content</span>: <span class="string">""</span>;</span><br><span class="line">		<span class="attribute">transform</span>: scale(.<span class="number">5</span>);</span><br><span class="line">		<span class="attribute">transform-origin</span>: left top;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>倒序文本</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.reverse-text</span> &#123;</span><br><span class="line">	<span class="attribute">font-weight</span>: bold;</span><br><span class="line">	<span class="attribute">font-size</span>: <span class="number">50px</span>;</span><br><span class="line">	letter-spacing: -100px; // letter-spacing最少是font-size的2倍</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>内容翻转</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.x-axis</span> &#123;</span><br><span class="line">	<span class="attribute">transform</span>: scale3d(<span class="number">1</span>, -<span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.y-axis</span> &#123;</span><br><span class="line">	<span class="attribute">transform</span>: scale3d(-<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.reverse</span> &#123;</span><br><span class="line">	<span class="attribute">transform</span>: scale3d(-<span class="number">1</span>, -<span class="number">1</span>, <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200511151551761.png" alt="image-20200511151551761"></p>
+</li>
+</ul>
+<h3 id="行为技巧"><a href="#行为技巧" class="headerlink" title="行为技巧"></a>行为技巧</h3><ul>
+<li><h5 id="使用overflow-scrolling支持弹性滚动"><a href="#使用overflow-scrolling支持弹性滚动" class="headerlink" title="使用overflow-scrolling支持弹性滚动"></a>使用overflow-scrolling支持弹性滚动</h5><ul>
+<li>要点：iOS页面<code>非body元素</code>的滚动操作会非常卡(Android不会)，通过<code>overflow-scrolling:touch</code>调用Safari原生滚动来支持弹性滚动，增加IOS页面滚动的流畅度</li>
+<li>兼容：iOS自带<code>-webkit-overflow-scrolling</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">body &#123;</span><br><span class="line">    -webkit-overflow-scrolling: touch;</span><br><span class="line">&#125;</span><br><span class="line">.elem &#123;</span><br><span class="line">    overflow: auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
 </li>
 </ul>
-</div></article></div></main><footer><div class="paginator"><a href="/2019/07/23/html-css/CSS布局/" class="prev">PREV</a><a href="/2019/07/15/html-css/HTML与CSS/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+<ul>
+<li><p><strong>使用transform启动GPU硬件加速</strong></p>
+<ul>
+<li><p>要点：有时执行动画可能会导致页面卡顿，可在特定元素中使用硬件加速来避免这个问题</p>
+</li>
+<li><p>场景：<strong>动画元素</strong>(绝对定位、同级中超过6个以上使用动画)</p>
+</li>
+<li><p>兼容：<a href="https://caniuse.com/#search=transform" target="_blank" rel="noopener">transform</a></p>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.elem &#123;</span><br><span class="line">    transform: translate3d(0, 0, 0); /* translateZ(0)亦可 */</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>使用:valid和:invalid校验表单</p>
+<ul>
+<li>兼容：<a href="https://caniuse.com/#search=pattern" target="_blank" rel="noopener">pattern</a>、<a href="https://caniuse.com/#search=%3Avalid" target="_blank" rel="noopener">:valid</a>、<code>[:invalid]</code></li>
+<li><a href="https://codepen.io/JowayYoung/pen/QemxKr" target="_blank" rel="noopener">在线演示</a></li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&amp;<span class="selector-pseudo">:valid</span> &#123;</span><br><span class="line">    <span class="attribute">border-color</span>: <span class="number">#3c9</span>;</span><br><span class="line">    <span class="attribute">box-shadow</span>: inset <span class="number">5px</span> <span class="number">0</span> <span class="number">0</span><span class="number">#3c9</span>;</span><br><span class="line">&#125;</span><br><span class="line">&amp;<span class="selector-pseudo">:invalid</span> &#123;</span><br><span class="line">    <span class="attribute">border-color</span>: <span class="number">#f66</span>;</span><br><span class="line">    <span class="attribute">box-shadow</span>: inset <span class="number">5px</span> <span class="number">0</span> <span class="number">0</span> <span class="number">#f66</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> <img src="https://yangzw.vip/static/article/css-skill/%E4%BD%BF%E7%94%A8valid%E5%92%8Cinvalid%E6%A0%A1%E9%AA%8C%E8%A1%A8%E5%8D%95.gif" alt="在线演示"> </p>
+</li>
+<li><p>使用pointer-events禁用事件触发</p>
+<ul>
+<li>要点：通过<code>pointer-events:none</code>禁用事件触发(默认事件、冒泡事件、鼠标事件、键盘事件等)，相当于<code>&lt;button&gt;</code>的<code>disabled</code> </li>
+</ul>
+</li>
+<li><h5 id="使用-或-美化选项框"><a href="#使用-或-美化选项框" class="headerlink" title="使用+或~美化选项框"></a>使用+或~美化选项框</h5><ul>
+<li><p>要点：<code>&lt;label&gt;</code>使用<code>+</code>或<code>~</code>配合<code>for</code>绑定<code>radio</code>或<code>checkbox</code>的选择行为</p>
+</li>
+<li><p>场景：<strong>选项框美化</strong>、<strong>选中项增加选中样式</strong></p>
+</li>
+<li><p>兼容：<a href="https://caniuse.com/#search=+" target="_blank" rel="noopener">+</a>、<a href="https://caniuse.com/#search=~" target="_blank" rel="noopener">~</a></p>
+</li>
+<li><p>代码：<a href="https://codepen.io/turing_5467/pen/GRpdbbd" target="_blank" rel="noopener">在线演示</a></p>
+<p><img src="https://yangzw.vip/static/article/css-skill/%E4%BD%BF%E7%94%A8+%E6%88%96~%E7%BE%8E%E5%8C%96%E9%80%89%E9%A1%B9%E6%A1%86.gif" alt="在线演示"> </p>
+</li>
+</ul>
+</li>
+<li><p>使用:hover描绘鼠标跟随</p>
+<ul>
+<li>要点： 将整个页面等比划分成小的单元格，每个单元格监听<code>:hover</code>，通过<code>:hover</code>触发单元格的样式变化来描绘鼠标运动轨迹 </li>
+<li>场景：<strong>鼠标跟随轨迹</strong>、<a href="https://codepen.io/YusukeNakaya/pen/vvEqVx" target="_blank" rel="noopener"><strong>水波纹</strong></a>、<a href="https://codepen.io/Chokcoco/pen/zyyYqN" target="_blank" rel="noopener"><strong>怪圈</strong></a> </li>
+<li><a href="https://codepen.io/JowayYoung/pen/wvwMLJY" target="_blank" rel="noopener">在线编辑</a></li>
+</ul>
+</li>
+<li><p>使用max-height切换自动高度</p>
+<ul>
+<li>要点：通过max-height定义收起的最小高度和展开的最大高度，设置两者间的过渡切换</li>
+<li>场景：隐藏式子导航栏、悬浮式折叠面板</li>
+<li>代码：<a href="https://codepen.io/turing_5467/pen/PoPeMzx?__cf_chl_jschl_tk__=a0001da6ce8e3902ac6667027b7ffe2921e0d984-1589184145-0-AUjtmv5TOCF_5FOtfpUKoth4hzVkWUFJUYhEUlCd9GkMMMpagOZ7_SYo1GhhJ8TNmWG73Tg6MI0U3RPBkqTFS232bg7Cwkpr7KbQ1FfrwGrrhpwXXvoGOai_PrdypnoB91D1JHgD4g1Bz3h7KPX6jX9V0kil-jr6Ch3Ykd1h0ImFgizrydoyq_5odeftn6T07THJSO9g6MWmUyzgV7KR0Rrk0uP-lfkzBBu4VkNWalf_K5fSDMC8yQIueqW2rtKzJL0B6sRAj1ma_XSGumoA0NXUVn2Rz07Y4b0nljXxS0JBCRICxaRkcmlve9cH4wc0pV-G2GEfWZZLLV2XymKYFVvYUz-yF74Whr6oqouO0g2J" target="_blank" rel="noopener">在线演示</a></li>
+</ul>
+<p><img src="https://yangzw.vip/static/article/css-skill/%E4%BD%BF%E7%94%A8max-height%E5%88%87%E6%8D%A2%E8%87%AA%E5%8A%A8%E9%AB%98%E5%BA%A6.gif" alt="在线演示"> </p>
+</li>
+<li><p>使用resize拉伸分栏</p>
+<ul>
+<li><p>要点：通过<code>resize</code>设置横向自由拉伸来调整目标元素的宽度</p>
+</li>
+<li><p>场景：<strong>富文本编辑器</strong>、<strong>分栏阅读</strong></p>
+</li>
+<li><p>代码：<a href="https://codepen.io/JowayYoung/pen/JjPEdWO" target="_blank" rel="noopener">在线演示</a></p>
+<p><img src="https://yangzw.vip/static/article/css-skill/%E4%BD%BF%E7%94%A8resize%E6%8B%89%E4%BC%B8%E5%88%86%E6%A0%8F.gif" alt="在线演示"> </p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="颜色技巧"><a href="#颜色技巧" class="headerlink" title="颜色技巧"></a>颜色技巧</h3><ul>
+<li><p>通过filter开启悼念模式</p>
+<ul>
+<li><p>要点： 通过<code>filter:grayscale(100%)</code>设置灰度模式来灰化图片</p>
+<p> <img src="https://yangzw.vip/static/article/css-skill/%E4%BD%BF%E7%94%A8filter%E5%BC%80%E5%90%AF%E6%82%BC%E5%BF%B5%E6%A8%A1%E5%BC%8F.png" alt="在线演示"> </p>
+</li>
+</ul>
+</li>
+<li><p>文本渐变</p>
+<ul>
+<li>通过<code>linear-gradient</code>设置背景渐变色，配合<code>background-clip:text</code>对背景进行文本裁剪，添加滤镜动画</li>
+<li><a href="https://codepen.io/JowayYoung/pen/pozgQVo" target="_blank" rel="noopener">在线演示</a></li>
+</ul>
+</li>
+<li><p>使用caret-color改变光标颜色</p>
+</li>
+<li><p>使用::scrollbar改变滚动条样式</p>
+<ul>
+<li><p>要点：通过<code>scrollbar</code>的<code>scrollbar-track</code>和<code>scrollbar-thumb</code>等属性来自定义滚动条样式 </p>
+</li>
+<li><p><a href="https://codepen.io/JowayYoung/pen/ExYPMog" target="_blank" rel="noopener">在线演示</a></p>
+</li>
+</ul>
+</li>
+<li><p>filter模拟ins滤镜</p>
+<ul>
+<li><p>要点：通过<code>filter</code>的滤镜组合起来模拟<code>Instagram滤镜</code></p>
+</li>
+<li><p>场景：<strong>图片滤镜</strong></p>
+</li>
+<li><p><a href="https://codepen.io/JowayYoung/pen/NWKbVNQ" target="_blank" rel="noopener">代码演示</a></p>
+<p><img src="https://yangzw.vip/static/article/css-skill/%E4%BD%BF%E7%94%A8filter%E6%A8%A1%E6%8B%9FInstagram%E6%BB%A4%E9%95%9C.png" alt="在线演示"> </p>
+</li>
+</ul>
+</li>
+<li><p>通过mask雕刻镂空背景</p>
+<ul>
+<li>要点： 通过<code>mask</code>为图像背景生成蒙层提供遮罩效果 </li>
+<li><a href="https://codepen.io/turing_5467/pen/MWaXKvK?__cf_chl_jschl_tk__=a20eef2c967788038a8792256a8856d343f24c3b-1589206320-0-ASeXo7D0Mngz1XQXLWbKRRx115Sk6kPvIqdRTo1OfkDETQGvxMXb7ZBWuRE1lqYgQpdro9DdoZexvRximVqQ-7sPO7B60Aho8esqN8CDwV7ESg_ahU-11qGR-x82-X_4XJvKcJ6Zs0T9Nesvbo0bkgv_lUFVt1a8jrpwSS1yPSYelpLiAYXSyTpwBUvUG_PF13ZYUzrjBuozijw3Q7Ji2eeyki5qE0O1JurpVqN0ZR_CyfKlmZMEI-S9rEzkDgXumltA2cTcfO6boPXgKVDkkTE8qiRFKluUdOZmPIvkc6NHz6-OykgEZCKebtd5ei5bBfnUA_djb66BXSIb1yM4VZCQDxXq3IS88Dwyx5Ub-Mrk" target="_blank" rel="noopener">在线演示</a></li>
+</ul>
+</li>
+<li><p>通过linear-gradient绘制波浪线</p>
+<ul>
+<li><a href="https://codepen.io/turing_5467/pen/NWGzxXQ" target="_blank" rel="noopener">在线演示</a></li>
+</ul>
+</li>
+<li><p>方格背景： <a href="https://codepen.io/JowayYoung/pen/RwboXoV" target="_blank" rel="noopener">https://codepen.io/JowayYoung/pen/RwboXoV</a> </p>
+</li>
+<li><p>头像彩色阴影： <a href="https://codepen.io/turing_5467/pen/QWjxNjK" target="_blank" rel="noopener">https://codepen.io/turing_5467/pen/QWjxNjK</a> </p>
+</li>
+<li><p>下划线跟随导航栏: <a href="https://codepen.io/turing_5467/pen/GRpGZjK" target="_blank" rel="noopener">https://codepen.io/turing_5467/pen/GRpGZjK</a> </p>
+</li>
+<li><p>滚动进度指示器： <a href="https://codepen.io/JowayYoung/pen/ExYPMog" target="_blank" rel="noopener">https://codepen.io/JowayYoung/pen/ExYPMog</a> </p>
+</li>
+<li><p>通过拾色器改变图像色相的换色器： <a href="https://codepen.io/JowayYoung/pen/vYBLqBm" target="_blank" rel="noopener">https://codepen.io/JowayYoung/pen/vYBLqBm</a>  </p>
+</li>
+<li><p>状态悬浮球： <a href="https://codepen.io/JowayYoung/pen/WNewOxa" target="_blank" rel="noopener">https://codepen.io/JowayYoung/pen/WNewOxa</a> </p>
+</li>
+<li><p>动态边框： <a href="https://codepen.io/JowayYoung/pen/qBWZPvE" target="_blank" rel="noopener">https://codepen.io/JowayYoung/pen/qBWZPvE</a> </p>
+</li>
+<li><p>星级评分： <a href="https://codepen.io/JowayYoung/pen/MWgjGMj" target="_blank" rel="noopener">https://codepen.io/JowayYoung/pen/MWgjGMj</a> </p>
+</li>
+<li><p>圆角进度条： <a href="https://codepen.io/JowayYoung/pen/jONBxaK" target="_blank" rel="noopener">https://codepen.io/JowayYoung/pen/jONBxaK</a> </p>
+</li>
+<li></li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2019/07/16/html-css/03_requestAnimationFrame.md/" class="prev">PREV</a><a href="/2019/07/15/html-css/HTML与CSS/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
 var disqus_identifier = '2019/07/15/html-css/00_css开发技巧/';
 var disqus_title = 'css开发技巧';
 var disqus_url = 'https://turing5467.github.io/2019/07/15/html-css/00_css开发技巧/';

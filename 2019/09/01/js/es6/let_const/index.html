@@ -1,0 +1,50 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> ES6----let、const · 快乐的图小灵</title><meta name="description" content="ES6----let、const - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">ES6----let、const</h1><div class="post-info">Sep 1, 2019</div><div class="post-content"><h3 id="let"><a href="#let" class="headerlink" title="let"></a>let</h3><ol>
+<li><p>块级作用域内有效</p>
+</li>
+<li><p>不存在变量提升</p>
+<p>  凡是在声明之前就使用 let声明的变量 ，就会报错(<strong>暂时性死区TDZ</strong>)   </p>
+</li>
+<li><p>不允许重复声明</p>
+</li>
+<li><p>外层代码块不受内层代码块的影响。   </p>
+</li>
+</ol>
+<h3 id="const"><a href="#const" class="headerlink" title="const"></a>const</h3><ol>
+<li>一旦声明，就不能改变，且必须立即初始化</li>
+<li>块级作用域有效</li>
+<li>不存在变量提升</li>
+<li>对于<strong>复合类型的变量</strong>，变量指向数据所在的<strong>地址</strong>。 const 命令只保证变量名指向的<strong>地址</strong>不变。</li>
+</ol>
+<ul>
+<li><p>如果真想将对象冻结，应该使用<code>Object.freeze()</code>方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">const</span> foo = <span class="built_in">Object</span>.freeze(&#123;&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 常规模式时，添加新属性不起作用；</span></span><br><span class="line"><span class="comment">// 严格模式时，还会报错</span></span><br><span class="line">foo.prop = <span class="number">123</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>除了将对象本身冻结，对象类型的属性也应该冻结。下面是将对象彻底冻结的函数。   </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">var</span> constantize = <span class="function">(<span class="params">obj</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">Object</span>.freeze(obj);</span><br><span class="line">    <span class="built_in">Object</span>.keys(obj).forEach( <span class="function">(<span class="params">key, value</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> ( <span class="keyword">typeof</span> obj[key] === <span class="string">'object'</span> ) &#123;</span><br><span class="line">             constantize( obj[key] );</span><br><span class="line">         &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+</li>
+</ul>
+<h3 id="声明变量の方式"><a href="#声明变量の方式" class="headerlink" title="声明变量の方式"></a>声明变量の方式</h3><p>ES5：<code>var</code>、<code>function</code></p>
+<p>ES6：<code>var</code>、<code>function</code>、<code>let</code>、<code>const</code>、<code>import</code>、<code>class</code></p>
+<h4 id="顶层对象的属性"><a href="#顶层对象的属性" class="headerlink" title="顶层对象的属性"></a>顶层对象的属性</h4><p>顶层对象，在浏览器环境指的是 <code>window</code> 对象，在Node指的是 <code>global</code> 对象。</p>
+<p>ES5：顶层对象的属性与全局变量是等价的。</p>
+<p>ES6：</p>
+<ol>
+<li><p><code>var</code> 命令和 <code>function</code> 命令声明的全局变量，依旧是顶层对象的属性；</p>
+</li>
+<li><p><code>let</code> 命令、 <code>const</code> 命令、 <code>class</code> 命令声明的全局变量，不属于顶层对象的属性。</p>
+</li>
+</ol>
+</div></article></div></main><footer><div class="paginator"><a href="/2019/09/02/其他/Hexo搭建个人博客/" class="prev">PREV</a><a href="/2019/09/01/html-css/CSS3揭秘/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2019/09/01/js/es6/let_const/';
+var disqus_title = 'ES6----let、const';
+var disqus_url = 'https://turing5467.github.io/2019/09/01/js/es6/let_const/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

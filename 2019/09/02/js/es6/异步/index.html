@@ -1,0 +1,124 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> ES6----Promise · 快乐的图小灵</title><meta name="description" content="ES6----Promise - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">ES6----Promise</h1><div class="post-info">Sep 2, 2019</div><div class="post-content"><h2 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h2><ul>
+<li><p>Promise是异步编程的一种解决方案</p>
+</li>
+<li><p>它可以将异步操作以同步操作的流程表达出来，避免了层层嵌套的回调函数。 </p>
+</li>
+<li><p>Promise 对象提供统一的接口，使得控制异步操作更加容易。     </p>
+</li>
+</ul>
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ol>
+<li><p>对象的状态不受外界影响</p>
+<p>Promise 对象代表一个异步操作，有三种状态： <code>Pending</code>、 <code>Resolved</code>和 <code>Rejected</code>。   </p>
+<p>  只有异步操作的结果(resolve,reject或抛出异常)，可以决定当前是哪一种状态   </p>
+</li>
+<li><p>一旦状态改变，就不会再变</p>
+<p><code>pending -&gt; resolve</code></p>
+<p><code>pending -&gt; rejected</code>：  reject / throw new Error / ReferenceError   </p>
+</li>
+</ol>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ol>
+<li>无法取消 Promise ，一旦新建它就会立即执行，无法中途取消。</li>
+<li>如果不设置回调函数， Promise 内部抛出的错误，不会反应到外部。</li>
+<li>当处于 Pending 状态时，无法得知目前进展到哪一个阶段（刚刚开始还是即将完成）。</li>
+</ol>
+<blockquote>
+<p>如果某些事件不断地反复发生，一般来说，使用<strong>stream模式</strong>是比部署 Promise 更好的选择。   </p>
+</blockquote>
+<h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><p>Promise构造函数接受一个函数作为参数，该函数的参数分别是 <code>resolve</code>和 <code>reject</code>。   </p>
+<p>它们是两个函数，由JavaScript引擎提供，不用自己部署。 </p>
+<ul>
+<li><code>resolve</code>作用：将Promise对象的状态从<code>Pending</code>变为<code>Resolved</code>，在异步操作成功时调用，并将异步操作的结果，作为参数传递出去； </li>
+<li><code>reject</code>作用：将Promise对象的状态从从<code>Pending</code>变为<code>Rejected</code>，在异步操作失败时调用，并将异步操作报出的错误，作为参数传递出去。</li>
+</ul>
+<h4 id="then"><a href="#then" class="headerlink" title="then"></a>then</h4><ul>
+<li>第一个参数是Resolved状态的回调函数，第二个参数（可选）是Rejected状态的回调函数。   </li>
+<li>返回值是一个新的<code>Promise</code>实例（因此可以采用链式写法）</li>
+<li>前一个回调函数的返回结果会作为参数，传入后一个回调函数。   </li>
+<li>后一个回调函数，会等待前一个Promise对象的状态发生变化，才会被调用。   </li>
+</ul>
+<h4 id="catch"><a href="#catch" class="headerlink" title="catch"></a>catch</h4><p>指定发生错误时的回调函数。   </p>
+<p>返回值也是一个Promise对象。</p>
+<ul>
+<li><p>Promise对象的错误具有“<strong>冒泡</strong>”性质，会一直向后传递，直到被捕获为止。   </p>
+</li>
+<li><p>一般来说，不在 then 方法里面定义Reject状态的回调函数，总是使用 <code>catch</code>方法。   </p>
+<p>因为 <code>catch</code>可以捕获前面的错误   </p>
+</li>
+<li><p>如果没有 catch 方法，Promise对象抛出的错误不会传递到外层代码，即没有任何反应。   </p>
+</li>
+<li><p>catch 方法之中，还能再抛出错误。 （通过在后面添加一个<code>catch</code>方法来捕获）</p>
+</li>
+</ul>
+<h4 id="Promise-all"><a href="#Promise-all" class="headerlink" title="Promise.all"></a>Promise.all</h4><ul>
+<li><p>用于将多个Promise实例，包装成一个新的Promise实例。   </p>
+</li>
+<li><p>接受一个数组作为参数，数组元素都是Promise实例。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p = <span class="built_in">Promise</span>.all([p1, p2, p3]);</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>只有p1, p2, p3的状态都变为<code>fullfilled</code>，p的状态才会变回<code>fullfilled</code></p>
+<p>  p1 、 p2 、 p3 的返回值组成一个数组，传递给 p 的回调函数。   </p>
+</li>
+</ul>
+<h4 id="Promise-race"><a href="#Promise-race" class="headerlink" title="Promise.race"></a>Promise.race</h4><ul>
+<li>将多个Promise实例，包装成一个新的Promise实例。   </li>
+<li>只要 p1 、 p2 、 p3 之中有一个实例率先改变状态， p 的状态就跟着改变   </li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p = <span class="built_in">Promise</span>.race([</span><br><span class="line">    fetch(<span class="string">'/resource-that-may-take-a-while'</span>),</span><br><span class="line">    <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">        setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> reject(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'request timeout'</span>)), <span class="number">5000</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line">p.then(<span class="function"><span class="params">response</span> =&gt;</span> <span class="built_in">console</span>.log(response))</span><br><span class="line">p.catch(<span class="function"><span class="params">error</span> =&gt;</span> <span class="built_in">console</span>.log(error))</span><br></pre></td></tr></table></figure>
+
+<p>  上面代码中，如果5秒之内 fetch 方法无法返回结果，变量 p 的状态就会变为 rejected ，从而触发 catch 方法指定的回调函数。   </p>
+<h4 id="Promise-resolve-reject"><a href="#Promise-resolve-reject" class="headerlink" title="Promise.resolve/reject"></a>Promise.resolve/reject</h4><p>将现有对象转为Promise对象 ，状态为<code>resolved</code>或<code>rejected</code></p>
+<h3 id="两个有用的附加方法"><a href="#两个有用的附加方法" class="headerlink" title="两个有用的附加方法"></a>两个有用的附加方法</h3><h4 id="done"><a href="#done" class="headerlink" title="done"></a>done</h4><p>  Promise对象的回调链，不管以 then 方法或 catch 方法结尾，要是最后一个方法抛出错误，都有可能无法捕捉到。</p>
+<p>因此，我们可以提供一个 <code>done</code>方法，总是处于回调链的尾端，<strong>保证抛出任何可能出现的错误</strong>。   </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> <span class="built_in">Promise</span>.prototype.done = <span class="function"><span class="keyword">function</span> (<span class="params">onFulfilled, onRejected</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.then(onFulfilled, onRejected)</span><br><span class="line">    .catch(<span class="function"><span class="keyword">function</span> (<span class="params">reason</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 抛出一个全局错误</span></span><br><span class="line">        setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123; <span class="keyword">throw</span> reason &#125;, <span class="number">0</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//调用 p.then(f1).catch(r1).then(f2).done();</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="finally"><a href="#finally" class="headerlink" title="finally"></a>finally</h4><p><code>finally</code>方法用于指定不管Promise对象最后状态如何，都会执行的操作。   </p>
+<p>它与 <code>done</code>方法的最大区别，它接受一个普通的回调函数作为参数，该函数不管怎样都必须执行。   </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> <span class="built_in">Promise</span>.prototype.finally = <span class="function"><span class="keyword">function</span> (<span class="params">callback</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> P = <span class="keyword">this</span>.constructor;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.then(</span><br><span class="line">        value =&gt; P.resolve(callback()).then(<span class="function"><span class="params">()</span> =&gt;</span> value),</span><br><span class="line">        reason =&gt; P.resolve(callback()).then(<span class="function"><span class="params">()</span> =&gt;</span> &#123; <span class="keyword">throw</span> reason &#125;)</span><br><span class="line">    );</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Async"><a href="#Async" class="headerlink" title="Async"></a>Async</h2><h3 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h3><ol>
+<li>代码读起来更加同步，Promise虽然摆脱了回调地狱，但是then的链式调用也会带来额外的阅读负担 </li>
+<li>Promise传递中间值非常麻烦，而async/await几乎是同步的写法，非常优雅 </li>
+<li>错误处理友好，async/await可以用成熟的try/catch，Promise的错误捕获非常冗余</li>
+</ol>
+<h3 id="基本用法-1"><a href="#基本用法-1" class="headerlink" title="基本用法"></a>基本用法</h3><h4 id="async"><a href="#async" class="headerlink" title="async"></a>async</h4><ul>
+<li><p><code>async</code>函数返回一个Promise对象。   </p>
+<p>函数内部 <code>return</code>语句返回的值，会成为 <code>then</code>方法回调函数的参数。   </p>
+</li>
+<li><p>函数内部抛出错误，会导致返回的Promise对象变为 <code>reject</code>状态。</p>
+<p>抛出的错误对象会被 <code>catch</code>方法回调函数接收到。   </p>
+</li>
+<li><p>只有 async 函数内部的异步操作执行完，才会执行 then 方法指定的回调函数。   </p>
+</li>
+</ul>
+<h4 id="await"><a href="#await" class="headerlink" title="await"></a>await</h4><ul>
+<li><p><code>await</code>命令后面是一个Promise对象。如果不是，会被转成一个立即 <code>resolve</code>的Promise对象。   </p>
+</li>
+<li><p>await 命令后面的Promise对象如果变为 <code>reject</code>状态，则 reject 的参数会被 <code>catch</code>方法的回调函数接收到。   </p>
+<p>该Promise后面的语句都不会执行。</p>
+<ul>
+<li>解决方法</li>
+<li>将该<code>await</code>放在<code>try...catch</code>结构里面</li>
+<li>将该await后面的对象再跟一个<code>catch</code>，处理前面的错误</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>多个 await 命令后面的异步操作，如果<strong>不存在继发关系</strong>，最好让它们同时触发。   </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> [foo, bar] = <span class="keyword">await</span> <span class="built_in">Promise</span>.all([getFoo(), getBar()]);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2019/10/01/其他/编码规范/" class="prev">PREV</a><a href="/2019/09/02/其他/Hexo搭建个人博客/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2019/09/02/js/es6/异步/';
+var disqus_title = 'ES6----Promise';
+var disqus_url = 'https://turing5467.github.io/2019/09/02/js/es6/异步/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

@@ -1,0 +1,427 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Dart笔记(未完) · 快乐的图小灵</title><meta name="description" content="Dart笔记(未完) - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Dart笔记(未完)</h1><div class="post-info">Apr 18, 2020</div><div class="post-content"><h2 id="Dart-未完"><a href="#Dart-未完" class="headerlink" title="Dart(未完)"></a>Dart(未完)</h2><ul>
+<li>Dart是由谷歌开发的计算机编程语言，它可被用于web、服务器、移动应用和物联网等领域的开发</li>
+<li>windows安装链接： <a href="https://gekorm.com/dart-windows/" target="_blank" rel="noopener">https://gekorm.com/dart-windows/</a> （需要翻墙，不然会连接报错）</li>
+<li>mac安装链接： <a href="https://dart.dev/get-dart#install" target="_blank" rel="noopener">https://dart.dev/get-dart#install</a> </li>
+<li>检查Dart安装是否成功：dart –version</li>
+</ul>
+<h3 id="开发工具"><a href="#开发工具" class="headerlink" title="开发工具"></a>开发工具</h3><ul>
+<li>IDEA、WebStorm、Atom、VSCode</li>
+<li>如何在VSCode中配置Dart<ol>
+<li>安装dart插件</li>
+<li>安装code runner插件</li>
+</ol>
+</li>
+</ul>
+<h3 id="dart示例文件"><a href="#dart示例文件" class="headerlink" title="dart示例文件"></a>dart示例文件</h3><h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><ul>
+<li>所有语句都必须写在入口方法<code>main</code>中，<code>void main</code>表示<code>main</code>方法没有返回值</li>
+<li>每个语句后都必须加上<code>;</code></li>
+</ul>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><ul>
+<li><p>dart是一个强大的脚本类语言，可以不预先定义变量类型，会自动进行类型推断</p>
+<ol>
+<li>通过<code>var</code>定义变量</li>
+<li>通过类型来声明变量，如String、int</li>
+</ol>
+</li>
+<li><p>命名规则</p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200418204449386.png" alt="image-20200418204449386"></p>
+</li>
+</ul>
+<h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><ul>
+<li><p>null</p>
+</li>
+<li><p>Number：</p>
+<ol>
+<li>int</li>
+<li>double</li>
+</ol>
+</li>
+<li><p>String：<code>&#39;&#39;</code>或<code>&quot;&quot;</code>只支持单行字符串，多行字符串使用<code>&#39;&#39;&#39;str&#39;&#39;&#39;</code>或<code>&quot;&quot;&quot;str&quot;&quot;&quot;</code></p>
+<ul>
+<li>字符串拼接：<code>&quot;$str1 $str2&quot;</code>或<code>str1 + str2</code></li>
+</ul>
+</li>
+<li><p>bool</p>
+</li>
+<li><p>List</p>
+</li>
+<li><p>Set</p>
+</li>
+<li><p>Maps：</p>
+<ol>
+<li><code>var person = { &quot;name&quot;: &quot;turing&quot; }</code></li>
+<li><code>var p = new Map(); p[&#39;name&#39;] = &#39;turing&#39;</code></li>
+</ol>
+<ul>
+<li>访问：<code>person[&#39;name&#39;]</code></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>通过<code>is</code>关键词判断数据类型，如<code>str is String</code></p>
+</blockquote>
+<ul>
+<li>类型转换<ol>
+<li>Number -&gt; String : <code>totring()</code></li>
+<li>String -&gt; Number： <code>int.parse()</code>或 <code>double.parse()</code></li>
+<li><code>str.isEmpty</code>判断字符串是否为空</li>
+</ol>
+</li>
+</ul>
+<h3 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h3><ul>
+<li><p>算数：<code>+ - * /  ~/(取整) %</code></p>
+</li>
+<li><p>关系：<code>== != &gt; &lt; &lt;= &gt;=</code>：<code>123 != &#39;123&#39;</code>(不会对类型进行自动转换)</p>
+</li>
+<li><p>逻辑：<code>! &amp;&amp; ||</code>返回值之能是bool值，不同于js</p>
+</li>
+<li><p>赋值：</p>
+<ol>
+<li>基础：<code>= ??=(为空则赋值)</code></li>
+<li>复合：<code>+= -+ *= /= %= ^/=</code></li>
+</ol>
+</li>
+<li><p><code>if else [else if] switch case for循环 do{}while() while(){} break continue</code></p>
+</li>
+<li><p>?：左边不为空则执行右边，如<code>p?.printInfo()</code></p>
+</li>
+<li><p>三目：?x:xx</p>
+</li>
+<li><p><code>??</code>左边为空则将右边值赋予变量</p>
+</li>
+<li><p><code>++ --</code>同js</p>
+</li>
+<li><p><code>..</code>级联操作</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">p1..name=<span class="string">'turing'</span></span><br><span class="line">  ..age=<span class="number">23</span></span><br><span class="line">  ..printInfo();</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h3 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h3><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">main() &#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="string">'12.2'</span>;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> b = <span class="built_in">int</span>.parse(a);</span><br><span class="line">    <span class="built_in">print</span>(b);</span><br><span class="line">  &#125;<span class="keyword">catch</span>(err) &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="number">0</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//打印结果： 0</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="集合类型"><a href="#集合类型" class="headerlink" title="集合类型"></a>集合类型</h3><h4 id="List"><a href="#List" class="headerlink" title="List"></a>List</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">List</span> l1 = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="built_in">print</span>(li[<span class="number">1</span>]); <span class="comment">//2</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> l2= <span class="keyword">new</span> <span class="built_in">List</span>();</span><br><span class="line">l2.add(<span class="number">1</span>);</span><br><span class="line"><span class="built_in">print</span>(l2)</span><br><span class="line">    </span><br><span class="line"><span class="keyword">var</span> l3 = l1.reversed.toList(); <span class="comment">// toList其他类型转换为list</span></span><br><span class="line"><span class="built_in">print</span>(l1.reversed); <span class="comment">//(3,2,1)	不是字符串类型也不是List</span></span><br><span class="line"><span class="built_in">print</span>(l3); <span class="comment">//[3,2,1]</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">//属性： length、isEmpty、isNotEmpty、reversed</span></span><br><span class="line"><span class="comment">//方法: </span></span><br><span class="line"><span class="comment">/*	add(ele) 增加一份数据</span></span><br><span class="line"><span class="comment">	addAll(List)   拼接数组</span></span><br><span class="line"><span class="comment">	indexOf(ele)	查找指定元素的索引，找不到则返回-1</span></span><br><span class="line"><span class="comment">	remove(ele)	删除指定元素</span></span><br><span class="line"><span class="comment">	removeAt(index)  删除指定索引的元素</span></span><br><span class="line"><span class="comment">	fillRange(start, end ,ele) 将start - end-1范围内的元素都替换为ele</span></span><br><span class="line"><span class="comment">	insert(start, ele)</span></span><br><span class="line"><span class="comment">	insertAll(start, list)</span></span><br><span class="line"><span class="comment">	join(str) 将数据连接成字符串(反之为split)</span></span><br><span class="line"><span class="comment">	</span></span><br><span class="line"><span class="comment">	forEach( (value)&#123;&#125; )  //循环遍历</span></span><br><span class="line"><span class="comment">	map( (value)&#123;&#125; )  //List映射,但是返回值不是list类型</span></span><br><span class="line"><span class="comment">	where( (value)&#123; return value&gt;5 &#125; )	//返回值不是list类型</span></span><br><span class="line"><span class="comment">	any( 同上 )	//存在一个符合条件的值就返回true</span></span><br><span class="line"><span class="comment">	every( 同上 )	//每个值都符合条件的值才返回true</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h4><ul>
+<li>对List进行去重</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Set</span> s1 = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> s1 = <span class="keyword">new</span> <span class="built_in">Set</span>();</span><br><span class="line">s1.add(<span class="string">'y'</span>);</span><br><span class="line">s1.add(<span class="string">'b'</span>);</span><br><span class="line">s1.add(<span class="string">'s'</span>);</span><br><span class="line"><span class="comment">//s1.addAll([1,2,2]) //可用来去重</span></span><br><span class="line"><span class="built_in">print</span>(s1);</span><br><span class="line"><span class="comment">//forEach</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Maps"><a href="#Maps" class="headerlink" title="Maps"></a>Maps</h4><ul>
+<li>类似于json对象，键值必须加引号</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Map</span> map = &#123;<span class="string">"name"</span>: <span class="string">"turing"</span>, <span class="string">"age"</span>: <span class="number">21</span>&#125;;</span><br><span class="line"><span class="built_in">print</span>(map.keys);    <span class="comment">//(name, age)</span></span><br><span class="line"><span class="built_in">print</span>(map.keys.toList());    <span class="comment">//[name, age]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//属性：keys、values、isEmpty、isNotEmpty</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">	方法：</span></span><br><span class="line"><span class="comment">		addAll(Map)</span></span><br><span class="line"><span class="comment">		remove(key)</span></span><br><span class="line"><span class="comment">		containsValue(value)</span></span><br><span class="line"><span class="comment">		forEach( (key, value)&#123; /**/</span> &#125; )</span><br><span class="line">		</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">格式</span><br><span class="line">    [返回类型/<span class="keyword">void</span>] 方法名称 ([类型 参数名], ...) &#123;</span><br><span class="line">		方法体;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="comment">//可放main方法里外</span></span><br><span class="line"><span class="comment">//可选参数 可有多个 但需加上[]</span></span><br><span class="line"><span class="built_in">int</span> add(<span class="built_in">int</span> a, [<span class="built_in">int</span> b, <span class="built_in">int</span> c]) &#123;</span><br><span class="line">    <span class="keyword">if</span>(b!=<span class="keyword">null</span> &amp;&amp; c!= <span class="keyword">null</span>) &#123;</span><br><span class="line">    	<span class="keyword">return</span> a+b+c;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">      <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">int</span> sum = add(<span class="number">1</span>);</span><br><span class="line">  <span class="built_in">print</span>(sum);</span><br><span class="line"></span><br><span class="line"><span class="comment">//默认参数：=</span></span><br><span class="line"><span class="comment">//命名参数：&#123;&#125;</span></span><br><span class="line"><span class="built_in">int</span> add(<span class="built_in">int</span> a, &#123;<span class="built_in">int</span> b&#125;) &#123;</span><br><span class="line">    <span class="keyword">return</span> a+b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">int</span> sum = add(<span class="number">1</span>, b:<span class="number">2</span>);</span><br><span class="line"><span class="built_in">print</span>(sum);</span><br></pre></td></tr></table></figure>
+
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200428230434194.png" alt="image-20200428230434194"></p>
+<h3 id="类"><a href="#类" class="headerlink" title="类"></a>类</h3><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//类名首字母必须大写</span></span><br><span class="line"><span class="comment">//构造函数同类名</span></span><br><span class="line"><span class="comment">//私有属性/方法前面加_</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="built_in">String</span> name;	<span class="comment">//不可省</span></span><br><span class="line">  <span class="built_in">int</span> age;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//构造函数简写</span></span><br><span class="line">  Person(<span class="keyword">this</span>.name, <span class="keyword">this</span>.age);</span><br><span class="line">  <span class="comment">//命名构造函数(可写多个)</span></span><br><span class="line">  Person.now() &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'我是命名构造函数'</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">void</span> getInfo() &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"my name is <span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>,I'm <span class="subst">$&#123;<span class="keyword">this</span>.age&#125;</span> years old"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">main() &#123;</span><br><span class="line">  <span class="keyword">var</span> p1  = <span class="keyword">new</span> Person(<span class="string">'turing'</span>, <span class="number">23</span>);</span><br><span class="line">  p1.getInfo(); <span class="comment">//my name is turing,I'm 23 years old</span></span><br><span class="line">  <span class="keyword">var</span> p2 = <span class="keyword">new</span> Person.now();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>get/set修饰符：类似计算属性</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rect</span> </span>&#123;</span><br><span class="line">  <span class="built_in">num</span> height;</span><br><span class="line">  <span class="built_in">num</span> width;</span><br><span class="line">  Rect(<span class="keyword">this</span>.height, <span class="keyword">this</span>.width);</span><br><span class="line">  <span class="keyword">get</span> area&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.height * <span class="keyword">this</span>.width;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">set</span> setHeight(<span class="built_in">num</span> height)&#123;</span><br><span class="line">    <span class="keyword">this</span>.height = height;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">main() &#123;</span><br><span class="line">  <span class="keyword">var</span> p1 = <span class="keyword">new</span> Rect(<span class="number">3</span>,<span class="number">5</span>);</span><br><span class="line">  <span class="built_in">print</span>(p1.area);</span><br><span class="line">  <span class="comment">//set使用</span></span><br><span class="line">  p1.setHeight = <span class="number">20</span>;</span><br><span class="line">  <span class="built_in">print</span>(p1.area);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>初始化实例变量</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rect</span> </span>&#123;</span><br><span class="line">  <span class="built_in">num</span> height;</span><br><span class="line">  <span class="built_in">num</span> width;</span><br><span class="line">  Rect():height=<span class="number">2</span>,width=<span class="number">10</span>&#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="keyword">this</span>.height * <span class="keyword">this</span>.width);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">main() &#123;</span><br><span class="line">  <span class="keyword">var</span> p1  = <span class="keyword">new</span> Rect(); 	<span class="comment">//20</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>静态：static</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rect</span> </span>&#123;</span><br><span class="line">    <span class="built_in">num</span> height;</span><br><span class="line">    <span class="built_in">num</span> width;</span><br><span class="line">    <span class="keyword">static</span> <span class="built_in">String</span> text = <span class="string">'Hello World'</span>;</span><br><span class="line">    Rect(<span class="keyword">this</span>.height, <span class="keyword">this</span>.width);</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">void</span> show()&#123;</span><br><span class="line">      <span class="built_in">print</span>(text); <span class="comment">// 非静态方法可以访问静态成员以及非静态成员</span></span><br><span class="line">      <span class="comment">// print(this.height);   静态方法无法访问非静态成员</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">void</span> show_1() &#123;</span><br><span class="line">      show();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<blockquote>
+<p>任何类都是Object类型</p>
+</blockquote>
+<ul>
+<li><p>继承：extends</p>
+<ol>
+<li>子类会继承父类里可见的属性和方法，但不会继承构造函数</li>
+<li>子类能复写父类的方法 getter和seter</li>
+</ol>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line">  <span class="built_in">String</span> name;</span><br><span class="line">  <span class="built_in">int</span> age;</span><br><span class="line">  Animal(<span class="keyword">this</span>.name, <span class="keyword">this</span>.age);</span><br><span class="line">  <span class="keyword">void</span> eat() &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'<span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span> 恰饭'</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span> <span class="keyword">extends</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line">  <span class="built_in">String</span> sex;</span><br><span class="line">  Cat(<span class="built_in">String</span> name, <span class="built_in">int</span> age, <span class="built_in">String</span> sex) : <span class="keyword">super</span>(name, age)&#123;</span><br><span class="line">    <span class="keyword">this</span>.sex = sex;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="meta">@override</span>   <span class="comment">//建议加上这句</span></span><br><span class="line">  <span class="keyword">void</span> eat() &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'miao~~'</span>);</span><br><span class="line">    <span class="keyword">super</span>.eat();   <span class="comment">//子类调用父类的方法</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">main() &#123;</span><br><span class="line">  Cat mimi = <span class="keyword">new</span> Cat(<span class="string">'mimi'</span>,<span class="number">1</span>, <span class="string">'female'</span>);</span><br><span class="line">  mimi.eat();	<span class="comment">//miao~~</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>抽象类(abstract)：子类可以继承抽象类，也可以实现抽象类接口</p>
+<ol>
+<li>抽象方法（没有方法体的方法）不能用abstract声明，</li>
+<li>子类继承抽象类必须实现其中的抽象方法</li>
+<li>子类实现抽象接口必须实现接口里的所有属性与方法</li>
+<li>抽象类不能被实例化，只有继承他的子类可以</li>
+</ol>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line">  eat();   <span class="comment">//抽象方法</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span> <span class="keyword">extends</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  eat() &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'miao'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">main() &#123;</span><br><span class="line">  Cat mimi = <span class="keyword">new</span> Cat();</span><br><span class="line">  mimi.eat();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>多态：将子类类型的指针赋值给父类类型的指针，同一函数调用会有不同的执行效果</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line">  eat();   <span class="comment">//抽象方法</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span> <span class="keyword">extends</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  eat() &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'miao'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  run() &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'cat run'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span> <span class="keyword">extends</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  eat() &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'wang~'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  run() &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'dog run'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">main() &#123;</span><br><span class="line">  Animal mimi = <span class="keyword">new</span> Cat();</span><br><span class="line">  mimi.eat();</span><br><span class="line">  mimi.run();  <span class="comment">//报错，父类指针无法访问子类特有的run方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h3><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">DB</span></span>&#123;	<span class="comment">//接口：就是约定、规范</span></span><br><span class="line">    add(<span class="built_in">String</span> data);</span><br><span class="line">    delete();</span><br><span class="line">    update();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MongoDB</span> <span class="keyword">implements</span> <span class="title">DB</span></span>&#123;</span><br><span class="line">  <span class="keyword">void</span> add(data)&#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'添加数据：<span class="subst">$data</span>'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">void</span> delete() &#123;&#125;</span><br><span class="line">  <span class="keyword">void</span> update() &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">main() &#123;</span><br><span class="line">  MongoDB db = <span class="keyword">new</span> MongoDB();</span><br><span class="line">  db.add(<span class="string">'Helo'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>extends 可以复用抽象类里的方法，implements里只能有抽象方法</p>
+</blockquote>
+<h3 id="混入"><a href="#混入" class="headerlink" title="混入"></a>混入</h3><ul>
+<li>作为mixns的类不能继承其他类</li>
+<li>作为mixns的类不能有构造函数</li>
+<li>mixins绝不是继承，也不是接口，而是一种全新的特性</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;</span><br><span class="line">  <span class="keyword">void</span> printA() &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'A--'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span></span>&#123;</span><br><span class="line">  <span class="keyword">void</span> printB() &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'B--'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span> <span class="title">with</span> <span class="title">A</span>,<span class="title">B</span> </span>&#123;	<span class="comment">//可同时extends其他类</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">main() &#123;</span><br><span class="line">  C c = <span class="keyword">new</span> C();</span><br><span class="line">  c.printA();</span><br><span class="line">  c.printB();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>当mixins的类中有同一名称的方法时，写在后面的会覆盖前面的</li>
+<li>当继承的类和mixins的类有同一名称的方法时，mixins中的方法优先级更高</li>
+</ul>
+<h3 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h3><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//对传入值与返回值进行校验</span></span><br><span class="line">T getData&lt;T&gt;(T data) &#123;</span><br><span class="line">  <span class="built_in">print</span>(data);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">main() &#123;</span><br><span class="line">  getData&lt;<span class="built_in">int</span>&gt;(<span class="number">123</span>);</span><br><span class="line">  getData&lt;<span class="built_in">String</span>&gt;(<span class="string">'Hello world'</span>);</span><br><span class="line">    </span><br><span class="line">  <span class="comment">//表示list只能添加String类型</span></span><br><span class="line">  <span class="built_in">List</span> list = <span class="keyword">new</span> <span class="built_in">List</span>&lt;<span class="built_in">String</span>&gt;();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//抽象类的写法</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">DB</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line">  add(T data);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MongoDB</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">DB</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line">  add(T data) &#123;</span><br><span class="line">    <span class="built_in">print</span>(data);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">main() &#123;</span><br><span class="line">  MongoDB m = <span class="keyword">new</span> MongoDB&lt;<span class="built_in">String</span>&gt;();</span><br><span class="line">  m.add(<span class="string">'Hello World'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Dart库"><a href="#Dart库" class="headerlink" title="Dart库"></a>Dart库</h2><ol>
+<li><p>自定义库</p>
+</li>
+<li><p>系统内置库 <code>import &#39;dart:math&#39;</code> <code>import &#39;dart:io&#39;</code></p>
+</li>
+<li><p>Pub包管理系统中的库</p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200501150504733.png" alt="image-20200501150504733"></p>
+</li>
+</ol>
+<h2 id="Flutter"><a href="#Flutter" class="headerlink" title="Flutter"></a>Flutter</h2><p>Flutter是谷歌基于Dart语言开发的一款跨平台的移动APP开发框架。（咸鱼）</p>
+<p>性能相比RN、Ionic要好一些，但是社区较不完善</p>
+<h3 id="Window搭建Flutter环境"><a href="#Window搭建Flutter环境" class="headerlink" title="Window搭建Flutter环境"></a>Window搭建Flutter环境</h3><p><a href="https://jspang.com/detailed?id=41#toc222" target="_blank" rel="noopener">jspang文章</a></p>
+<ol>
+<li><p>安装JDK：<a href="https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html" target="_blank" rel="noopener">jdk</a></p>
+</li>
+<li><p>安装Flutter SDK</p>
+<ul>
+<li><p>方法1 <a href="https://flutter.dev/docs/development/tools/sdk/releases" target="_blank" rel="noopener">https://flutter.dev/docs/development/tools/sdk/releases</a> beta版本</p>
+</li>
+<li><p>方法二：</p>
+<ol>
+<li>设置用户环境变量</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export PUB_HOSTED_URL=https://pub.flutter-io.cn</span><br><span class="line">export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>git clone <a href="https://github.com/flutter/flutter.git" target="_blank" rel="noopener">https://github.com/flutter/flutter.git</a> </li>
+</ol>
+</li>
+<li><p>配置环境变量：<code>Path += flutter安装目录下的bin目录</code></p>
+</li>
+<li><p>flutter doctor检查依赖是否全部安装</p>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><p>安装Android Studio： <a href="https://developer.android.google.cn/studio/" target="_blank" rel="noopener">https://developer.android.google.cn/studio/</a> </p>
+<ul>
+<li><p>安装flutter插件：configure/pugins/</p>
+</li>
+<li><p>重启，flutter doctor，有几个感叹号，逐个解决</p>
+</li>
+</ul>
+</li>
+<li><p>VScode(还是需要安装AndroidStudio，但不需要启动)</p>
+<ul>
+<li><p>安装flutter插件</p>
+</li>
+<li><p>qwe</p>
+<ul>
+<li>编写一个<code>EmulatorRun.bat</code>,内容如下</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//emulator.exe的路径(有两个，选择emulator文件夹下的)</span><br><span class="line">path -netdelay none -netspeed full -avd [虚拟机名字(空格改为_)]</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<ol start="4">
+<li><p>创建项目：create a new flutter project =&gt; flutter application =&gt; 命名</p>
+<ul>
+<li>VSCode中：flutter create 项目名</li>
+</ul>
+</li>
+<li><p>虚拟机：tools =&gt; AVD Manager =&gt; create Visual Device =&gt; Nexus 5X =&gt; 启动</p>
+</li>
+<li><p>如果是VScode，还需要执行<code>flutter run</code></p>
+</li>
+</ol>
+<h3 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">--android	安卓资源目录</span><br><span class="line">--build		运行时生成的编译目录</span><br><span class="line">--ios		苹果资源目录</span><br><span class="line">--lib		自己编写的代码及资源</span><br><span class="line">	main.dart	//flutter的入口文件</span><br><span class="line">pubspec.yaml	配置文件，一般寻访一些第三方库的依赖</span><br></pre></td></tr></table></figure>
+
+<h4 id="main-dart"><a href="#main-dart" class="headerlink" title="main.dart"></a>main.dart</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> main() =&gt; runApp(MyApp());</span><br><span class="line"></span><br><span class="line"><span class="comment">//自定义组件</span></span><br><span class="line"><span class="comment">//StatelessWidget是一个抽象类，里面有一个抽象方法build,该方法返回一个Widget</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span></span>&#123;</span><br><span class="line">    <span class="meta">@override</span></span><br><span class="line">    Widget build(BuildContext context) &#123;</span><br><span class="line">        <span class="keyword">return</span> Center(</span><br><span class="line">        	child: <span class="keyword">new</span> Text(</span><br><span class="line">       		 	<span class="string">'Hello, world!'</span>,</span><br><span class="line">        		textDirection: TextDirection.ltr,</span><br><span class="line">                style: TextStyle(</span><br><span class="line">                	fontSize: <span class="number">24.0</span>,</span><br><span class="line">                    color: Colors.yellow,</span><br><span class="line">                    <span class="comment">//color: Color.fromRGBO(244, 233, 222 ,0.5)</span></span><br><span class="line">                )</span><br><span class="line">     	 	),</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Flutter中所有和数字相关的东西都是<strong>double</strong>类型</p>
+</blockquote>
+<h4 id="MaterialApp"><a href="#MaterialApp" class="headerlink" title="MaterialApp"></a>MaterialApp</h4><ul>
+<li>MaterialApp是一个方便的Widget，它封装了应用程序实现Material Design所需要的Widget，一般作为<strong>顶层Widget</strong>使用。</li>
+<li>常用属性<ul>
+<li><code>home</code>:主页</li>
+<li><code>title</code>: 标题</li>
+<li><code>color</code>：颜色</li>
+<li><code>theme</code>：主题</li>
+<li><code>routes</code>：路由</li>
+</ul>
+</li>
+</ul>
+<h4 id="Scaffold"><a href="#Scaffold" class="headerlink" title="Scaffold"></a>Scaffold</h4><ul>
+<li>Scaffold是Material Design布局结构的基本实现，此类提供了用于显示drawer、snackbar和底部sheet的Api</li>
+<li>主要属性<ul>
+<li>appBar：显示在页面顶部的AppBar</li>
+<li>body：显示的主要内容Widget</li>
+<li>drawer：抽屉菜单控件</li>
+</ul>
+</li>
+</ul>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200504135729256.png" alt="image-20200504135729256"></p>
+<h3 id="Text"><a href="#Text" class="headerlink" title="Text"></a>Text</h3><ul>
+<li>textAlign：center、left、right、justify</li>
+<li>textDirection：ltr、rtl</li>
+<li>overflow：文本溢出处理：clip裁剪、fade渐隐、ellipsis省略号</li>
+<li>textScaleFactor:字体显示倍率</li>
+<li>maxLines：</li>
+<li>style</li>
+<li>TextStyle参数<ul>
+<li>fontStyle、fontSize、color、fontWeight、letterSpacing、wordSpacing</li>
+<li>decoration、decorationColor、decorationStyle</li>
+</ul>
+</li>
+</ul>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200502144655280.png" alt="image-20200502144655280"></p>
+<h3 id="Container"><a href="#Container" class="headerlink" title="Container"></a>Container</h3><p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200502151335853.png" alt="image-20200502151335853"></p>
+<ul>
+<li>width、height</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">padding: <span class="keyword">const</span> EdgeInsets.all(<span class="number">10.0</span>);</span><br><span class="line">padding: <span class="keyword">const</span> EdgeInsets.fromLTRB(左,上,右,下);</span><br><span class="line"><span class="comment">//margin同</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>alignment：<code>Alignment.bottomLeft</code></p>
+</li>
+<li><p>transform</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Matrix4.rotationX/Y/Z(radius)</span><br><span class="line">    	skew/skewX/skewY</span><br><span class="line">    	solve/solve2/solve3</span><br><span class="line">    	translation/translationValues(x,y,z)</span><br><span class="line">    	tryConvert</span><br><span class="line">    diagonal3Values(x, y, z)	缩放</span><br></pre></td></tr></table></figure>
+
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>decoration：背景样式（背景色与color冲突，只能写一个）</p>
+<ul>
+<li>color、gradient</li>
+<li>border =&gt; color、width</li>
+<li>borderRadius边框圆角<code>BorderRadius.all(Radius.circular(8.0))</code></li>
+</ul>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200502152545438.png" alt="image-20200502152545438"></p>
+</li>
+</ul>
+<h3 id="Image"><a href="#Image" class="headerlink" title="Image"></a>Image</h3><ul>
+<li><p>Image.asset()：<strong>本地</strong>图片</p>
+<ol>
+<li><p>在img文件夹下创建2.0x和3.0x文件夹</p>
+</li>
+<li><p>在每个文件夹下存放对应分辨率下加载的图片</p>
+</li>
+<li><p>在<code>pubspec.yaml</code>配置</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">flutter:</span></span><br><span class="line"><span class="attr">  assets:</span></span><br><span class="line">	<span class="bullet">-</span> <span class="string">img/a.jpg</span></span><br><span class="line">	<span class="bullet">-</span> <span class="string">img/2.0x/a.jpg</span></span><br><span class="line">	<span class="bullet">-</span> <span class="string">img/3.0x/a.jpg</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>Image.asset(&#39;img/a.jpg&#39;)</code></p>
+</li>
+</ol>
+</li>
+<li><p>Image.network()：<strong>远程</strong>图片</p>
+<ul>
+<li>alignment</li>
+<li>color、colorBlendMode</li>
+<li>fit：fill、contain、cover</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Image.network(</span><br><span class="line">	<span class="string">'imggeURL'</span>,</span><br><span class="line">    fit: BoxFit.fit,	</span><br><span class="line">    color: Colors.green,</span><br><span class="line">    colorBlendMode: BlendMode.darken,</span><br><span class="line">    repeat: ImageRepeat.repeatX</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h4 id="圆形图片"><a href="#圆形图片" class="headerlink" title="圆形图片"></a>圆形图片</h4><ul>
+<li>方法1（推荐）：</li>
+</ul>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200504200108147.png" alt="image-20200504200108147"></p>
+<ul>
+<li><p>方法2：</p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200504200210868.png" alt="image-20200504200210868"></p>
+</li>
+</ul>
+<h3 id="ListView"><a href="#ListView" class="headerlink" title="ListView"></a>ListView</h3><ol>
+<li>垂直列表</li>
+<li>水平列表</li>
+<li>动态列表</li>
+<li>矩阵式列表</li>
+</ol>
+<ul>
+<li>ListView参数<ol>
+<li>children：<code>&lt;Widget&gt;[任意组件,可以是不同类型的]</code></li>
+<li>scrollDirection：Axis.horizontal/vertical</li>
+<li>padding：EdgeInsetsGeometry</li>
+<li>resolve：组件是否反向排序</li>
+</ol>
+</li>
+</ul>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200502190837731.png" alt="image-20200502190837731"></p>
+<ul>
+<li>ListTile参数<ol>
+<li>leading、trailing：前、后缀(可以是图标、图片等)</li>
+<li>title、subtitle</li>
+</ol>
+</li>
+</ul>
+<h4 id="动态列表"><a href="#动态列表" class="headerlink" title="动态列表"></a>动态列表</h4><ol>
+<li><p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200504204458126.png" alt="image-20200504204458126"></p>
+</li>
+<li><p>ListView.builder(itemCount, itemBuilder)</p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200504205103392.png" alt="image-20200504205103392"></p>
+</li>
+</ol>
+<h4 id="GridView"><a href="#GridView" class="headerlink" title="GridView"></a>GridView</h4><ol>
+<li><p>GridView.count()</p>
+<ul>
+<li><p>常用属性</p>
+<ul>
+<li><p>scrollDirection</p>
+</li>
+<li><p>crossAxisCount：一行Widget数量</p>
+</li>
+<li><p>crossAxisSpacing：水平子Widget间距</p>
+</li>
+<li><p>mainAxisSpacing：垂直子Widget间距</p>
+</li>
+<li><p>padding 、 resolve</p>
+</li>
+<li><p>crossAspectRatio</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>GridView.builder()</p>
+<ul>
+<li><p>gridDelegate</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">GridView.builder(BuildContext context) &#123;</span><br><span class="line">    gridDelegate.SilverGridDelegateWithFixedCrossAxisCount(</span><br><span class="line">    	<span class="comment">//上述属性</span></span><br><span class="line">        crossAxisCount: <span class="number">2</span></span><br><span class="line">    ),</span><br><span class="line">    itemCount: listData.length,</span><br><span class="line">    itemBuilder: <span class="keyword">this</span>._getListData,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+</li>
+</ul>
+</li>
+</ol>
+</div></article></div></main><footer><div class="paginator"><a href="/2020/04/19/面试/React/" class="prev">PREV</a><a href="/2020/03/09/js框架/react/bug/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2020/04/18/工程化/Dart Flutter/';
+var disqus_title = 'Dart笔记(未完)';
+var disqus_url = 'https://turing5467.github.io/2020/04/18/工程化/Dart Flutter/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

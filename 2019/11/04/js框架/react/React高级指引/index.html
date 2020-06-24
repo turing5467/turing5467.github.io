@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> React高级指引 · 快乐的图小灵</title><meta name="description" content="React高级指引 - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">React高级指引</h1><div class="post-info">Nov 4, 2019</div><div class="post-content"><h2 id="React高级指引"><a href="#React高级指引" class="headerlink" title="React高级指引"></a>React高级指引</h2><ul>
 <li><a href="https://react.docschina.org/docs/thinking-in-react.html" target="_blank" rel="noopener">官方文档</a></li>
 </ul>
-<h2 id="PropTypes进行类型检查"><a href="#PropTypes进行类型检查" class="headerlink" title="PropTypes进行类型检查"></a>PropTypes进行类型检查</h2><ul>
+<h3 id="PropTypes进行类型检查"><a href="#PropTypes进行类型检查" class="headerlink" title="PropTypes进行类型检查"></a>PropTypes进行类型检查</h3><ul>
 <li><p>需要先安装并引入<code>prop-types</code>库</p>
 </li>
 <li><p><code>PropTypes</code> 提供一系列<strong>验证器</strong>，可用于确保组件接收到的数据类型是有效的。 </p>
@@ -16,7 +16,7 @@
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Greeting.defaultProps = &#123;</span><br><span class="line">  name: <span class="string">'Stranger'</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//或 (在类中)</span></span><br><span class="line"><span class="keyword">static</span> defaultProps = &#123;</span><br><span class="line">    name: <span class="string">'stranger'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="非受控组件"><a href="#非受控组件" class="headerlink" title="非受控组件"></a>非受控组件</h2><ul>
+<h3 id="非受控组件"><a href="#非受控组件" class="headerlink" title="非受控组件"></a>非受控组件</h3><ul>
 <li>受控组件： 表单项输入数据能<strong>自动收集</strong>成状态，数据是由 <strong>React 组件</strong>管理 </li>
 <li>非受控组件： 需要时手动读取表单输入框的值，表单数据是由 <strong>DOM节点</strong>管理 </li>
 </ul>
@@ -48,6 +48,9 @@
 </li>
 <li><p>好处：优化性能</p>
 </li>
+</ul>
+<h3 id="renderProps"><a href="#renderProps" class="headerlink" title="renderProps"></a>renderProps</h3><ul>
+<li>定义：为组件传入<code>render</code>函数，来控制渲染</li>
 </ul>
 </div></article></div></main><footer><div class="paginator"><a href="/2019/11/04/其他/Chrome Extensions/" class="prev">PREV</a><a href="/2019/11/01/其他/nginx/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
 var disqus_identifier = '2019/11/04/js框架/react/React高级指引/';

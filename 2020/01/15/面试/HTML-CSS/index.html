@@ -1,0 +1,274 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 面试题--HTML-CSS · 快乐的图小灵</title><meta name="description" content="面试题--HTML-CSS - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">面试题--HTML-CSS</h1><div class="post-info">Jan 15, 2020</div><div class="post-content"><h3 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h3><h4 id="说说HTML5在标签、属性、存储、API上的新特性"><a href="#说说HTML5在标签、属性、存储、API上的新特性" class="headerlink" title="说说HTML5在标签、属性、存储、API上的新特性"></a>说说HTML5在标签、属性、存储、API上的新特性</h4><ul>
+<li>标签：新增语义化标签（<code>aside / figure / section / header / footer / nav</code>等），增加多媒体标签<code>video</code>和<code>audio</code>，使得样式和结构更加分离</li>
+<li>属性：增强表单，主要是增强了<code>input</code>的type属性；<code>meta</code>增加charset以设置字符集；<code>script</code>增加async以异步加载脚本</li>
+<li>存储：增加<code>localStorage</code>、<code>sessionStorage</code>和<code>indexedDB</code>，引入了<code>application cache</code>对web和应用进行缓存</li>
+<li>API：增加<code>拖放API</code>、<code>地理定位</code>、<code>SVG绘图</code>、<code>canvas绘图</code>、<code>Web Worker</code>、<code>WebSocket</code></li>
+</ul>
+<h4 id="DocType是干什么的"><a href="#DocType是干什么的" class="headerlink" title="DocType是干什么的"></a>DocType是干什么的</h4><p><code>&lt;!DOCTYPE&gt;</code>用于告知浏览器使用哪种HTML或XHTML<strong>规范</strong>来渲染文档</p>
+<ul>
+<li>BackCompat：怪异模式，浏览器使用自己的怪异模式解析渲染页面。（默认）</li>
+<li>CSS1Compat：标准模式，浏览器使用<strong>W3C</strong>的标准解析渲染页面。</li>
+</ul>
+<h4 id="移动端布局"><a href="#移动端布局" class="headerlink" title="移动端布局"></a>移动端布局</h4><blockquote>
+<p>理想视口：</p>
+<ol>
+<li><p><code>&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width&quot;&gt;</code></p>
+</li>
+<li><p><code>&lt;meta name=&quot;viewport&quot; content=&quot;initial-scale=1.0&quot;&gt;</code></p>
+</li>
+</ol>
+<p>width和initial-scale同时存在取较大值</p>
+</blockquote>
+<ol>
+<li><p>百分比布局</p>
+<ul>
+<li>固定屏幕为理想视口宽度</li>
+<li>水平百分比布局（部分也可以使用弹性布局）</li>
+<li>少量的媒体查询设置字体</li>
+</ul>
+<p>适用于：不管浏览器如何变化，<strong>高度不变</strong>，宽度自适应</p>
+</li>
+<li><p>rem布局</p>
+<ul>
+<li><p>rem的大小取值：根据页面的dpr进行动态改变</p>
+<ul>
+<li>1rem = 100px</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//需配合媒体查询</span><br><span class="line">@<span class="keyword">media</span> screen and (min-width: <span class="number">320px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;<span class="attribute">font-size</span>: <span class="number">32px</span>&#125;</span><br><span class="line">&#125;</span><br><span class="line">@<span class="keyword">media</span> screen and (min-width: <span class="number">480px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;<span class="attribute">font-size</span>: <span class="number">48px</span>&#125;</span><br><span class="line">&#125;</span><br><span class="line">@<span class="keyword">media</span> screen and (min-width: <span class="number">640px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;<span class="attribute">font-size</span>: <span class="number">64px</span>&#125;</span><br><span class="line">&#125;</span><br><span class="line">//假设设计稿宽度为640，那么接下来只需要将元素的尺寸除以64</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>1rem = 1/10 * 理想视口宽度</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//动态计算并设置html元素的font-size值</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">doc, win</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> docEle = doc.documentElement;</span><br><span class="line">    <span class="keyword">let</span>  event = <span class="string">"onorientationchange"</span> <span class="keyword">in</span> <span class="built_in">window</span> ? <span class="string">"orientationchange"</span>: <span class="string">"resize"</span>;</span><br><span class="line">    <span class="keyword">let</span> fn = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">let</span> width = docEle.clientWidth;</span><br><span class="line">        width &amp;&amp; (<span class="built_in">document</span>.style.fontSize = <span class="number">100</span> * (width / <span class="number">640</span>) + <span class="string">"px"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    win.addEventListener(evt, fn, <span class="literal">false</span>);</span><br><span class="line">    doc.addEventListener(<span class="string">"DOMContentLoaded, fn false);</span></span><br><span class="line"><span class="string">&#125;)(document, window)</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>适用于：浏览器宽度变化时，元素宽度与高度随之发生变化</p>
+</li>
+<li><p>缩放页面方案</p>
+<p>固定设计稿的宽度开发 + 根据设备宽度适配缩放</p>
+<p>可使用的库：</p>
+<ol>
+<li><p><a href="https://github.com/amfe/lib-flexible/" target="_blank" rel="noopener">amfe-flexible</a> ：正常写px，会自动转化成rem的形式 </p>
+</li>
+<li><p><a href="https://github.com/imochen/hotcss" target="_blank" rel="noopener">hotcss</a>：模仿vw，将整屏做了栅格化，分成16个rem</p>
+<ol>
+<li><p>引入<code>hotcss.js</code></p>
+</li>
+<li><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* px2rem.js */</span></span><br><span class="line">@<span class="keyword">function</span> px2rem($px)&#123;</span><br><span class="line">	@<span class="keyword">return</span> $px*<span class="number">320</span>/$designWidth/<span class="number">20</span> + rem;</span><br><span class="line">&#125;</span><br><span class="line">//单尺寸设计图：定义设计图宽度</span><br><span class="line">$designWidth: 750;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#container</span>&#123;</span><br><span class="line">	<span class="attribute">font-size</span>: <span class="number">12px</span> ;</span><br><span class="line">	[data-dpr="2"] &amp;&#123;</span><br><span class="line">		<span class="selector-tag">font-size</span>: 24<span class="selector-tag">px</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="selector-attr">[data-dpr="3"]</span> &amp;&#123;</span><br><span class="line">		<span class="attribute">font-size</span>: <span class="number">36px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="built_in">px2rem</span>(250);</span><br><span class="line">    <span class="attribute">height</span>: <span class="built_in">px2rem</span>(250);</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#194</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>vw布局</p>
+</li>
+</ol>
+<h4 id="渐进增强和优雅降级"><a href="#渐进增强和优雅降级" class="headerlink" title="渐进增强和优雅降级"></a>渐进增强和优雅降级</h4><p><strong>渐进增强</strong>：针对低版本浏览器进行构建页面，保证最基本的功能，然后再针对高级浏览器进行效果、交互等改进和追加功能达到更好的用户体验。</p>
+<p><strong>优雅降级</strong>：一开始就构建完整的功能，然后再针对低版本浏览器进行兼容</p>
+<h4 id="src与href的区别"><a href="#src与href的区别" class="headerlink" title="src与href的区别"></a><strong>src</strong>与<strong>href</strong>的区别</h4><ul>
+<li>src：指向外部资源的位置，用于替换当前元素<ul>
+<li>当浏览器解析到该元素时，会<strong>暂停</strong>其他资源的下载和处理，直到将该资源加载、编译、执行完毕</li>
+</ul>
+</li>
+<li>href：用于在当前文档和引用资源之间确立联系<ul>
+<li>当浏览器解析到该元素时，会<strong>并行</strong>下载资源并且不会停止对当前文档的处理</li>
+</ul>
+</li>
+</ul>
+<h4 id="img标签的srcset的作用是什么"><a href="#img标签的srcset的作用是什么" class="headerlink" title="img标签的srcset的作用是什么"></a>img标签的srcset的作用是什么</h4><p>可以设计响应式图片，我们可以使用srcset和sizes来提供更多额外的资源图像和提示，帮助浏览器选择正确的一个资源</p>
+<ul>
+<li><p><code>srcset</code>用于 浏览器根据宽、高和像素密度来加载相应的图片资源。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//格式：图片地址 宽度描述w/像素密度描述x，多个资源之间用，隔开</span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"small.jpg"</span> <span class="attr">srcset</span>=<span class="string">"big.jpg 1440w, middle.jpg 800w, small.jpg 1x"</span> /&gt;</span></span><br><span class="line">//表示浏览器宽度达到 800px 则加载 middle.jpg ，达到 1400px 则加载 big.jpg。</span><br><span class="line">//注意：像素密度描述只对固定宽度图片有效。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>sizes</code>用于给图片设置一个预估的显示宽度</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//格式：媒体查询 宽度描述w，多条规则用逗号描述</span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"images/gun.png"</span></span></span><br><span class="line"><span class="tag">     <span class="attr">srcset</span>=<span class="string">"images/bg_star.jpg 1200w, images/share.jpg 800w, 						 images/gun.png 320w"</span></span></span><br><span class="line"><span class="tag">     <span class="attr">sizes</span>=<span class="string">"(max-width: 320px) 300w, 1200w"</span>/&gt;</span></span><br><span class="line">//表示示浏览器视口为 320px 时图片宽度为 300px，其他情况为 1200px。</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="还有哪一个标签能起到跟srcset相似作用？"><a href="#还有哪一个标签能起到跟srcset相似作用？" class="headerlink" title="还有哪一个标签能起到跟srcset相似作用？"></a>还有哪一个标签能起到跟srcset相似作用？</h4><p> <code>&lt;picture&gt;</code>元素通过包含零或<strong>多个</strong> <code>source</code> 元素和<strong>一个</strong><code>img</code> 元素来为不同的显示/设备场景提供图像版本。浏览器会选择最匹配的子 <code>source</code> 元素，如果没有匹配的，就选择 <code>img</code> 元素的 src 属性中的URL。然后，所选图像呈现在<code>&lt;img&gt;</code>元素占据的空间中 </p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">picture</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">source</span> <span class="attr">srcset</span>=<span class="string">"/media/examples/surfer-240-200.jpg"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">media</span>=<span class="string">"(min-width: 800px)"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"/media/examples/painted-hand-298-332.jpg"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">picture</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="script标签中的defer和async的区别"><a href="#script标签中的defer和async的区别" class="headerlink" title="script标签中的defer和async的区别"></a>script标签中的defer和async的区别</h4><ul>
+<li><p>defer：脚本在文档被解析后执行，script被异步加载后并不会立刻执行，而是等待<strong>文档被解析完毕后执行</strong>。</p>
+</li>
+<li><p>async：同样是异步加载脚本，区别是<strong>脚本加载完毕后立即执行</strong>，这会导致脚本乱序，对于script有先后依赖关系的情况，并不适用。</p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200423145928927.png" alt="image-20200423145928927"></p>
+</li>
+</ul>
+<blockquote>
+<p>蓝色线代表网络读取，红色线代表执行时间，这俩都是针对脚本的；绿色线代表 HTML 解析</p>
+</blockquote>
+<h4 id="meta有哪些属性，作用是什么"><a href="#meta有哪些属性，作用是什么" class="headerlink" title="meta有哪些属性，作用是什么"></a>meta有哪些属性，作用是什么</h4><p> meta标签用于描述网页的<code>元信息</code>，如网站作者、描述、关键词，meta通过<code>name=xxx</code>和<code>content=xxx</code>的形式来定义信息 </p>
+<ul>
+<li><p>charset：定义HTML文档的字符集</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> &gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>http-equiv：可用于模拟http请求头，可设置过期时间、缓存、刷新 </p>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">＜meta http-equiv="expires" content="Wed, 20 Jun 2019 22:33:00 GMT"＞</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>viewport：视口，用于控制页面宽高及缩放比例</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> </span></span><br><span class="line"><span class="tag">    <span class="attr">name</span>=<span class="string">"viewport"</span> </span></span><br><span class="line"><span class="tag">    <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1, maximum-scale=1"</span></span></span><br><span class="line"><span class="tag">&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="viewport有哪些参数"><a href="#viewport有哪些参数" class="headerlink" title="viewport有哪些参数"></a>viewport有哪些参数</h4><ul>
+<li>width/height，宽高，默认宽度980px</li>
+<li>initial-scale，初始缩放比例，1~10</li>
+<li>maximum-scale/minimum-scale，允许用户缩放的最大/小比例</li>
+<li>user-scalable，用户是否可以缩放 (yes/no)</li>
+</ul>
+<h4 id="http-equive属性的作用和参数"><a href="#http-equive属性的作用和参数" class="headerlink" title="http-equive属性的作用和参数"></a>http-equive属性的作用和参数</h4><ul>
+<li>expires，指定过期时间</li>
+<li>progma，设置no-cache可以禁止缓存</li>
+<li>refresh，定时刷新</li>
+<li>set-cookie，可以设置cookie</li>
+<li>X-UA-Compatible，使用浏览器版本</li>
+<li>apple-mobile-web-app-status-bar-style，针对WebApp全屏模式，隐藏状态栏/设置状态栏颜色</li>
+</ul>
+<p><img src="C:%5CUsers%5CAdministrator%5CDesktop%5Ctr%5CimgURL%5C%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20200519113457.jpg" alt></p>
+<h4 id="事件流"><a href="#事件流" class="headerlink" title="事件流"></a>事件流</h4><p>事件流又称为事件传播，DOM2级事件规定的事件流包括三个阶段：事件捕获阶段(capture phase)、处于目标阶段(target phase)和事件冒泡阶段(bubbling phase)。</p>
+<ol>
+<li><strong>捕获</strong>阶段:：从最外层的祖先元素,向目标元素进行事件的捕获,但是默认会不会触发事件</li>
+<li><strong>目标</strong>阶段：事件捕获到目标元素,开始在目标元素上触发事件</li>
+<li><strong>冒泡</strong>阶段：事件从目标元素向祖先元素传递,依次触发祖先元素上的事件</li>
+</ol>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200424151845788.png" alt="image-20200424151845788"></p>
+<ul>
+<li><p>事件委托： 利用事件冒泡，只指定一个事件处理程序，就可以管理某一类型的所有事件 </p>
+<ul>
+<li><p>优点：</p>
+<ul>
+<li>节省内存，减少事件注册</li>
+<li>新增子对象时无需紫安琪对其绑定事件，适合动态添加元素</li>
+</ul>
+</li>
+<li><p>局限性：</p>
+<ul>
+<li>focus、blur 之类的事件本身没有事件冒泡机制，所以无法委托</li>
+<li>mousemove、mouseout 这样的事件，虽然有事件冒泡，但是只能不断通过位置去计算定位，对性能消耗高，不适合事件委托</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="rgba和opacity的透明效果"><a href="#rgba和opacity的透明效果" class="headerlink" title="rgba和opacity的透明效果"></a>rgba和opacity的透明效果</h4><ul>
+<li>rgba：只作用于元素的颜色或背景色</li>
+<li>opacity：作用于元素，以及元素内所有内容的透明度</li>
+</ul>
+<h4 id="Sass和Less"><a href="#Sass和Less" class="headerlink" title="Sass和Less"></a>Sass和Less</h4><p>他们是CSS预处理器。是CSS上的一种抽象层，通过一种特殊的语法编译成CSS</p>
+<pre><code>1. 结构清晰，便于扩展
+2. 轻松实现多重继承</code></pre><h4 id="为什么要初始化样式？"><a href="#为什么要初始化样式？" class="headerlink" title="为什么要初始化样式？"></a>为什么要初始化样式？</h4><p>由于浏览器兼容的问题，不同的浏览器对标签的默认样式值不同，若不初始化则会造成不同浏览器之间的显示差异</p>
+<h4 id="BFC是什么"><a href="#BFC是什么" class="headerlink" title="BFC是什么"></a><strong>BFC</strong>是什么</h4><ul>
+<li><p>BFC：块级格式化上下文</p>
+<p>​    它是一个独立的渲染区域，该区域内所有元素的布局不会影响到区域外部元素的布局，这个渲染区域只对<strong>块级元素</strong>起作用。</p>
+</li>
+<li><p>BFC渲染规则</p>
+<ul>
+<li>BFC是页面上的一个隔离的独立容器，不受外界干扰或干扰外界 </li>
+<li>BFC区域不会与<strong>浮动</strong>的元素重叠</li>
+<li>计算BFC<strong>高度</strong>时,浮动元素也参与计算 </li>
+<li>BFC内部两个相邻元素的margin会发生重叠 </li>
+<li>BFC内部的元素会在垂直方向上放置 </li>
+</ul>
+</li>
+<li><p>如何开启BFC</p>
+<ul>
+<li><code>float: left/right</code></li>
+<li><code>position: absolute/fixed</code></li>
+<li><code>display: inline-block/table-cell/flex/inline-flex</code></li>
+<li><code>overflow: hidden/auto/scroll</code><ul>
+<li>ie6: <code>zoom: 1</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>应用</p>
+<ul>
+<li><p>自适应两栏布局（2）</p>
+</li>
+<li><p>清除内部浮动</p>
+</li>
+<li><p>防止垂直margin重叠 （1）</p>
+<blockquote>
+<p>折叠结果遵循下列计算规则： </p>
+<ol>
+<li><p>两个外边距都是正数时，结果是两者<strong>较大的值</strong>。 </p>
+</li>
+<li><p>两个外边距都是负数时，结果是两者<strong>绝对值的较大值</strong>。 </p>
+</li>
+<li><p>两个外边距一正一负时，结果是两者的<strong>相加的和</strong>。 </p>
+</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="常见兼容性问题"><a href="#常见兼容性问题" class="headerlink" title="常见兼容性问题"></a>常见兼容性问题</h4><ol>
+<li><p>IE6双边距 BUG： float 引起 =&gt;  使用 <code>display : inline</code></p>
+</li>
+<li><p>ie8以下图片边框bug：图片为a标签 =&gt; <code>border: 0 none;</code></p>
+</li>
+<li><p>div中图片下方撑大3px：<code>div { font-size:0 }</code></p>
+</li>
+<li><p>ie6部分块元素拥有默认高16px：<code>font-size:0</code></p>
+</li>
+<li><p>表单行高对齐不一致：<code>float: left</code>或<code>vertical-align: middle</code></p>
+</li>
+<li><p>各浏览器按钮大小不一样：用a标签模拟</p>
+</li>
+<li><p>ie6百分比bug 50+50&gt;100：<code>.right { clear: right }</code></p>
+</li>
+<li><p>select 在 ie6 下遮盖 使用 iframe 嵌套 </p>
+</li>
+<li><p>为 什 么 没 有 办 法 定 义 1px 左 右 的 宽 度 容 器 （ IE6 默 认 的 行 高 造 成 的 ， 使 用 <code>overflow:hidden,zoom:0.08 line-height:1px</code>） </p>
+</li>
+<li><p>IE5-8 不支持 opacity，解决办法： </p>
+</li>
+</ol>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.opacity</span> &#123; </span><br><span class="line">  <span class="attribute">opacity</span>: <span class="number">0.4</span> </span><br><span class="line">  filter: <span class="built_in">alpha</span>(opacity=60); <span class="comment">/* for IE5-7 */</span> </span><br><span class="line">  <span class="attribute">-ms-filter</span>: <span class="string">"progid:DXImageTransform.Microsoft.Alpha(Opacity=60)"</span>; <span class="comment">/* for IE8*/</span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="11">
+<li>IE6 不支持 PNG 透明背景，解决办法: IE6 下使用 gif 图片</li>
+<li>margin塌陷(margin-top转移至父元素)：父或子设置浮动   或   父：<code>overflow: hidden</code></li>
+</ol>
+<h4 id="动画和过渡"><a href="#动画和过渡" class="headerlink" title="动画和过渡"></a>动画和过渡</h4><p> transition过渡是通过初始和结束两个状态之间的平滑过渡实现简单动画的；</p>
+<p>而animation则是通过关键帧@keyframes来实现更为复杂的动画效果。 </p>
+<h3 id="——-分割线——–"><a href="#——-分割线——–" class="headerlink" title="——-分割线——–"></a>——-分割线——–</h3><h4 id="语义化的好处"><a href="#语义化的好处" class="headerlink" title="语义化的好处"></a>语义化的好处</h4><ul>
+<li>语义化：使用标签来表示网页中的不同组成部分</li>
+<li>好处<ol>
+<li>提升<strong>搜索引擎优化</strong>（SEO）的效果</li>
+<li>使维护代码和添加样式变得容易。</li>
+<li>（通常）使代码更少，页面加载更快</li>
+</ol>
+</li>
+</ul>
+<h4 id="querySelectorAll与getElementsBy"><a href="#querySelectorAll与getElementsBy" class="headerlink" title="querySelectorAll与getElementsBy"></a>querySelectorAll与getElementsBy</h4><ul>
+<li><p>querySelectorAll与getElementsBy系列区别</p>
+<ol>
+<li><code>querySelectorAll</code>属于W3C中的Selectors API规范,而<code>getElementsBy</code>系列属于W3C DOM规范</li>
+<li><code>querySelectorAll</code>方法接受参数是CSS选择符,当传入字符串不符合CSS选择符规范时会抛出异常,<code>getElementsBy</code>系列只接受单一的参数</li>
+<li><code>querySelectorAll</code>返回的是不变(<strong>静态</strong>)的节点列表,<code>getElementsBy</code>系列返回的是<strong>动态</strong>节点</li>
+<li><code>getElementsBy</code><strong>性能</strong>较好</li>
+<li><code>querySelectorAll</code>返回值是一个<code>NodeList</code>, <code>getElementsBy</code>返回值是一个<code>HTMLCollection</code></li>
+</ol>
+</li>
+<li><p>HTMLCollection与NodeList区别</p>
+<ol>
+<li>HTMLCollection是元素节点集合,而NodeList是节点集合(包含任何类型的节点)</li>
+<li>node.children 和 node.getElementsByXXX 返回 HTMLCollection，而node.childNodes，querySelectorAll返回的是 NodeList 。</li>
+</ol>
+</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2020/01/16/面试/js/" class="prev">PREV</a><a href="/2020/01/14/面试/浏览器/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2020/01/15/面试/HTML-CSS/';
+var disqus_title = '面试题--HTML-CSS';
+var disqus_url = 'https://turing5467.github.io/2020/01/15/面试/HTML-CSS/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

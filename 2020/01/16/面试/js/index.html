@@ -1,0 +1,175 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 面试题--JS · 快乐的图小灵</title><meta name="description" content="面试题--JS - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">面试题--JS</h1><div class="post-info">Jan 16, 2020</div><div class="post-content"><h4 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h4><h5 id="闭包是什么"><a href="#闭包是什么" class="headerlink" title="闭包是什么"></a>闭包是什么</h5><ul>
+<li>闭包是基于词法作用域书写代码时所产生的自然结果，它的创建和使用在代码中随处可见</li>
+<li>当函数可以记住并访问所在的<strong>词法作用域</strong>时,就产生了<strong>闭包</strong>,即使函数是在当前词法作用域之外执行</li>
+<li>特点<ol>
+<li>闭包可以访问<strong>外部函数</strong>中定义的变量，即使外部函数已经执行完毕</li>
+<li>闭包还可以访问<strong>外部函数</strong>中定义的<strong>形参</strong>(理论上来说属于第一点)</li>
+<li>闭包可以访问<strong>外部块</strong>中定义的变量，即使外部块已经执行完毕</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<p>  <strong>词法作用域</strong>是由你在<strong>写代码</strong>时将变量和块作用域写在哪里来决定的   </p>
+</blockquote>
+<ul>
+<li>缺点：滥用闭包会在成内存泄漏，因为闭包中引用到的包裹函数中定义的变量永远不会被释放，所以我们应该在必要的时候，及时释放这个闭包函数</li>
+</ul>
+<h5 id="apply和call的区别"><a href="#apply和call的区别" class="headerlink" title="apply和call的区别"></a>apply和call的区别</h5><ul>
+<li><p>共同点：都是借用了一个原本不属于一个对象的方法，让当前对象使用</p>
+</li>
+<li><p>传参方式</p>
+<ol>
+<li><code>call</code>：待调用函数的参数以第2, 3, 4, … n,个参数的形式传递给call</li>
+<li><code>apply</code>：待调用函数的参数以<strong>数组</strong>形式传递给apply的第二个参数</li>
+</ol>
+</li>
+<li><p>形参个数</p>
+<ol>
+<li><code>call.length == 1</code></li>
+<li><code>apply.length == 2</code></li>
+</ol>
+</li>
+<li><p>使用场景</p>
+<ul>
+<li><strong>参数数量/顺序</strong>确定就用<code>call</code>，参数数量/顺序不确定的话就用apply。</li>
+<li>考虑可读性：参数<strong>数量</strong>不多就用<code>call</code>，参数数量比较多的话，把参数整合成数组，使用apply。</li>
+<li>参数集合已经是一个数组的情况，用<code>apply</code>，比如获取数组最大值/最小值。</li>
+</ul>
+</li>
+</ul>
+<h5 id="原型和原型链"><a href="#原型和原型链" class="headerlink" title="原型和原型链"></a>原型和原型链</h5><ul>
+<li><p>原型：  <strong>构造函数</strong>在创建的过程中，系统自动创建出来与构造函数相关联的一个空的对象。可以由<code>构造函数.prototype</code>来访问到。   </p>
+</li>
+<li><p>每个对象拥有一个原型对象，通过 <strong><strong>proto</strong></strong> 指针指向上一个原型 ，并从中继承方法和属性，同时原型对象也可能拥有原型，这样一层一层，最终指向 null。这种关系被称为<strong>原型链 (prototype chain)</strong>，通过原型链一个对象会拥有定义在其他对象中的属性和方法。    </p>
+</li>
+</ul>
+<blockquote>
+<p>补充：</p>
+<ul>
+<li><p><code>__proto__</code>是每个<strong>实例</strong>上都有的属性，指向<strong>自身构造函数</strong>的原型对象   </p>
+</li>
+<li><p><code>constructor</code>属性是<strong>原型对象</strong>的属性，指向这个原型对象所对应的构造函数。 </p>
+</li>
+</ul>
+</blockquote>
+<h5 id="为什么需要原型对象"><a href="#为什么需要原型对象" class="headerlink" title="为什么需要原型对象"></a>为什么需要原型对象</h5><ul>
+<li>通过new生成的实例，相当于是重新开辟了一个<strong>堆区</strong>，虽然是同类型，拥有类似的属性和方法，但是这些属性和方法，并不是相同的 。</li>
+<li>如果只有1、2个实例还好，可如果大量的实例，那么将大量生成这种原本可以复用共用的属性方法，非常<strong>耗费性能</strong>，不利于<strong>复用</strong>，此时我们就需要一个类似共享库的对象，让实例能够沿着原型链，去找。   </li>
+</ul>
+<h5 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h5><ol>
+<li>原型链继承</li>
+<li>借助构造函数继承</li>
+<li>组合继承</li>
+<li>原型式继承</li>
+<li>寄生式继承</li>
+<li>寄生式组合继承</li>
+<li>ES6继承</li>
+</ol>
+<h5 id="new运算符的执行过程"><a href="#new运算符的执行过程" class="headerlink" title="new运算符的执行过程"></a>new运算符的执行过程</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">New</span>(<span class="params">Con, ...args</span>) </span>&#123; </span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 1、创建一个空的对象并链接到原型，相当于obj.__propto__ = Con.prototype</span></span><br><span class="line">    <span class="keyword">var</span> obj = <span class="built_in">Object</span>.create(Con.prototype);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 2、执行构造函数，并为其绑定 this </span></span><br><span class="line">    <span class="keyword">var</span> ret = Con.apply(obj,auguments);  </span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 3、优先返回构造函数返回的对象</span></span><br><span class="line">    <span class="keyword">return</span> ret <span class="keyword">instanceof</span> <span class="built_in">Object</span> ? ret : obj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="对象的拷贝"><a href="#对象的拷贝" class="headerlink" title="对象的拷贝"></a>对象的拷贝</h5><ul>
+<li><p>浅拷贝：以复制的形式拷贝引用对象，仍指向同一个地址，修改时原对象也会受到影响</p>
+<ul>
+<li><code>Object.assign</code></li>
+<li>展开运算符(…)</li>
+</ul>
+</li>
+<li><p>深拷贝：完全拷贝一个新对象，修改时原对象不再受到任何影</p>
+<ul>
+<li><p><code>JSON.parse(JSON.stringify(obj))</code>: 性能最快</p>
+<ul>
+<li>具有循环引用的对象时，报错</li>
+<li>当值为函数、<code>undefined</code>、或<code>symbol</code>时，无法拷贝</li>
+</ul>
+</li>
+<li><p>递归进行逐一赋值</p>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="函数柯里化"><a href="#函数柯里化" class="headerlink" title="函数柯里化"></a>函数柯里化</h5><ul>
+<li><p>在一个函数中，首先填充几个参数，然后返回一个新的函数的技术，称为函数的柯里化。</p>
+</li>
+<li><p>通常可用于在不侵入函数的前提下，为函数 <strong>预置通用参数</strong>，供多次重复调用。 </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> add = <span class="function"><span class="keyword">function</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">y</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> x + y</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> add1 = add(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">add1(<span class="number">2</span>) === <span class="number">3</span></span><br><span class="line">add1(<span class="number">20</span>) === <span class="number">21</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h5 id="变量提升"><a href="#变量提升" class="headerlink" title="变量提升"></a>变量提升</h5><p> JavaScript引擎的工作方式是，先解析代码，获取所有被声明的变量（但并不赋值），然后再一行一行地运行。 </p>
+<blockquote>
+<p>一个例外是：使用函数声明式创建的函数，会在所有代码执行之前被创建</p>
+</blockquote>
+<h5 id="this"><a href="#this" class="headerlink" title="this"></a>this</h5><ul>
+<li>默认绑定</li>
+<li>隐式绑定</li>
+<li>显式绑定</li>
+<li>new绑定</li>
+<li>箭头函数绑定</li>
+</ul>
+<h5 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h5><p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200423154554020.png" alt="image-20200423154554020"></p>
+<h3 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h3><h4 id="let和const"><a href="#let和const" class="headerlink" title="let和const"></a>let和const</h4><ol>
+<li><p>共同点</p>
+<ul>
+<li>块级作用域有效</li>
+<li>不存在变量提升(暂时性死区TDZ)</li>
+<li>不允许重复声明</li>
+</ul>
+</li>
+<li><p>const</p>
+<ul>
+<li>一旦声明，就不能改变，且必须立即初始化</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>对于<strong>复合类型的变量</strong>，变量指向数据所在的<strong>地址</strong>。 const 命令只保证变量名指向的<strong>地址</strong>不变，并不保证该地址的数据不变。</li>
+</ul>
+<h4 id="async-await"><a href="#async-await" class="headerlink" title="async/await"></a>async/await</h4><p> async 函数，就是 Generator 函数的语法糖，使得异步操作更加方便。 </p>
+<ol>
+<li><p>Async—声明一个异步函数</p>
+<ul>
+<li><p>自动将常规函数转换成Promise，返回值也是一个Promise对象</p>
+</li>
+<li><p>只有async函数内部的异步操作执行完，才会执行then方法指定的回调函数</p>
+</li>
+<li><p>async 函数内部 return 语句返回的值，会成为 then 方法回调函数的参数。   </p>
+</li>
+</ul>
+</li>
+<li><p>Await—声明一个需要等待结果的表达式，是then命令的语法糖</p>
+<ul>
+<li><p>放置在Promise调用之前，await强制其他代码等待，直到Promise完成并返回结果</p>
+</li>
+<li><p>只能与Promise一起使用，不适用与回调</p>
+</li>
+<li><p>只能在async函数内部使用</p>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>优点：<ol>
+<li>代码读起来更加同步，Promise虽然摆脱了回调地狱，但是then的链式调用也会带来额外的阅读负担 </li>
+<li>Promise传递中间值非常麻烦，而async/await几乎是同步的写法，非常优雅 </li>
+<li>错误处理友好，async/await可以用成熟的try/catch，Promise的错误捕获非常冗余</li>
+</ol>
+</li>
+</ul>
+<h3 id="——分割线——"><a href="#——分割线——" class="headerlink" title="——分割线——"></a>——分割线——</h3><ul>
+<li><p>为什么 要用<code>void</code><br>因为<code>undefined</code>在js中不是保留字,因而可以作为变量名被赋值,所以不是绝对可靠的而<code>void</code>能保证取到<code>undefined</code>值</p>
+</li>
+<li><p>变量的提前声明</p>
+<p>使用<code>var | function</code>关键字声明的变量,会在所有代码执行之前被<strong>声明</strong>(函数优先)</p>
+</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2020/01/17/面试/HTTP/" class="prev">PREV</a><a href="/2020/01/15/面试/HTML-CSS/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2020/01/16/面试/js/';
+var disqus_title = '面试题--JS';
+var disqus_url = 'https://turing5467.github.io/2020/01/16/面试/js/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

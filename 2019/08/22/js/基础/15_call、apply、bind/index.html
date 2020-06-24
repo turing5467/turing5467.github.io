@@ -1,0 +1,111 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> call、apply、bind(JS) · 快乐的图小灵</title><meta name="description" content="call、apply、bind(JS) - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">call、apply、bind(JS)</h1><div class="post-info">Aug 22, 2019</div><div class="post-content"><p><a href="https://juejin.im/post/5d469e0851882544b85c32ef" target="_blank" rel="noopener">原文链接</a></p>
+<h3 id="call、apply、bind"><a href="#call、apply、bind" class="headerlink" title="call、apply、bind"></a>call、apply、bind</h3><h4 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h4><ul>
+<li><p>语法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fun.call(thisArg, param1, param2, ...)</span><br><span class="line">fun.apply(thisArg, [param1,param2,...])</span><br><span class="line">fun.bind(thisArg, param1, param2, ...)</span><br></pre></td></tr></table></figure>
+
+<p><code>thisArg</code>：</p>
+<ol>
+<li><p>fun的this指向thisArg对象</p>
+</li>
+<li><p>非严格模式下：thisArg指定为null，undefined，fun中的this指向window对象.</p>
+<p> 严格模式下：fun中的this为undefined</p>
+</li>
+<li><p>值为原始值(数字，字符串，布尔值)的this会指向该原始值的自动包装对象，如 String、Number、Boolean</p>
+</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li><p>作用：改变函数执行时的this指向</p>
+</li>
+<li><p>区别</p>
+<ol>
+<li><p>执行</p>
+<ul>
+<li>call/apply改变了函数的this上下文后马上<strong>执行该函数</strong></li>
+<li>bind返回改变this上下文之后的函数引用,<strong>不执行该函数</strong></li>
+</ul>
+</li>
+<li><p>返回值</p>
+<ul>
+<li>call/apply返回函数的执行结果</li>
+<li>bind返回函数的引用（包括 this指向 与 参数）</li>
+</ul>
+<blockquote>
+<p>call和apply的区别</p>
+<ol>
+<li>传参方式</li>
+<li>形参个数<ul>
+<li><code>call.length = 1;</code> </li>
+<li><code>apply.length = 2;</code></li>
+</ul>
+</li>
+</ol>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="核心理念"><a href="#核心理念" class="headerlink" title="核心理念"></a>核心理念</h4><ul>
+<li><p>场景：  A对象有个方法，B对象因为某种原因也需要用到同样的方法，那么这时候我们是单独为 B 对象扩展一个方法呢，还是借用一下 A 对象的方法呢？   </p>
+</li>
+<li><p>答案：  当然是借用 A 对象的方法啦，既达到了目的，又节省了内存。   </p>
+</li>
+</ul>
+<p>这就是<code>call/apply/bind</code>的核心理念：<strong>借用方法</strong>。<br><strong>借助已实现的方法，改变方法中数据的this指向，减少重复代码，节省内存</strong>。</p>
+<h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h4><ol>
+<li><p>借用Object的<code>toString</code>方法判断数据类型</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="keyword">new</span> <span class="built_in">Date</span>());<span class="comment">//[object Date]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>类数组借用数组的方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arrLike = &#123;</span><br><span class="line">    <span class="number">0</span>: <span class="string">'tu'</span>,</span><br><span class="line">    <span class="number">1</span>: <span class="string">'ring'</span>,</span><br><span class="line">    length:<span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">Array</span>.prototype.push.call(arrLike, <span class="string">'5467'</span>)  <span class="comment">//3</span></span><br><span class="line"><span class="built_in">console</span>.log(arrLike);  <span class="comment">// &#123;0: "tu", 1: "ring", 2: "5467", length: 3&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>apply获取数组最大值/最小值</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">15</span>, <span class="number">6</span>, <span class="number">12</span>, <span class="number">13</span>, <span class="number">16</span>];</span><br><span class="line"><span class="keyword">const</span> max = <span class="built_in">Math</span>.max.apply(<span class="built_in">Math</span>, arr); <span class="comment">// 16</span></span><br><span class="line"><span class="keyword">const</span> min = <span class="built_in">Math</span>.min.apply(<span class="built_in">Math</span>, arr); <span class="comment">// 6</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>继承：ES5的继承也都是通过借用父类的构造方法来实现父类方法/属性的继承</p>
+</li>
+</ol>
+<h4 id="call和apply该用哪个"><a href="#call和apply该用哪个" class="headerlink" title="call和apply该用哪个"></a>call和apply该用哪个</h4><ol>
+<li>参数属性/顺序确定就用call，否则用apply</li>
+<li>考虑可读性：参数数量不多就用call，否则用apply</li>
+<li>参数集合已经是一个数组的情况，用apply</li>
+</ol>
+<h4 id="手写call"><a href="#手写call" class="headerlink" title="手写call"></a>手写call</h4><p>思路：</p>
+<ol>
+<li>根据call的规则设置上下文对象，即传入的thisArg</li>
+<li>通过设置特殊属性，将函数的this指向(即被借用的函数)<strong>隐式绑定</strong>到context上</li>
+<li>通过<strong>隐式绑定</strong>执行函数并传递参数</li>
+<li>删除临时属性，返回函数执行结果</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myCall = <span class="function"><span class="keyword">function</span> (<span class="params">context, ...arr</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//1.判定上下文对象</span></span><br><span class="line">    <span class="keyword">if</span> (context === <span class="literal">null</span> || context === <span class="literal">undefined</span>) &#123;</span><br><span class="line">        context = <span class="built_in">window</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        context = <span class="built_in">Object</span>(context) ;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 用于临时储存函数(避免跟上下文对象的原属性冲突) (如果考虑兼容，可以使用特殊id)</span></span><br><span class="line">    <span class="keyword">const</span> specialPrototype = <span class="built_in">Symbol</span>(<span class="string">'特殊属性Symbol'</span>); </span><br><span class="line">    </span><br><span class="line">    <span class="comment">//2. 将要调用の函数(即this)绑定到context的特殊属性上</span></span><br><span class="line">    context[specialPrototype] = <span class="keyword">this</span>; </span><br><span class="line">    </span><br><span class="line">    <span class="comment">//3. 执行函数并传递参数</span></span><br><span class="line">    <span class="keyword">let</span> result = context[specialPrototype](...arr); </span><br><span class="line">    <span class="comment">//注：此时函数的调用者就已经是context了,bingo!</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">delete</span> context[specialPrototype]; <span class="comment">// 删除上下文对象的属性</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//4. 返回函数执行结果</span></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="手写apply"><a href="#手写apply" class="headerlink" title="手写apply"></a>手写apply</h4><p>思路：<strong>参数处理</strong>不一样，其他部分跟call一样</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//伪数组判断</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isArrayLike</span>(<span class="params">o</span>) </span>&#123;    </span><br><span class="line">    <span class="keyword">if</span> (o &amp;&amp; <span class="comment">// o不是null、undefined等        </span></span><br><span class="line">        	<span class="keyword">typeof</span> o === <span class="string">'object'</span> &amp;&amp; <span class="comment">// o是对象        </span></span><br><span class="line">        	<span class="built_in">isFinite</span>(o.length) &amp;&amp; <span class="comment">// o.length是有限数值        </span></span><br><span class="line">        	o.length &gt;= <span class="number">0</span> &amp;&amp; <span class="comment">// o.length为非负值        </span></span><br><span class="line">        	o.length === <span class="built_in">Math</span>.floor(o.length) &amp;&amp; <span class="comment">// o.length是整数        </span></span><br><span class="line">        	o.length &lt; <span class="number">4294967296</span> <span class="comment">// o.length &lt; 2^32       </span></span><br><span class="line">       )     </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>    </span><br><span class="line">    <span class="keyword">else</span>        </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Function</span>.prototype.myApply = <span class="function"><span class="keyword">function</span> (<span class="params">context</span>) </span>&#123;    </span><br><span class="line">    <span class="comment">//1.判定上下文对象</span></span><br><span class="line">    <span class="keyword">if</span> (context === <span class="literal">null</span> || context === <span class="literal">undefined</span>) &#123;        </span><br><span class="line">        context = <span class="built_in">window</span>     </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;        </span><br><span class="line">        context = <span class="built_in">Object</span>(context)</span><br><span class="line">    &#125;    </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">const</span> specialPrototype = <span class="built_in">Symbol</span>(<span class="string">'特殊属性Symbol'</span>)</span><br><span class="line">    <span class="comment">//2. 将要调用の函数(即this)绑定到context的特殊属性上</span></span><br><span class="line">    context[specialPrototype] = <span class="keyword">this</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//3.参数处理and执行函数</span></span><br><span class="line">    <span class="keyword">let</span> args = <span class="built_in">arguments</span>[<span class="number">1</span>]; <span class="comment">// 获取参数数组    </span></span><br><span class="line">    <span class="keyword">let</span> result;    <span class="comment">//用来存储函数返回值    </span></span><br><span class="line">    <span class="keyword">if</span> (args) &#123;   <span class="comment">// 是否传入第二个参数        </span></span><br><span class="line">        <span class="keyword">if</span> (!<span class="built_in">Array</span>.isArray(args) &amp;&amp; !isArrayLike(args)) &#123;            </span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">'myApply 第二个参数不为数组并且不为类数组对象'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;            </span><br><span class="line">            args = <span class="built_in">Array</span>.prototype.slice.call(args) <span class="comment">// 伪数组转数组</span></span><br><span class="line">            result = context[specialPrototype](...args); <span class="comment">// 执行函数并传递参数</span></span><br><span class="line">        &#125;    </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;       </span><br><span class="line">        result = context[specialPrototype](); <span class="comment">// 执行函数</span></span><br><span class="line">    &#125;  </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">delete</span> context[specialPrototype]; <span class="comment">// 删除上下文对象的属性   </span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 4.返回函数执行结果</span></span><br><span class="line">    <span class="keyword">return</span> result; </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="手写bind"><a href="#手写bind" class="headerlink" title="手写bind"></a>手写bind</h4><p>思路：</p>
+<ol>
+<li>拷贝源函数<ol>
+<li>通过变量存储源函数</li>
+<li>使用Object.create将变量的prototype链接到源函数的prototype上</li>
+</ol>
+</li>
+<li>返回拷贝的函数</li>
+<li>调用拷贝的函数<ol>
+<li>new调用判断</li>
+<li>绑定this</li>
+<li>调用函数并返回结果</li>
+</ol>
+</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myBind = <span class="function"><span class="keyword">function</span> (<span class="params">objThis, ...params</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> thisFn = <span class="keyword">this</span>; <span class="comment">// 存储要拷贝的函数</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 对返回的函数 secondParams 二次传参</span></span><br><span class="line">    <span class="keyword">let</span> fToBind = <span class="function"><span class="keyword">function</span> (<span class="params">...secondParams</span>) </span>&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// this是否是fToBind的实例 也就是返回的fToBind函数是否通过new调用</span></span><br><span class="line">        <span class="keyword">const</span> isNew = <span class="keyword">this</span> <span class="keyword">instanceof</span> fToBind </span><br><span class="line">        <span class="comment">// new调用就绑定到this上,否则就绑定到传入的objThis上</span></span><br><span class="line">        <span class="keyword">const</span> context = isNew ? <span class="keyword">this</span> : <span class="built_in">Object</span>(objThis)</span><br><span class="line">        <span class="comment">// 调用函数并返回执行结果</span></span><br><span class="line">        <span class="keyword">return</span> thisFn.call(context, ...params, ...secondParams); </span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    fToBind.prototype = <span class="built_in">Object</span>.create(thisFn.prototype); <span class="comment">// 复制源函数的prototype给fToBind</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> fToBind; <span class="comment">// 返回拷贝的函数</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+</div></article></div></main><footer><div class="paginator"><a href="/2019/08/23/js/基础/16_模块化开发/" class="prev">PREV</a><a href="/2019/08/21/js/你不知道的JS/03_this/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2019/08/22/js/基础/15_call、apply、bind/';
+var disqus_title = 'call、apply、bind(JS)';
+var disqus_url = 'https://turing5467.github.io/2019/08/22/js/基础/15_call、apply、bind/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

@@ -1,89 +1,122 @@
-<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> HTML5 · 快乐的图小灵</title><meta name="description" content="HTML5 - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">HTML5</h1><div class="post-info">Aug 1, 2019</div><div class="post-content"><p>@(html)</p>
-<p>[toc]</p>
-<h1 id="H5"><a href="#H5" class="headerlink" title="H5"></a>H5</h1><h2 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h2><h3 id="attribute"><a href="#attribute" class="headerlink" title="attribute"></a>attribute</h3><ul>
-<li>预定义属性: <code>HTML</code>标签预定义的属性</li>
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> HTML5 · 快乐的图小灵</title><meta name="description" content="HTML5 - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">HTML5</h1><div class="post-info">Aug 1, 2019</div><div class="post-content"><h1 id="H5"><a href="#H5" class="headerlink" title="H5"></a>H5</h1><blockquote>
+<p>html5中可以省略结束标记的元素有这些：</p>
+<p>dd、dt、li、p、optgroup、option、rt、rp、thread、tfoot、tr、td、th</p>
+</blockquote>
+<h2 id="attr和prop"><a href="#attr和prop" class="headerlink" title="attr和prop"></a>attr和prop</h2><h3 id="attribute"><a href="#attribute" class="headerlink" title="attribute"></a>attribute</h3><ul>
+<li>预定义属性: <code>HTML</code>标签预定义的属性（如href、placeholder等）</li>
 <li>自定义属性: 自己瞎定义的</li>
-<li>查看attribute<br><img src="./1564661039112.png" alt="Alt text"></li>
+<li>查看attribute：js对象的<code>attributes</code>下的属性<br><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200620200339518.png" alt="image-20200620200339518"></li>
 </ul>
 <ol>
 <li>0: 属性节点(attributes对象的property</li>
 </ol>
-<ul>
-<li>debugger相关操作<br><img src="./1564660908604.png" alt="Alt text"><br><img src="./1564660978589.png" alt="Alt text"></li>
-</ul>
 <h3 id="property"><a href="#property" class="headerlink" title="property"></a>property</h3><ul>
-<li><code>js</code>原生对象的直接属性<br>attribute本身是一个property</li>
+<li><code>js</code>原生对象的直接属性<br><code>attributes</code>本身是一个<code>property</code></li>
 <li>每一个<strong>预定义</strong>的atribute都会有一个property与之对应</li>
 </ul>
-<h3 id="attribute和property的同步问题"><a href="#attribute和property的同步问题" class="headerlink" title="attribute和property的同步问题"></a>attribute和property的同步问题</h3><ul>
-<li><code>turing.setAttribute(&quot;checked&quot;, &quot;turing1&quot;);  //操作attribute</code></li>
-<li><code>turing.checked = &quot;turing6&quot;;   //操作property</code><br><code>turing.name: &quot;turing6&quot;   //property</code><br><code>turing.attributes.name.nodeValue: &quot;turing6&quot;  //attribute</code></li>
-<li>非布尔值属性: 不管什么情况,property和attribute都会同步<br><code>turing.checked: true</code><br><code>turing.attributes.checked.nodeValue: &quot;turing3&quot;</code></li>
-<li>布尔值属性</li>
-</ul>
-<ol>
-<li>改变property, 不会同步到attribute</li>
-<li>在没有动过property时,<br> attribute会同步到property<br> 一旦动过property<br> attribute不会同步到property</li>
-</ol>
+<h3 id="同步问题"><a href="#同步问题" class="headerlink" title="同步问题"></a>同步问题</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">turing.setAttribute(<span class="string">"checked"</span>, <span class="string">"turing1"</span>);  <span class="comment">//操作attribute</span></span><br><span class="line">turing.attributes.name.nodeValue: <span class="string">"turing6"</span>  <span class="comment">//attribute </span></span><br><span class="line"></span><br><span class="line">turing.checked = <span class="string">"turing6"</span>;   <span class="comment">//操作property</span></span><br><span class="line">turing.name: <span class="string">"turing6"</span>   <span class="comment">//property</span></span><br></pre></td></tr></table></figure>
+
 <ul>
-<li>浏览器只认property(用户操作的是property)</li>
-<li>结论<ol>
+<li><p>非布尔值属性：值为非布尔值的propperty</p>
+<p>不管什么情况,property和attribute都会同步</p>
+</li>
+<li><p>布尔值属性：值为布尔值的propperty</p>
+<ul>
+<li><p>改变property, 不会同步到attribute</p>
+</li>
+<li><p>在没有动过property时,attribute会同步到property<br>一旦动过property，attribute不会同步到property</p>
+</li>
+</ul>
+</li>
+<li><p>浏览器只认property(用户操作的是property)</p>
+</li>
+<li><p>结论</p>
+<ol>
 <li>操作布尔值属性最好使用prop()</li>
-<li>操作非布尔值属性最好使用attr() <code>//成本低</code><br><img src="./1564663655742.png" alt="Alt text"><br><img src="./1564663667849.png" alt="Alt text"></li>
+<li>操作非布尔值属性最好使用attr() <code>//成本低</code></li>
 </ol>
 </li>
 </ul>
-<h4 id="H5的小功能"><a href="#H5的小功能" class="headerlink" title="H5的小功能"></a>H5的小功能</h4><ul>
+<h2 id="H5的小功能"><a href="#H5的小功能" class="headerlink" title="H5的小功能"></a>H5的小功能</h2><ul>
 <li>class</li>
 </ul>
 <ol>
-<li>H4: className: 增删类名十分不方便<br> H5: ClassList 更加人性化(兼容性不太好,不过做后台可以用)<br> 方法: <code>textNode.classList.add(&quot;turing7&quot;) //添加类名</code><pre><code>`.remove(&quot;&quot;) //移除类名` `.toggle(&quot;&quot;)`</code></pre></li>
-<li>自定义属性<br> <code>data-name</code><br> <code>js获取/修改: node.dataset.name;</code></li>
+<li>H4: className: 增删类名十分不方便<br> H5: ClassList 更加人性化(兼容性不太好,不过<strong>做后台管理系统</strong>可以用)<br> 方法: <code>add(&quot;turing7&quot;)</code> <code>remove</code> <code>toggle</code>、<code>replace</code></li>
+<li>自定义属性<br> <code>data-name</code>：若name带有<code>-</code>，获取时去掉<code>-</code>且下个字母大写<br> <code>js获取/修改: node.dataset.name;</code></li>
 <li>属性<code>contenteditable=&quot;true&quot;</code> //可编辑div</li>
 </ol>
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><img src="./1564665071639.png" alt="Alt text"><br><img src="./1564665235722.png" alt="Alt text"></p>
-<h3 id="DTD-渲染模式"><a href="#DTD-渲染模式" class="headerlink" title="DTD(渲染模式)"></a>DTD(渲染模式)</h3><p><img src="./1564665800216.png" alt="Alt text"><br>在<code>ie9</code>以上的浏览器中,三种模式渲染方面几乎没有区别<br><code>ie 7 8 9</code>,理论上存在<code>怪异模式</code>,实际只有<code>标准模式</code><br><code>ie6</code>,<code>标准模式</code>和<code>怪异模式</code>渲染的区别最大<br><code>ie6</code>以下,只有<code>怪异模式</code></p>
-<h3 id="根元素"><a href="#根元素" class="headerlink" title="根元素"></a>根元素</h3><p><img src="./1564666127638.png" alt="Alt text"></p>
-<h3 id="head元素"><a href="#head元素" class="headerlink" title="head元素"></a>head元素</h3><p><code>&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html;charset=UTF-8&quot; /&gt;</code><br><img src="./1564666205959.png" alt="Alt text"><br><img src="./1564666419276.png" alt="Alt text"></p>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200620205854559.png" alt="image-20200620205854559"></p>
+<h3 id="DOCTYPE"><a href="#DOCTYPE" class="headerlink" title="DOCTYPE"></a>DOCTYPE</h3><ul>
+<li>告诉浏览器使用那种规范来渲染文档，不声明则为<code>怪异模式</code></li>
+<li>可通过<code>document.compactMode</code>获取（<code>BackCompat 和 CSS1Compat</code>）</li>
+</ul>
+<blockquote>
+<p> 在<code>ie9</code>以上的浏览器中,三种模式渲染方面几乎没有区别<br><code>ie 7 8 9</code>,理论上存在<code>怪异模式</code>,实际只有<code>标准模式</code><br><code>ie6</code>,<code>标准模式</code>和<code>怪异模式</code>渲染的区别最大<br><code>ie6</code>以下,只有<code>怪异模式</code> </p>
+</blockquote>
+<h3 id="head元素"><a href="#head元素" class="headerlink" title="head元素"></a>head元素</h3><ul>
+<li><p><code>&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html;charset=UTF-8&quot; /&gt;</code></p>
+<p><code>charset</code>：告诉浏览器使用哪种编码来解析网页</p>
+</li>
+</ul>
+<h3 id="MIME"><a href="#MIME" class="headerlink" title="MIME"></a>MIME</h3><p>浏览器请求页面前，会发送一些头信息，根据这些信息来<strong>决定如何解析随后的页面内容</strong>，其中最重要的是<code>Content-type</code>：即这个页面的“内容类型(MIME类型)”</p>
+<p>这个头信息将唯一确定某个资源的本质是什么，也决定了它应该如何被呈现</p>
+<ul>
+<li><code>text/html</code>、<code>image/jpeg</code>、<code>image/png</code>、<code>application/javascript</code></li>
+</ul>
+<blockquote>
+<p> 任何资源都有自己的MIME类型，整个Web都依赖MIME类型来运作</p>
+</blockquote>
 <h2 id="语义化标签"><a href="#语义化标签" class="headerlink" title="语义化标签"></a>语义化标签</h2><ul>
 <li><p>好处</p>
 <ol>
-<li>语义化结构化的代码标签代替大量的无意义的div标签</li>
+<li>语义化、结构化的标签代替大量的无意义的div标签</li>
 <li>提升了网页的质量和语义</li>
 <li>对<strong>搜索引擎</strong>更友好</li>
 </ol>
+</li>
+<li><p><a href="http://gsnedders.html5.org/outliner/" target="_blank" rel="noopener">检查页面结构</a></p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200620212812221.png" alt="image-20200620212812221"></p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200620212801041.png" alt="image-20200620212801041"></p>
 </li>
 <li><p>常见语义化标签</p>
 </li>
 </ul>
 <ol>
-<li>hgroup<br> 代表网页或section的<code>标题</code>,当元素有多个层级时,可以将h1-h6元素放在其内,<br> (一般放在header标签)</li>
-<li>header<br> 网页或section的页眉,通常包含h1-h6或hgroup</li>
-<li>nav<br> 页面的导航链接区域,用于定义页面的<code>主要导航</code>部分</li>
-<li>section<br> 文档的节 或 段, <pre><code>节: 一个页面里的分组
+<li><p><code>hgroup</code><br> 代表网页或section的<code>标题</code>,当元素有多个层级时,可以将h1-h6元素放在其内,<br> (一般放在header标签)</p>
+</li>
+<li><p><code>header</code><br> 网页或section的页眉,通常包含h1-h6或hgroup</p>
+</li>
+<li><p><code>nav</code><br> 页面的导航链接区域,用于定义页面的<code>主要导航</code>部分</p>
+</li>
+<li><p><code>section</code>：文档的节 或 段, </p>
+<pre><code>节: 一个页面里的分组
 段: 一篇文章里按照主题的分段
-在`hgroup`标签内的h1-h6会自动降级</code></pre></li>
-<li>footer</li>
+在`section`标签内的h1-h6会自动降一级</code></pre><p> <img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200620213430968.png" alt="image-20200620213430968"></p>
+<p> <img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200620213441816.png" alt="image-20200620213441816"></p>
+</li>
+<li><p><code>footer</code></p>
+</li>
+<li><p><code>article</code>(不常用)</p>
+</li>
+<li><p><code>aside</code>（不常用）</p>
+</li>
 </ol>
-<h2 id="Canvas"><a href="#Canvas" class="headerlink" title="Canvas"></a>Canvas</h2><ul>
-<li><p>画布: 用于通过JavaScript中的脚本来绘制图形(ie9+)</p>
-</li>
-<li><p><code>&lt;canvas&gt; &lt;/canvas&gt;</code> 标签的子元素只有在不支持canvas的浏览器才会显示</p>
-</li>
-<li><p>默认宽高: <code>w 300px;  h150px; //指定宽高必须用html属性</code><br><code>千万不要再CSS画布里指定宽高</code></p>
-</li>
-<li><p>有别于浏览器的渲染机制,Canvas为同步机制,所见即所得</p>
-<h3 id="获取Cnavas"><a href="#获取Cnavas" class="headerlink" title="获取Cnavas"></a>获取Cnavas</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//获取元素</span><br><span class="line">var testNode = document.querySelector(&quot;#test&quot;);</span><br><span class="line">// 检查支持性</span><br><span class="line">if (testNode.getContext) &#123;</span><br><span class="line">	//getContext()只有 一个参数,上下文的格式(一般为&quot;2d&quot;)</span><br><span class="line">	//获取&quot;渲染上下文&quot;和它的绘画功能</span><br><span class="line">	var ctx = testNode.getContext(&quot;2d&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>画布api</p>
-<ol>
+<h2 id="Canvas-画布"><a href="#Canvas-画布" class="headerlink" title="Canvas(画布)"></a>Canvas(画布)</h2><ul>
+<li>画布: 通过JavaScript中的脚本来绘制图形(ie9+)</li>
+<li><code>&lt;canvas&gt; &lt;/canvas&gt;</code> ：标签的子元素只有在不支持canvas的浏览器才会显示</li>
+<li>默认宽高: <code>w 300px;  h150px; //指定宽高必须用html属性</code><br><code>千万不要再CSS画布里指定宽高</code></li>
+<li>有别于浏览器的渲染机制,<strong>Canvas为同步机制</strong>,所见即所得(所写即所画)</li>
+</ul>
+<h3 id="获取Cnavas"><a href="#获取Cnavas" class="headerlink" title="获取Cnavas"></a>获取Cnavas</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//获取元素</span><br><span class="line">var testNode = document.querySelector(&quot;#test&quot;);</span><br><span class="line">// 检查支持性</span><br><span class="line">if (testNode.getContext) &#123;</span><br><span class="line">	//获取&quot;渲染上下文&quot;和它的绘画功能</span><br><span class="line">	var ctx = testNode.getContext(&quot;2d&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>画布元素api<ol>
 <li><code>oc.getContext(&quot;2d&quot;); //获取画布2d上下文</code></li>
 <li><code>oc.width/height   //画布横向/纵向css像素的个数</code></li>
 <li><code>oc.toDataURL()//拿到canvas图像的地址</code></li>
 </ol>
 </li>
-<li><p>上下文API</p>
-<ol>
+<li>上下文API<ol>
 <li>fillRect(x,y,w,h) //填充矩形</li>
 <li>strokeRect(x,y,bw,bh)  //带边框的矩形</li>
 <li>clearRect(x,y,w,h)   // 以默认背景填充矩形</li>
@@ -120,33 +153,34 @@
 <li><code>isPointInPath(x,y)</code></li>
 </ol>
 </li>
-<li><p>实例</p>
-<ol>
-<li>时钟,结合了所有基础api</li>
+<li>实例<ol>
+<li><strong>时钟,</strong>结合了所有基础api</li>
 <li>飞鸟动画,结合图片创建动画</li>
-<li>马赛克,像素操作</li>
-<li>刮刮卡,合成+像素操作<h3 id="绘制矩形"><a href="#绘制矩形" class="headerlink" title="绘制矩形"></a>绘制矩形</h3></li>
+<li><strong>马赛克</strong>,像素操作</li>
+<li><strong>刮刮卡</strong>,合成+像素操作<h3 id="绘制矩形"><a href="#绘制矩形" class="headerlink" title="绘制矩形"></a>绘制矩形</h3></li>
 </ol>
 </li>
-<li><p>HTML中的元素Canvas只支持一种原生的图形绘制: 矩形</p>
-</li>
-<li><p>其他的图形的绘制至少需要生成一条<code>路径</code></p>
-</li>
+<li>HTML中的元素Canvas只支持一种<strong>原生</strong>的图形绘制: 矩形</li>
+<li>其他的图形的绘制至少需要生成一条<code>路径</code></li>
 </ul>
 <h4 id="1-绘制矩形"><a href="#1-绘制矩形" class="headerlink" title="1. 绘制矩形"></a>1. 绘制矩形</h4><ul>
-<li>Canvas只支持一种图像的直接渲染: 矩形<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">调用这些方法的对象为画笔(ctx)</span><br><span class="line">	--&gt;绘制一个填充矩形(填充色默认黑)</span><br><span class="line">	fillRect(x, y, width, height)</span><br><span class="line">	--&gt;绘制矩形边框(默认一像素实心边框)</span><br><span class="line">	strokeRect(x, y, width, height)</span><br><span class="line">	--&gt;填充指定矩形区域(填充部分背景透明)</span><br><span class="line">	clearRect(x, y, width, height)</span><br><span class="line">		注：是填充而不是重排，一层一层叠上去的</span><br><span class="line">		这样做: 不会发生重绘重拍，性能高</span><br><span class="line">		应用: clearRect(0,0,oc,width,oc.height) //填充整个画布,遮住之前画的东西</span><br></pre></td></tr></table></figure>
-
+<li><p>Canvas只支持一种图像的直接渲染: 矩形</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1. 绘制一个&lt;填充&gt;矩形(填充色默认黑)</span></span><br><span class="line">ctx.fillRect(x, y, width, height)</span><br><span class="line"><span class="comment">//2. 绘制矩形&lt;边框&gt;(默认一像素实心边框)</span></span><br><span class="line">ctx.strokeRect(x, y, width, height)</span><br><span class="line"><span class="comment">//3. 清除指定矩形区域，使其透明</span></span><br><span class="line">ctx.clearRect(x, y, width, height)</span><br><span class="line"><span class="comment">//原理：在其上方画了一个相同大小的透明的矩形区域</span></span><br><span class="line"><span class="comment">//这样做的好处: 不会发生重绘重拍，性能高</span></span><br><span class="line"><span class="comment">//应用: clearRect(0,0,oc,width,oc.height) //填充整个画布,遮住之前画的东西</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>一像素边框问题</p>
+<p><code>strokeRect()</code>画边框原理：从<code>x,y</code>往上/下(左/右)画0.5像素(0.5为默认<code>lineWidth</code>的一半)<img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200417134047048.png" alt="image-20200417134047048"></p>
 </li>
 </ul>
-<p><code>strokeRect()</code>画边框原理: 往上/下(左/右)画0.5像素(0.5为默认lineWidth的一半)<br><code>这是因为css不支持小数</code><br><code>(100,100,width,height) -&gt; 99.5,100.5 -&gt; 99 - 101 //原</code><br><code>解决atrokeRect(100.5, 100.5,width, height) -&gt; 100 - 101  //后</code><br><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200417134047048.png" alt="image-20200417134047048"></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//由于css不支持小数</span></span><br><span class="line">strokeRect(<span class="number">100</span>,<span class="number">100</span>,<span class="number">100</span>,<span class="number">100</span>) -&gt; <span class="number">99.5</span>,<span class="number">100.5</span> -&gt; <span class="number">99</span> - <span class="number">101</span> <span class="comment">//原</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//解决方案1</span></span><br><span class="line">strokeRect(<span class="number">100.5</span>, <span class="number">100.5</span>,<span class="number">100</span>, <span class="number">100</span>) -&gt; <span class="number">100</span> - <span class="number">101</span>  <span class="comment">//后</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//解决方案2</span></span><br><span class="line">clearRect(<span class="number">100</span>, <span class="number">100</span>, <span class="number">100</span>, <span class="number">100</span>)</span><br></pre></td></tr></table></figure>
+
 <ul>
-<li>添加样式和颜色</li>
+<li>设置绘制样式</li>
 </ul>
 <ol>
-<li><code>fillStyle</code>设置图形的填充颜色(与填充(fill)有关的API使用)</li>
+<li><code>fillStyle</code>设置图形的<strong>填充颜色</strong></li>
 <li><code>strokeStyle</code>设置图形轮廓的颜色</li>
-<li><code>lineWidth</code>设置绘线的粗细,必须为整数(不需要+单位)<br><code>0、负数、Infinity和NaN会被忽略</code></li>
-<li><code>lineJoin</code>设定线条与线条接合处的样式(默认<code>miter</code>直角)<br><code>round(圆角)</code> <code>bevel(斜角))</code></li>
+<li><code>lineWidth</code>设置绘线/边框的粗细,必须为整数(<strong>不需要+单位</strong>)，默认值1.0<br><code>0、负数、Infinity和NaN会被忽略</code></li>
+<li><code>lineJoin</code>设定line与line接合处的样式(默认<code>miter</code>直角)<br><code>round(圆角)</code> <code>bevel(斜角))</code></li>
 </ol>
 <h4 id="2-路径"><a href="#2-路径" class="headerlink" title="2.路径"></a>2.路径</h4><blockquote>
 <ol>
@@ -156,7 +190,7 @@
 </ol>
 </blockquote>
 <ul>
-<li>通过不用颜色和宽度的线段或曲线项链形成的不同形状的点的集合</li>
+<li>通过不同颜色和宽度的线段或曲线相连形成的不同形状的点的集合</li>
 <li>步骤<ol>
 <li>创建路径起始点</li>
 <li>使用命令画出路径</li>
@@ -167,86 +201,241 @@
 <li>相应API</li>
 </ul>
 <ol>
-<li><p><code>beginPath()  //新建一条路径(清空之前的路径容器)</code></p>
+<li><p><code>beginPath()  //新建一条路径(清空路径容器)</code></p>
 </li>
 <li><p><code>moveTo(x,y)  //移动/抬起画笔</code></p>
 </li>
 <li><p><code>lineTo(x, y) //绘制一条从当前位置到(x, y)的一条直线  //一条路径可以有多条直线</code></p>
 </li>
-<li><p><code>stroke()绘制图形轮廓(空心)</code><br><code>fill()填充这些路径的内容区域(实心)</code><br>每调用一次<code>fill()/stroke()</code>函数,就会将之前的路径全部绘制一遍<br>那么最后调用的函数会作用于之前所有的路径/图形(除非在绘制每个新图形之前<code>beginPath()</code>)</p>
+<li><p><code>stroke() 绘制图形轮廓(空心)</code><br> <code>fill() 填充路径的内容区域(实心)</code><br> 每调用一次<code>fill()/stroke()</code>函数,就会将之前的路径全部绘制一遍<br> 所以每次绘制完就要执行<code>closePath</code></p>
 </li>
-<li><p><code>closePath()  //闭合路径</code><br>如果之前绘制的直线没有闭合,则迪调用该函数后会自闭合<br>(对<code>fill()</code>不起作用,因为它会自动调用<code>closePath()</code>函数)<br><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200417134027362.png" alt="image-20200417134027362"></p>
+<li><p><code>closePath()  //闭合路径</code><br>如果之前绘制的直线没有闭合,则调用该函数后会自<strong>闭合</strong><br>(对<code>fill()</code>不起作用,因为它会自动调用<code>closePath()</code>函数)<br><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200417134027362.png" alt="image-20200417134027362"></p>
 </li>
 <li><p><code>rect(x, y, width, height)</code>绘制矩形<strong>路径</strong><br>绘制路径后没有任何效果,需要调用<code>stroke()/fill()</code>来绘制图形<br><code>rect() + fill() = fillRect()</code><br><code>rect() + stroke() = strokeRect()</code></p>
 </li>
-<li><p><code>lineCap属性</code>指定如何绘制每一条直线的首尾端<br><code>butt //默认值</code><br><code>round //圆角结束</code><br><code>square //方形结束</code><br><code>绘制的大小与lineWidth属性有直接关系,上下各绘制一半lineWidth的半圆/矩形, 合起来就是一个完整的圆/正方形</code><br><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200417134019609.png" alt="image-20200417134019609"></p>
+<li><p><code>lineCap属性</code>指定如何绘制<code>line</code>的首尾端(lineJoin是line与line结合处的样式)<br><code>butt //默认值</code><br><code>round //圆角结束</code><br><code>square //方形结束</code><br><code>绘制的大小与lineWidth属性有直接关系,上下各绘制一半lineWidth的半圆/矩形, 合起来就是一个完整的圆/正方形</code><br><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200417134019609.png" alt="image-20200417134019609"></p>
 </li>
-<li><p><code>save()</code>将样式相关的属性<strong>压入样式栈</strong><br><code>restore()</code>将样式相关的属性<strong>弹出到样式栈</strong>,覆盖原样式<br><code>样式栈： 先进后出</code></p>
-</li>
-</ol>
-<p>保存到栈中的绘制状态:<br>当前应用的变形(即translate/scale/rotate)/剪切区域/虚线列表<br>strokeStyle/fillStyle/lineWidth/lineCap/LineJoin</p>
-<ol start="8">
-<li><p>基本模板</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">ctx.save();       //保存初始化样式信息</span><br><span class="line">/* 下面要绘制图形的样式 */</span><br><span class="line">/* 变形信息 */</span><br><span class="line">ctx.beginPath()   //清空路径容器</span><br><span class="line">/* 绘制路径 */</span><br><span class="line">ctx.restore()    //绘制完一个图形,进行弹栈操作</span><br><span class="line"></span><br><span class="line">ctx.save();</span><br><span class="line">//样式 and 变换</span><br><span class="line">ctx.beginPath();</span><br><span class="line">//路径</span><br><span class="line">ctx.restore();</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>弧形<code>路径</code>(圆)<br><code>arc(x, y, radius, startAngle, endAngle, anticlockwise)//绘制圆的路径函数</code><br>0deg: x轴正方向<br>endAngle如果不写,默认画圆<br><code>注: 以弧度为单位 angle * Math.PI / 180</code><br>anticlockwise: 指定绘制方向: 顺时针(false,默认值)/逆时针(true)<br><code>stroke/fill()</code>  //完成画图</p>
-</li>
-<li><p><code>arcTo(x1, y1, x2, y2, radius)</code>根据给定的控制点和半径画一段圆弧<br>需要三个控制点: 先抬起画笔<code>moveTo(x, y)</code><br><code>(x, y) -&gt; (x1, y1)  //路径末端画一个半径为radius的弧形</code><br><code>(x1, y1) -&gt; (x2, y2) //路径首端画一个半径为radius的弧形,弧形后的路径不画</code><br><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200417133934822.png" alt="image-20200417133934822"></p>
-</li>
-<li><p>二次贝塞尔<br><code>quadraticCurveTo(cp1x, cp1y, x, y)</code><br>起始点<code>moveTo(x, y)</code><br>控制点<code>(cp1x, cp1y)</code><br>结束点<code>(x, y)</code><br><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200417133940409.png" alt="image-20200417133940409"></p>
-</li>
-<li><p>三次贝塞尔<br><code>bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y)</code><br><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200417133949919.png" alt="image-20200417133949919"></p>
-</li>
-<li><p>变换</p>
+<li><p><code>save()</code>将样式相关的属性<strong>压入</strong>样式栈<br> <code>restore()</code>将样式相关的属性<strong>弹出</strong>到<strong>样式容器</strong>，覆盖原样式<br> <code>样式栈： 先进后出</code></p>
+<p>保存到栈中的绘制状态:<br>当前应用的变形/剪切区域/虚线列表<br>strokeStyle/fillStyle/lineWidth/lineCap/LineJoin</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">ctx.save()</span><br><span class="line">ctx.fillStyle = <span class="string">'#194'</span></span><br><span class="line">ctx.save()</span><br><span class="line">ctx.fillStyle = <span class="string">'#aeeeee'</span></span><br><span class="line">ctx.save()</span><br><span class="line">ctx.fillStyle  = <span class="string">'orange'</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(ctx.fillStyle);    <span class="comment">//#ffa500(橙色)</span></span><br><span class="line">ctx.restore();</span><br><span class="line"><span class="built_in">console</span>.log(ctx.fillStyle);    <span class="comment">//#aeeeee</span></span><br><span class="line">ctx.restore();</span><br><span class="line"><span class="built_in">console</span>.log(ctx.fillStyle);    <span class="comment">//#119944</span></span><br><span class="line">ctx.beginPath();</span><br><span class="line">ctx.fillRect(<span class="number">50</span>,<span class="number">25</span>,<span class="number">100</span>,<span class="number">100</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//结论：当前路径样式为最近一个没有restore的样式</span></span><br></pre></td></tr></table></figure>
+
+
+
 </li>
 </ol>
-<ul>
-<li><code>translate()  //移动原点的位置</code> <code>可累加</code></li>
-<li><code>rotate()     //旋转原点所在的x/y轴</code> <code>可累加</code></li>
-<li><code>scale()</code><br>  作用的是x,y轴的像素刻度,而不是图形<br>  画布中像素增加/减少,但是画布中图像包含的像素个数不变</li>
+<ol start="9">
+<li>基本模板</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">ctx.save();       <span class="comment">//保存初始化样式信息 (之前的样式：可理解为全局样式)</span></span><br><span class="line"><span class="comment">/* 下面要绘制图形的样式(局部(sava-restore中间)样式) */</span></span><br><span class="line">ctx.lineCap = <span class="string">'round'</span></span><br><span class="line">ctx.beginPath()   <span class="comment">//清空路径容器</span></span><br><span class="line"><span class="comment">/* 绘制路径 */</span></span><br><span class="line">ctx.restore()    <span class="comment">//绘制完一个图形,进行弹栈操作</span></span><br><span class="line"></span><br><span class="line">ctx.save();</span><br><span class="line"><span class="comment">//样式 and 变换</span></span><br><span class="line">ctx.beginPath();</span><br><span class="line"><span class="comment">//路径</span></span><br><span class="line">ctx.restore();</span><br></pre></td></tr></table></figure>
+
+<ol start="9">
+<li><p>弧形<code>路径</code>(圆)<br><code>arc(x, y, radius, startAngle, endAngle, anticlockwise)</code><br>0deg: x轴正方向<br>endAngle如果不写,默认画圆<br><code>注: angle以弧度为单位 弧度 = 角度 * Math.PI / 180</code><br>anticlockwise: 指定绘制方向: 顺时针(false,默认值)/逆时针(true)<br><code>stroke/fill()</code>  //完成画图</p>
+</li>
+<li><p><code>arcTo(x1, y1, x2, y2, radius)</code>根据给定的控制点和半径画一段圆弧</p>
+<p>需要三个控制点: 先抬起画笔<code>moveTo(x, y)</code></p>
+</li>
+</ol>
+<pre><code><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">ctx.save()</span><br><span class="line">ctx.strokeStyle = <span class="string">'orange'</span></span><br><span class="line">ctx.beginPath()  </span><br><span class="line">ctx.moveTo(<span class="number">50</span>,<span class="number">50</span>)</span><br><span class="line">ctx.lineTo(<span class="number">200</span>,<span class="number">50</span>)</span><br><span class="line">ctx.lineTo(<span class="number">200</span>,<span class="number">200</span>)</span><br><span class="line">ctx.stroke()</span><br><span class="line">ctx.restore()</span><br><span class="line"></span><br><span class="line">ctx.beginPath()</span><br><span class="line">ctx.moveTo(<span class="number">50</span>, <span class="number">50</span>)</span><br><span class="line">ctx.arcTo(<span class="number">200</span>, <span class="number">50</span>, <span class="number">200</span>, <span class="number">200</span>, <span class="number">50</span>)</span><br><span class="line">ctx.stroke()</span><br><span class="line"></span><br><span class="line"><span class="comment">//arcTo原理：将3个点连起来，画一个半径为50的原贴近两条线的夹角</span></span><br></pre></td></tr></table></figure>
+
+![image-20200621135433419](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200621135433419.png)
+
+![image-20200621135749191](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20200621135749191.png)</code></pre><ol start="11">
+<li><p>二次贝塞尔：<code>quadraticCurveTo(cp1x, cp1y, x, y)</code><br>起始点<code>moveTo(x, y)</code><br>控制点<code>(cp1x, cp1y)</code><br>结束点<code>(x, y)</code></p>
+<blockquote>
+<p>与arcTo不同，它没有固定半径，而是要求必须经过起始点和结束点</p>
+</blockquote>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200621140457843.png" alt="image-20200621140457843"></p>
+</li>
+<li><p>三次贝塞尔：<code>bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y)</code><br><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200621140658715.png" alt="image-20200621140658715"></p>
+</li>
+</ol>
+<h4 id="3-变换"><a href="#3-变换" class="headerlink" title="3.变换"></a>3.变换</h4><ul>
+<li><p><code>translate()  //移动原点的位置</code> <code>可累加</code></p>
+</li>
+<li><p><code>rotate()     //旋转原点所在的x/y轴</code> <code>可累加</code></p>
+</li>
+<li><p><code>scale()</code><br>  <strong>作用的是x,y轴的像素刻度</strong>,而不是图形<br>  画布总像素增加/减少,但是画布中图形包含的像素个数不变(只是变大或变小)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ctx.save()</span><br><span class="line">ctx.scale(<span class="number">.5</span>,<span class="number">.5</span>)</span><br><span class="line">ctx.fillRect(<span class="number">200</span>,<span class="number">100</span>, <span class="number">100</span>, <span class="number">100</span>)</span><br><span class="line">ctx.restore()</span><br><span class="line"></span><br><span class="line">ctx.fillRect(<span class="number">200</span>,<span class="number">100</span>, <span class="number">100</span>, <span class="number">100</span>)</span><br></pre></td></tr></table></figure>
+
+
+</li>
 </ul>
-<h4 id="图片和背景"><a href="#图片和背景" class="headerlink" title="图片和背景"></a>图片和背景</h4><ul>
+<p>  <img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200621160141051.png" alt="image-20200621160141051"></p>
+<h4 id="4-图片和背景"><a href="#4-图片和背景" class="headerlink" title="4.图片和背景"></a>4.图片和背景</h4><ul>
 <li><p>插入图片<br><code>必须等图片加载完才能操作</code><br><code>drawImage(img, x, y[, w, h])</code><br><code>//img是Image对象或canvas对象</code></p>
 </li>
-<li><p>设置背景<br><code>ctx.createPattern(Image, repetition)  //&quot;repeat&quot;/&quot;no-repeat&quot;/&quot;repeat-x&quot;/&quot;repeat-y&quot;</code><br><code>//一般情况下,该函数返回值作为fillStyle的值</code></p>
-</li>
-<li><p>渐变<br><code>var gradient = ctx.createLinearGradient(x1, y1, x2, y2)  //控制渐变方向以及纯色分布区域</code><br><code>gradient.addColorStop(position, color)  //position: 0.0 - 1.0</code><br><code>createRadialGradient(x1, y1, r1, x2, y2, r2) //在两个圆之间发生渐变</code></p>
+<li><p>设置背景<br><code>ctx.createPattern(Image, repetition)  //&quot;repeat&quot;/&quot;no-repeat&quot;/&quot;repeat-x/y&quot;</code>//一般情况下,该函数返回值作为fillStyle的值`</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> img = <span class="keyword">new</span> Image()</span><br><span class="line">img.src = <span class="string">'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=121407480,1286326131&amp;fm=26&amp;gp=0.jpg'</span></span><br><span class="line"></span><br><span class="line">img.onload = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// ctx.drawImage(img, 0,0, img.width, img.height)插入图片</span></span><br><span class="line">    <span class="keyword">let</span> p = ctx.createPattern(img,<span class="string">'repeat'</span>)</span><br><span class="line">    ctx.fillStyle = p</span><br><span class="line">    ctx.fillRect(<span class="number">0</span>,<span class="number">0</span>, <span class="number">400</span>,<span class="number">300</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
 </li>
 </ul>
-<h4 id="文本"><a href="#文本" class="headerlink" title="文本"></a>文本</h4><p><code>fillText(text, x,y)</code><br><code>strokeText(text, x, y)</code><br><code>font //必须同时指定字体大小&amp;&amp;字体(只支持sans-serif)</code><br><code>textAlign  //left / right / center  //文本的xx向x=x靠齐</code></p>
-<p><code>textBaseline  //top middle bottom   //文本的xx向y=y靠齐</code><br><code>measureText(&quot;&quot;)  //返回一个TextMetrics对象 包含关于文本尺寸的信息</code></p>
-<p><code>shadowOffsetX</code><br><code>shadowOffsetY</code><br><code>shadowBlur</code><br><code>shadowColor</code></p>
-<h4 id="像素操作"><a href="#像素操作" class="headerlink" title="像素操作"></a>像素操作</h4><ul>
-<li><p><code>getImageData(sx, sy, sw, sh)  //获取一个包含画布场景像素数据的ImageData对象,代表画布区域的对象数据</code></p>
+<ul>
+<li><p>渐变<br><code>var gradient = ctx.createLinearGradient(x1, y1, x2, y2)  //控制渐变方向以及纯色分布区域</code><br><code>gradient.addColorStop(position, color)  //position: 0.0 - 1.0</code><br><code>createRadialGradient(x1, y1, r1, x2, y2, r2) //在两个圆之间发生渐变</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> g = ctx.createLinearGradient(<span class="number">100</span>,<span class="number">100</span>,<span class="number">200</span>,<span class="number">100</span>)</span><br><span class="line">g.addColorStop(<span class="number">0</span>, <span class="string">'yellow'</span>)</span><br><span class="line">g.addColorStop(<span class="number">0.5</span>, <span class="string">'brown'</span>)</span><br><span class="line">g.addColorStop(<span class="number">0.75</span>, <span class="string">'#194'</span>)</span><br><span class="line">g.addColorStop(<span class="number">1</span>, <span class="string">'orange'</span>)</span><br><span class="line">ctx.fillStyle = g;</span><br><span class="line">ctx.fillRect(<span class="number">100</span>,<span class="number">100</span>,<span class="number">200</span>,<span class="number">200</span>)</span><br></pre></td></tr></table></figure>
+
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200621173532480.png" alt="image-20200621173532480"></p>
 </li>
-<li><p>ImageData</p>
+</ul>
+<h4 id="5-文本"><a href="#5-文本" class="headerlink" title="5.文本"></a>5.文本</h4><ul>
+<li><p><code>fillText(text, x,y)</code></p>
+</li>
+<li><p><code>strokeText(text, x, y)</code></p>
+</li>
+<li><p><code>font</code>：必须同时指定字体大小&amp;&amp;字体(只支持<code>sans-serif</code>)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ctx.fillStyle = <span class="string">'orange'</span></span><br><span class="line">ctx.font = <span class="string">'16px tr'</span></span><br><span class="line">ctx.fillText(<span class="string">'小图灵'</span>, <span class="number">100</span>, <span class="number">100</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>textAlign  //left / right / center  //文本的xx边向x=x轴靠齐</code></p>
+</li>
+<li><p><code>textBaseline  //top middle bottom   //文本的xx边向y=y轴靠齐</code></p>
+</li>
+<li><p><code>measureText(&quot;&quot;)</code>返回一个TextMetrics对象 包含关于文本尺寸的信息</p>
+<p>参数为所查找的文本字符串</p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200622194033016.png" alt="image-20200622194033016"></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//应用：文字水平垂直居中</span></span><br><span class="line"><span class="keyword">let</span> fontSize= <span class="number">24</span></span><br><span class="line">ctx.fillStyle = <span class="string">'orange'</span></span><br><span class="line">ctx.font = fontSize  + <span class="string">'px sans-serif'</span></span><br><span class="line">ctx.textBaseline = <span class="string">'top'</span></span><br><span class="line"><span class="keyword">let</span> w  = ctx.measureText(<span class="string">'小图灵'</span>).width</span><br><span class="line">ctx.fillText(<span class="string">'小图灵'</span>, (oc.width - w)/<span class="number">2</span>, (oc.height - fontSize)/<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>文本阴影</p>
+<p><code>shadowOffsetX</code>、<code>shadowOffsetY</code>、<code>shadowBlur</code>、<code>shadowColor</code></p>
+</li>
+</ul>
+<h4 id="6-像素操作"><a href="#6-像素操作" class="headerlink" title="6.像素操作"></a>6.像素操作</h4><ul>
+<li><p><code>getImageData(sx, sy, sw, sh)</code>获取一个<code>ImageData</code>对象,包含画布区域的像素数据</p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200622200021693.png" alt="image-20200622200021693"></p>
+</li>
+<li><p><code>ImageData</code></p>
 <ol>
 <li>width: 横向像素点个数</li>
 <li>height: </li>
 <li>data: 数组,存放每一个像素点的rgba信息(a: 0 - 255)<br> 该数组长度为<code>width * height * 4</code></li>
 </ol>
 </li>
-<li><p><code>putImageData(ImageData, x, y);  //对场景进行像素数据的写入</code></p>
+<li><p><code>putImageData(ImageData, x, y)</code>对场景进行像素数据的写入</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ctx.fillStyle = <span class="string">'orange'</span></span><br><span class="line">ctx.fillRect(<span class="number">0</span>,<span class="number">0</span>,<span class="number">100</span>,<span class="number">100</span>);</span><br><span class="line"><span class="keyword">let</span> id = ctx.getImageData(<span class="number">0</span>,<span class="number">0</span>,<span class="number">100</span>,<span class="number">100</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>;i&lt;<span class="number">40000</span>;i++) &#123;</span><br><span class="line">    <span class="keyword">if</span>(i %<span class="number">3</span> === <span class="number">0</span> &amp;&amp; i != <span class="number">0</span>) &#123;</span><br><span class="line">        id.data[i] -= <span class="number">150</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ctx.putImageData(id, <span class="number">100</span>,<span class="number">100</span>)</span><br></pre></td></tr></table></figure>
+
+
+
 </li>
+</ul>
+<ul>
 <li><p><code>createImageData(width, height); //创建ImageData对象 , 默认rgba(0,0,0,0)</code></p>
 </li>
 <li><p>单像素操作</p>
-</li>
-<li><p><code>globalAlpha = value //全局透明度 0.0 - 1.0</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getPXData</span>(<span class="params">imgData, x, y</span>) </span>&#123; </span><br><span class="line">    <span class="keyword">let</span> data = imgData.data;</span><br><span class="line">    <span class="keyword">let</span> w = imgData.width;</span><br><span class="line">    <span class="keyword">let</span> h = imgData.height;</span><br><span class="line">    <span class="keyword">let</span> pxInfo = []</span><br><span class="line">    <span class="keyword">let</span> baseIndex = (y*w + x) * <span class="number">4</span>;</span><br><span class="line">    pxInfo[<span class="number">0</span>] = data[baseIndex]</span><br><span class="line">    pxInfo[<span class="number">1</span>] = data[baseIndex + <span class="number">1</span>]</span><br><span class="line">    pxInfo[<span class="number">2</span>] = data[baseIndex + <span class="number">2</span>]</span><br><span class="line">    pxInfo[<span class="number">3</span>] = data[baseIndex + <span class="number">3</span>]</span><br><span class="line">    <span class="keyword">return</span> pxInfo;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setPXData</span>(<span class="params">imgData, x, y, color</span>) </span>&#123; </span><br><span class="line">    <span class="keyword">let</span> data = imgData.data;</span><br><span class="line">    <span class="keyword">let</span> w = imgData.width;</span><br><span class="line">    <span class="keyword">let</span> h = imgData.height;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> baseIndex = (y*w + x) * <span class="number">4</span>;</span><br><span class="line">    data[baseIndex] = color[<span class="number">0</span>]</span><br><span class="line">    data[baseIndex +<span class="number">1</span>] = color[<span class="number">1</span>]</span><br><span class="line">    data[baseIndex +<span class="number">2</span>] = color[<span class="number">2</span>]</span><br><span class="line">    data[baseIndex +<span class="number">3</span>] = color[<span class="number">3</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> imgData;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
 </li>
 </ul>
-<h4 id="合成"><a href="#合成" class="headerlink" title="合成"></a>合成</h4><ul>
-<li><p>合成: 叠在一块的图形如何处理</p>
+<ul>
+<li><code>globalAlpha = value //全局透明度 0.0 - 1.0</code></li>
+</ul>
+<h4 id="7-合成"><a href="#7-合成" class="headerlink" title="7.合成"></a>7.合成</h4><ul>
+<li>合成: 叠在一块的图形如何处理</li>
+<li><code>source</code>新的图像</li>
+<li><code>destination</code>已经绘制过的图形(目标)</li>
+<li><code>globalCompositeOperation</code>：定义前的图形为<code>source</code>，定义后的图形为目标<code>destination</code><br><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200417133817369.png" alt="image-20200417133817369"></li>
+</ul>
+<ul>
+<li><code>canvas.toDataURL()  //返回一个URL，存储图片的链接</code></li>
+<li><code>ctx.isPointInPath(x,y)  //判断(x,y)是否在当前路径内</code><br><code>注: 此方法制作用于最新画出的canvas图像  // fillRect/strokeRect/clearRect()不算图像</code></li>
+</ul>
+<h2 id="SVG"><a href="#SVG" class="headerlink" title="SVG"></a>SVG</h2><ul>
+<li><p>SVG： <strong>可缩放矢量图形（Scalable Vector Graphics）。</strong> </p>
 </li>
-<li><p><code>source</code>新的图像</p>
+<li><p><strong>位图</strong>：由像素点组合而成的图像，一个点就是一个像素</p>
+<p>位图与分辨率有直接的联系，分辨率越大，清晰度越高。</p>
+<p>当位图的放大倍数超过最佳分辨率时，就会出现细节丢失，也可能会出现锯齿形边缘。</p>
 </li>
-<li><p><code>destination</code>已经绘制过的图形(目标)</p>
+<li><p><strong>矢量图</strong>：以数学向量方式记录图像，内容以线条和色块为主。</p>
+<p>它可以<strong>任意放大且清晰度不变</strong>，也不会出现锯齿状边缘。</p>
+<p>但是矢量图识别的颜色较位图少</p>
 </li>
-<li><p><code>globalCompositeOperation</code><br><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200417133817369.png" alt="image-20200417133817369"><br><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200417133823384.png" alt="image-20200417133823384"></p>
+</ul>
+<h3 id="与Canvas的区别"><a href="#与Canvas的区别" class="headerlink" title="与Canvas的区别"></a>与Canvas的区别</h3><ul>
+<li>Canvas采用位图方式，SVG采用矢量图方式</li>
+<li>Canvas基于<code>canvas</code>标签绘制，SVG基于<code>xml</code>绘制</li>
+</ul>
+<h3 id="svg引入"><a href="#svg引入" class="headerlink" title="svg引入"></a>svg引入</h3><ul>
+<li><p>svg是基于xml的技术</p>
 </li>
-<li><p><code>canvas.toDataURL()  //返回一个URL，存储图片的链接</code></p>
+<li><p>svg文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE svg PUBLIC &quot;-//W3C//DTD SVG 1.1//EN&quot; &quot;http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd&quot; &gt;</span><br><span class="line">&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt;</span><br><span class="line">	&lt;circle cx=&quot;100&quot; cy=&quot;100&quot; r=&quot;40&quot; fill=&quot;red&quot;&gt;&lt;/circle&gt;</span><br><span class="line">&lt;/svg&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>svg文件引入</li>
+</ul>
+<ol>
+<li>图片：<code>&lt;img src=&quot;1.svg&quot;/&gt;</code></li>
+<li>背景：<code>background: url()</code></li>
+<li>iframe：<code>&lt;iframe src=&quot;cc&quot;&gt;&lt;/iframe&gt;</code></li>
+</ol>
 </li>
-<li><p><code>ctx.isPointInPath(x,y)  //判断(x,y)是否在当前路径内</code><br><code>注: 此方法制作用于最新画出的canvas图像  // fillRect/strokeRect/clearRect()不算图像</code></p>
+<li><p>直接在div中引入<code>svg</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">svg</span> <span class="attr">xmlns</span>=<span class="string">"http://www.w3.org/2000/svg"</span> <span class="attr">width</span>=<span class="string">"100px"</span> <span class="attr">height</span>=<span class="string">"100px"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">circle</span> <span class="attr">cx</span>=<span class="string">"50"</span> <span class="attr">cy</span>=<span class="string">"50"</span> <span class="attr">r</span>=<span class="string">"40"</span> <span class="attr">fill</span>=<span class="string">"red"</span>&gt;</span><span class="tag">&lt;/<span class="name">circle</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="基本图形"><a href="#基本图形" class="headerlink" title="基本图形"></a>基本图形</h3><blockquote>
+<p>所有图形共用属性：<code>fill</code>, <code>stroke</code>, <code>stroke-width</code>：默认<code>black</code>，可设置为<code>transparent</code></p>
+</blockquote>
+<ul>
+<li><p><code>circle</code>：画圆</p>
+<ul>
+<li>cx, cy, r</li>
+<li>style方式：<code>style=fill:white;stroke:black;stroke-width:5</code>(单位可带可不带，建议不带)</li>
+</ul>
+</li>
+<li><p><code>rect</code>：画矩形</p>
+<ul>
+<li>width, height, x, y</li>
+<li>rx, ry：类似圆角边框</li>
+</ul>
+</li>
+<li><p><code>line</code>：线</p>
+<ul>
+<li>x1, y1, x2, y2</li>
+<li>stroke-opacity</li>
+</ul>
+</li>
+<li><p><code>ellipse</code>椭圆</p>
+</li>
+<li><p><code>polyine</code>折线</p>
+</li>
+<li><p><code>ploygon</code>多边形</p>
+</li>
+<li><p><code>path</code>：路径</p>
+</li>
+</ul>
+<h3 id="其他标签"><a href="#其他标签" class="headerlink" title="其他标签"></a>其他标签</h3><ul>
+<li><p><code>g</code>：是一个容器标签，用来组合元素</p>
+<p>可使用属性：所有图形都可以共享的属性，如<code>fill</code>、<code>stroke</code>、 <code>stroke-width</code></p>
+<p><code>transform</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">g</span>  <span class="attr">transform</span>=<span class="string">"translate(150, 150)"</span> <span class="attr">fill</span>=<span class="string">"green"</span> <span class="attr">stroke-width</span>=<span class="string">"5"</span> <span class="attr">stroke</span>=<span class="string">"yellow"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">circle</span> <span class="attr">r</span>=<span class="string">"80"</span> &gt;</span><span class="tag">&lt;/<span class="name">circle</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">circle</span> <span class="attr">r</span>=<span class="string">"60"</span> &gt;</span><span class="tag">&lt;/<span class="name">circle</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">circle</span> <span class="attr">r</span>=<span class="string">"40"</span> &gt;</span><span class="tag">&lt;/<span class="name">circle</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">circle</span> <span class="attr">r</span>=<span class="string">"20"</span> &gt;</span><span class="tag">&lt;/<span class="name">circle</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200621211842246.png" alt="image-20200621211842246"></p>
+</li>
+<li><p><code>text</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">text</span> <span class="attr">x</span>=<span class="string">"100"</span> <span class="attr">y</span>=<span class="string">"100"</span> <span class="attr">fill</span>=<span class="string">"white"</span> <span class="attr">text-anchor</span>=<span class="string">"middle"</span> <span class="attr">font-size</span>=<span class="string">"20"</span>&gt;</span>发条魔灵<span class="tag">&lt;/<span class="name">text</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>image</p>
+<p>x，y：图片的左上角坐标</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">image</span> <span class="attr">x</span>=<span class="string">"200"</span> <span class="attr">y</span>=<span class="string">"200"</span> <span class="attr">width</span>=<span class="string">"100"</span> <span class="attr">height</span>=<span class="string">"100"</span> <span class="attr">xlink:href</span>=<span class="string">"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=121407480,1286326131&amp;fm=26&amp;gp=0.jpg"</span>&gt;</span><span class="tag">&lt;/<span class="name">image</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>小案例</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">svg</span> <span class="attr">xmlns</span>=<span class="string">"http://www.w3.org/2000/svg"</span> <span class="attr">width</span>=<span class="string">"500px"</span> <span class="attr">height</span>=<span class="string">"500px"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">g</span> <span class="attr">transform</span>=<span class="string">"translate(100, 100)"</span> <span class="attr">style</span>=<span class="string">"cursor: pointer;"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">circle</span>  <span class="attr">r</span>=<span class="string">"40"</span> <span class="attr">fill</span>=<span class="string">"lightblue"</span>  <span class="attr">stroke</span>=<span class="string">"blue"</span> <span class="attr">stroke-width</span>=<span class="string">"2px"</span>&gt;</span><span class="tag">&lt;/<span class="name">circle</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">text</span> <span class="attr">y</span>=<span class="string">"5"</span> <span class="attr">text-anchor</span>=<span class="string">"middle"</span> <span class="attr">font-size</span>=<span class="string">"16"</span>&gt;</span>发条魔灵<span class="tag">&lt;/<span class="name">text</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">g</span> <span class="attr">transform</span>=<span class="string">"translate(250, 200)"</span> <span class="attr">style</span>=<span class="string">"cursor: pointer;"</span> &gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">circle</span>  <span class="attr">r</span>=<span class="string">"40"</span> <span class="attr">fill</span>=<span class="string">"darkgray"</span> <span class="attr">stroke</span>=<span class="string">"white"</span> <span class="attr">stroke-width</span>=<span class="string">"2px"</span>&gt;</span><span class="tag">&lt;/<span class="name">circle</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">text</span> <span class="attr">y</span>=<span class="string">"5"</span> <span class="attr">text-anchor</span>=<span class="string">"middle"</span> <span class="attr">font-size</span>=<span class="string">"16"</span>&gt;</span>诡术妖姬<span class="tag">&lt;/<span class="name">text</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">g</span> <span class="attr">transform</span>=<span class="string">"translate(175, 150)"</span> <span class="attr">style</span>=<span class="string">"cursor: pointer;"</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 增加用户点击区域的面积--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">line</span> <span class="attr">x1</span>=<span class="string">"-45"</span> <span class="attr">y1</span>=<span class="string">"-25"</span> <span class="attr">x2</span>=<span class="string">"45"</span> <span class="attr">y2</span>=<span class="string">"25"</span> <span class="attr">stroke</span>=<span class="string">"transparent"</span> <span class="attr">stroke-width</span>=<span class="string">"10"</span> &gt;</span><span class="tag">&lt;/<span class="name">line</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">line</span> <span class="attr">x1</span>=<span class="string">"-45"</span> <span class="attr">y1</span>=<span class="string">"-25"</span> <span class="attr">x2</span>=<span class="string">"45"</span> <span class="attr">y2</span>=<span class="string">"25"</span> <span class="attr">stroke</span>=<span class="string">"white"</span>&gt;</span><span class="tag">&lt;/<span class="name">line</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">rect</span> <span class="attr">width</span>=<span class="string">"20"</span> <span class="attr">height</span>=<span class="string">"20"</span> <span class="attr">x</span>=<span class="string">"-10"</span> <span class="attr">y</span>=<span class="string">"-10"</span>&gt;</span><span class="tag">&lt;/<span class="name">rect</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">text</span> <span class="attr">y</span>=<span class="string">"5"</span> <span class="attr">text-anchor</span>=<span class="string">"middle"</span> <span class="attr">fill</span>=<span class="string">"white"</span> <span class="attr">font-size</span>=<span class="string">"12"</span>&gt;</span>?<span class="tag">&lt;/<span class="name">text</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200621233710324.png" alt="image-20200621233710324"></p>
+</li>
+</ul>
+<h3 id="js操作SVG"><a href="#js操作SVG" class="headerlink" title="js操作SVG"></a>js操作SVG</h3><ul>
+<li><p>动态创建svg</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> box1 = <span class="built_in">document</span>.getElementsByClassName(<span class="string">'box1'</span>)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> NS = <span class="string">'http://www.w3.org/2000/svg'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createTag</span>(<span class="params">tag, obj</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//参数：命名空间，标签名</span></span><br><span class="line">    <span class="keyword">var</span> oTag = <span class="built_in">document</span>.createElementNS(NS, tag)</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> k <span class="keyword">in</span> obj) &#123;</span><br><span class="line">        oTag.setAttribute(k, obj[k])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> oTag</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> svg = createTag(<span class="string">'svg'</span>, &#123;<span class="attr">xmlns</span>: <span class="string">'http://www.w3.org/2000/svg'</span>, <span class="attr">width</span>: <span class="string">'500px'</span>, <span class="attr">height</span>: <span class="string">'500px'</span>&#125;)</span><br><span class="line">box1.appendChild(svg)</span><br></pre></td></tr></table></figure>
+
+
+
+
+
 </li>
 </ul>
 <h2 id="音-视频"><a href="#音-视频" class="headerlink" title="音/视频"></a>音/视频</h2><ul>
@@ -275,7 +464,7 @@
 <li><code>pause()</code>;</li>
 <li><code>load();   //重新加载媒体</code></li>
 </ul>
-</div></article></div></main><footer><div class="paginator"><a href="/2019/08/10/js/JS基础/" class="prev">PREV</a><a href="/2019/07/25/html-css/Less &amp; Sass/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+</div></article></div></main><footer><div class="paginator"><a href="/2019/08/02/js/基础/js语言精粹/" class="prev">PREV</a><a href="/2019/08/01/js/JS基础/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
 var disqus_identifier = '2019/08/01/html-css/H5/';
 var disqus_title = 'HTML5';
 var disqus_url = 'https://turing5467.github.io/2019/08/01/html-css/H5/';

@@ -1,0 +1,240 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>  · 快乐的图小灵</title><meta name="description" content=" - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title"></h1><div class="post-info">Aug 16, 2019</div><div class="post-content"><h2 id="18-Web-API"><a href="#18-Web-API" class="headerlink" title="18_Web API"></a>18_Web API</h2><h3 id="1-URLSearchParams"><a href="#1-URLSearchParams" class="headerlink" title="1-URLSearchParams"></a>1-URLSearchParams</h3><ul>
+<li>专门用来处理URL的query的接口：<code>URLSearchParams</code>。</li>
+<li><code>URLSearchParams</code>是一个构造函数,可以接收一个查询字符串做参数<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span>()       //设置一个字段,若已存在，则修改其值</span><br><span class="line">append()	//添加一个新字段(不管是否已存在)</span><br><span class="line">delete()</span><br><span class="line"><span class="keyword">get</span>()       //获取最先设置的值,返回字符串</span><br><span class="line">getAll()	//获取所有值,返回数组</span><br><span class="line">has()</span><br><span class="line"></span><br><span class="line">sort()</span><br><span class="line">toString()	//返回经过编码的查询字符串</span><br><span class="line"></span><br><span class="line">keys()</span><br><span class="line">values()</span><br><span class="line">entries()	//默认遍历器方法</span><br><span class="line">forEach()</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="2-applicationCache"><a href="#2-applicationCache" class="headerlink" title="2-applicationCache"></a>2-applicationCache</h3><ul>
+<li>实现对<strong>缓存</strong>更新更为精确的控制</li>
+<li>属性</li>
+</ul>
+<ol>
+<li>常量属性<table>
+<thead>
+<tr>
+<th align="left">属性名</th>
+<th align="right">整数值</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">UNCACHED</td>
+<td align="right">0</td>
+<td align="center">没有应用程序缓存</td>
+</tr>
+<tr>
+<td align="left">IDLE</td>
+<td align="right">1</td>
+<td align="center">正在使用直至上次确认时最新的缓存文件</td>
+</tr>
+<tr>
+<td align="left">CHECKING</td>
+<td align="right">2</td>
+<td align="center">正在确认缓存清单文件的更新</td>
+</tr>
+<tr>
+<td align="left">DOWNLOADING</td>
+<td align="right">3</td>
+<td align="center">正在下载最新的缓存文件</td>
+</tr>
+<tr>
+<td align="left">UPDATEREADY</td>
+<td align="right">4</td>
+<td align="center">已经完成了最新的缓存文件的使用准备</td>
+</tr>
+<tr>
+<td align="left">OBSOLETE</td>
+<td align="right">5</td>
+<td align="center">缓存清单文件已被删除</td>
+</tr>
+</tbody></table>
+</li>
+<li>变量属性<br> <code>status</code>是否进行了更新或缓存的下载状况</li>
+</ol>
+<ul>
+<li><p>方法</p>
+<ol>
+<li><code>abort</code></li>
+<li><code>update</code> 确认缓存清单文件的更新,如果文件被更新，则自动缓存所有的文件</li>
+<li><code>swapCache</code></li>
+</ol>
+</li>
+<li><p>事件处理程序</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">事件名</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">onchecking</td>
+<td align="left">在开始确认缓存清单文件时被执行</td>
+</tr>
+<tr>
+<td align="left">onnoupdate</td>
+<td align="left">在确认缓存清单文件后没有更新的情况下被执行</td>
+</tr>
+<tr>
+<td align="left">ondownloading</td>
+<td align="left">在开始下载缓存时被执行</td>
+</tr>
+<tr>
+<td align="left">onprogress</td>
+<td align="left">在缓存的下载过程中定期被执行。可以通过 event.total 获取所下载文件的总数，而通过 event.loaded 则可以获取已下载的文件数量</td>
+</tr>
+<tr>
+<td align="left">oncached</td>
+<td align="left">在所有缓存的下载完成时被执行</td>
+</tr>
+<tr>
+<td align="left">onupdateready</td>
+<td align="left">在下载完成后能够再次调用 update 时被执行。而且可以通过在此之后调用 swapCache 来反映最新的缓存</td>
+</tr>
+<tr>
+<td align="left">onobsolete</td>
+<td align="left">在缓存清单文件被删除时执行</td>
+</tr>
+<tr>
+<td align="left">onerror</td>
+<td align="left">在发生了某种错误时被执行</td>
+</tr>
+</tbody></table>
+<h3 id="5-querySelector"><a href="#5-querySelector" class="headerlink" title="5-querySelector"></a>5-querySelector</h3><ul>
+<li><code>querySelector(sel)</code> 向下查询</li>
+<li><code>querySelectorAll(sel)</code>向下查询 <strong>静态</strong>，返回NodeList(具有遍历器)</li>
+<li><code>contains(ele)</code> 是否包含了指定的子元素</li>
+<li><code>element.closest(selector)</code>向上查询，查询最近的祖先元素(兼容性极差)</li>
+</ul>
+<h3 id="6-dataset"><a href="#6-dataset" class="headerlink" title="6-dataset"></a>6-dataset</h3><ul>
+<li>获取标签上以<code>data-</code>为前缀的<strong>属性集合</strong></li>
+<li>通过<code>.</code>或<code>[]</code>来获取对应值</li>
+<li>虽然可以用<code>getAttribute</code>方法获取任何属性值，但是性质却不一样，这是开发规范问题，凡是自定义属性都要加上<code>data-</code>前缀哦✅</li>
+</ul>
+<h3 id="7-html属性"><a href="#7-html属性" class="headerlink" title="7-html属性"></a>7-html属性</h3><ul>
+<li><code>hidden</code>,规定元素是否<strong>隐藏</strong></li>
+<li><code>contenteditable</code> 可以使一个元素可以被用户<strong>编辑</strong></li>
+<li><code>spellcheck</code> 规定输入的内容是否<strong>检查英文的拼写</strong></li>
+</ul>
+<h3 id="8-classList"><a href="#8-classList" class="headerlink" title="8-classList"></a>8-classList</h3><ul>
+<li>一个对象,封装了许多操作元素类名的方法<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">add(str[, str...]) <span class="comment">//传入の字符串不允许有空格,若要传入多个类名，必须一个类名一个参数</span></span><br><span class="line">remove(str[, str...]) <span class="comment">//同上</span></span><br><span class="line">toggle(str[,force])	<span class="comment">//若第二个参数计算结果为true,则添加类名,反之删除类名	</span></span><br><span class="line">contains(str)       <span class="comment">//检查是否包含类名</span></span><br><span class="line">replace(old, <span class="keyword">new</span>); 	<span class="comment">//替换类名</span></span><br><span class="line">item(index) <span class="comment">//根据索引返回类名,效果同[index]</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="9-getBoundingClientRect"><a href="#9-getBoundingClientRect" class="headerlink" title="9-getBoundingClientRect"></a>9-getBoundingClientRect</h3><ul>
+<li><code>getBoundingClientRect()</code>获取指定元素范围信息的窗口坐标<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x y</span><br><span class="line">top left  <span class="comment">//距离左侧、上方的距离,与e.clientX/Y结合可获取offsetX/Y</span></span><br><span class="line">bottom right </span><br><span class="line">width height</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="10-网络状态"><a href="#10-网络状态" class="headerlink" title="10-网络状态"></a>10-网络状态</h3><ul>
+<li><code>online</code>:监听当前的在线状态<pre><code>`ononline`</code></pre></li>
+<li><code>offline</code> 监听网络的离线状态<pre><code>`onoffline`</code></pre></li>
+</ul>
+<h3 id="11-电池状态"><a href="#11-电池状态" class="headerlink" title="11-电池状态"></a>11-电池状态</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.navigator.getBattery().then(<span class="function">(<span class="params">battery</span>) =&gt;</span> &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(battery);</span><br><span class="line">      &#125;)</span><br><span class="line">      <span class="comment">// 返回</span></span><br><span class="line">&#123;</span><br><span class="line">  charging, <span class="comment">// 是否在充电</span></span><br><span class="line">  chargingTime, <span class="comment">// 充满电所需时间</span></span><br><span class="line">  dischargingTime, <span class="comment">// 当前电量可使用时间(描述)</span></span><br><span class="line">  level, 剩余电量(<span class="number">0.99</span>)</span><br><span class="line"></span><br><span class="line">  onchargingchange, <span class="comment">// 监听充电状态变化</span></span><br><span class="line">  onchargingtimechange, <span class="comment">// 监听充满电所需时间变化</span></span><br><span class="line">  ondischargingtimechange, <span class="comment">// 监听当前电量可使用时间变化</span></span><br><span class="line">  onlevelchange <span class="comment">// 监听电量变化</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="12-震动"><a href="#12-震动" class="headerlink" title="12-震动"></a>12-震动</h3><ul>
+<li><code>navigator.vibrate(ms | arr)</code><br><code>ms</code> 震动的持续秒数<br><code>arr</code> 数组中的每个值表示交替震动或者暂停的ms数</li>
+</ul>
+<h3 id="13-页面可见性"><a href="#13-页面可见性" class="headerlink" title="13-页面可见性"></a>13-页面可见性</h3><ul>
+<li><code>visibilityChange</code>事件：监听页面可见性变化的，在PC端<code>标签栏</code>切换、<code>最小化</code>会触发、在移动端程序切到<code>后台</code>会触发.<br>  <code>document.visibilityState</code>页面可见性,该属性发生变化就会触发<code>visibilitychange</code>事件<br>  <code>document.hidden</code> 当前页面是否可见</li>
+</ul>
+<h3 id="13-生命周期"><a href="#13-生命周期" class="headerlink" title="13-生命周期"></a>13-生命周期</h3><p><a href="http://www.ruanyifeng.com/blog/2018/11/page_lifecycle_api.html" target="_blank" rel="noopener">阮一峰</a></p>
+<ul>
+<li><p>网页的生命周期分成六个阶段，每个时刻只可能处于其中一个阶段。</p>
+<pre><code>1. `active`网页处于可见状态,且拥有输入焦点
+            `focus`事件</code></pre><ol start="2">
+<li><p><code>passive</code> 网页可见，但没有输入焦点<br>   <code>blur</code></p>
+</li>
+<li><p>``hidden` 用户的桌面被其他窗口占据，网页不可见，但尚未冻结。</p>
+</li>
+<li><p><code>terminated</code> 用户主动关闭窗口，或者在同一个窗口前往其他页面，导致当前页面开始被浏览器卸载并从内存中清除。注意，这个阶段总是在 <code>Hidden</code> 阶段之后发生</p>
+</li>
+<li><p><code>frozen</code> 网页处于 <code>hidden/visible</code> 阶段的时间过久，用户又不关闭网页，浏览器就有可能冻结网页<br>   <code>frozen</code>事件</p>
+<p>​          <code>resume</code>网页离开 Frozen 阶段，变为 Active / Passive / Hidden 阶段时触发。<br>​            这个阶段的特征是，网页不会再被分配 CPU 计算资源。定时器、回调函数、网络请求、DOM 操作都不会执行，不过正在运行的任务会执行完。浏览器可能会允许 Frozen 阶段的页面，周期性复苏一小段时间，短暂变回 Hidden 状态，允许一小部分任务执行。</p>
+<ol start="6">
+<li><code>discarded</code>  如果网页长时间处于 Frozen 阶段，用户又不唤醒页面，那么就会进入 Discarded 阶段，即浏览器自动卸载网页，清除该网页的内存占用。不过，Passive 阶段的网页如果长时间没有互动，也可能直接进入 Discarded 阶段。</li>
+</ol>
+<p>这一般是在用户没有介入的情况下，由系统强制执行。任何类型的新任务或 JavaScript 代码，都不能在此阶段执行，因为这时通常处在资源限制的状况下。</p>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="14-陀螺仪"><a href="#14-陀螺仪" class="headerlink" title="14-陀螺仪"></a>14-陀螺仪</h3><ul>
+<li>陀螺仪，也就是设备的方向，又名重力感应，该API在IOS设备上失效的解决办法，将域名协议改成https；<br><img src="https://user-gold-cdn.xitu.io/2019/8/23/16cbca7f5b38b499?imageslim" alt="alpha belta gamma"></li>
+<li><code>deviceorientation</code>事件,监听陀螺仪变化<br>  <code>event</code>中相关属性:  <code>alpha</code>,<code>belta</code>,<code>gamma</code></li>
+</ul>
+<h3 id="15-toDataURL"><a href="#15-toDataURL" class="headerlink" title="15-toDataURL"></a>15-toDataURL</h3><ul>
+<li><code>canvas.toDataURL()</code>将画布的内容转换成一个base64的图片地址<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">//封装下载跨域图片函数</span></span><br><span class="line">  <span class="keyword">const</span> downloadImage = <span class="function">(<span class="params">url, name</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 实例化画布</span></span><br><span class="line">  <span class="keyword">let</span> canvas = <span class="built_in">document</span>.createElement(<span class="string">"canvas"</span>);</span><br><span class="line">  <span class="keyword">let</span> context = canvas.getContext(<span class="string">"2d"</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 实例化一个图片对象</span></span><br><span class="line">  <span class="keyword">let</span> image = <span class="keyword">new</span> Image();</span><br><span class="line">  image.crossOrigin = <span class="string">"Anonymous"</span>;</span><br><span class="line">  image.src = url;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 当图片加载完毕</span></span><br><span class="line">  image.onload = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 将图片画在画布上</span></span><br><span class="line">    canvas.height = image.height;</span><br><span class="line">    canvas.width = image.width;</span><br><span class="line">    context.drawImage(image, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将画布的内容转换成base64地址</span></span><br><span class="line">    <span class="keyword">let</span> dataURL = canvas.toDataURL(<span class="string">"image/png"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建a标签模拟点击进行下载</span></span><br><span class="line">    <span class="keyword">let</span> a = <span class="built_in">document</span>.createElement(<span class="string">"a"</span>);</span><br><span class="line">    a.hidden = <span class="literal">true</span>;</span><br><span class="line">    a.href = dataURL;</span><br><span class="line">    a.download = name;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(a);</span><br><span class="line">    a.click();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="16-customEvent"><a href="#16-customEvent" class="headerlink" title="16-customEvent"></a>16-customEvent</h3><ul>
+<li>自定义事件,就跟vue里面的on跟emit一样</li>
+<li><code>new CustomEvent(type, customEventInit?)</code><pre><code>`customEventInit`: 一个字典类型参数，有以下字段
+    `detail`  通过`e.detail`访问
+    `bubbles`表示事件能否冒泡(`chrome`默认不冒泡)
+    `cancelable` 一个布尔值，表示该事件是否可以取消</code></pre><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 注册自定义事件,并返回事件对象</span></span><br><span class="line">      <span class="keyword">var</span> event = <span class="keyword">new</span> CustomEvent(<span class="string">"jump"</span>, &#123;</span><br><span class="line">          detail: &#123;</span><br><span class="line">              height: <span class="number">100</span></span><br><span class="line">          &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">      </span><br><span class="line"><span class="comment">// 2. 为事件添加回调函数</span></span><br><span class="line">inner.addEventListener(<span class="string">"jump"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">          <span class="built_in">console</span>.log(e.detail);</span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line">      btn.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">       <span class="comment">// 3. 派发事件</span></span><br><span class="line">          inner.dispatchEvent(event);</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="17-notification"><a href="#17-notification" class="headerlink" title="17-notification"></a>17-notification</h3><ul>
+<li>PC端的桌面通知，如网页端的微信，当收到消息时，右下角会出现一个通知（尽管你把浏览器最小化），因为这个通知时独立于浏览器的，是系统的一个原生控件；</li>
+<li><code>new Notification(title [, options])</code><br>  <code>title</code>:通知标题<br>  <code>options</code><pre><code>`dir`文字的方向,`auto`,`ltr``rtl`
+`lang` 
+`body` 通知中显示的额外字符串
+`tag` 赋予通知一个ID,以便在必要的时候对通知进行刷新、替换或移除。
+`icon` 显示通知的图标</code></pre><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">notifyMe</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 先检查浏览器是否支持</span></span><br><span class="line">    <span class="keyword">if</span> (!(<span class="string">"Notification"</span> <span class="keyword">in</span> <span class="built_in">window</span>)) &#123;</span><br><span class="line">        alert(<span class="string">"This browser does not support desktop notification"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 检查用户是否同意接受通知</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (Notification.permission === <span class="string">"granted"</span>) &#123;</span><br><span class="line">        <span class="comment">// If it's okay let's create a notification</span></span><br><span class="line">        <span class="keyword">var</span> notification = <span class="keyword">new</span> Notification(<span class="string">"Hi there!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 否则我们需要向用户获取权限</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (Notification.permission !== <span class="string">'denied'</span>) &#123;</span><br><span class="line">        Notification.requestPermission(<span class="function"><span class="keyword">function</span>(<span class="params">permission</span>) </span>&#123;</span><br><span class="line">            <span class="comment">// 如果用户同意，就可以向他们发送通知</span></span><br><span class="line">            <span class="keyword">if</span> (permission === <span class="string">"granted"</span>) &#123;</span><br><span class="line">                <span class="keyword">var</span> notification = <span class="keyword">new</span> Notification(<span class="string">"Hi there!"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="18-fullScreen"><a href="#18-fullScreen" class="headerlink" title="18-fullScreen"></a>18-fullScreen</h3><ul>
+<li><p>开启全屏</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> launchFullScreen = <span class="function">(<span class="params">elem = <span class="built_in">document</span>.documentElement</span>) =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">if</span> (elem.requestFullScreen) &#123;</span><br><span class="line">              elem.requestFullScreen();</span><br><span class="line">          &#125; <span class="keyword">else</span> <span class="keyword">if</span> (elem.mozRequestFullScreen) &#123;</span><br><span class="line">              elem.mozRequestFullScreen();</span><br><span class="line">          &#125; <span class="keyword">else</span> <span class="keyword">if</span> (elem.webkitRequestFullScreen) &#123;</span><br><span class="line">              elem.webkitRequestFullScreen();</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关闭全屏的时候需注意,统一用document对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">const exitFullScreen = () =&gt; &#123;</span><br><span class="line">  if (document.exitFullscreen) &#123;</span><br><span class="line">    document.exitFullscreen();</span><br><span class="line">  &#125; else if (document.mozCancelFullScreen) &#123;</span><br><span class="line">    document.mozCancelFullScreen();</span><br><span class="line">  &#125; else if (document.webkitCancelFullScreen) &#123;</span><br><span class="line">    document.webkitCancelFullScreen();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="19-orientaton"><a href="#19-orientaton" class="headerlink" title="19-orientaton"></a>19-orientaton</h3><ul>
+<li><code>orientationchange</code> 监听用户手机设备的旋转方向变化</li>
+</ul>
+<h3 id="20-blob"><a href="#20-blob" class="headerlink" title="20-blob"></a>20-blob</h3><p><a href="https://juejin.im/post/59e35d0e6fb9a045030f1f35" target="_blank" rel="noopener">Blob</a></p>
+<ul>
+<li>Binary Large Object的缩写，代表二进制类型的大对象。</li>
+<li>表示一个不可变、原始数据的类文件对象</li>
+<li>在一般的Web开发中，很少会用到Blob，但Blob可以满足一些场景下的特殊需求。</li>
+<li>通过构造函数创建<code>Blob</code>对象<pre><code>`Blob(blobParts[, options])`
+    `blobParts`：数组类型，数组中的每一项连接起来构成Blob对象的数据，数组中的每项元素可以是ArrayBuffer, ArrayBufferView, Blob, DOMString 。
+    `options`：可选项，字典格式类型，可以指定如下两个属性：
+            `type`，默认值 `&quot;&quot;`，代表了将会被放入到`blob`中的数组内容的`MIME`类型。
+            `endings`，默认值`&quot;transparent&quot;`，用于指定包含行结束符\n的字符串如何被写入。 
+                 `native`，表示行结束符会被更改为适合宿主操作系统文件系统的换行符； 
+                 `transparent`，表示会保持blob中保存的结束符不变。</code></pre></li>
+</ul>
+<h4 id="Blob对象属性"><a href="#Blob对象属性" class="headerlink" title="Blob对象属性"></a>Blob对象属性</h4><ul>
+<li><code>size</code>代表<code>Blob</code> 对象中所包含数据的字节数。<pre><code>使用对象创建`blob`时,会调用对象的`toString()`方法</code></pre></li>
+</ul>
+<h4 id="Blob对象方法"><a href="#Blob对象方法" class="headerlink" title="Blob对象方法"></a>Blob对象方法</h4><ul>
+<li><code>slice([start[, end[, contentType]]])</code> 返回一个新的<code>blob</code>对象<pre><code>`start`: 第一个会被会被拷贝进新的 Blob 的字节的起始位置。可传负
+`end`
+`contentType`： 给新的 Blob 赋予一个新的文档类型。这将会把它的 `type` 属性设为被传入的值。它的默认值是一个空的字符串。</code></pre></li>
+</ul>
+<h4 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h4><ul>
+<li><p>分片上传</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">uploadFile</span>(<span class="params">file</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> chunkSize = <span class="number">1024</span> * <span class="number">1024</span>;   <span class="comment">// 每片大小</span></span><br><span class="line">  <span class="keyword">var</span> totalSize = file.size;</span><br><span class="line">  <span class="keyword">var</span> chunkQuantity = <span class="built_in">Math</span>.ceil(totalSize/chunkSize);  <span class="comment">//分片总数</span></span><br><span class="line">  <span class="keyword">var</span> offset = <span class="number">0</span>;  <span class="comment">// 偏移量</span></span><br><span class="line">  </span><br><span class="line">  <span class="keyword">var</span> reader = <span class="keyword">new</span> FileReader();</span><br><span class="line">  reader.onload = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">    xhr.open(<span class="string">"POST"</span>,<span class="string">"http://xxxx/upload?fileName="</span>+file.name);</span><br><span class="line">    xhr.overrideMimeType(<span class="string">"application/octet-stream"</span>);</span><br><span class="line">    </span><br><span class="line">    xhr.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(xhr.readyState === XMLHttpRequest.DONE &amp;&amp; xhr.status === <span class="number">200</span>) &#123;</span><br><span class="line">        ++offset;</span><br><span class="line">        <span class="keyword">if</span>(offset === chunkQuantity) &#123;</span><br><span class="line">          alert(<span class="string">"上传完成"</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(offset === chunkQuantity<span class="number">-1</span>)&#123;</span><br><span class="line">          blob = file.slice(offset*chunkSize, totalSize);   <span class="comment">// 上传最后一片</span></span><br><span class="line">          reader.readAsBinaryString(blob);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          blob = file.slice(offset*chunkSize, (offset+<span class="number">1</span>)*chunkSize); </span><br><span class="line">          reader.readAsBinaryString(blob);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        alert(<span class="string">"上传出错"</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(xhr.sendAsBinary) &#123;</span><br><span class="line">      xhr.sendAsBinary(e.target.result);   <span class="comment">// e.target.result是此次读取的分片二进制数据</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      xhr.send(e.target.result);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">   <span class="keyword">var</span> blob = file.slice(<span class="number">0</span>, chunkSize);</span><br><span class="line">   reader.readAsBinaryString(blob);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="https://juejin.im/post/5d5df391e51d453b1e478ad0" target="_blank" rel="noopener">参考链接</a></p>
+</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2019/08/17/js/基础/09_拖拽/" class="prev">PREV</a><a href="/2019/08/15/js/基础/07_数据存储技术/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2019/08/16/js/基础/08_Web API/';
+var disqus_title = '';
+var disqus_url = 'https://turing5467.github.io/2019/08/16/js/基础/08_Web API/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

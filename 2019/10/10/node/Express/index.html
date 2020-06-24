@@ -6,48 +6,130 @@
 </blockquote>
 </li>
 </ul>
+<h3 id="快速搭建-express"><a href="#快速搭建-express" class="headerlink" title="快速搭建 express"></a>快速搭建 express</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 全局安装express脚手架</span></span><br><span class="line">npm install -g express-generator@4</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建项目</span></span><br><span class="line">express /tmp/foo &amp;&amp; <span class="built_in">cd</span> /tmp/foo</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装依赖</span></span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启服务</span></span><br><span class="line">npm start</span><br></pre></td></tr></table></figure>
+
 <h3 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h3><ul>
 <li><p>三个重要の匹配路由方法</p>
 <ol>
-<li><p><code>app.use()</code> 不限定请求方式，路径模糊匹配</p>
+<li><p><code>app.use()</code> 不限定请求方式，路径<strong>模糊匹配</strong></p>
 </li>
-<li><p><code>app.Method()</code> 只能是特定请求，路径严格匹配</p>
+<li><p><code>app.Method()</code> 只能是特定请求，路径<strong>严格匹配</strong></p>
 </li>
-<li><p><code>app.all()</code> 不限定请求方式，但是路径要求严格匹配</p>
+<li><p><code>app.all()</code> 不限定请求方式，但是路径要求<strong>严格匹配</strong></p>
 <p>这3个方法参数都可以是<code>path, callback [, callback ...]</code></p>
 </li>
 </ol>
-<ul>
-<li><p>路由分类</p>
-<ul>
+</li>
+</ul>
+<h4 id="get-post传值"><a href="#get-post传值" class="headerlink" title="get/post传值"></a>get/post传值</h4><ul>
+<li><code>get</code>:<code>req.query</code></li>
+<li><code>post</code>:<code>req.body</code></li>
+</ul>
+<h4 id="路由分类"><a href="#路由分类" class="headerlink" title="路由分类"></a>路由分类</h4><ul>
 <li><p>字符串类型</p>
 </li>
 <li><p>字符串模式类型</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># * 匹配任意字符</span><br><span class="line"># ? 匹配一个或0个</span><br><span class="line"># + 匹配1个及以上</span><br><span class="line"># () 表示一串字符</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># * 匹配0或n个字符</span><br><span class="line"># ? 匹配一个或0个</span><br><span class="line"># + 匹配1个及以上</span><br><span class="line"># () 表示一串字符  a(bc)?d&apos; =&gt; ad / abcd</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>正则表达式类型</p>
 </li>
-<li><p>参数类型<code>/path/:uid</code> 可通过<code>req.params</code>获取</p>
-</li>
-</ul>
+<li><p>参数类型<code>/:uid</code> 可通过<code>req.params</code>获取</p>
 </li>
 </ul>
 <blockquote>
 <p> 当一个路径有多个匹配规则时，使用<code>app.use()</code>，否则使用相应的<code>app.Method()</code></p>
 </blockquote>
+<h4 id="路由拆分"><a href="#路由拆分" class="headerlink" title="路由拆分"></a>路由拆分</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">router.get(<span class="string">'/list'</span>, () =&gt; &#123;&#125;);</span><br><span class="line"></span><br><span class="line">router.get(<span class="string">'/detail'</span>, () =&gt; &#123;&#125;);</span><br><span class="line"></span><br><span class="line">app.use(<span class="string">'/user'</span>, router);</span><br></pre></td></tr></table></figure>
+
+<h4 id="静态资源文件托管"><a href="#静态资源文件托管" class="headerlink" title="静态资源文件托管"></a>静态资源文件托管</h4><ul>
+<li><p><code>express.static(root, options)</code>负责托管 Express 应用内的静态资源</p>
 </li>
-<li><p>路由拆分</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">router.get(<span class="string">'/list'</span>, () =&gt; &#123;&#125;);</span><br><span class="line"></span><br><span class="line">router.get(<span class="string">'/detail'</span>, () =&gt; &#123;&#125;);</span><br><span class="line"></span><br><span class="line">app.use(<span class="string">'/user'</span>, router);</span><br></pre></td></tr></table></figure>
+<li><p><code>app.use(express.static(&#39;public&#39;))</code> 给public目录下的文件提供<strong>静态web服务</strong></p>
 </li>
-<li><p>静态资源文件托管</p>
+<li><p>如果传入第一个参数，可实现配置<strong>虚拟目录</strong>(实际不存在该目录)</p>
+</li>
+<li><p>两种方式可同时存在，且均可以有多个</p>
+</li>
+</ul>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">app.use(express.static(<span class="string">'public'</span>));</span><br><span class="line"><span class="comment">//浏览器中便可通过127.0.0.1：3000/a.css访问/public/a.css</span></span><br><span class="line"></span><br><span class="line">app.use(<span class="string">'static'</span>,express.static(<span class="string">'public'</span>));</span><br><span class="line"><span class="comment">//浏览器中便可通过127.0.0.1：3000/static/a.css 访问 /public/a.css</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>跨域配置</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//放在匹配路由的最前面</span></span><br><span class="line">app.all(<span class="string">'*'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">    res.header(<span class="string">"Access-Control-Allow-Origin"</span>, <span class="string">"*"</span>);</span><br><span class="line">    res.header(<span class="string">"Access-Control-Allow-Headers"</span>, <span class="string">"Content-Type,Content-Length, Authorization, Accept,X-Requested-With"</span>);</span><br><span class="line">    res.header(<span class="string">"Access-Control-Allow-Methods"</span>,<span class="string">"PUT,POST,GET,DELETE,OPTIONS"</span>);</span><br><span class="line">    res.header(<span class="string">"X-Powered-By"</span>,<span class="string">' 3.2.1'</span>)</span><br><span class="line">    <span class="keyword">if</span>(req.method==<span class="string">"OPTIONS"</span>) &#123;</span><br><span class="line">      res.send(<span class="number">200</span>);<span class="comment">/*让options请求快速返回*/</span></span><br><span class="line">    &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">      next();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="跨域配置"><a href="#跨域配置" class="headerlink" title="跨域配置"></a>跨域配置</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//放在匹配路由的最前面</span></span><br><span class="line">app.all(<span class="string">'*'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">    res.header(<span class="string">"Access-Control-Allow-Origin"</span>, <span class="string">"*"</span>);</span><br><span class="line">    res.header(<span class="string">"Access-Control-Allow-Headers"</span>, <span class="string">"Content-Type,Content-Length, Authorization, Accept,X-Requested-With"</span>);</span><br><span class="line">    res.header(<span class="string">"Access-Control-Allow-Methods"</span>,<span class="string">"PUT,POST,GET,DELETE,OPTIONS"</span>);</span><br><span class="line">    res.header(<span class="string">"X-Powered-By"</span>,<span class="string">' 3.2.1'</span>)</span><br><span class="line">    <span class="keyword">if</span>(req.method==<span class="string">"OPTIONS"</span>) &#123;</span><br><span class="line">      res.send(<span class="number">200</span>);<span class="comment">/*让options请求快速返回*/</span></span><br><span class="line">    &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">      next();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h3><ul>
+<li>中间件是一个函数，能够调用一个名为 <code>next()</code> 的函数，来传递请求和响应对象。</li>
+<li>中间件就是匹配路由<strong>之前</strong>和匹配路由<strong>之后</strong>做的一系列的操作</li>
+</ul>
+<h4 id="应用级中间件"><a href="#应用级中间件" class="headerlink" title="应用级中间件"></a>应用级中间件</h4><ul>
+<li>将应用级别的中间件绑定到Express实例–app上，使用<code>app.use()</code>和<code>app.METHOD</code>（get、post等）<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">app.get(&apos;/user/:id&apos;, function(req, res, next) &#123;</span><br><span class="line"></span><br><span class="line">    if (req.params.id === &apos;0&apos;) &#123;</span><br><span class="line">        //执行下一个匹配路由的回调函数(参数必须时&apos;route&apos;)</span><br><span class="line">        next(&apos;route&apos;);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        //当存在第三个参数(一个回调函数)时，将执行该回调函数</span><br><span class="line">        next()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;, function(req, res, next) &#123;</span><br><span class="line"></span><br><span class="line">    res.send(&apos;regular&apos;) //123</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.get(&apos;/user/:id&apos;, function(req, res, next) &#123;</span><br><span class="line"></span><br><span class="line">    res.send(&apos;special&apos;) //0</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
-<h3 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h3><h3 id="快速搭建-express"><a href="#快速搭建-express" class="headerlink" title="快速搭建 express"></a>快速搭建 express</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 全局安装express脚手架</span></span><br><span class="line">npm install -g express-generator@4</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建项目</span></span><br><span class="line">express 项目目录 &amp;&amp; <span class="built_in">cd</span> 项目目录</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装依赖</span></span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启服务</span></span><br><span class="line">npm start</span><br></pre></td></tr></table></figure></div></article></div></main><footer><div class="paginator"><a href="/2019/10/13/工程化/webpack/" class="prev">PREV</a><a href="/2019/10/09/node/Nodejs的eventLoop/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+<blockquote>
+<p>tips: 从一个路由到另一个路由（另一个路由<code>app.METHOD</code>定义的），使用<code>next(&#39;route&#39;)</code></p>
+</blockquote>
+<ul>
+<li>任意匹配放在最后时，表示所有路由均未匹配到时，可以响应错误<br><code>res.status(404).send(&#39;路由未匹配到&#39;)  //指定状态码及相应信息</code></li>
+</ul>
+<h4 id="路由级中间件"><a href="#路由级中间件" class="headerlink" title="路由级中间件"></a>路由级中间件</h4><ul>
+<li>同应用级别的中间件用法相同，不同之处的是它是绑定在<code>router</code>实例(<code>express.Router()</code>)上<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">router.get(&apos;/tr/:uid&apos;, (req, res, next) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    if (req.params.uid == 0) &#123;</span><br><span class="line">        next();</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        res.send(&apos;regular&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;).get(&apos;/tr/:uid&apos;, (req, res, next) =&gt; &#123;</span><br><span class="line">    res.send(&apos;special&apos;)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.use(&apos;/&apos;, router);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<blockquote>
+<p>tips: 同样也可以使用<code>next(&#39;route&#39;)</code> 从一个路由到另一个路由（另一个路由使用<code>router.METHOD</code>定义的）</p>
+</blockquote>
+<h4 id="错误处理中间件"><a href="#错误处理中间件" class="headerlink" title="错误处理中间件"></a>错误处理中间件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//错误处理中间件函数</span><br><span class="line">//若未显式定义错误处理函数，则函数集的末尾有express隐式包含的默认错误处理程序。</span><br><span class="line">app.use((req, res, next) =&gt; &#123;</span><br><span class="line">	//next() 传入的参数除&apos;route&apos;外，其他会认为出错，交由错误处理函数处理。</span><br><span class="line">    next(&apos;test&apos;);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.use((err, req, res, next) =&gt; &#123;</span><br><span class="line">    console.error(err)</span><br><span class="line">    res.status(500).send(&apos;something broke&apos;);</span><br><span class="line">&#125;).listen(3000)</span><br></pre></td></tr></table></figure>
+
+<h4 id="内置中间件"><a href="#内置中间件" class="headerlink" title="内置中间件"></a>内置中间件</h4><ol>
+<li><code>express.static()</code>托管静态文件</li>
+<li><code>express.json()</code>、 将获取前端的请求信息转化为json格式</li>
+<li><code>express.urlencoded({extended: false})</code> 处理转码问题</li>
+</ol>
+<h5 id="5-第三方中间件"><a href="#5-第三方中间件" class="headerlink" title="5-第三方中间件"></a>5-第三方中间件</h5><ul>
+<li>cookie 、session 、获取post提交数据等<br><a href="http://expressjs.com/en/resources/middleware.html" target="_blank" rel="noopener">express中间件</a></li>
+</ul>
+<h5 id="body-parser"><a href="#body-parser" class="headerlink" title="body-parser"></a>body-parser</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//1.安装</span><br><span class="line">//2.引入</span><br><span class="line">//3.配置</span><br><span class="line">app.use(bodyParser.urlencoded(&#123; extended: false &#125;));</span><br><span class="line">app.use(bodyParser.json());</span><br><span class="line">//然后通过post请求的回调函数中的req.body获取post提交的数据</span><br></pre></td></tr></table></figure>
+
+<h5 id="cookie-parser"><a href="#cookie-parser" class="headerlink" title="cookie-parser"></a>cookie-parser</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//1. 安装</span><br><span class="line">//2. 引入</span><br><span class="line">//3. 配置</span><br><span class="line">app.use(cookieParser())</span><br><span class="line">//4. 设置cookie(第三个参数为配置信息)</span><br><span class="line">res.cookie(&apos;name&apos;,&quot;turing5467&quot;，&#123;maxAge: 10&#125;)</span><br><span class="line">//获取</span><br><span class="line">req.cookies.name</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第三个参数可以包含的属性<br>  <code>domain</code>  配置为<code>.aaa.com</code>则可实现多个二级域名共享cookie<br>  <code>expires / maxAge</code><br>   <code>path</code> 没设置时，表示所有路由共享，设置时，指定路由才具有cookie值<br>  <code>httpOnly</code>如果设置了该属性为true，则无法通过<code>js</code>脚本、applet获取cookie信息，防止css攻击，只有在服务端才可以拿到cookie<br>  <code>signed</code> 是否对cookie签名(加密)</li>
+<li>加密cookie<ol>
+<li>设置中间件时需要传参(随机字符串)<code>app.use(cookieParser(&#39;5467&#39;))</code></li>
+<li>配置<code>signed</code>属性为<code>true</code></li>
+<li><code>req.signedCookies</code>调用获取</li>
+</ol>
+</li>
+</ul>
+<h5 id="express-session"><a href="#express-session" class="headerlink" title="express-session"></a>express-session</h5><ol>
+<li><p>下载</p>
+</li>
+<li><p>引入</p>
+</li>
+<li><p>配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//配置中间件</span><br><span class="line">app.use(session(&#123;</span><br><span class="line">    secret: &apos;keyboard cat&apos;,  //加密字符串，作为服务端生成session的签名</span><br><span class="line">    //name: 保存在本地cookie的名字，将返回给客户端的key名称，默认为connect.sid，可自己设置</span><br><span class="line">    resave: false,  //true表示强制保存session即使它没有发生变化</span><br><span class="line">    saveUninitialized: true,  强制将未初始化的Session存储</span><br><span class="line">    // cookie: &#123; secure: true &#125; //设置返回到前端key的属性</span><br><span class="line">    //rolling: true:每次请求时强行设置cookie，这回重置过期时间(默认false)</span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置 <code>req.session.xx = xx;   //注: 这里是req</code></p>
+</li>
+<li><p>访问 <code>req.session.xx</code></p>
+</li>
+<li><p>销毁session <code>req.session.destroy((err) =&gt; {})</code></p>
+</li>
+<li><p>重新设置过期时间<code>req.session.cookie.maxAge = 0;  //也可用于销毁session</code></p>
+</li>
+</ol>
+<h5 id="负载均衡session"><a href="#负载均衡session" class="headerlink" title="负载均衡session"></a>负载均衡session</h5><ol>
+<li><p>安装<code>express-session</code>和<code>connect-mongo</code>模块</p>
+</li>
+<li><p>引入<code>const mongoStore = require(&#39;connect-mongo&#39;)(session)</code></p>
+</li>
+<li><p>设置中间件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">app.use(session(&#123;</span><br><span class="line">    secret: &apos;keyboard cat&apos;,</span><br><span class="line">    resave: false,</span><br><span class="line">    saveUninitialized: true,</span><br><span class="line">    //存储session的mongo数据库</span><br><span class="line">    store: new MongoStore(&#123;</span><br><span class="line">        url: &apos;mongodb://127.0.0.1:27017/stus&apos;,</span><br><span class="line">        touchAfter: 24 * 3600 //设置多久更新一次(除非内容发生更改)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>session值会被保存到指定数据库的sessions集合中</p>
+</li>
+</ol>
+<h3 id="快速搭建-express-1"><a href="#快速搭建-express-1" class="headerlink" title="快速搭建 express"></a>快速搭建 express</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 全局安装express脚手架</span></span><br><span class="line">npm install -g express-generator@4</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建项目</span></span><br><span class="line">express 项目目录 &amp;&amp; <span class="built_in">cd</span> 项目目录</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装依赖</span></span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启服务</span></span><br><span class="line">npm start</span><br></pre></td></tr></table></figure></div></article></div></main><footer><div class="paginator"><a href="/2019/10/13/工程化/webpack/" class="prev">PREV</a><a href="/2019/10/09/node/Nodejs的eventLoop/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
 var disqus_identifier = '2019/10/10/node/Express/';
 var disqus_title = 'Express框架';
 var disqus_url = 'https://turing5467.github.io/2019/10/10/node/Express/';

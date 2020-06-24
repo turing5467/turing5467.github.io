@@ -1,0 +1,79 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>  · 快乐的图小灵</title><meta name="description" content=" - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title"></h1><div class="post-info">Jun 11, 2020</div><div class="post-content"><p><a href="https://juejin.im/post/5eb55ceb6fb9a0436748297d" target="_blank" rel="noopener">原文</a></p>
+<h3 id="1-DIV-CSS布局的好处"><a href="#1-DIV-CSS布局的好处" class="headerlink" title="1. DIV+CSS布局的好处"></a>1. DIV+CSS布局的好处</h3><ol>
+<li>代码精简，且结构与样式分离，易于维护</li>
+<li>代码量减少了，减少了大量的带宽，页面加载更快，提升用户的体验</li>
+<li>对SEO更加友好，且H5又新增了许多语义化标签更是如此</li>
+<li>允许更多炫酷的页面效果，丰富了页面</li>
+<li>符合W3C标准，保证网站不会因为网络应用的升级而被淘汰</li>
+</ol>
+<p>缺点: 不同浏览器对web标准默认值不同，所以更容易出现对浏览器的兼容性问题。</p>
+<h3 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h3><p> <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank" rel="noopener"><code>Promise</code></a> 是一个对象，它代表了一个异步操作的最终完成或者失败。由于它的<code>then</code>方法和<code>catch、finally</code>方法会返回一个新的<code>Promise</code>所以可以允许我们链式调用，解决了传统的回调地狱问题。 </p>
+<h3 id="Promise-all中如果有一个抛出异常了会如何处理"><a href="#Promise-all中如果有一个抛出异常了会如何处理" class="headerlink" title="Promise.all中如果有一个抛出异常了会如何处理"></a>Promise.all中如果有一个抛出异常了会如何处理</h3><p><code>all和race</code>传入的数组中如果有会抛出异常的异步任务，那么只有<strong>最先抛出的错误</strong>会被捕获，并且是被<code>then</code>的第二个参数或者后面的<code>catch</code>捕获；但并<strong>不会影响</strong>数组中其它的异步任务的执行。</p>
+<h3 id="创建自定义事件的3种"><a href="#创建自定义事件的3种" class="headerlink" title="创建自定义事件的3种"></a>创建自定义事件的3种</h3><ol>
+<li><p><code>Event</code></p>
+</li>
+<li><p><code>CustomEvent</code>可以传递参数</p>
+</li>
+<li><p><code>document.createEvent(type)</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建事件</span></span><br><span class="line"><span class="keyword">var</span> event = <span class="built_in">document</span>.createEvent(<span class="string">'Event'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义事件名为'build'.</span></span><br><span class="line">event.initEvent(<span class="string">'build'</span>, <span class="literal">true</span>, <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 监听事件</span></span><br><span class="line">elem.addEventListener(<span class="string">'build'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// e.target matches elem</span></span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 触发对象可以是任何元素或其他事件目标</span></span><br><span class="line">elem.dispatchEvent(event);</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<h3 id="所有的事件都有冒泡吗"><a href="#所有的事件都有冒泡吗" class="headerlink" title="所有的事件都有冒泡吗"></a>所有的事件都有冒泡吗</h3><p><img src="C:%5CUsers%5CAdministrator%5CDesktop%5Ctr%5CimgURL%5C%E5%86%92%E6%B3%A1.jpg" alt></p>
+<h3 id="一句话描述一下this"><a href="#一句话描述一下this" class="headerlink" title="一句话描述一下this"></a>一句话描述一下this</h3><p>指向最后调用函数的那个对象，是函数运行时内部自动生成的一个内部对象，只能在函数内部使用</p>
+<h3 id="CommonJS和ES6模块的区别"><a href="#CommonJS和ES6模块的区别" class="headerlink" title="CommonJS和ES6模块的区别"></a><a href="https://juejin.im/post/5eaacd175188256d4345ea3a" target="_blank" rel="noopener">CommonJS和ES6模块的区别</a></h3><ul>
+<li>CommonJS模块是运行时加载，ES6 Modules是编译时输出接口</li>
+<li>CommonJS输出是值的拷贝；ES6 Modules输出的是值的引用，被输出模块的内部的改变会影响引用的改变</li>
+<li>CommonJs导入的模块路径可以是一个表达式，因为它使用的是<code>require()</code>方法；而ES6 Modules只能是字符串</li>
+<li>CommonJS <code>this</code>指向当前模块，ES6 Modules <code>this</code>指向<code>undefined</code></li>
+<li>且ES6 Modules中没有这些顶层变量：<code>arguments</code>、<code>require</code>、<code>module</code>、<code>exports</code>、<code>__filename</code>、<code>__dirname</code></li>
+</ul>
+<p>关于第一个差异，是因为CommonJS 加载的是一个对象（即<code>module.exports</code>属性），该对象只有在脚本运行完才会生成。而 ES6 模块不是对象，它的对外接口只是一种静态定义，在代码静态解析阶段就会生成。</p>
+<blockquote>
+<p>模块的异步加载可以使用AMD或CMD规范</p>
+</blockquote>
+<h3 id="webpack中如何处理图片"><a href="#webpack中如何处理图片" class="headerlink" title="webpack中如何处理图片"></a>webpack中如何处理图片</h3><p>在<code>webpack</code>中有两种处理图片的<code>loader</code>：</p>
+<ul>
+<li><code>file-loader</code>：解决<code>CSS</code>等中引入图片的路径问题；(解决通过<code>url</code>,<code>import/require()</code>等引入图片的问题)</li>
+<li><code>url-loader</code>：当图片小于设置的<code>limit</code>参数值时，<code>url-loader</code>将图片进行<code>base64</code>编码(当项目中有很多图片，通过<code>url-loader</code>进行<code>base64</code>编码后会减少<code>http</code>请求数量，提高性能)，大于limit参数值，则使用<code>file-loader</code>拷贝图片并输出到编译目录中；</li>
+</ul>
+<p>（详细使用可以查看这里：<a href="https://github.com/LinDaiDai/niubility-coding-js/blob/master/前端工程化/webpack/霖呆呆的webpack之路-loader篇.md#file-loader" target="_blank" rel="noopener">霖呆呆的webpack之路-loader篇</a>）</p>
+<h3 id="在移动端中怎样初始化根元素的字体大小"><a href="#在移动端中怎样初始化根元素的字体大小" class="headerlink" title="在移动端中怎样初始化根元素的字体大小"></a>在移动端中怎样初始化根元素的字体大小</h3><p>一个简易版的初始化根元素字体大小。</p>
+<p>页面开头处引入下面这段代码，用于动态计算<code>font-size</code>：(假设你需要的<code>1rem = 20px</code>)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> html = <span class="built_in">document</span>.documentElement;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">onWindowResize</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  	<span class="comment">//获取html的宽度(窗口的宽度)</span></span><br><span class="line">    html.style.fontSize = html.getBoundingClientRect().width / <span class="number">20</span> + <span class="string">'px'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">window</span>.addEventListener(<span class="string">'resize'</span>, onWindowResize);</span><br><span class="line">  onWindowResize();</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+<p>一般还需要配合一个<code>meta</code>头：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta name=<span class="string">"viewport"</span> content=<span class="string">"width=device-width, initial-scale=1.0, minimum-sacle=1.0, maximum-scale=1.0, user-scalable=no"</span> /&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="animation有一个steps-功能符知道吗？"><a href="#animation有一个steps-功能符知道吗？" class="headerlink" title="animation有一个steps()功能符知道吗？"></a>animation有一个steps()功能符知道吗？</h3><p>一句话介绍：<code>steps()</code>功能符可以<strong>让动画不连续。</strong></p>
+<p>地位和作用：和贝塞尔曲线(<code>cubic-bezier()</code>修饰符)一样，都可以作为<code>animation</code>的第三个属性值。</p>
+<p>和贝塞尔曲线的区别：贝塞尔曲线像是滑梯且有4个关键字(参数)，而<code>steps</code>像是楼梯坡道且只有<code>number</code>和<code>position</code>两个关键字。</p>
+<p>语法：<code>steps(number, position)</code></p>
+<ul>
+<li><p>number: 数值，表示把动画分成了多少段</p>
+</li>
+<li><p>position: 表示动画是从时间段的开头连续还是末尾连续。支持<code>start</code>和<code>and</code></p>
+<p>两个关键字，含义分别如下： </p>
+<ul>
+<li><code>start</code>：表示直接开始。</li>
+<li><code>end</code>：表示戛然而止。是默认值。</li>
+</ul>
+</li>
+</ul>
+<p>具体可以看这里：<a href="https://www.zhangxinxu.com/wordpress/2018/06/css3-animation-steps-step-start-end/" target="_blank" rel="noopener">www.zhangxinxu.com/wordpress/2…</a></p>
+<h3 id="在项目中如何把http的请求换成https"><a href="#在项目中如何把http的请求换成https" class="headerlink" title="在项目中如何把http的请求换成https"></a>在项目中如何把http的请求换成https</h3><p>由于我在项目中是会对<code>axios</code>做一层封装，所以每次请求的域名也是写在配置文件中，有一个<code>baseURL</code>字段专门用于存储它，所以只要改这个字段就可以达到替换所有请求<code>http</code>为<code>https</code>了。</p>
+<p>当然后面我也有了解到：</p>
+<p>利用<code>meta</code>标签把<code>http</code>请求换为<code>https</code>:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span> =<span class="string">"Content-Security-Policy"</span> <span class="attr">content</span>=<span class="string">"upgrade-insecure-requests"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+</div></article></div></main><footer><div class="paginator"><a href="/2020/06/12/其他/Web安全/" class="prev">PREV</a><a href="/2020/06/09/js框架/react/React-Hooks/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2020/06/11/面试/128/';
+var disqus_title = '';
+var disqus_url = 'https://turing5467.github.io/2020/06/11/面试/128/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> typeof与instanceof(2) · 快乐的图小灵</title><meta name="description" content="typeof与instanceof(2) - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">typeof与instanceof(2)</h1><div class="post-info">Aug 11, 2019</div><div class="post-content"><h2 id="typeof"><a href="#typeof" class="headerlink" title="typeof"></a>typeof</h2><table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>typeof 值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>string</td>
+<td>string</td>
+</tr>
+<tr>
+<td>number</td>
+<td>number</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td>null</td>
+<td><strong>object</strong></td>
+</tr>
+<tr>
+<td>undefined</td>
+<td>undefined</td>
+</tr>
+<tr>
+<td>function</td>
+<td>function</td>
+</tr>
+<tr>
+<td>symbol</td>
+<td>symbol</td>
+</tr>
+<tr>
+<td>其他</td>
+<td><strong>object</strong></td>
+</tr>
+</tbody></table>
+<h2 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h2><p>语法：<code>obj instanceof protoObj</code>判断<code>protoObj</code>的<code>prototype</code>属性是否存在于<code>obj</code>的<strong>原型链</strong>上。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">new_instance_of</span>(<span class="params">leftVaule, rightVaule</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> rightProto = rightVaule.prototype; <span class="comment">// 取右的 prototype 值</span></span><br><span class="line">    <span class="keyword">let</span> leftVaule = leftVaule.__proto__; <span class="comment">// 取左的__proto__值  </span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">////遍历leftValue原型链    </span></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;         </span><br><span class="line">        <span class="keyword">if</span> (leftVaule === <span class="literal">null</span>) &#123;      </span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;        </span><br><span class="line">        &#125;    </span><br><span class="line">        <span class="keyword">if</span> (leftVaule === rightProto) &#123;      </span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;    </span><br><span class="line">        &#125;    </span><br><span class="line">            </span><br><span class="line">        leftVaule = leftVaule.__proto__;  </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p> 补充：<code>protoObj.isPrototypeOf(obj)</code>   判断 <code>protoObj</code>是否在 <code>obj</code> 的<strong>原型链</strong>上</p>
+<p>附上偷来的一张图</p>
+</blockquote>
+<p><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1570883737041&di=400fa4637b8fa1f5d30743abe8e34f14&imgtype=0&src=http%3A%2F%2Faliyunzixunbucket.oss-cn-beijing.aliyuncs.com%2Fjpg%2F4ee7872d22485082f9ec232d6b7d3d7d.jpg%3Fx-oss-process%3Dimage%2Fresize%2Cp_100%2Fauto-orient%2C1%2Fquality%2Cq_90%2Fformat%2Cjpg%2Fwatermark%2Cimage_eXVuY2VzaGk%3D%2Ct_100" alt="原型链图"></p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><blockquote>
+<p>原型链详细介绍 文章地址：</p>
+</blockquote>
+</div></article></div></main><footer><div class="paginator"><a href="/2019/08/11/js/基础/03_原型链/" class="prev">PREV</a><a href="/2019/08/11/js/基础/01_js执行机制/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2019/08/11/js/基础/02_typeof_instanceof/';
+var disqus_title = 'typeof与instanceof(2)';
+var disqus_url = 'https://turing5467.github.io/2019/08/11/js/基础/02_typeof_instanceof/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

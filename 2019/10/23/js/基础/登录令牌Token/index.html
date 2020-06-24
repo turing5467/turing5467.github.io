@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Token · 快乐的图小灵</title><meta name="description" content="Token - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Token</h1><div class="post-info">Oct 23, 2019</div><div class="post-content"><h2 id="Token"><a href="#Token" class="headerlink" title="Token"></a>Token</h2><ul>
+<li><p>登录令牌.利用 token 值来判断用户的登录状态.类似于 MD5 加密之后的长字符串.</p>
+</li>
+<li><p>一般的 app ,token值的失效时间都在 1 年以上.</p>
+</li>
+<li><p>银行类 app /支付类 app : token值失效时间 15 分钟左右.</p>
+</li>
+<li><ul>
+<li>一旦用户信息改变(密码改变),会在服务器生成新的 token 值,原来的 token值就会失效.需要再次输入账号和密码,以得到生成的新的 token 值.</li>
+<li>唯一性判断: 每次登录,都会生成一个新的token值.原来的 token 值就会失效.利用时间来判断登录的差异性.</li>
+</ul>
+</li>
+</ul>
+<h3 id="Token过程"><a href="#Token过程" class="headerlink" title="Token过程"></a>Token过程</h3><p> <img src="https://user-gold-cdn.xitu.io/2019/6/13/16b4fb158d0b2254?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="Token"> </p>
+<ol>
+<li><p>用户通过用户名和密码发送请求</p>
+</li>
+<li><p>程序验证</p>
+</li>
+<li><p>程序返回一个签名的<strong>token</strong>给客户端</p>
+</li>
+<li><p>客户端储存token, 并且每次发送请求都带上token</p>
+</li>
+<li><p>服务端验证token并返回数据</p>
+<p>这个方式的技术其实很早就有很多实现了，而且还有现成的标准可用：JWT;</p>
+</li>
+</ol>
+<h3 id="JWT"><a href="#JWT" class="headerlink" title="JWT"></a>JWT</h3><p>JSON Web Tokens由dot（.）分隔的三个部分组成，它们是：</p>
+<ul>
+<li><p>Header（头部）：一个JSON对象</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "alg": "HS256", // 表示签名的算法，默认是 HMAC SHA256（写成 HS256）</span><br><span class="line">  "typ": "JWT"  // 表示Token的类型，JWT 令牌统一写为JWT</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Payload（负载）： 也是一个 JSON 对象，用来存放实际需要传递的数据 </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  // 7个官方字段</span><br><span class="line">  "iss": "a.com", // issuer：签发人</span><br><span class="line">  "exp": "1d", // expiration time： 过期时间</span><br><span class="line">  "sub": "test", // subject: 主题</span><br><span class="line">  "aud": "xxx", // audience： 受众</span><br><span class="line">  "nbf": "xxx", // Not Before：生效时间</span><br><span class="line">  "iat": "xxx", // Issued At： 签发时间</span><br><span class="line">  "jti": "1111", // JWT ID：编号</span><br><span class="line">  // 可以定义私有字段</span><br><span class="line">  "name": "John Doe",</span><br><span class="line">  "admin": true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Signature（签名）： 是对前两部分的签名，防止数据被篡改。 </p>
+<p> 首先，需要指定一个密钥(<code>secret</code>)（这个密钥只有服务器才知道，不能泄露给用户）。然后，使用<code>Header</code>里面指定的签名算法（默认是 HMAC SHA256），按照下面的公式产生签名。 </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HMACSHA256(base64UrlEncode(header) + <span class="string">"."</span> + base64UrlEncode(payload), secret)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>算出签名后，把 Header、Payload、Signature 三个部分拼成一个字符串，每个部分之间用”点”（.）分隔，就可以返回给用户。 </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JWT = Base64(Header) + <span class="string">"."</span> + Base64(Payload) + <span class="string">"."</span> + $Signature</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h4><p> 客户端收到服务器返回的 JWT，可以储存在 Cookie 里面（不能跨域），也可以储存在 localStorage。</p>
+<p>更好的做法是放在HTTP请求头信息Authorization字段里面 </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Authorization: Bearer &lt;token&gt;</span><br></pre></td></tr></table></figure>
+
+<p>另一种做法是， 跨域的时候 ， 放在POST请求的数据体里 。</p>
+<h2 id="登录验证案例"><a href="#登录验证案例" class="headerlink" title="登录验证案例"></a>登录验证案例</h2><ol>
+<li><p>第一次登录的时候，前端调后端的<strong>登陆</strong>接口，发送用户名和密码</p>
+</li>
+<li><p>后端收到请求，验证用户名和密码，<strong>验证</strong>成功，就给前端返回一个token</p>
+</li>
+<li><p>前端拿到token，将token<strong>存储</strong>到<code>localStorage</code>和<code>vuex</code>中，并跳转路由页面</p>
+</li>
+<li><p>前端每次跳转路由，就判断 localStroage 中有无 token ，没有就跳转到登录页面，有则跳转到对应路由页面：<code>beforeEach</code></p>
+</li>
+<li><p>每次调后端接口，都要在<strong>请求头</strong>中加<code>token</code></p>
+</li>
+<li><p>后端判断请求头中有无token</p>
+<ul>
+<li>有token，就拿到token并验证token，验证成功就返回数据</li>
+<li>验证失败或请求头中没有token也返回401</li>
+</ul>
+</li>
+<li><p>如果前端拿到状态码为401，就清除token信息并跳转到登录页面</p>
+</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//4</span></span><br><span class="line">router.beforeEach(<span class="function">(<span class="params">to,<span class="keyword">from</span>,next</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> isLogin = localStorage.token ? <span class="literal">true</span> : <span class="literal">false</span></span><br><span class="line">  <span class="keyword">if</span>(to.path === <span class="string">'/login'</span> || to.path === <span class="string">'/register'</span>) &#123;</span><br><span class="line">    next()</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    isLogin ? next() : next(<span class="string">'/login'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="加密"><a href="#加密" class="headerlink" title="加密"></a>加密</h2><h3 id="buffer"><a href="#buffer" class="headerlink" title="buffer"></a>buffer</h3><ul>
+<li>令牌：同于保存登录信息</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//加密</span></span><br><span class="line"><span class="keyword">const</span> info = &#123;</span><br><span class="line">    user:<span class="string">'tr'</span>,</span><br><span class="line">    pwd:<span class="string">'tr5467'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> token = Buffer.from(<span class="built_in">JSON</span>.stringify(info)).toString(<span class="string">'base64'</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//解密</span></span><br><span class="line"><span class="keyword">let</span> key = <span class="string">'fdgfsd'</span>;</span><br><span class="line"><span class="keyword">const</span> token = Buffer.from(key, <span class="string">'base64'</span>).toString(<span class="string">'utf8'</span>);	<span class="comment">//string类型</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="crypto"><a href="#crypto" class="headerlink" title="crypto"></a>crypto</h3></div></article></div></main><footer><div class="paginator"><a href="/2019/10/23/node/Node模块/" class="prev">PREV</a><a href="/2019/10/21/js框架/vue/Vue_5_Router/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2019/10/23/js/基础/登录令牌Token/';
+var disqus_title = 'Token';
+var disqus_url = 'https://turing5467.github.io/2019/10/23/js/基础/登录令牌Token/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

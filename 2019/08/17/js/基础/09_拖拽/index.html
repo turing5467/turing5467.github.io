@@ -1,0 +1,322 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 拖拽 · 快乐的图小灵</title><meta name="description" content="拖拽 - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">拖拽</h1><div class="post-info">Aug 17, 2019</div><div class="post-content"><p>[toc]</p>
+<h3 id="拖拽"><a href="#拖拽" class="headerlink" title="拖拽"></a>拖拽</h3><ul>
+<li>能够在浏览器中实现DOM元素的拖放与释放</li>
+<li>与过去相比<ol>
+<li>实现上：简单、直观</li>
+<li>功能上<pre><code>`dataTransfer`是对拖动操作中数据的接受和传递提供支持的API
+消除了Web应用程序与原生应用程序之间的界限</code></pre></li>
+</ol>
+</li>
+</ul>
+<h4 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h4><ul>
+<li><p>Drag Drop API 进行拖动与释放时，数据的<strong>发送方</strong>（拖动元素）与<strong>接收方</strong>（释放区域）这两者之间是一种<strong>松耦合</strong>的实现方式。</p>
+</li>
+<li><p><strong>拖动元素(发送方)</strong>相关事件处理</p>
+<table>
+<thead>
+<tr>
+<th align="left">事件名</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>dragstart</code></td>
+<td align="center">在拖动操作开始时被触发</td>
+</tr>
+<tr>
+<td align="left"><code>drag</code></td>
+<td align="center">在拖动操作过程中被<em>定期</em>触发(不管鼠标动没动)</td>
+</tr>
+<tr>
+<td align="left"><code>dragend</code></td>
+<td align="center">在拖动操作结束时被触发</td>
+</tr>
+</tbody></table>
+</li>
+<li><p><strong>释放区域(接收方)</strong>相关</p>
+<table>
+<thead>
+<tr>
+<th align="left">事件名</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>dragenter</code></td>
+<td align="center">在拖动操作过程中，进入 DOM 元素的领域内时被触发</td>
+</tr>
+<tr>
+<td align="left"><code>dragover</code></td>
+<td align="center">在拖动操作过程中，处于 DOM 元素的领域内时被定期触发</td>
+</tr>
+<tr>
+<td align="left"><code>dragleave</code></td>
+<td align="center">在拖动操作过程中，离开 DOM 元素的领域时被触发</td>
+</tr>
+<tr>
+<td align="left"><code>drop</code></td>
+<td align="center">在 DOM 元素上释放数据时被触发</td>
+</tr>
+<tr>
+<td align="left">dragexit</td>
+<td align="center">当一个元素不在被拖动时(浏览器未实现)</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h4 id="dataTransfer"><a href="#dataTransfer" class="headerlink" title="dataTransfer"></a>dataTransfer</h4><ul>
+<li><code>e.dataTransfer</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">属性名</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">setData(format, data)</td>
+<td align="center">以 format 所指定的格式添加数据（在 <code>dragstart</code> 事件中有效）</td>
+</tr>
+<tr>
+<td align="left">getData(format)</td>
+<td align="center">以 format 所指定的格式获取数据（在 <code>drop</code> 事件中有效）</td>
+</tr>
+<tr>
+<td align="left">clearData([format])</td>
+<td align="center">以 format 所指定的格式清除数据。如果没有指定 format，则清除所有的数据</td>
+</tr>
+<tr>
+<td align="left">types</td>
+<td align="center">包含正在拖动的数据的 format 的数组</td>
+</tr>
+<tr>
+<td align="left">files</td>
+<td align="center">包含正在拖动的文件的 File 对象的数组</td>
+</tr>
+<tr>
+<td align="left"><code>setDragImage(element, x, y)</code></td>
+<td align="center">设定拖动图像（在 dragstart 事件中有效）</td>
+</tr>
+<tr>
+<td align="left"><code>addElement(element)</code></td>
+<td align="center">设定拖动图像（在 dragstart 事件中有效）</td>
+</tr>
+<tr>
+<td align="left">effectAllowed</td>
+<td align="center">设定允许用于拖动操作的目标的效果。通常会在 dragstart 事件中设定</td>
+</tr>
+<tr>
+<td align="left">dropEffect</td>
+<td align="center">释放操作的目标的效果，或由用户选择的效果。可以在最新的 dragover 或 dragenter 事件中设定。如果没有设定为特定的值，则会使用标准的操作系统修饰键，在可供选择的效果中进行选择。系统将会在 copy、move、link 与 none 之中选择，并根据选中的效果显示相应的拖动图像</td>
+</tr>
+</tbody></table>
+<h4 id="基本拖放"><a href="#基本拖放" class="headerlink" title="基本拖放"></a>基本拖放</h4><h5 id="拖动元素-的设定"><a href="#拖动元素-的设定" class="headerlink" title="拖动元素 的设定"></a>拖动元素 的设定</h5><ul>
+<li><p><code>draggable</code> 要让特定元素被拖动</p>
+<p>​    <code>img</code> <code>a</code>默认为<code>true</code> <code>li</code>默认为<code>false</code></p>
+</li>
+</ul>
+<h5 id="拖动方的设定"><a href="#拖动方的设定" class="headerlink" title="拖动方的设定"></a>拖动方的设定</h5><ul>
+<li><p>拖动方（数据的发送方）需要在开始拖动时通过<code>setData</code>将数据设置于<code>dataTransfer</code>中。</p>
+</li>
+<li><p><code>setData(format,data)</code></p>
+<p>只能在<code>dragstart</code>事件中执行的方法</p>
+</li>
+</ul>
+<h5 id="释放方的设定"><a href="#释放方的设定" class="headerlink" title="释放方的设定"></a>释放方的设定</h5><ul>
+<li>调用 <code>getData</code> 方法来从 <code>dataTransfer</code> 中获取被拖动的数据。</li>
+<li><code>getData</code>  只能够在 <code>drop</code> 事件处理程序中执行的方法。<blockquote>
+<p>在<code>dragover</code> 事件中，浏览器的默认操作是将 <code>drop</code> 事件取消。因此，要使 <code>drop</code> 事件生效，则必须在 <code>dragover</code> 事件中调用 <code>preventDefault</code>取消默认操作。</p>
+</blockquote>
+</li>
+</ul>
+<h5 id="自定义显示"><a href="#自定义显示" class="headerlink" title="自定义显示"></a>自定义显示</h5><h6 id="自定义拖拽图像"><a href="#自定义拖拽图像" class="headerlink" title="自定义拖拽图像"></a>自定义拖拽图像</h6><ul>
+<li>(仅能在<code>dragstart</code>事件中调用)</li>
+</ul>
+<ol>
+<li><code>setDragImage(imgEle, x, y)</code>  x,y为鼠标相对于图片左上角的x,y的距离</li>
+<li><code>addElement(ele)</code><h6 id="释放区域的强调显示"><a href="#释放区域的强调显示" class="headerlink" title="释放区域的强调显示"></a>释放区域的强调显示</h6></li>
+</ol>
+<ul>
+<li><code>dragover</code>事件中添加效果，提高拖动操作的易用性</li>
+<li><code>dragleave</code>事件以及<code>drop</code>事件中<strong>同时</strong>删除效果(因为执行释放<code>drop</code>操作时并不会发生<code>dragleave</code>事件)</li>
+</ul>
+<h4 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h4><h5 id="获取桌面程序中的文件"><a href="#获取桌面程序中的文件" class="headerlink" title="获取桌面程序中的文件"></a>获取桌面程序中的文件</h5><ul>
+<li>通过<code>files</code>属性获取拖动的文件对象的数组</li>
+<li><code>files.length</code>来判断是否拖动了文件</li>
+<li>通过下标来引用各个<code>File</code>对象</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;span id=<span class="string">"drag"</span> draggable=<span class="string">"true"</span>&gt;drag me&lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp">   &lt;div id="div1"&gt;&lt;/</span>div&gt;</span><br><span class="line">   &lt;script&gt;</span><br><span class="line">       <span class="keyword">let</span> div = <span class="built_in">document</span>.getElementById(<span class="string">'div1'</span>);</span><br><span class="line">       <span class="keyword">let</span> span = <span class="built_in">document</span>.getElementById(<span class="string">'drag'</span>);</span><br><span class="line"></span><br><span class="line">       span.ondragstart = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">           e.dataTransfer.setData(<span class="string">'text/plain'</span>, e.target.id);</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       div.ondragover = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">//禁止默认行为,使drop事件生效</span></span><br><span class="line">           e.preventDefault();</span><br><span class="line">           e.target.style.border = <span class="string">'2px solid #606'</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       </span><br><span class="line">       div.ondragleave = <span class="function">(<span class="params">e</span>) =&gt;</span> e.target.style.border = <span class="string">''</span>;</span><br><span class="line">       </span><br><span class="line">       div.ondrop = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">           e.preventDefault();</span><br><span class="line">           <span class="keyword">let</span> data = e.dataTransfer.getData(<span class="string">'text/plain'</span>);</span><br><span class="line">           e.target.appendChild(<span class="built_in">document</span>.getElementById(data));</span><br><span class="line">           e.target.style.border = <span class="string">''</span>;</span><br><span class="line">       &#125;</span><br><span class="line">   &lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="将文件保存至桌面程序"><a href="#将文件保存至桌面程序" class="headerlink" title="将文件保存至桌面程序"></a>将文件保存至桌面程序</h5><ul>
+<li><code>e.dataTransfer.setData(&#39;DownloadURL&#39;, &#39;MIMETYPE:文件名:文件名URL&#39;)</code></li>
+</ul>
+<h3 id="File"><a href="#File" class="headerlink" title="File"></a>File</h3><ul>
+<li>获取文件的信息 </li>
+<li>属性<ol>
+<li><code>accept</code> html属性, 以MIME Type来指定允许选择的文件类型,可以<code>,</code>分割<pre><code>`audio/*` `video/*`  `image/*`
+或直接限制后缀,如`accept=&quot;.png,.jpeg&quot;`</code></pre></li>
+<li><code>multiple</code></li>
+<li><code>files</code></li>
+<li><code>onchange</code></li>
+</ol>
+</li>
+</ul>
+<ul>
+<li>File对象接口</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">属性名</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">name</td>
+<td align="center">文件名</td>
+</tr>
+<tr>
+<td align="center">size</td>
+<td align="center">文件尺寸（单位 byte）</td>
+</tr>
+<tr>
+<td align="center">type</td>
+<td align="center">文件类型（MIME Type）</td>
+</tr>
+<tr>
+<td align="center">lastModifiedData</td>
+<td align="center">文件的最后更新时间</td>
+</tr>
+<tr>
+<td align="center">slice(start, end, contentType)</td>
+<td align="center">切取文件的一部分</td>
+</tr>
+</tbody></table>
+<h3 id="FileReader"><a href="#FileReader" class="headerlink" title="FileReader"></a>FileReader</h3><ul>
+<li>读取文件的内容</li>
+<li><code>new FileReader()</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">属性</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>result</code></td>
+<td align="center">文件的内容,由读取方式决定</td>
+</tr>
+<tr>
+<td align="center">error</td>
+<td align="center">读取失败时的错误信息<code>error.code</code>错误代码</td>
+</tr>
+<tr>
+<td align="center">readyState</td>
+<td align="center">表示读取处理状态的整数值(0,1,2)</td>
+</tr>
+<tr>
+<td align="center">EMPTY</td>
+<td align="center">readyState 可以取得的常量（值为 0）。表示读取开始前</td>
+</tr>
+<tr>
+<td align="center">LOADING</td>
+<td align="center">readyState 可以取得的常量（值为 1）。表示读取中</td>
+</tr>
+<tr>
+<td align="center">DONE</td>
+<td align="center">readyState 可以取得的常量（值为 2）。表示读取结束（无论正常结束还是出错）</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="center">方法</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">`readAsArrayBuffer(blob</td>
+<td align="center">File)`</td>
+</tr>
+<tr>
+<td align="center">`readAsText(blob</td>
+<td align="center">File [, encoding-‘utf-8’])`</td>
+</tr>
+<tr>
+<td align="center">`readAsDataURL(blob</td>
+<td align="center">File)`</td>
+</tr>
+<tr>
+<td align="center"><code>readAsBinaryString(blob)</code></td>
+<td align="center">以二进制字符串的形式读取文件(已被标准移除)</td>
+</tr>
+<tr>
+<td align="center">abort()</td>
+<td align="center">中止读取操作</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="center">事件</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">onloadstart</td>
+<td align="center">在读取开始时被执行的事件处理程序</td>
+</tr>
+<tr>
+<td align="center">onprogress</td>
+<td align="center">在读取过程中被定期执行的事件处理程序</td>
+</tr>
+<tr>
+<td align="center"><code>onload</code></td>
+<td align="center">在读取成功时被执行的事件处理程序</td>
+</tr>
+<tr>
+<td align="center">onerror</td>
+<td align="center">在读取失败时被执行的事件处理程序</td>
+</tr>
+<tr>
+<td align="center"><code>onabort</code></td>
+<td align="center">在读取中止时被执行的事件处理程序</td>
+</tr>
+<tr>
+<td align="center">onloadend</td>
+<td align="center">在读取结束时被执行的事件处理程序（无论是成功还是失败）</td>
+</tr>
+<tr>
+<td align="center"><code>onprogress</code></td>
+<td align="center">获取读取进度,<code>event.lengthComputable/loaded/total</code></td>
+</tr>
+</tbody></table>
+<h4 id="文本文件的读取"><a href="#文本文件的读取" class="headerlink" title="文本文件的读取"></a>文本文件的读取</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fr = <span class="keyword">new</span> FileReader();</span><br><span class="line">fr.readAsText(file);</span><br><span class="line">fr.onload = <span class="function"><span class="params">()</span>=&gt;</span>&#123; js</span><br><span class="line">	<span class="keyword">let</span> result = fr.result;</span><br><span class="line">	<span class="built_in">console</span>.log(result);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="读取文件的一部分"><a href="#读取文件的一部分" class="headerlink" title="读取文件的一部分"></a>读取文件的一部分</h4><ul>
+<li><code>slice(start,end)</code></li>
+</ul>
+<h3 id="data-URL"><a href="#data-URL" class="headerlink" title="data URL"></a>data URL</h3><ul>
+<li>data URL 指的是以 <code>data:</code> 类型开始的 URL。<blockquote>
+<p>通常的 URL 被用于指示网页或图像等资源所在的场所，<br>data URL 则可以直接将这些资源中所含的<strong>数据</strong>嵌入 URL 之中。</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="data-URL创建"><a href="#data-URL创建" class="headerlink" title="data URL创建"></a>data URL创建</h4><ul>
+<li>书写格式: <code>data:[&lt;MIME Type&gt;][;base64],&lt;data&gt;</code></li>
+<li><code>base64</code> 是一种编码方式，它可以仅通过 64 种英文与数字字符，来将多位字符或二进制数据等内容编码为相应的字符串<blockquote>
+<p>通过<code>btoa</code>进行<code>base64</code>编码<br>通过 <code>encodeURIComponent</code> 函数来进行 URL 编码</p>
+</blockquote>
+</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2019/08/18/js/基础/10_同源&amp;跨域/" class="prev">PREV</a><a href="/2019/08/16/js/基础/08_Web API/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2019/08/17/js/基础/09_拖拽/';
+var disqus_title = '拖拽';
+var disqus_url = 'https://turing5467.github.io/2019/08/17/js/基础/09_拖拽/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 面试题收集 · 快乐的图小灵</title><meta name="description" content="面试题收集 - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">面试题收集</h1><div class="post-info">Jun 7, 2020</div><div class="post-content"><p><a href="https://github.com/qiu-deqing/FE-interview#%E5%B8%B8%E8%A7%81%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6" target="_blank" rel="noopener">1</a></p>
+<h3 id="前端需要注意哪些-SEO"><a href="#前端需要注意哪些-SEO" class="headerlink" title="前端需要注意哪些 SEO"></a>前端需要注意哪些 SEO</h3><ol>
+<li>合理的 title、description、keywords：搜索对着三项的权重逐个减小，<ul>
+<li><code>title</code>值强调重点即可，重要关键词出现不要超过 2 次，而且要靠前，不同页面 title 要有所不同；</li>
+<li><code>description</code>把页面内容高度概括，长度合适，不可过分堆砌关键词，不同页面 description 有所不同；</li>
+<li><code>keywords</code>列举出重要关键词即可</li>
+</ul>
+</li>
+<li><strong>语义化</strong>的 HTML 代码，符合 W3C 规范：语义化代码让搜索引擎容易理解网页</li>
+<li>重要内容 HTML 代码放在最前：搜索引擎抓取 HTML 顺序是从上到下，有的搜索引擎对抓取长度有限制，保证重要内容一定会被抓取</li>
+<li>重要内容不要用 js 输出：爬虫不会执行 js 获取内容</li>
+<li>少用 <code>iframe</code>：搜索引擎不会抓取 iframe 中的内容</li>
+<li>非装饰性图片必须加 alt</li>
+<li><strong>提高网站速度</strong>：网站速度是搜索引擎排序的一个重要指标</li>
+</ol>
+<h3 id="什么是-web-语义化-有什么好处"><a href="#什么是-web-语义化-有什么好处" class="headerlink" title="什么是 web 语义化,有什么好处"></a>什么是 web 语义化,有什么好处</h3><p>web 语义化是指通过 HTML 标记表示页面包含的信息，包含了 HTML 标签的语义化和 css 命名的语义化。 </p>
+<p>HTML 标签的语义化：通过使用包含语义的标签（如 h1-h6）恰当地表示文档结构 </p>
+<p>css 命名的语义化：为 html 标签添加有意义的 class，id 补充未表达的语义，如<a href="http://en.wikipedia.org/wiki/Microformats" target="_blank" rel="noopener">Microformat</a>通过添加符合规则的 class 描述信息 为什么需要语义化：</p>
+<ul>
+<li>去掉样式后页面呈现清晰的结构</li>
+<li>无障碍阅读：盲人使用读屏器更好地阅读</li>
+<li><strong>搜索引擎</strong>更好地理解页面，有利于收录</li>
+<li>便团队项目的<strong>可持续运作及维护</strong></li>
+</ul>
+<h3 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h3><p><a href="https://developer.yahoo.com/performance/rules.html?guccounter=1&guce_referrer=aHR0cHM6Ly9naXRodWIuY29tL3FpdS1kZXFpbmcvRkUtaW50ZXJ2aWV3&guce_referrer_sig=AQAAAGCBP4o39rOh6MQI2wJq1jnXE-fn4Y-QMWSTUxOygtHtjvtuqMQKvj-xBmfOVL-VkBlowdS8TuND8_KVv-KgiJoeZ_SSrgdv-O_vLk18Lypkbg-PnaKOwPOjXwh_XUJUHRK9qAVqTKQsBzdw4DwkcdtZ9pZcLq5jy9dbPCgyRvZ7" target="_blank" rel="noopener">雅虎性能优化</a></p>
+<ul>
+<li>content 方面<ol>
+<li>减少 HTTP 请求：合并文件、CSS 精灵、inline Image</li>
+<li>减少 DNS 查询：DNS 查询完成之前浏览器不能从这个主机下载任何任何文件。方法：DNS 缓存、将资源分布到恰当数量的主机名，平衡并行下载和 DNS 查询</li>
+<li>非必须组件延迟加载</li>
+<li>减少 DOM 元素数量</li>
+<li>避免空 src 的 img 标签</li>
+</ol>
+</li>
+<li>Server 方面<ol>
+<li>使用 CDN</li>
+<li>添加 Expires 或者 Cache-Control 响应头</li>
+<li>对组件使用 Gzip 压缩</li>
+<li>配置 ETag</li>
+</ol>
+</li>
+<li>Cookie 方面<ol>
+<li>减小 cookie 大小</li>
+</ol>
+</li>
+<li>css 方面<ol>
+<li>将样式表放到页面顶部</li>
+<li>不使用 CSS 表达式</li>
+<li>使用<code>&lt;link&gt;</code>不使用@import</li>
+<li>不使用 IE 的 Filter</li>
+</ol>
+</li>
+<li>Javascript 方面<ol>
+<li>将脚本放到页面底部</li>
+<li>将 javascript 和 css 从外部引入</li>
+<li>压缩 javascript 和 css</li>
+<li>删除不需要的脚本</li>
+<li>减少 DOM 访问</li>
+</ol>
+</li>
+<li>图片方面<ol>
+<li>优化图片：根据实际颜色需要选择色深、压缩</li>
+<li>优化 css 精灵</li>
+<li>不要在 HTML 中拉伸图片</li>
+<li>保证 favicon.ico 小并且可缓存</li>
+</ol>
+</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2020/06/09/js框架/react/React-Hooks/" class="prev">PREV</a><a href="/2020/06/05/js/库/Immutable/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2020/06/07/面试/5467/';
+var disqus_title = '面试题收集';
+var disqus_url = 'https://turing5467.github.io/2020/06/07/面试/5467/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

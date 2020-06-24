@@ -1,0 +1,139 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 浏览器的缓存机制 · 快乐的图小灵</title><meta name="description" content="浏览器的缓存机制 - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">浏览器的缓存机制</h1><div class="post-info">Jun 1, 2020</div><div class="post-content"><p><a href="https://www.jianshu.com/p/54cc04190252" target="_blank" rel="noopener">原文</a></p>
+<h2 id="浏览器的缓存机制"><a href="#浏览器的缓存机制" class="headerlink" title="浏览器的缓存机制"></a>浏览器的缓存机制</h2><p>缓存可以说是性能优化中简单高效的一种优化方式了。一个优秀的缓存策略可以<strong>缩短网页请求资源的距离</strong>，减少延迟，并且由于缓存文件可以重复利用，还可以<strong>减少带宽</strong>，<strong>降低网络负荷</strong>。</p>
+<p>对于一个数据请求来说，可以分为发起<strong>网络请求</strong>、<strong>后端处理</strong>、<strong>浏览器响应</strong>三个步骤。</p>
+<p>浏览器缓存可以帮助我们在第一和第三步骤中优化性能。</p>
+<p>比如说直接使用缓存而不发起请求，或者发起了请求但后端存储的数据和前端一致，那么就没有必要再将数据回传回来，这样就减少了响应数据。</p>
+<h3 id="缓存位置"><a href="#缓存位置" class="headerlink" title="缓存位置"></a>缓存位置</h3><p> 从缓存位置上来说分为四种，并且各自有优先级，当依次查找缓存且都没有命中的时候，才会去请求网络。 </p>
+<ul>
+<li>Service Worker</li>
+<li>Memory Cache</li>
+<li>Disk Cache</li>
+<li>Push Cache</li>
+</ul>
+<h4 id="Service-Worker"><a href="#Service-Worker" class="headerlink" title="Service Worker"></a>Service Worker</h4><p>Service Worker 是<strong>运行在浏览器背后的独立线程</strong>，一般可以用来实现缓存功能。使用 Service Worker的话，传输协议必须为 <code>HTTPS</code>。因为 Service Worker 中涉及到请求拦截，所以必须使用 HTTPS 协议来保障安全。</p>
+<p><strong>Service Worker 的缓存与浏览器其他内建的缓存机制不同，它可以让我们自由控制缓存哪些文件、如何匹配缓存、如何读取缓存，并且缓存是持续性的</strong>。</p>
+<p>Service Worker 实现缓存功能一般分为三个步骤：</p>
+<ol>
+<li>注册 Service Worker，</li>
+<li>监听到 install 事件以后就可以缓存需要的文件，</li>
+<li>下次用户访问的时候就可以通过拦截请求的方式查询是否存在缓存，存在缓存的话就可以直接读取缓存文件，否则就去请求数据。</li>
+</ol>
+<p>当 Service Worker 没有命中缓存的时候，我们需要去调用 fetch 函数获取数据。也就是说，如果我们没有在 Service Worker 命中缓存的话，会根据缓存查找优先级去查找数据。但是不管我们是从 Memory Cache 中还是从网络请求中获取的数据，浏览器都会显示我们是从 Service Worker 中获取的内容。</p>
+<h4 id="Memory-Cache"><a href="#Memory-Cache" class="headerlink" title="Memory Cache"></a>Memory Cache</h4><p>Memory Cache 也就是<strong>内存</strong>中的缓存，主要包含的是当前中页面中已经抓取到的资源,例如页面上已经下载的样式、脚本、图片等。读取内存中的数据肯定比磁盘快,内存缓存虽然读取高效，可是缓存持续性很短，会随着进程的释放而释放。 <strong>一旦我们关闭 Tab 页面，内存中的缓存也就被释放了</strong>。</p>
+<blockquote>
+<p>Q：<strong>那么既然内存缓存这么高效，我们是不是能让数据都存放在内存中呢？</strong><br>A：这是不可能的。计算机中的内存一定比硬盘容量小得多，操作系统需要精打细算内存的使用，所以能让我们使用的内存必然不多。 </p>
+</blockquote>
+<p>内存缓存中有一块重要的缓存资源是preloader相关指令（例如<code>&lt;link rel=&quot;prefetch&quot; &gt;</code>）下载的资源。总所周知preloader的相关指令已经是页面优化的常见手段之一，它可以一边解析js/css文件，一边网络请求下一个资源。</p>
+<h4 id="Disk-Cache"><a href="#Disk-Cache" class="headerlink" title="Disk Cache"></a>Disk Cache</h4><p> Disk Cache 也就是存储在<strong>硬盘</strong>中的缓存，读取<strong>速度慢</strong>点，但是什么都能存储到磁盘中，比之 Memory Cache 胜在<strong>容量和存储时效性</strong>上。 </p>
+<p>在所有浏览器缓存中，Disk Cache 覆盖面基本是最大的。它会<strong>根据 HTTP Header 中的字段判断</strong>哪些资源需要缓存，哪些资源可以不请求直接使用，哪些资源已经过期需要重新请求。并且即使在跨站点的情况下，相同地址的资源一旦被硬盘缓存下来，就不会再次去请求数据。绝大部分的缓存都来自 Disk Cache，关于 HTTP 的协议头中的缓存字段，我们会在下文进行详细介绍。</p>
+<h4 id="Push-Cache"><a href="#Push-Cache" class="headerlink" title="Push Cache"></a>Push Cache</h4><p>Push Cache（推送缓存）是 HTTP/2 中的内容，当以上三种缓存都没有命中时，它才会被使用。<strong>它只在会话（Session）中存在，一旦会话结束就被释放，并且缓存时间也很短暂</strong>，在Chrome浏览器中只有5分钟左右，同时它也并非严格执行HTTP头中的缓存指令。</p>
+<p>Push Cache 在国内能够查到的资料很少，也是因为 HTTP/2 在国内不够普及。这里推荐阅读<code>Jake Archibald</code>的 <a href="https://links.jianshu.com/go?to=https%3A%2F%2Fjakearchibald.com%2F2017%2Fh2-push-tougher-than-i-thought%2F" target="_blank" rel="noopener">HTTP/2 push is tougher than I thought</a> 这篇文章，文章中的几个结论：</p>
+<ul>
+<li>所有的资源都能被推送，并且能够被缓存,但是 Edge 和 Safari 浏览器支持相对比较差</li>
+<li>可以推送 no-cache 和 no-store 的资源</li>
+<li>一旦连接被关闭，Push Cache 就被释放</li>
+<li>多个页面可以使用同一个HTTP/2的连接，也就可以使用同一个Push Cache。这主要还是依赖浏览器的实现而定，出于对性能的考虑，有的浏览器会对相同域名但不同的tab标签使用同一个HTTP连接。</li>
+<li>Push Cache 中的缓存只能被使用一次</li>
+<li>浏览器可以拒绝接受已经存在的资源推送</li>
+<li>你可以给其他域名推送资源</li>
+</ul>
+<h3 id="缓存过程分析"><a href="#缓存过程分析" class="headerlink" title="缓存过程分析"></a>缓存过程分析</h3><ul>
+<li><p>浏览器与服务器通信的方式为<strong>应答模式</strong>，即是：浏览器发起HTTP请求 – 服务器响应该请求 </p>
+</li>
+<li><p>浏览器第一次向服务器发起该请求后拿到请求结果后，将请求结果和缓存标识存入浏览器缓存，<strong>浏览器对于缓存的处理是根据第一次请求资源时返回的响应头来确定的</strong>。 </p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3174701-de3d6e025582103a?imageMogr2/auto-orient/strip%7CimageView2/2/w/670/format/webp" alt="img"> </p>
+</li>
+</ul>
+<p>由上图我们可以知道：</p>
+<ul>
+<li>浏览器每次<strong>发起</strong>请求，都会先在浏览器缓存中<strong>查找</strong>该请求的结果以及缓存标识</li>
+<li>浏览器每次<strong>拿到</strong>返回的请求结果都会将该结果和缓存标识<strong>存入</strong>浏览器缓存中</li>
+</ul>
+<h3 id="强缓存"><a href="#强缓存" class="headerlink" title="强缓存"></a>强缓存</h3><ul>
+<li>强缓存：不会向服务器发送请求，直接从缓存中读取资源.</li>
+<li>在chrome控制台的Network选项中可以看到该请求返回200的状态码，并且Size显示<code>from disk cache</code>或<code>from memory cache</code>。</li>
+<li>强缓存可以通过设置两种 HTTP Header 实现：<code>Expires</code>和 <code>Cache-Control</code>。</li>
+</ul>
+<h4 id="Expires"><a href="#Expires" class="headerlink" title="Expires"></a>Expires</h4><ul>
+<li><p>缓存过期时间，用来指定资源到期的时间，是服务器端的具体的时间点。 </p>
+</li>
+<li><p>Expires是Web服务器<strong>响应头</strong>字段，在响应http请求时<strong>告诉浏览器在过期时间前浏览器可以直接从浏览器缓存取数据，而无需再次请求</strong>。 </p>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Expires: Wed, <span class="number">22</span> Oct <span class="number">2018</span> <span class="number">08</span>:<span class="number">41</span>:<span class="number">00</span> GMT</span><br></pre></td></tr></table></figure>
+
+<p> 这个方式看上去没什么问题，合情合理，但其实潜藏了一个坑，那就是<strong>服务器的时间和浏览器的时间可能并不一致</strong>，那服务器返回的这个过期时间可能就是不准确的。因此这种方式很快在后来的HTTP1.1版本中被抛弃了。 </p>
+<h4 id="Cache-Control"><a href="#Cache-Control" class="headerlink" title="Cache-Control"></a>Cache-Control</h4><ul>
+<li><p>在HTTP/1.1中，Cache-Control是最重要的规则，主要用于控制网页缓存。比如当<code>Cache-Control:max-age=300</code>时，则代表在这个请求正确返回时间（浏览器也会记录下来）的5分钟内再次加载资源，就会命中强缓存。</p>
+</li>
+<li><p>值（可以组合）</p>
+<p> <img src="https://upload-images.jianshu.io/upload_images/3174701-8ff981603cdfded0?imageMogr2/auto-orient/strip%7CimageView2/2/w/562/format/webp" alt="img"> </p>
+</li>
+</ul>
+<h4 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h4><ul>
+<li>协议版本：1.0  &amp;&amp;  1.1</li>
+<li>优先级： Cache-Control更高</li>
+</ul>
+<p>强缓存判断是否缓存的依据来自于是否超出某个时间或者某个时间段，而不关心服务器端文件是否已经更新，这可能会导致加载文件不是服务器端最新的内容。</p>
+<p><strong>那我们如何获知服务器端内容是否已经发生了更新呢</strong>？此时我们需要用到<strong>协商缓存策略</strong>。</p>
+<h3 id="协商缓存"><a href="#协商缓存" class="headerlink" title="协商缓存"></a>协商缓存</h3><p> 协商缓存就是<strong>强缓存失效</strong>后，浏览器携带<strong>缓存标识</strong>向服务器发起请求，由服务器根据缓存标识决定是否使用缓存的过程，主要有以下两种情况： </p>
+<ol>
+<li>协商缓存生效：返回304和Not Modified</li>
+<li>协商缓存失效：返回200和请求结果</li>
+</ol>
+<h4 id="Last-Modified-和-If-Modified-Since"><a href="#Last-Modified-和-If-Modified-Since" class="headerlink" title="Last-Modified 和 If-Modified-Since"></a>Last-Modified 和 If-Modified-Since</h4><ul>
+<li>浏览器第一次给服务器发送请求，服务器会在响应头中加上<code>Last-Modified</code></li>
+<li>浏览器接收到后，如果再次请求，会在请求头中携带<code>If-Modified-Since</code>字段，字段值为之前接收到的<code>Last-Modified</code>值</li>
+<li>服务器拿到该值，会与该资源的最后修改时间对比<ol>
+<li>如果没有变化，返回304和空的响应体</li>
+<li>值小于最后修改时间，返回200和新的资源文件</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li>弊端<ol>
+<li>如果本地打开缓存文件，即使没有对文件进行修改，但还是会造成 Last-Modified 被修改  ，服务端不能命中缓存导致发送相同的资源 </li>
+<li>能够感知的单位时间为<code>s</code>，若在一秒内改变多次，无法体现出修改，仍然返回修改之前的资源</li>
+</ol>
+</li>
+</ul>
+<h4 id="ETag和If-None-Match"><a href="#ETag和If-None-Match" class="headerlink" title="ETag和If-None-Match"></a>ETag和If-None-Match</h4><ul>
+<li>Etag是服务器响应请求时，返回当前资源文件的一个唯一标识，只要资源有变化，Etag就会重新生成。 </li>
+</ul>
+<ul>
+<li>浏览器第一次给服务器发送请求，服务器会在响应头中加上<code>ETag</code></li>
+<li>浏览器接收到后，如果再次请求，会在请求头中携带<code>If-None-Match</code>字段，字段值为之前接收到的<code>ETag</code>值</li>
+<li>服务器拿到该值，会与该资源的最新<code>ETag</code>对比<ol>
+<li>如果没有变化，返回304和空的响应体</li>
+<li>值小于最后修改时间，返回200和新的资源文件</li>
+</ol>
+</li>
+</ul>
+<h4 id="对比-1"><a href="#对比-1" class="headerlink" title="对比"></a>对比</h4><ul>
+<li><p>精确度：ETag &gt; Last-Modified</p>
+</li>
+<li><p>性能：Etag &lt;  Last-Modified</p>
+<p>Last-Modified只记录一个时间点，而ETag根据文件具体内容生成Hash值。</p>
+</li>
+<li><p>优先级：ETag &gt; Last-Modified</p>
+</li>
+</ul>
+<h3 id="缓存机制"><a href="#缓存机制" class="headerlink" title="缓存机制"></a>缓存机制</h3><p>强制缓存优先于协商缓存进行，若强制缓存生效则直接使用缓存，若不生效则进行协商缓存。</p>
+<h3 id="实际场景应用"><a href="#实际场景应用" class="headerlink" title="实际场景应用"></a>实际场景应用</h3><h4 id="频繁变动的资源"><a href="#频繁变动的资源" class="headerlink" title="频繁变动的资源"></a>频繁变动的资源</h4><p>对于频繁变动的资源，首先需要使用<code>Cache-Control: no-cache</code> 使浏览器每次都请求服务器，然后配合 <code>ETag</code> 或者<code>Last-Modified</code> 来验证资源是否有效。</p>
+<p>这样的做法虽然不能节省请求数量，但是能显著减少响应数据大小。</p>
+<h4 id="不常变化的资源"><a href="#不常变化的资源" class="headerlink" title="不常变化的资源"></a>不常变化的资源</h4><p> 通常在处理这类资源时，给它们的 <code>Cache-Control</code> 配置一个很大的 <code>max-age=31536000</code> (一年)，这样浏览器之后请求相同的 URL 会命中强制缓存。 </p>
+<h3 id="用户行为对浏览器缓存的影响"><a href="#用户行为对浏览器缓存的影响" class="headerlink" title="用户行为对浏览器缓存的影响"></a>用户行为对浏览器缓存的影响</h3><p>所谓用户行为对浏览器缓存的影响，指的就是用户在浏览器如何操作时，会触发怎样的缓存策略。主要有 3 种：</p>
+<ul>
+<li>打开网页，地址栏输入地址： 查找 <code>disk cache</code> 中是否有匹配。如有则使用；如没有则发送网络请求。</li>
+<li>普通刷新 (F5)：因为 TAB 并没有关闭，因此 <code>memory cache</code> 是可用的，会被优先使用(如果匹配的话)。其次才是 <code>disk cache</code>。</li>
+<li>强制刷新 (Ctrl + F5)：<strong>浏览器不使用缓存</strong>，因此发送的请求头部均带有 <code>Cache-control: no-cache</code>(为了兼容，还带了 <code>Pragma: no-cache</code>),服务器直接返回 200 和最新内容。</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2020/06/03/面试/视频笔记/" class="prev">PREV</a><a href="/2020/05/21/js框架/react/React_Native/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2020/06/01/js/性能优化/缓存/';
+var disqus_title = '浏览器的缓存机制';
+var disqus_url = 'https://turing5467.github.io/2020/06/01/js/性能优化/缓存/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

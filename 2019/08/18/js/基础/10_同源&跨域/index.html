@@ -1,0 +1,89 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 同源策略与跨域 · 快乐的图小灵</title><meta name="description" content="同源策略与跨域 - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">同源策略与跨域</h1><div class="post-info">Aug 18, 2019</div><div class="post-content"><p><a href="https://juejin.im/post/5c23993de51d457b8c1f4ee1" target="_blank" rel="noopener">原文链接</a></p>
+<h3 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h3><ul>
+<li>一段脚本只能读取来自于<strong>同一来源</strong>的窗口和文档的属性，这里的同一来源指的是<strong>主机名、协 议和端口号</strong>的组合</li>
+<li>同源策略限制了以下行为<ul>
+<li>Cookie、LocalStorage 和 IndexDB 无法读取</li>
+<li>DOM 和 JS 对象无法获取</li>
+<li>Ajax请求发送不出去</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>页面中的<code>&lt;script&gt;</code>、<code>&lt;img&gt;</code>、<code>&lt;iframe&gt;</code>不受同源策略限制</p>
+</blockquote>
+<h3 id="跨域请求"><a href="#跨域请求" class="headerlink" title="跨域请求"></a>跨域请求</h3><ul>
+<li><p><strong>跨域</strong>并不是请求发不出去，请求能发出去，服务端能收到请求并正常返回结果，只是结果<strong>被浏览器拦截</strong>了。   </p>
+</li>
+<li><p>解决方案</p>
+<ol>
+<li><p>JSONP</p>
+</li>
+<li><p>Hash</p>
+</li>
+<li><p>postMessage</p>
+</li>
+<li><p>WebSocket</p>
+</li>
+<li><p>CORS</p>
+</li>
+<li><p>nginx反向代理</p>
+</li>
+<li><p>node中间件代理</p>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="JSONP"><a href="#JSONP" class="headerlink" title="JSONP"></a>JSONP</h4><ul>
+<li><p>jsonp： 本质上是一个Hack，它利用<code>&lt;script&gt;</code>标签不受同源策略限制的特性进行跨域操作。 </p>
+<ul>
+<li><p>优点：实现简单， 兼容性好</p>
+</li>
+<li><p>缺点：</p>
+<ul>
+<li>只支持get请求</li>
+<li>有安全性问题，易遭受xss攻击</li>
+<li>需要服务端配合jsonp进行一定程度的改造 </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="comment">//1.定义请求的回调函数</span></span></span><br><span class="line"><span class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">obj</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">	<span class="comment">//</span></span></span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="comment">//2.动态创建script标签</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> oScript = <span class="built_in">document</span>.createElement(<span class="string">"script"</span>);</span></span><br><span class="line"><span class="javascript">    <span class="comment">//路径中附带回调函数参数</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> url = <span class="string">"https://sp0.baidu.com/54nxGkoy/su?"</span>+<span class="string">"name=xx"</span>+<span class="string">"&amp;cb=fn"</span>;</span></span><br><span class="line"><span class="javascript">    <span class="comment">//如果之前发过jsonp，则删除之前创建的script标签</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">if</span>(<span class="built_in">document</span>.querySelector(<span class="string">"#jsonP"</span>)) &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.body.removeChild(temp);</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="javascript">    <span class="comment">//3.设置src属性</span></span></span><br><span class="line"><span class="javascript">     oScript.setAttribute(<span class="string">"src"</span>,url);</span></span><br><span class="line"><span class="javascript">     oScript.setAttribute(<span class="string">"id"</span>,<span class="string">"jsonP"</span>);</span></span><br><span class="line"><span class="javascript">     <span class="comment">//4.向文档中插入该script标签，即可发送跨域请求</span></span></span><br><span class="line"><span class="javascript">     <span class="built_in">document</span>.body.appendChild(oScript);</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><a href="https://blog.csdn.net/yemuxia_sinian/article/details/78792771" target="_blank" rel="noopener">参考</a></p>
+<h4 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h4><ul>
+<li>原理：页面的Hash值改变会刷新页面</li>
+</ul>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200604105521089.png" alt="image-20200604105521089"></p>
+<h4 id="postMessage"><a href="#postMessage" class="headerlink" title="postMessage"></a>postMessage</h4><ul>
+<li>H5新特性</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//A窗口</span></span><br><span class="line"><span class="built_in">window</span>.postMessage(<span class="string">'data'</span>, <span class="string">'http://B.com'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//B窗口监听</span></span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'message'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">eve</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//eve.origin 源</span></span><br><span class="line">    <span class="comment">//eve.source 源的window对象</span></span><br><span class="line">    <span class="comment">//e.data  data</span></span><br><span class="line">&#125;, <span class="literal">false</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="WebSocket"><a href="#WebSocket" class="headerlink" title="WebSocket"></a>WebSocket</h4><p>Websocket是HTML5的一个持久化的协议，它实现了浏览器与服务器的全双工通信，同时也是跨域的一种解决方案。WebSocket和HTTP都是应用层协议，都基于 TCP 协议。但是 <strong>WebSocket 是一种双向通信协议，在建立连接之后，WebSocket 的 server 与 client 都能主动向对方发送或接收数据</strong>。</p>
+<p> 原生WebSocket API使用起来不太方便，我们使用<code>Socket.io</code>，它很好地封装了webSocket接口，提供了更简单、灵活的接口，也对不支持webSocket的浏览器提供了向下兼容。 </p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">let</span> socket = <span class="keyword">new</span> WebSocket(<span class="string">'ws://localhost:3000'</span>);</span></span><br><span class="line"><span class="javascript">    socket.onopen = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">      socket.send(<span class="string">'我爱你'</span>);<span class="comment">//向服务器发送数据</span></span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="javascript">    socket.onmessage = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="built_in">console</span>.log(e.data);<span class="comment">//接收服务器返回的数据</span></span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// server.js</span></span><br><span class="line"><span class="keyword">let</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">let</span> app = express();</span><br><span class="line"><span class="keyword">let</span> WebSocket = <span class="built_in">require</span>(<span class="string">'ws'</span>);<span class="comment">//记得安装ws</span></span><br><span class="line"><span class="keyword">let</span> wss = <span class="keyword">new</span> WebSocket.Server(&#123;<span class="attr">port</span>:<span class="number">3000</span>&#125;);</span><br><span class="line">wss.on(<span class="string">'connection'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">ws</span>) </span>&#123;</span><br><span class="line">  ws.on(<span class="string">'message'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(data);</span><br><span class="line">    ws.send(<span class="string">'我不爱你'</span>)</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="CORS"><a href="#CORS" class="headerlink" title="CORS"></a>CORS</h4><ul>
+<li><p>CORS： 跨域资源共享(CORS) 是一种机制，它使用额外的 HTTP 头使浏览器允许访问不同源服务器上的指定的资源。当请求一个在不同的域、协议或端口上的资源时，就会发起一个跨域 HTTP 请求。 </p>
+</li>
+<li><p><a href="http://www.ruanyifeng.com/blog/2016/04/cors.html" target="_blank" rel="noopener">阮一峰</a></p>
+<p>如果使用express，可以这样在后端设置：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//CORS middleware</span></span><br><span class="line"><span class="keyword">var</span> allowCrossDomain = <span class="function"><span class="keyword">function</span>(<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">    res.header(<span class="string">'Access-Control-Allow-Origin'</span>, <span class="string">'http://example.com'</span>);</span><br><span class="line">    res.header(<span class="string">'Access-Control-Allow-Methods'</span>, <span class="string">'GET,PUT,POST,DELETE'</span>);</span><br><span class="line">    res.header(<span class="string">'Access-Control-Allow-Headers'</span>, <span class="string">'Content-Type'</span>);</span><br><span class="line">    next();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">app.configure(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    app.use(express.bodyParser());</span><br><span class="line">    app.use(express.cookieParser());</span><br><span class="line">    app.use(express.session(&#123; <span class="attr">secret</span>: <span class="string">'cool beans'</span> &#125;));</span><br><span class="line">    app.use(express.methodOverride());</span><br><span class="line">    app.use(allowCrossDomain);</span><br><span class="line">    app.use(app.router);</span><br><span class="line">    app.use(express.static(__dirname + <span class="string">'/public'</span>));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h4><ul>
+<li>Nginx： 一款极其强大的web服务器，其优点就是轻量级、启动快、高并发。 </li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2019/08/19/js/基础/11_复杂判断优雅写法/" class="prev">PREV</a><a href="/2019/08/17/js/基础/09_拖拽/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2019/08/18/js/基础/10_同源&amp;跨域/';
+var disqus_title = '同源策略与跨域';
+var disqus_url = 'https://turing5467.github.io/2019/08/18/js/基础/10_同源&amp;跨域/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

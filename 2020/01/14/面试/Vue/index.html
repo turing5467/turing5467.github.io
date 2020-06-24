@@ -1,33 +1,28 @@
-<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Vue面试题 · 快乐的图小灵</title><meta name="description" content="Vue面试题 - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Vue面试题</h1><div class="post-info">Jan 14, 2020</div><div class="post-content"><h2 id="Vue"><a href="#Vue" class="headerlink" title="Vue"></a>Vue</h2><ul>
-<li><p>对vue的理解</p>
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 面试题--Vue · 快乐的图小灵</title><meta name="description" content="面试题--Vue - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">面试题--Vue</h1><div class="post-info">Jan 14, 2020</div><div class="post-content"><h3 id="Vue面试题"><a href="#Vue面试题" class="headerlink" title="Vue面试题"></a>Vue面试题</h3><p>参考文章1：<a href="https://juejin.im/post/5d59f2a451882549be53b170" target="_blank" rel="noopener">30道Vue面试题</a></p>
+<p>参考文章2：<a href="https://github.com/Advanced-Interview-Question/front-end-interview/blob/dev/docs/guide/vue.md" target="_blank" rel="noopener">Vue面试题</a></p>
+<h4 id="1-对Vue的理解"><a href="#1-对Vue的理解" class="headerlink" title="1.对Vue的理解"></a>1.对Vue的理解</h4><ul>
+<li><p>语法简单，容易上手， 可以说就是对着模板来填充内容 </p>
 </li>
-<li></li>
-<li><p><code>v-if</code>和<code>v-show</code>区别与优先级</p>
+<li><p>基于MVVM模式，数据双向绑定，并使用简单的命令和数据来进行DOM操作，避开繁杂的DOM操作</p>
 </li>
-<li><p><code>v-for</code>为什么要有key</p>
+<li><p>组件化开发，方便组件复用，且将html，css，js都放在同一文件中，修改方便</p>
 </li>
-<li><p><code>v-model</code>怎么用prop实现？</p>
-</li>
-<li><p><code>keep-alive</code>的好处</p>
-</li>
-<li><p>生命周期</p>
-</li>
-<li><p>在哪个生命周期发送网络请求</p>
-</li>
-<li><p>组件通信</p>
-</li>
-<li><p>兄弟传值</p>
-</li>
-<li><p>底层原理</p>
+<li><p>缺点</p>
+<ol>
+<li>Bug很难被调试: 因为使用双向绑定的模式，当你看到界面异常了，有可能是你View的代码有Bug，也可能是Model的代码有问题。另外，数据绑定的声明是指令式地写在View的模版当中的，没办法去打断点debug</li>
+<li>Vue不支持IE8</li>
+</ol>
 </li>
 </ul>
-<h3 id="Vuex"><a href="#Vuex" class="headerlink" title="Vuex"></a>Vuex</h3><ul>
-<li>Vuex的五大属性</li>
-<li>对Vuex的理解</li>
-<li>使用场景</li>
+<h4 id="2-v-if和v-show"><a href="#2-v-if和v-show" class="headerlink" title="2.v-if和v-show"></a>2.v-if和v-show</h4><ul>
+<li>v-if：只有条件第一次变为真时，才渲染条件块，否则什么也不做。</li>
+<li>v-show：不管初始条件是啥，元素总是被渲染</li>
 </ul>
-<h3 id="Vue面试题"><a href="#Vue面试题" class="headerlink" title="Vue面试题"></a>Vue面试题</h3><p><a href="https://juejin.im/post/5d59f2a451882549be53b170" target="_blank" rel="noopener">30道Vue面试题</a></p>
-<h4 id="1-computed和watch的区别和应用场景"><a href="#1-computed和watch的区别和应用场景" class="headerlink" title="1. computed和watch的区别和应用场景"></a>1. computed和watch的区别和应用场景</h4><ul>
+<blockquote>
+<p> v-if 适用于在运行时很少改变条件，不需要频繁切换条件的场景；</p>
+<p>v-show 则适用于需要非常频繁切换条件的场景。 </p>
+</blockquote>
+<h4 id="3-computed和watch的区别和应用场景"><a href="#3-computed和watch的区别和应用场景" class="headerlink" title="3.computed和watch的区别和应用场景"></a>3.computed和watch的区别和应用场景</h4><ul>
 <li><p><code>computed</code></p>
 <ul>
 <li>计算属性，<strong>依赖于其他属性</strong>来计算</li>
@@ -53,15 +48,126 @@
 </ul>
 </li>
 </ul>
-<h4 id="2-Vue能watch到数组和对象的变化吗"><a href="#2-Vue能watch到数组和对象的变化吗" class="headerlink" title="2. Vue能watch到数组和对象的变化吗"></a>2. Vue能watch到数组和对象的变化吗</h4><blockquote>
+<h4 id="4-v-for为什么要有key"><a href="#4-v-for为什么要有key" class="headerlink" title="4.v-for为什么要有key"></a>4.v-for为什么要有key</h4><ul>
+<li><p><strong>key</strong>：每一个vnode的唯一id，可以判断两个节点是否相同，相同就复用，不相同就删除旧的创建新的。</p>
+</li>
+<li><p>作用：在diff算法执行时更快找到对应的节点，<strong>提升diff速度</strong></p>
+</li>
+</ul>
+<h4 id="5-对Vue生命周期的理解"><a href="#5-对Vue生命周期的理解" class="headerlink" title="5.对Vue生命周期的理解"></a>5.对Vue生命周期的理解</h4><ul>
+<li><p>Vue 实例有一个完整的生命周期，也就是从开始创建、初始化数据、编译模版、挂载 Dom -&gt; 渲染、更新 -&gt; 渲染、卸载等一系列过程，我们称这是 Vue 的生命周期。 </p>
+</li>
+<li><table>
+<thead>
+<tr>
+<th>生命周期</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>beforeCreate</td>
+<td>组件实例被创建之初，组件的属性生效之前</td>
+</tr>
+<tr>
+<td>created</td>
+<td>组件实例已经完全创建，属性也绑定，但真实 dom 还没有生成，$el 还不可用</td>
+</tr>
+<tr>
+<td>beforeMount</td>
+<td>在挂载开始之前被调用：相关的 render 函数第一次被调用后</td>
+</tr>
+<tr>
+<td>mounted</td>
+<td>el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用该钩子</td>
+</tr>
+<tr>
+<td>beforeUpdate</td>
+<td>组件数据更新之前调用，发生在虚拟 DOM 打补丁之前</td>
+</tr>
+<tr>
+<td>update</td>
+<td>组件数据更新之后</td>
+</tr>
+<tr>
+<td>activited</td>
+<td>keep-alive 专属，组件被激活时调用</td>
+</tr>
+<tr>
+<td>deactivated</td>
+<td>keep-alive 专属，组件被销毁时调用</td>
+</tr>
+<tr>
+<td>beforeDestory</td>
+<td>组件销毁前调用</td>
+</tr>
+<tr>
+<td>destoryed</td>
+<td>组件销毁后调用</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<blockquote>
+<p>Q：在哪个生命周期里调用异步请求？</p>
+<p>A： 在钩子函数 created、beforeMount、mounted 中进行调用，因为在这三个钩子函数中，data 已经创建，可以将服务端端返回的数据进行赋值。 但是最推荐<code>created</code>，原因</p>
+<ol>
+<li><p>能更快获取到服务端数据，减少loading事件</p>
+<ol start="2">
+<li>ssr不支持beforeMount、mounted钩子函数，所以放在created中有助于一致性</li>
+</ol>
+</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>Q：在什么阶段才能访问操作DOM</p>
+<p>A： 在钩子函数 mounted 被调用前，Vue 已经将编译好的模板挂载到页面上，所以在 mounted 中可以访问操作 DOM。 </p>
+</blockquote>
+<p><img src="https://camo.githubusercontent.com/2b7d95b7ed731fb62cddd0ef038d6858ac5225f8/68747470733a2f2f7869616f6d757a68752d696d6167652e6f73732d636e2d6265696a696e672e616c6979756e63732e636f6d2f64313237396536643633323764323366326539376262306266343935306234372e706e67" alt="img"></p>
+<h4 id="6-Vue组件间通信"><a href="#6-Vue组件间通信" class="headerlink" title="6.Vue组件间通信"></a>6.Vue组件间通信</h4><ol>
+<li><code>props/$emit</code>适合父子组件通信</li>
+<li><code>ref</code>与<code>$parent/$children</code>适合父子组件通信<ul>
+<li><code>$ref</code>： ：在普通DOM 元素上使用，引用指向 DOM 元素；如果在子组件上，引用就指向组件实例 </li>
+<li><code>$parent</code> / <code>$children</code>：访问父 / 子实例 </li>
+</ul>
+</li>
+<li><code>EventBus($emit / $on)</code> 这种方法通过一个空的 Vue 实例作为中央事件总线（事件中心），用它来触发事件和监听事件，从而实现任何组件间的通信。 </li>
+<li><code>provide/inject</code>：适合隔代组件通信</li>
+<li><code>Vuex</code>适合父子、隔代、兄弟组件</li>
+</ol>
+<h4 id="7-keep-alive的理解"><a href="#7-keep-alive的理解" class="headerlink" title="7.keep-alive的理解"></a>7.keep-alive的理解</h4><p><code>keep-alive</code> 是 Vue 内置的一个组件，可以使被包含的组件保留状态，避免重新渲染 ，其有以下特性： </p>
+<ul>
+<li><p>一般结合路由和动态组件一起使用，用于缓存组件； </p>
+</li>
+<li><p>提供 <code>include</code>和 <code>exclude</code>属性，支持字符串或正则表达式，include 表示只有名称匹配的组件会被缓存，exclude 则反之，exclude 的优先级比 include 高； </p>
+</li>
+<li><p>对应两个钩子函数 <code>activated</code>和 <code>deactivated</code>，当组件被激活时，触发钩子函数 activated，当组件被移除时，触发钩子函数 deactivated。 （该钩子ssr期间不被调用）</p>
+</li>
+</ul>
+<h4 id="8-组件中data为什么是一个函数，而-new-Vue实例中可以直接是一个对象"><a href="#8-组件中data为什么是一个函数，而-new-Vue实例中可以直接是一个对象" class="headerlink" title="8.组件中data为什么是一个函数，而 new Vue实例中可以直接是一个对象"></a>8.组件中data为什么是一个函数，而 new Vue实例中可以直接是一个对象</h4><p>因为组件是用来复用的</p>
+<ul>
+<li><p>如果data是一个对象，那么作用域没有隔离，子组件中的data属性值会相互影响（JS里对象是引用关系）</p>
+</li>
+<li><p>如果组件中 data 选项是一个函数，那么每个实例可以维护一份<strong>被返回对象</strong>的独立的拷贝，组件实例之间的 <code>data</code>属性值不<strong>会互相影响</strong> </p>
+<p>而 new Vue 的实例，是不会被复用的，因此不存在引用对象的问题。 </p>
+</li>
+</ul>
+<h4 id="9-Vue如何实现双向绑定"><a href="#9-Vue如何实现双向绑定" class="headerlink" title="9.Vue如何实现双向绑定"></a>9.Vue如何实现双向绑定</h4><p> 利用<code>Object.defineProperty</code>劫持对象的访问器,在属性值发生变化时我们可以获取变化,然后根据变化进行后续响应,在vue3.0中通过Proxy代理对象进行类似的操作。 </p>
+<p>Proxy的优势如下</p>
+<ul>
+<li>Proxy可以直接监听对象而非属性</li>
+<li>Proxy可以直接监听数组的变化</li>
+<li>Proxy有多达13种拦截方法,不限于apply、ownKeys、deleteProperty、has等等是<code>Object.defineProperty</code>不具备的</li>
+<li>Proxy返回的是一个新对象,我们可以只操作新的对象达到目的,而<code>Object.defineProperty</code>只能遍历对象属性直接修改</li>
+<li>Proxy作为新标准将受到浏览器厂商重点持续的性能优化，也就是传说中的新标准的性能红利</li>
+</ul>
+<h4 id="10-Vue能watch到数组和对象的变化吗"><a href="#10-Vue能watch到数组和对象的变化吗" class="headerlink" title="10.Vue能watch到数组和对象的变化吗"></a>10.Vue能watch到数组和对象的变化吗</h4><blockquote>
 <p><code>Vue.set()</code>：将对象/数组添加到<strong>响应式系统</strong></p>
 </blockquote>
 <ul>
 <li><p>对象：</p>
 <ul>
 <li>通过<code>obj.xx = &#39;xx&#39;</code>的方式修改<ul>
-<li>已定义属性：页面响应，但无法监测到</li>
-<li>未定义属性：页面不响应，且无法监测</li>
+<li>已/未定义属性：页面响应，但无法监测到</li>
 </ul>
 </li>
 <li>通过<code>Vue.set</code>或<code>vm.$set</code>的方式修改<ul>
@@ -72,15 +178,12 @@
 <li><strong>未定义</strong>属性：页面响应，且可以监测</li>
 </ul>
 </li>
+<li>删除属性用<code>Vue.delete</code>或<code>vm.$delete</code></li>
 </ul>
 </li>
-<li><p>同理：删除属性用<code>Vue.delete</code>或<code>vm.$delete</code></p>
-</li>
-</ul>
-<ul>
 <li><p>数组</p>
 <ul>
-<li>通过<code>arr[index]=&#39;xx&#39;</code>的方式修改<ul>
+<li>通过<code>arr[index]=&#39;xx&#39;</code>或<code>arr.length = newLen</code>的方式修改<ul>
 <li>页面不响应，且无法监测</li>
 </ul>
 </li>
@@ -97,20 +200,80 @@
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//测试</span></span><br><span class="line">	&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">        &lt;h1&gt;&#123;&#123;obj.title&#125;&#125;&lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp">        &lt;h1&gt;&#123;&#123;arr[0]&#125;&#125;&lt;/</span>h1&gt;</span><br><span class="line">        &lt;button @click=<span class="string">"changeObj"</span>&gt;修改obj.title&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">        &lt;button @click="changeArr"&gt;修改arr[0]&lt;/</span>button&gt;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    &lt;script&gt;</span></span><br><span class="line"><span class="regexp">        const app = new Vue(&#123;</span></span><br><span class="line"><span class="regexp">            el:'#app',</span></span><br><span class="line"><span class="regexp">            data: &#123;</span></span><br><span class="line"><span class="regexp">                obj:&#123;title:'Hello Vue'&#125;,</span></span><br><span class="line"><span class="regexp">                arr:[5467]</span></span><br><span class="line"><span class="regexp">            &#125;,</span></span><br><span class="line"><span class="regexp">            watch:&#123;</span></span><br><span class="line"><span class="regexp">                obj()&#123;</span></span><br><span class="line"><span class="regexp">                    console.log('obj change');</span></span><br><span class="line"><span class="regexp">                &#125;,</span></span><br><span class="line"><span class="regexp">                arr()&#123;</span></span><br><span class="line"><span class="regexp">                    console.log('arr change');</span></span><br><span class="line"><span class="regexp">                &#125;</span></span><br><span class="line"><span class="regexp">            &#125;,</span></span><br><span class="line"><span class="regexp">            methods:&#123;</span></span><br><span class="line"><span class="regexp">                changeObj()&#123;</span></span><br><span class="line"><span class="regexp">                    this.obj.title = 'Hello React';  /</span><span class="regexp">/页面能响应，但无法监测到</span></span><br><span class="line"><span class="regexp">                &#125;,</span></span><br><span class="line"><span class="regexp">                changeArr()&#123;</span></span><br><span class="line"><span class="regexp">                    this.arr[0] = 666;	/</span><span class="regexp">/页面中无法响应，且无法监测到</span></span><br><span class="line"><span class="regexp">                &#125;</span></span><br><span class="line"><span class="regexp">            &#125;</span></span><br><span class="line"><span class="regexp">        &#125;)</span></span><br><span class="line"><span class="regexp">    &lt;/</span>script&gt;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//代码改进</span></span><br><span class="line">    watch: &#123;</span><br><span class="line">        obj: &#123;</span><br><span class="line">            handler(newV,oldV)&#123;</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">'obj change'</span>);</span><br><span class="line">            &#125;,</span><br><span class="line">            deep:<span class="literal">true</span>   <span class="comment">// &lt;= 监听对象属性的变化</span></span><br><span class="line">        &#125;,</span><br><span class="line">        arr: <span class="function"><span class="params">()</span>=&gt;</span> <span class="built_in">console</span>.log(<span class="string">'arr change'</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">        changeObj() &#123;</span><br><span class="line">            <span class="comment">//对象中修改属性：</span></span><br><span class="line">            <span class="comment">//this.obj.title = 'Hello React'; 两种均可，推荐下面一种</span></span><br><span class="line">            Vue.set(<span class="keyword">this</span>.obj, <span class="string">'title'</span>, <span class="string">'Hello React'</span>); <span class="comment">//通过Vue.set()向响应式对象上添加新属性</span></span><br><span class="line">            <span class="comment">//如果要给对象添加'新属性'，则必须使用Vue.set或vm.$set</span></span><br><span class="line">        &#125;,</span><br><span class="line">        changeArr() &#123;</span><br><span class="line">            Vue.set(<span class="keyword">this</span>.arr,<span class="number">0</span>,<span class="number">666</span>);  <span class="comment">//通过Vue.set()向响应式数组上添加新属性</span></span><br><span class="line">            <span class="comment">//或app.$set(this.arr,0,666)  Vue.set的别名</span></span><br><span class="line">            <span class="comment">//或app.arr.splice(0,1,666)</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">watch: &#123;</span><br><span class="line">    obj: &#123;</span><br><span class="line">        handler(newV,oldV)&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'obj change'</span>);</span><br><span class="line">        &#125;,</span><br><span class="line">        deep:<span class="literal">true</span>   <span class="comment">// &lt;= 监听对象属性的变化</span></span><br><span class="line">    &#125;,</span><br><span class="line">    arr: <span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'arr change'</span>)</span><br><span class="line">&#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">        changeObj() &#123;</span><br><span class="line">            <span class="comment">//对象中修改属性：</span></span><br><span class="line">            <span class="comment">//this.obj.title = 'Hello React'; 两种均可，推荐下面一种</span></span><br><span class="line">            Vue.set(<span class="keyword">this</span>.obj, <span class="string">'title'</span>, <span class="string">'Hello React'</span>); <span class="comment">//通过Vue.set()向响应式对象上添加新属性</span></span><br><span class="line">            <span class="comment">//如果要给对象添加'新属性'，则必须使用Vue.set或vm.$set</span></span><br><span class="line">        &#125;,</span><br><span class="line">            changeArr() &#123;</span><br><span class="line">                Vue.set(<span class="keyword">this</span>.arr,<span class="number">0</span>,<span class="number">666</span>);  <span class="comment">//通过Vue.set()向响应式数组上添加新属性</span></span><br><span class="line">                <span class="comment">//或app.$set 或app.arr.splice</span></span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>在Vue的文档中有说明：为了发现<strong>对象</strong>内部值的变化，可以在选项参数中指定 <code>deep: true</code> 。注意监听<strong>数组</strong>的变动不需要这么做。</p>
 </blockquote>
-<h4 id="3-vue-router路由模式有几种"><a href="#3-vue-router路由模式有几种" class="headerlink" title="3.vue-router路由模式有几种"></a>3.vue-router路由模式有几种</h4><ol>
+<h4 id="11-Vuex"><a href="#11-Vuex" class="headerlink" title="11.Vuex"></a>11.Vuex</h4><p>Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。每一个 Vuex 应用的核心就是 store（仓库）。“store” 基本上就是一个容器，它包含着你的应用中大部分的状态 ( state )。</p>
+<p>（1）Vuex 的状态存储是<strong>响应式</strong>的。当 Vue 组件从 store 中读取状态的时候，若 store 中的状态发生变化，那么相应的组件也会相应地得到高效更新。</p>
+<p>（2）改变 store 中的状态的唯一途径就是显式地提交<code>commit( mutation)</code>。这样使得我们可以方便地跟踪每一个状态的变化。</p>
+<p>主要包括以下几个模块：</p>
+<ul>
+<li>State：定义了应用状态的数据结构，可以在这里设置默认的初始状态。</li>
+<li>Getter：允许组件从 Store 中获取数据，mapGetters 辅助函数仅仅是将 store 中的 getter 映射到局部计算属性。</li>
+<li>Mutation：是唯一更改 store 中状态的方法，且必须是同步函数。</li>
+<li>Action：用于提交 mutation，而不是直接变更状态，可以包含任意异步操作。</li>
+<li>Module：允许将单一的 Store 拆分为多个 store 且同时保存在单一的状态树中。</li>
+</ul>
+<h4 id="12-Vue-SSR-？说说-SSR？"><a href="#12-Vue-SSR-？说说-SSR？" class="headerlink" title="12.Vue SSR ？说说 SSR？"></a>12.Vue SSR ？说说 SSR？</h4><blockquote>
+<p>即：SSR大致的意思就是将标签渲染成整个 html 片段的工作在<strong>服务端</strong>完成，服务端形成的html 片段直接返回给<strong>客户端</strong>这个过程就叫做服务端渲染。</p>
+</blockquote>
+<p><strong>服务端渲染 SSR 的优缺点如下：</strong></p>
+<p><strong>（1）服务端渲染的优点：</strong></p>
+<ul>
+<li>更好的 SEO： 因为 SPA 页面的内容是通过 Ajax 获取，而搜索引擎爬取工具并不会等待 Ajax 异步完成后再抓取页面内容，所以在 SPA 中是抓取不到页面通过 Ajax 获取到的内容；而 SSR 是直接由服务端返回已经渲染好的页面（数据已经包含在页面中），所以搜索引擎爬取工具可以抓取渲染好的页面；</li>
+<li>更快的内容到达时间（首屏加载更快）： SPA 会等待所有 Vue 编译后的 js 文件都下载完成后，才开始进行页面的渲染，文件下载等需要一定的时间等，所以首屏渲染需要一定的时间；SSR 直接由服务端渲染好页面直接返回显示，无需等待下载 js 文件及再去渲染等，所以 SSR 有更快的内容到达时间；</li>
+</ul>
+<p><strong>（2) 服务端渲染的缺点：</strong></p>
+<ul>
+<li>更多的开发条件限制： 例如服务端渲染只支持 <code>beforCreate</code>和 <code>created</code>两个钩子函数，这会导致一些外部扩展库需要特殊处理，才能在服务端渲染应用程序中运行；并且与可以部署在任何静态文件服务器上的完全静态单页面应用程序 SPA 不同，服务端渲染应用程序，需要处于 Node.js server 运行环境；</li>
+<li>更多的服务器负载：在 Node.js  中渲染完整的应用程序，显然会比仅仅提供静态文件的  server 更加大量占用CPU 资源 (CPU-intensive - CPU 密集)，因此如果你预料在高流量环境 ( high traffic ) 下使用，请准备相应的服务器负载，并明智地采用缓存策略。</li>
+</ul>
+<h4 id="13-Vue项目优化"><a href="#13-Vue项目优化" class="headerlink" title="13.Vue项目优化"></a>13.Vue项目优化</h4><p><strong>（1）代码层面的优化</strong></p>
+<ul>
+<li>v-if 和 v-show 区分使用场景</li>
+<li>computed 和 watch  区分使用场景</li>
+<li>v-for 遍历必须为 item 添加 key，且避免同时使用 v-if</li>
+<li>长列表性能优化</li>
+<li>事件的销毁</li>
+<li>图片资源懒加载</li>
+<li>路由懒加载</li>
+<li>第三方插件的按需引入</li>
+<li>优化无限列表性能</li>
+<li>服务端渲染 SSR or 预渲染</li>
+</ul>
+<p><strong>（2）Webpack 层面的优化</strong></p>
+<ul>
+<li>Webpack 对图片进行压缩</li>
+<li>减少 ES6 转为 ES5 的冗余代码</li>
+<li>提取公共代码</li>
+<li>模板预编译</li>
+<li>提取组件的 CSS</li>
+<li>优化 SourceMap</li>
+<li>构建结果输出分析</li>
+<li>Vue 项目的编译优化</li>
+</ul>
+<p><strong>（3）基础的 Web 技术的优化</strong></p>
+<ul>
+<li>开启 gzip 压缩</li>
+<li>浏览器缓存</li>
+<li>CDN 的使用</li>
+<li>使用 Chrome Performance 查找性能瓶颈</li>
+</ul>
+<h4 id="14-vue3-0特性"><a href="#14-vue3-0特性" class="headerlink" title="14.vue3.0特性"></a>14.vue3.0特性</h4><ol>
+<li>监测机制的改变: 3.0 将带来基于Proxy的 observer 实现，提供全语言覆盖的反应性跟踪。 </li>
+<li>组件声明改用类式写法。</li>
+<li>全面改用TypeScript来重写，易于代码维护</li>
+</ol>
+<h4 id="15-vue-router路由模式有几种"><a href="#15-vue-router路由模式有几种" class="headerlink" title="15.vue-router路由模式有几种"></a>15.vue-router路由模式有几种</h4><ol>
 <li><code>hash</code> 使用 URL hash 值来作路由。支持所有浏览器；</li>
 <li><code>history</code>  依赖 HTML5 History API 和服务器配置。</li>
-<li><code>abstract</code> 支</li>
-<li>持所有 JavaScript 运行环境，如 Node.js 服务器端。如果发现没有浏览器的 API，路由会自动强制进入这个模式.</li>
+<li><code>abstract</code> 支持所有 JavaScript 运行环境，如 Node.js 服务器端。如果发现没有浏览器的 API，路由会自动强制进入这个模式.</li>
 </ol>
-</div></article></div></main><footer><div class="paginator"><a href="/2020/02/04/工程化/混合开发/" class="prev">PREV</a><a href="/2020/01/14/面试/浏览器/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+</div></article></div></main><footer><div class="paginator"><a href="/2020/01/14/面试/浏览器/" class="prev">PREV</a><a href="/2020/01/13/面试/代码手写题/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
 var disqus_identifier = '2020/01/14/面试/Vue/';
-var disqus_title = 'Vue面试题';
+var disqus_title = '面试题--Vue';
 var disqus_url = 'https://turing5467.github.io/2020/01/14/面试/Vue/';
 (function() {
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

@@ -1,0 +1,841 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> JS基础 · 快乐的图小灵</title><meta name="description" content="JS基础 - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">JS基础</h1><div class="post-info">Aug 1, 2019</div><div class="post-content"><h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><ul>
+<li>一个完整的JavaScript实现应该由以下三个部分构成</li>
+</ul>
+<ol>
+<li>ECMAScript</li>
+<li>DOM(文档对象模型)</li>
+<li>BOM(浏览器对象模型)<h3 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h3><h4 id="基本方法"><a href="#基本方法" class="headerlink" title="基本方法"></a>基本方法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">弹出确认框 confirm();</span><br><span class="line">弹出输入框 prompt(&quot;提示文字&quot;); //通过接收返回值得到用户输入值,返回值类型为String</span><br><span class="line">window.print();弹出打印窗口</span><br><span class="line">decodeURI()转码</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li><code>console</code>方法<ol>
+<li><code>console.dir</code></li>
+<li><code>console.table()</code></li>
+<li><code>console.trace()</code> 输出调用栈</li>
+<li><code>console.info()</code></li>
+<li><code>console.warn()</code></li>
+<li><code>console.error()</code></li>
+<li><code>console.group(groupName)</code> <pre><code>创建一个新分组,随后输出的内容会被添加一个缩进,直至`console.groupEnd()`
+`console.groupCollapsed()` 将分组折叠</code></pre></li>
+<li><code>console.time([label])</code><pre><code>创建一个计时器,可传入计时器名字,若传入,则`timeEnd(label)`也必须传入该参数</code></pre></li>
+<li><code>console.profile(profileName)</code> <pre><code>开始记录性能描述信息,获取各个函数分别执行了多少次，或总的执行时间等信息
+  `console.profileEnd(profileName)`</code></pre></li>
+<li><code>clear()</code></li>
+<li><code>count(label)</code> 输出指定的<code>label</code>和<code>count(label)</code>被调用的次数</li>
+<li><code>assert(condition,message)</code>仅在指定条件为 false 时输出日志。<h4 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h4></li>
+</ol>
+</li>
+<li>变量的复制(<code>var num2 = num1;</code>): 在原变量对象上创建一个新值,然后把该值复制到为新变量分配的位置上,两个变量后续操作不互相影响</li>
+<li>引用数据类型的复制: 将原变量对象的<code>指针</code>复制一份到为新变量分配的空间中,两个变量引用同一个对象</li>
+</ul>
+<h4 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h4><ul>
+<li><p><strong>基本数据类型</strong></p>
+<ol>
+<li><p>String    字符串</p>
+<pre><code>a. 引号必须在同一行
+b. 引号不可嵌套
+c. \表示转义字符</code></pre></li>
+<li><p>Number    数值</p>
+<pre><code>a. Number.MAX_VALUE: 1.7976931348623157e+308
+   Number.MIN_VALUE: 5e-324(0以上的最小值)
+   正无穷: INFINITY(字面量) 负无穷: -INFINITY
+   NaN(字面量): 一个特殊数字，typeof NaN == number
+b. JS进行浮点运算,可能的到一个不精确的结果
+    0.1+0.2 = 0.30000000000000004
+c.</code></pre><p>​    1. <code>num.toFixed(n);</code> //<code>小数</code>形式的字符串(n为小数位数)</p>
+<ol start="2">
+<li><p><code>num.toExceptional(n)</code>  //<code>指数</code>形式的字符串(n为小数位数)</p>
+<ol start="3">
+<li><code>num.toPrecision(n)</code>   //n为有效数字位数</li>
+<li><code>num.toString(radix)</code>  //返回指定基数的字符串</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>Boolean</p>
+</li>
+<li><p>Null      空值: 表示一个为空的对象</p>
+<pre><code>`typeof null = Object`</code></pre></li>
+<li><p>Undefined 未定义</p>
+<pre><code>`typeof undefined = undefined`</code></pre></li>
+</ol>
+</li>
+<li><p><strong>引用数据类型</strong></p>
+<ol start="6">
+<li>Object 对象</li>
+</ol>
+</li>
+<li><p>为了便于操作基本类型值,es提供了3中特殊的引用类型</p>
+<ol>
+<li>String</li>
+<li>Number</li>
+<li>Boolean</li>
+</ol>
+</li>
+<li><p>每当基本类型值调用引用类型所属的方法时,后台会自动完成下列处理</p>
+<ol>
+<li><strong>创建</strong>一个相应的引用类型的<strong>实例</strong></li>
+<li>在<strong>实例</strong>上<strong>调用</strong>指定的<strong>方法</strong></li>
+<li><strong>销毁实例</strong></li>
+</ol>
+</li>
+<li><p>基本包装类型与引用类型的主要区别: 对象的声明周期</p>
+<ol>
+<li><code>new</code>创建的引用类型得实例: 在执行流离开当前作用域之前一直保存在内存中</li>
+<li>基本包装类型: 只存在于一行代码的执行瞬间,然后立即销毁<br> 这意味着: <strong>不能在运行时为基本类型值添加属性和方法</strong></li>
+</ol>
+</li>
+</ul>
+<h5 id="强制类型转换"><a href="#强制类型转换" class="headerlink" title="强制类型转换"></a>强制类型转换</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">1.其他转String</span><br><span class="line">	方式1.  xx.toString()</span><br><span class="line">			null和undefined没有toString()</span><br><span class="line">	方式2.   String(xx)</span><br><span class="line">			对Number和Boolean,实际上是调用toString()方法</span><br><span class="line">			对于null和undefined,转换为&quot;null&quot;或&quot;undefined&quot;</span><br><span class="line">	方式3.   任何值+&quot;&quot;</span><br><span class="line"></span><br><span class="line">2.其他转Number</span><br><span class="line">	方法1.使用Number()函数</span><br><span class="line">		null -&gt; 0</span><br><span class="line">		undefined -&gt; NaN</span><br><span class="line">		&quot;&quot;  -&gt;  0</span><br><span class="line">		&quot;    &quot;  -&gt;  0</span><br><span class="line">	方式2.</span><br><span class="line">		字符串 -&gt; 数字</span><br><span class="line">			parseInt(): 将字符串转换为一个&apos;整数&apos;</span><br><span class="line">			parseFloat(): 将字符串转换为一个浮点数</span><br><span class="line">		其他  -&gt; 数字</span><br><span class="line">			parseInt(a,8): 第二个参数指定第一个参数的进制</span><br><span class="line">				如果字符串第一个字符为0,会基于八进制求值</span><br><span class="line">				因此建议总是提供10作为参数</span><br><span class="line">		方式3.  -0 *1 /1</span><br><span class="line">		方式4.  +&quot;xx&quot;</span><br><span class="line">		判断是否为number</span><br><span class="line">			typeof value === &apos;number&apos; &amp;&amp; isFinite(value);</span><br><span class="line"></span><br><span class="line">3.其他转boolean</span><br><span class="line">	1.Boolean()函数</span><br><span class="line">			0、NaN、null、undefined、&quot;&quot; 为false </span><br><span class="line">	2.  !!xx</span><br></pre></td></tr></table></figure>
+
+<h4 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h4><h5 id="1-算术运算符"><a href="#1-算术运算符" class="headerlink" title="1.算术运算符"></a>1.算术运算符</h5><ul>
+<li>对非Number类型的值进行运算时,会将这些值转换为Number然后运算<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">+、-、*</span><br><span class="line">/:  100/null -&gt; INFINITY</span><br><span class="line">%:  (正负只与左边的值有关)</span><br><span class="line">	100%null -&gt; NaN</span><br><span class="line">	</span><br><span class="line">所有运算符搭配NaN或undefined结果都是NaN</span><br><span class="line"></span><br><span class="line">- * / 运算时都会自动转换为Number,可以利用这点做隐式类型转换</span><br><span class="line">	数值 -0 *1 /1 将其转换为Number</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h5 id="2-一元运算符"><a href="#2-一元运算符" class="headerlink" title="2.一元运算符"></a>2.一元运算符</h5><p><code>+ - ++ --</code></p>
+<h5 id="3-逻辑运算符"><a href="#3-逻辑运算符" class="headerlink" title="3.逻辑运算符"></a>3.逻辑运算符</h5><ul>
+<li><p>!  :非运算</p>
+<pre><code>如果对非boolean值进行非运算,则先将其转换为布尔值,然后再取反
+可以利用这个特性,将任意数据类型转换为boolean (!!值)</code></pre></li>
+<li><p>&amp;&amp; : “短路”与运算</p>
+<pre><code>如果操作数1为假,则直接返回操作数1,反之,返回操作数2</code></pre></li>
+<li><p>|| : “短路”或运算</p>
+<pre><code>如果操作数1为真,则返回操作数1,反之,返回操作数2</code></pre></li>
+</ul>
+<h5 id="4-赋值运算符"><a href="#4-赋值运算符" class="headerlink" title="4. 赋值运算符"></a>4. 赋值运算符</h5><ul>
+<li>=  +=  -=  *=  /=  %=</li>
+</ul>
+<h5 id="5-关系运算符"><a href="#5-关系运算符" class="headerlink" title="5.关系运算符"></a>5.关系运算符</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt;  &gt;=</span><br><span class="line">&lt;  &lt;=</span><br><span class="line">    任何值和NaN作比较都是false : 10 &lt;/&gt; &quot;hell0&quot; -&gt; false</span><br><span class="line">    比较字符串时,比较的是Unicode字符编码,一位一位比 &quot;abc&quot;&lt;&quot;b&quot;</span><br><span class="line">    Unicode编码</span><br><span class="line">			JS:  &quot;\u16进制编码&quot;;</span><br><span class="line">			html &lt;body&gt;&lt;/body&gt;: &amp;#10进制编码;</span><br><span class="line"></span><br><span class="line">==</span><br><span class="line">	会做自动类型转换</span><br><span class="line">	undefined 衍生自null, undefined == null</span><br><span class="line">!=</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>null跟任何值比较都是false，除了null和undefined</p>
+<p>undefined同</p>
+</blockquote>
+<h5 id="6-条件运算符"><a href="#6-条件运算符" class="headerlink" title="6.条件运算符"></a>6.条件运算符</h5><ul>
+<li>条件运算符,也叫三元运算符</li>
+<li>语法: <code>条件表达式 ? 语句1 : 语句2;</code><h5 id="7-位运算符"><a href="#7-位运算符" class="headerlink" title="7.位运算符"></a>7.位运算符</h5></li>
+<li><code>&amp;</code>按位与<code>|</code>按位或<code>^</code>异或 <code>~</code>取反</li>
+<li><code>&lt;&lt;</code>左移 <code>&gt;&gt;</code>最左位保持原符号不变<code>&gt;&gt;&gt;</code>无符号右移(最左位置0)<h5 id="7-其他"><a href="#7-其他" class="headerlink" title="7.其他"></a>7.其他</h5></li>
+<li><code>in</code></li>
+<li><code>instanceof</code>：判断<code>右边值</code>的<code>prototype</code>属性是否存在于<code>左边值</code>的<strong>原型链</strong>上。</li>
+<li><code>typeof</code> =&gt;<code>number string boolean undefined object function symbol xml</code></li>
+<li><code>new</code></li>
+<li><code>delete</code>删除对象中属性<pre><code>通过 var 声明的全局变量是无法被 delete 的，而没用使用 var 声明的隐式的全局变量则可以被 delete。</code></pre><h5 id="7-void"><a href="#7-void" class="headerlink" title="7. void"></a>7. <code>void</code></h5></li>
+<li>流程: <pre><code>1. 令`expr`为解释执行的结果</code></pre><ol start="2">
+<li>调用<code>getValue</code>(<code>expr</code>)</li>
+<li>返回<code>undefined</code></li>
+</ol>
+</li>
+<li>为什么 要用<code>void</code><pre><code>因为`undefined`在js中不是保留字,因而可以作为变量名被赋值,所以不是绝对可靠的而`void`能保证取到`undefined`值</code></pre></li>
+<li>作用<pre><code>1. `void 0`取`undefined`</code></pre><ol start="2">
+<li>填充<code>&lt;a&gt;</code>的<code>href</code>确保点击不会发生页面跳转</li>
+<li>填充<code>&lt;img&gt;</code>的<code>src</code>,确保不会向服务器发出垃圾请求</li>
+</ol>
+</li>
+</ul>
+<h4 id="语句"><a href="#语句" class="headerlink" title="语句"></a>语句</h4><ol>
+<li><p>条件判断语句<code>if</code></p>
+</li>
+<li><p>条件分支语句<br> <code>switch()</code>语句  (底层是 <code>===</code> 匹配 )</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">switch (true) &#123;</span><br><span class="line">           case score &gt;= 70:</span><br><span class="line">               alert(&quot;良好&quot;);</span><br><span class="line">               break;</span><br><span class="line">           case score &gt;= 60:</span><br><span class="line">               alert(&quot;合格&quot;);</span><br><span class="line">               break;</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>循环语句<br> <code>while()</code><br> <code>do...while()</code><br> <code>for()</code>语句<br> <code>for each in</code> 枚举对象属性值</p>
+<blockquote>
+<p> while的话只是在函数局部环境或者全局环境运行，并<strong>不会改变作用域链</strong> </p>
+</blockquote>
+</li>
+<li><p>异常<br> <code>try-catch(e)-finally</code> 如果在<code>try</code>语句中发生异常,则运行中断,开始执行<code>catch</code>语句的部分,执行<code>catch</code>语句被称为捕捉到了异常</p>
+<pre><code>`finally`子句必定会在跳出`try`语句之时被执行
+catch与finally语句不能同时省略</code></pre><p> <code>throw 表达式</code> 抛出异常对象</p>
+</li>
+</ol>
+<h4 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">作用域:一个变量的作用范围</span><br><span class="line">	1.全局作用域</span><br><span class="line">		- 直接编写在script标签中的JS代码,都在全局作用域</span><br><span class="line">		- 在页面打开时创建,页面关闭时销毁</span><br><span class="line">		- 在全局作用域中有一个全局对象window,代表浏览器的窗口</span><br><span class="line">			由浏览器创建,我们可以直接使用</span><br><span class="line">		- 在全局作用域中,创建的变量都会作为window对象保存(var | function)</span><br><span class="line">		- 全局作用域中的变量都是全局变量,可以在页面任意部分访问到</span><br><span class="line">	2.函数作用域</span><br><span class="line">		- 调用函数时创建,函数执行完毕,函数作用域销毁</span><br><span class="line">		- 每调用一次函数就会创建一个新的函数作用域</span><br><span class="line">		- 在函数作用域中也有声明提前的特性</span><br><span class="line">			使用var关键字声明的变量,会在函数中所有代码执行之前被声明</span><br><span class="line">			没有使用var关键字声明的变量都是设置为全局变量</span><br><span class="line">		- 定义形参就相当于在函数作用域内声明了变量</span><br><span class="line"></span><br><span class="line">变量的声明提前:</span><br><span class="line">	使用var/function关键字声明的变量,会在所有代码执行之前被声明(仅仅是声明)</span><br><span class="line">	</span><br><span class="line">函数的声明提前:</span><br><span class="line">	使用函数声明形式创建的函数function 函数名()&#123;&#125;</span><br><span class="line">		在所有代码执行之前就被创建,因此可以在函数声明上面调用</span><br><span class="line">	使用函数表达式var fun = function()&#123;&#125;创建的函数</span><br><span class="line">		在所有代码执行之前仅仅被声明,因此不能再函数创建前调用</span><br><span class="line"></span><br><span class="line">如果函数与变量同名,那么只会对函数声明提升,变量留在原地</span><br></pre></td></tr></table></figure>
+
+<h4 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h4><ul>
+<li>数组也是一个<code>对象</code>,<code>长度可变</code>,<code>元素任意类型</code><br><code>存储性能比普通对象要好</code><br><code>索引从0开始</code>, <code>if索引不存在,返回undefined</code></li>
+<li>创建数组对象<pre><code>a. 数组对象 `var arr = new Array(1,2,3...)`;   不常用
+    ()中只有一个元素时,表示数组长度
+b. 字面量创建数组 `var arr = [1,2,3...]`;</code></pre><h5 id="数组对象方法"><a href="#数组对象方法" class="headerlink" title="数组对象方法"></a>数组对象方法</h5>（支持thisArg参数的函数: Array.from \ every some find findIndex filter map forEach）</li>
+</ul>
+<ol>
+<li><p><code>Array.isArray()</code> : 检测数组</p>
+<pre><code>鲜为人知的事实：其实 Array.prototype 也是一个数组</code></pre></li>
+<li><p>返回新数组</p>
+<ul>
+<li><p><code>Array.from(arrayLike[, mapFn[, thisArg]])</code></p>
+</li>
+<li><p><code>Array.of()</code></p>
+<pre><code>**创建**具有可变数量参数的新数组
+  `Array.of(7);  //[7]`</code></pre></li>
+<li><p><code>arr.concat()</code></p>
+<pre><code>合并多个数组或元素，返回合并后的**新数组**</code></pre><p><code>arr.join()</code></p>
+<pre><code>将一个数组/类数组对象的所有元素连接成一个**字符串**并返回。
+参数 `[seperator]`     默认&quot;,&quot;</code></pre></li>
+<li><p><code>arr.slice()</code></p>
+<pre><code>返回原数组的**浅拷贝**（包括 begin，不包括end）。原始数组不会被改变。
+      end可为负值..</code></pre></li>
+</ul>
+</li>
+<li><p>测试、查找符合的元素(判断)</p>
+<ul>
+<li><p><code>arr.every(callback[, thisArg])</code></p>
+<pre><code>检测一个数组中的所有元素是否**全部符合**回调函数</code></pre></li>
+<li><p><code>Array.prototype.some(callback[, thisArg])</code></p>
+<pre><code>通过回调函数查找是否**至少有一个符合**条件的元素，返回`true/false``</code></pre></li>
+<li><p><code>arr.find(callback[, thisArg])</code></p>
+<pre><code>找到**第一个**满足测试(回调)函数的元素**值**，没有则返回undefined
+      性能方面：找到即停止搜寻</code></pre></li>
+<li><p><code>arr.findIndex()</code></p>
+<pre><code>与find相比，它返回找到元素的**索引**</code></pre></li>
+<li><p><code>arr.includes(valueToFind[, fromIndex])</code></p>
+<pre><code>判断数组中是否包含**给定元素**，返回true/false</code></pre></li>
+<li><p><code>arr.filter(callback(element[, index[, array]])[, thisArg])</code></p>
+<pre><code>通过callback过滤原数组，并将过滤后的项作为**新数组**返回
+      性能方面：必须遍历整个数组</code></pre></li>
+<li><p><code>arr.reduce(cb(accumulator, value, index, array), initialValue)</code></p>
+<pre><code>对数组中的元素依次执行callback函数，不包括数组中被删除或未被赋值的元素</code></pre></li>
+<li><p><code>reduceRight()</code>对数组中的元素<strong>从右到左</strong>执行callback</p>
+</li>
+<li><p><code>arr.map(callback(element[, index[, array]])[, thisArg])</code></p>
+</li>
+</ul>
+</li>
+<li><p>改变原数组<br> <code>Array.prototype.sort(compareFunction(firstEl,secondEl))</code></p>
+<pre><code>如果 compareFunction(a, b) 小于 0 ，那么 a 会被排列到 b 之前</code></pre><p><code>Array.prototype.reverse()</code></p>
+<p><code>Array.prototype.splice(start[, deleteCount[, item1[, item2...]]])</code></p>
+<p><code>Array.prototype.copyWithin(target[, start[, end]])</code>数字内copy</p>
+<p><code>Array.prototype.fill(value[, start[, end]])</code></p>
+<pre><code>fill() 方法用**指定值**填充一个数组中从起始索引到终止索引内的全部元素。</code></pre></li>
+<li><p>添加或删除元素<br> <code>Array.prototype.push()</code></p>
+<pre><code>向数组的末尾添加一个或多个元素,并返回数组的新长度</code></pre><p> <code>Array.prototype.pop()</code></p>
+<pre><code>删除并返回数组的最后一个元素</code></pre><p><code>Array.prototype.shift()</code></p>
+<pre><code>移除并返回被移除的元素索引为 0 的元素，其他元素的索引值随之减 1。    `Array.prototype.unShift()`
+删除并返回数组的第一个元素</code></pre></li>
+<li><p>键/值对（可使用<code>for of</code>循环遍历 ）</p>
+<pre><code>`Array.prototype.entries()`
+返回一个新**Array Iterator** 对象，包含数组中每个索引的键值对 
+`Array.prototype.keys()`
+    返回一个包含数组中每个索引键的**Array Iterator**对象
+`Array.prototype.values()`
+    返回一个包含数组中每个索引的值的**Array Iterator**对象</code></pre></li>
+<li><p><code>arr.indexOf</code></p>
+<pre><code>支持负值，但查找方向还是**从前向后**</code></pre><p> <code>arr.lastIndexOf()</code></p>
+<pre><code>从数组的**后面向前**查找</code></pre></li>
+<li><p><code>arr.forEach(callback(value, index, arr), thisArg)</code><br>  按升序为数组中的<strong>有效值</strong>执行一次callback 函数</p>
+<pre><code>forEach不会在迭代之前创建数组的副本，因此若在forEach中动了数组，有可能会导致错误
+不允许中途退出循环,会报错</code></pre></li>
+<li><p><code>Array.prototype.flat([depth])</code> （兼容性不太好）<br>  展开指定深度的嵌套数组 or 移除数组中的空项</p>
+</li>
+</ol>
+<p><code>Array.prototype.flatMap()</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var arr1 = [1, 2, 3, 4];</span><br><span class="line">arr1.flatMap(x =&gt; [x * 2]);</span><br><span class="line">// 等价于</span><br><span class="line">arr1.reduce((acc, x) =&gt; acc.concat([x * 2]), []);</span><br><span class="line">// [2, 4, 6, 8]</span><br><span class="line"></span><br><span class="line">let arr = [&quot;今天天气不错&quot;, &quot;&quot;, &quot;早上好&quot;]</span><br><span class="line"></span><br><span class="line">arr.map(s =&gt; s.split(&quot;&quot;))</span><br><span class="line">// [[&quot;今&quot;, &quot;天&quot;, &quot;天&quot;, &quot;气&quot;, &quot;不&quot;, &quot;错&quot;],[&quot;&quot;],[&quot;早&quot;, &quot;上&quot;, &quot;好&quot;]]</span><br><span class="line">arr.flatMap(s =&gt; s.split(&apos;&apos;));</span><br><span class="line">// [&quot;今&quot;, &quot;天&quot;, &quot;天&quot;, &quot;气&quot;, &quot;不&quot;, &quot;错&quot;, &quot;早&quot;, &quot;上&quot;, &quot;好&quot;]</span><br></pre></td></tr></table></figure>
+
+<h4 id="垃圾回收-GC"><a href="#垃圾回收-GC" class="headerlink" title="垃圾回收(GC)"></a>垃圾回收(GC)</h4><ul>
+<li><p>垃圾: 当一个对象没有任何的变量或属性对其进行引用,此时我们永远无法操作该对象</p>
+</li>
+<li><p>垃圾过多会导致占用大量的内存空间,导致程序运行速度变慢</p>
+</li>
+<li><p>JS中拥有自动的垃圾回收机制,会自动将这些垃圾对象从内存中销毁</p>
+</li>
+<li><p>我们需要做的就是: 将不再使用的对象设置为<code>null</code></p>
+<h4 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h4></li>
+<li><p>Object: 只要不属于5种基本数据类型,全都是对象</p>
+</li>
+<li><p>对象是一种复合的数据类型,在对象中可以保存多个不同数据类型的属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">分类:</span><br><span class="line">	1. 内建对象</span><br><span class="line">		由ES标准中定义的对象,在任何ES的实现中都可以使用</span><br><span class="line">		如: Math String Number Boolean Function Object Global..</span><br><span class="line">	2. 宿主对象</span><br><span class="line">		由浏览器提供的预定义对象</span><br><span class="line">		如: BOM DOM Form Image Element</span><br><span class="line">	3. 自定义对象</span><br><span class="line">		由开发人员自己创建的对象</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>基本数据类型和引用数据类型</p>
+<pre><code>1. 基本数据类型:
+    存储在**栈内存**中</code></pre><ol start="2">
+<li>引用数据类型:<br> 存储在<strong>堆内存</strong>中,每创建一个新的对象,就会在堆内存中开辟一个新的空间<br> 变量保存的是对象的<strong>内存地址</strong>(引用)<h5 id="Global"><a href="#Global" class="headerlink" title="Global"></a>Global</h5></li>
+</ol>
+</li>
+<li><p>不管从什么角度看,这个对象都是不存在的(在Web浏览器中是window对象)</p>
+</li>
+<li><p>不属于任何对象的属性和方法,最终都是它的属性和方法</p>
+</li>
+<li><p>方法</p>
+<ol>
+<li>parseInt()</li>
+<li>parseFloat()</li>
+<li>isNaN()</li>
+<li>isFinite()</li>
+<li>encodeURI: 对URI 进行编码,以便发给浏览器<pre><code>将空格替换成&quot;%20&quot;</code></pre></li>
+<li>encodeURIComponent<pre><code>使用对应的编码替换所有非字母数字</code></pre></li>
+<li>decodeURI()</li>
+<li>decodeURIComponent()</li>
+</ol>
+</li>
+<li><p>属性</p>
+<ol>
+<li>undefined</li>
+<li>NaN</li>
+<li>Infiinity</li>
+<li>Object</li>
+<li>Array</li>
+<li>Function</li>
+<li>Boolean</li>
+<li>String</li>
+<li>Number</li>
+<li>Date</li>
+<li>RegExp</li>
+<li>Error</li>
+<li>EvalError</li>
+<li>RangeError</li>
+<li>ReferenceError</li>
+<li>SyntaxError</li>
+<li>TypeError</li>
+<li>URIError<h5 id="Object-原型成员"><a href="#Object-原型成员" class="headerlink" title="Object 原型成员"></a>Object 原型成员</h5></li>
+</ol>
+</li>
+<li><p><code>constructor</code>构造器属性</p>
+</li>
+<li><p><code>hasOwnProperty</code></p>
+</li>
+<li><p><code>isPrototypeOf()</code></p>
+</li>
+<li><p><code>propertyIsEnumerable()</code></p>
+</li>
+<li><p><code>toString()</code></p>
+</li>
+<li><p><code>valueOf()</code></p>
+</li>
+</ul>
+<h5 id="Object对象の静态方法"><a href="#Object对象の静态方法" class="headerlink" title="Object对象の静态方法"></a>Object对象の静态方法</h5><ul>
+<li><p><code>assign(target, ...source)</code> 将源对象中所有可枚举的值复制到<strong>目标对象</strong>并返回目标对象</p>
+</li>
+<li><p><code>create(proto[, propertiesObject])</code> 创建一个<strong>空对象</strong>并链接到原型，相当于<code>obj.__propto = proto</code></p>
+<pre><code>`propertiesObject`: 要添加到新创建对象中的可枚举属性对象的**属性描述符**以及相应的属性名称</code></pre></li>
+<li><p><code>getOwnPropertyNames()</code>获取所有实例成员名字,返回数组(<strong>可枚举</strong>)</p>
+</li>
+<li><p><code>keys()</code>获取所有实例成员名字,返回数组</p>
+</li>
+<li><p><code>values()</code>获取所有实例属性的value值</p>
+</li>
+<li><p><code>getPrototypeOf()</code>获取实例成员的原型对象</p>
+</li>
+<li><p><code>setPrototypeOf()</code></p>
+</li>
+<li><p><code>is(value1, value2)</code>判断两个值是否相同，返回true/false</p>
+<pre><code>`(NaN,NaN) true` `(+0,-0) false`</code></pre></li>
+<li><p><code>getOwnPropertyDescriptor(o,propName)</code>获取属性描述符</p>
+</li>
+<li><p><code>getOwnPropertyDescriptors(o)</code></p>
+</li>
+<li><p><code>defineProperty(o,propName,options)</code>配置属性描述符+<code>getter/setter</code>(不可同时设置<code>set或get</code>与<code>writable</code>属性)</p>
+<pre><code>已存在属性,默认缺省值为true
+新定义属性,默认缺省值为false</code></pre></li>
+<li><p><code>defineProperties(o,{propName:options,...})</code></p>
+</li>
+</ul>
+<p>配置并返回对象。</p>
+<ul>
+<li><p><code>preventExtensions()</code>设置对象禁止扩展(添加新属性)</p>
+</li>
+<li><p><code>Object.seal(obj)</code> 设置对象禁止扩展和删除。        </p>
+</li>
+<li><p><code>Object.freeze(obj)</code>设置对象禁止扩展和删除和修改(属性描述符和值都不可更改)</p>
+<pre><code>此外，冻结一个对象后该对象的**原型**也不能被修改。</code></pre><p>  <code>Object.isExtensible(obj)</code>是否可扩展<br>  <code>Object.isFrozen(obj)</code>是否被冻结<br>  <code>Object.isSealed(obj)</code>是否被密封</p>
+</li>
+</ul>
+<h5 id="Function"><a href="#Function" class="headerlink" title="Function"></a>Function</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1. 创建一个函数对象</span><br><span class="line">	a. 可以将要封装的代码以字符串的形式传递给构造函数//很少用</span><br><span class="line">	b. 函数声明语句</span><br><span class="line">		语法: function 函数名([参数列表])&#123;</span><br><span class="line">			函数体;</span><br><span class="line">		&#125;</span><br><span class="line">	c.函数表达式</span><br><span class="line">		语法: var 函数名 = function([参数列表])&#123;</span><br><span class="line">			函数体;</span><br><span class="line">		&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>注: 将一个函数赋值给一个变量时,该变量不保存原函数的引用,只是简单地拷贝</p>
+<h5 id="函数对象的属性"><a href="#函数对象的属性" class="headerlink" title="函数对象的属性"></a>函数对象的属性</h5><ol>
+<li><code>name</code>: 函数名(只读,不可更改)</li>
+<li><code>length</code>: 期望传递参数的个数(若存在默认值,则为默认值前的参数个数)</li>
+<li><code>prototype</code>: </li>
+<li><code>caller</code>:  保存调用当前函数的函数的引用(全局作用则为null)<h5 id="函数内部属性"><a href="#函数内部属性" class="headerlink" title="函数内部属性"></a>函数内部属性</h5></li>
+</ol>
+<ul>
+<li><p>arguments 封装实参的类数组对象<br>  <code>arguments.callee: 指向拥有arguments对象的函数</code>(严格模式会导致错误)</p>
+</li>
+<li><p>this: 函数的上下文对象<br>  根据调用方式的不同,this指向不同的对象</p>
+<pre><code>1.默认绑定
+2.隐式绑定
+3.显式绑定
+4.new绑定    </code></pre><p>  ​            5.箭头函数绑定</p>
+<h5 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">构造函数: 通过new关键字调用的函数</span><br><span class="line">	不加new关键字就与普通函数没有区别</span><br><span class="line">	执行流程:</span><br><span class="line">		1.创建一个新的对象</span><br><span class="line">		2.将新建的对象设置为函数中的this,可以使用this引用新建的对象</span><br><span class="line">		3.逐行执行函数中的代码</span><br><span class="line">		4.将新建的对象作为返回值返回(无需写return语句)</span><br><span class="line">	instanceof: 检查一个对象是否是一个类的实例、</span><br><span class="line">	</span><br><span class="line">构造函数内部创建的方法: 构造函数每执行一次,就会创建一个新的该方法</span><br><span class="line">	解决: 使所有的对象共享同一个方法-&gt;</span><br><span class="line">		1.将函数定义在全局作用域,然后再构造函数中引用</span><br><span class="line">			污染了全局作用域的命名空间,且不安全</span><br><span class="line">		2.原型prototype</span><br><span class="line">			我们每创建一个函数,解析器都会向函数中添加一个属性prototype</span><br><span class="line">			当函数作为普通函数调用prototype时,没有任何作用</span><br><span class="line">			当函数以构造函数的形式调用prototype时,所创建的对象都会有一个隐含的属性,该属性都指向构造函数的原型对象,通过__proto__来访问该属性(p1.__proto__ == Person.prototype 都指向原型对象)</span><br><span class="line">			原型对象也是对象,所以它也有原型</span><br><span class="line">			原型对象就相当于一个公共的区域,同一个类的所有实例都可以访问该对象</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="内建对象"><a href="#内建对象" class="headerlink" title="内建对象"></a>内建对象</h4><h5 id="Date对象"><a href="#Date对象" class="headerlink" title="Date对象"></a>Date对象</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">var date = new Date();   //封装为当前代码执行的时间</span><br><span class="line">var date = new Date(&quot;月/日/年 [时:分:秒]&quot;);</span><br><span class="line"></span><br><span class="line">方法:</span><br><span class="line">	getDate(): 0-31</span><br><span class="line">	getDay(): 0-6(0表示周日)</span><br><span class="line">	getMonth(): 0-11 (0表示1月)</span><br><span class="line">	getFullYear(): </span><br><span class="line">	getHours: 0-23</span><br><span class="line">	getMinutes(): 0-59</span><br><span class="line">	getSeconds(): 0-59</span><br><span class="line">	getMilliseconds(): 0-999</span><br><span class="line">	getTime()/valueOf(): 获取当前对象的时间戳(1970 年 1 月 1 日至今的毫秒数)</span><br><span class="line">	Date.now();//同上,可用来测试性能</span><br><span class="line">	Date.parse(date);  //返回从1970-1-1 00:00:00 UTC 到该日期对象（该日期对象的UTC时间）的毫秒数(只是精确到秒)</span><br><span class="line">	d.toString();      //Wed Jun 19 2019 20:59:28 GMT+0800 (中国标准时间)</span><br></pre></td></tr></table></figure>
+
+<h5 id="Math"><a href="#Math" class="headerlink" title="Math"></a>Math</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Math: 与其他的对象不同,他不是一个构造函数</span><br><span class="line">	它是一个工具类,不用创建对象,对象内封装了数学运算相关的属性和方法</span><br><span class="line"></span><br><span class="line">Math.abs();</span><br><span class="line">Math.ceil();     //向上取整</span><br><span class="line">Math.floor();    //向下取整</span><br><span class="line">Math.round();    //四舍五入取整</span><br><span class="line">Math.random();   //返回 0 ~ 1 之间的随机数</span><br><span class="line">	x-y : Math.floor(Math.random()*(y-x+1))+x</span><br><span class="line">Math.pow(x,y);    // 返回x的y次幂</span><br><span class="line">Math.sqrt(x);     //返回x的平方根</span><br><span class="line">Math.max();      //获取多个数中的最大值</span><br><span class="line">Math.min();      //获取多个数中的最小值</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Math.round()：如果参数的小数部分等于0.5，则舍入到下一个在正无穷方向上的整数</p>
+</blockquote>
+<h5 id="String"><a href="#String" class="headerlink" title="String"></a>String</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">字符串底层是以字符数组的形式保存的</span><br><span class="line">	trim() 方法并不影响原字符串本身，它返回的是一个新的字符串。(ie9+)</span><br><span class="line">	charAt(index);    //与str[index]效果一样</span><br><span class="line">	charCodeAt(index);//返回在指定的位置的字符的 Unicode 编码。</span><br><span class="line">	String.fromCharCode(unicode); 根据字符编码获取字符</span><br><span class="line">	concat(...);  //连接两个或多个字符串 与&quot;+&quot;作用一样</span><br><span class="line">	fontcolor();  //使用指定的颜色来显示字符串</span><br><span class="line">	fontsize();   //使用指定的尺寸来显示字符串 </span><br><span class="line">	indexOf(str[,from]);       //检索字符串是否含有指定内容(-1)</span><br><span class="line">	lastIndexOf(str[,from]);   // 从后向前搜索字符串.</span><br><span class="line">	slice(from[,end]);      //截取字符串(不包括end),end可为负</span><br><span class="line">	substr(start[, length])  //支持负值</span><br><span class="line">	substring(from,[end]);  //同slice,end不可为负,为负则使用0,且自动调整参数位置</span><br><span class="line">	split(separator[,limit]);     //将字符串拆分为数组(与数组的join()相反)</span><br><span class="line">		limit: 一个整数，限定返回的分割片段数量。</span><br><span class="line">这些方法都不会影响原字符串</span><br><span class="line">	</span><br><span class="line">正则表达式相关的方法:</span><br><span class="line">	split(): 根据正则表达式切割字符串(不依赖模式)</span><br><span class="line">	search():返回第一个匹配项的索引(-1)</span><br><span class="line">	match(): 找到一个或多个正则表达式的匹配(依赖于正则对象模式 g/gi)</span><br><span class="line">	replace(): (默认替换第一个 多个:g/gi)</span><br><span class="line">		$$	插入一个 &quot;$&quot;。</span><br><span class="line">		$&amp;	插入匹配的子串。</span><br><span class="line">		$`	插入当前匹配的子串左边的内容。</span><br><span class="line">		$&apos;	插入当前匹配的子串右边的内容。</span><br><span class="line">		$n	假如第一个参数是 RegExp对象，并且 n 是个小于100的非负整数，那么插入第 n 个捕获的分组</span><br><span class="line"></span><br><span class="line">例: str.replace(/^\s*|\s*$/g,&quot;&quot;); //去除开头和结尾的空格</span><br><span class="line">str1 = str.replace(/(\w)\1+/g,&quot;$1&quot;);//去除重复字符</span><br></pre></td></tr></table></figure>
+
+<h4 id="宿主对象"><a href="#宿主对象" class="headerlink" title="宿主对象"></a>宿主对象</h4><h5 id="1-DOM"><a href="#1-DOM" class="headerlink" title="1.DOM"></a>1.DOM</h5><ul>
+<li>JS能够通过DOM来操作HTML文档/网页<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- 文档: 整个的HTML网页文档</span><br><span class="line">- 对象: 网页中的每一部分封装成对象</span><br><span class="line">- 模型: 表示对象之间的关系,方便获取对象</span><br><span class="line">- 节点: 构成网页的最基本的组成单元,网页中的每一个部分都可以成为时一个节点</span><br><span class="line">- 比如: html标签、属性、文本、注释等</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">节点类型</th>
+<th align="center"><code>nodeName</code></th>
+<th align="center"><code>nodeType</code></th>
+<th align="center">类型常量</th>
+<th align="center"><code>nodeValue</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">文档节点</td>
+<td align="center">document</td>
+<td align="center">9</td>
+<td align="center">DOCUMENT_NODE</td>
+<td align="center">null</td>
+</tr>
+<tr>
+<td align="left">元素节点</td>
+<td align="center">大写标签名</td>
+<td align="center">1</td>
+<td align="center">ELEMENT_NODE</td>
+<td align="center">null</td>
+</tr>
+<tr>
+<td align="left">属性节点</td>
+<td align="center">属性名</td>
+<td align="center">2</td>
+<td align="center">ATTRIBUTE_NODE</td>
+<td align="center">属性名</td>
+</tr>
+<tr>
+<td align="left">文本节点</td>
+<td align="center">#text</td>
+<td align="center">3</td>
+<td align="center">TEXT_NODE</td>
+<td align="center">文本内容</td>
+</tr>
+</tbody></table>
+<h5 id="DOM标准"><a href="#DOM标准" class="headerlink" title="DOM标准"></a>DOM标准</h5><ul>
+<li>dom 0级：IE4和网景4最初支持的DHTML参考</li>
+<li>dom1级：<ol>
+<li>DOM Core：规定如何映射基于XML的文档结构以便文档的访问和操作</li>
+<li>DOM HTML ：DOM Core基础上扩展和添加了针对HTML的对象和方法</li>
+<li>DOM Core扩展：开始支持XML命名空间</li>
+</ol>
+</li>
+<li>DOM 2级<ol>
+<li>DOM Views：定义了跟踪不同文档视图的接口</li>
+<li>DOM Events：定义了事件和事件处理接口</li>
+<li>DOM Style：定义了基于CSS为元素应用样式的接口</li>
+<li>DOM Traversal and Range 定义了遍历和操作文档树的接口</li>
+</ol>
+</li>
+<li>DOM 3级<ol>
+<li>DOM Load and Save：定义了加载和保存文档的统一方式</li>
+<li>DOM Validation：定义了验证文档的方式</li>
+<li>DOM Core扩展：开始支持XML1.0规范</li>
+</ol>
+</li>
+</ul>
+<h5 id="DOM-API"><a href="#DOM-API" class="headerlink" title="DOM API"></a>DOM API</h5><h6 id="element主要的属性"><a href="#element主要的属性" class="headerlink" title="element主要的属性"></a>element主要的属性</h6><p>注：未标注属性均为[只读]</p>
+<ul>
+<li><p>id  <strong>[读写]</strong></p>
+</li>
+<li><p>attributes       // 指定元素节点相关的所有属性集合(映射)</p>
+</li>
+<li><p>tagName        // 大写标签名</p>
+</li>
+<li><p>innerHTML    // [读写]</p>
+</li>
+<li><p>outerHTML // [读写]</p>
+</li>
+<li><p>className   [读写]</p>
+</li>
+<li><p>classList     元素节点所有class属性</p>
+</li>
+<li><p>dataset // 元素节点中所有的data-*属性</p>
+</li>
+<li><p>clientTop/Left // 元素节点的border-top-width</p>
+</li>
+<li><p><code>clientWidth/Height</code> // 元素节点的<code>padding-box</code>宽/高度<br>  内联元素以及没有 CSS 样式的元素的 clientWidth 属性值为 0。</p>
+</li>
+<li><p><code>scrollWidth/Height</code>     // 元素节点<code>滚动视图</code>的宽度</p>
+</li>
+<li><p>scrollLeft/Top        // 元素节点横向滚动条距离左端的位移<strong>[读写]</strong></p>
+</li>
+<li><p><code>offsetParent</code>: 只读,指向最近的开启了定位的元素,如果没有,则为最近的table, table cell 或根元素<br>  元素的 style.display 设置为 “none” 时，offsetParent 返回 null</p>
+</li>
+<li><p><code>offsetHeight/width</code>: <code>border-box</code>的宽度/高度</p>
+</li>
+<li><p><code>offsetLeft/Top</code><br>  当前元素左上角相对于  HTMLElement.offsetParent 节点的左边界偏移的像素值</p>
+</li>
+</ul>
+<h6 id="element方法"><a href="#element方法" class="headerlink" title="element方法"></a>element方法</h6><ul>
+<li><p>选择器相关</p>
+<ol>
+<li>querySelector() </li>
+<li>querySelectorAll() (ie8+)<br> 默认仅验证选择器中的最后一个元素是否在搜索范围内。</li>
+<li>getElementsByTagName() </li>
+<li>getElementsByClassName()(ie9+)</li>
+</ol>
+</li>
+<li><p>事件相关</p>
+<ol>
+<li><code>addEventListener(type, listener[, useCapture | options])</code> （可添加多个）<br> options: 指定回调函数属性的可选参数(本身是一个对象)<pre><code>capture: 为true表示：在事件捕获阶段传播到元素时才触发
+once: true表示：回调函数只调用一次
+passive: true表示：表示回调函数永远不会调用preventDefault();</code></pre> useCapture:（当第三个参数为false时,设置的是useCapture）<pre><code>当useCapture(设为true) 时，沿着DOM树**向上冒泡**的事件，不触发回调函数</code></pre></li>
+<li><code>removeEventListener()</code>参数同上</li>
+<li><code>attachEvent(onEvent,callback)</code>   ie特有</li>
+<li><code>detachEvent()</code>  [ie特有]</li>
+<li>dispatchEvent()<br>移除通过document.createEvent(type)创建的event</li>
+</ol>
+</li>
+<li><p>操作属性节点相关</p>
+<ol>
+<li>getAttribute()</li>
+<li>setAttribute()</li>
+<li>hasAttribute()</li>
+<li>removeAttribute()</li>
+</ol>
+</li>
+<li><p>classList方法</p>
+</li>
+</ul>
+<ol>
+<li>add( String [, String] )</li>
+<li>remove( String [,String] )</li>
+<li>item ( Number )</li>
+<li>toggle ( String [, force] )<br>如果类存在，则删除它并返回false，如果不存在，则添加它并返回true。<br>当存在第二个参数时：如果第二个参数的计算结果为true，则添加指定的类值，如果计算结果为false，则删除它</li>
+<li>contains( String )</li>
+<li>replace( oldClass, newClass )</li>
+</ol>
+<h6 id="Node-节点-属性"><a href="#Node-节点-属性" class="headerlink" title="Node(节点)属性"></a>Node(节点)属性</h6><ul>
+<li><p>baseURI // 当前网页的绝对路径</p>
+</li>
+<li><p>isConnected // 布尔类型的值，用于检查当前节点与DOM树是否连接</p>
+</li>
+<li><p>childElementCount // 当前节点所有Element子节点的数量</p>
+</li>
+<li><p>textContent // 当前节点和它的所有后代节点的文本内容<strong>[读写]</strong></p>
+</li>
+<li><p>ownerDocument // 当前节点所在的顶层文档对象，即Document</p>
+</li>
+<li><p>children // 指定节点的所有子<strong>元素节点</strong></p>
+</li>
+<li><p>childNodes // 当前节点的所有子节点(及时更新)</p>
+<pre><code>根据DOM标准,标签间的空白也会被当成文本节点
+            ie8及以下的浏览器中,不会将空白文本当成子节点</code></pre></li>
+<li><p><code>parentNode</code> // 当前节点的父节点<br>  对于节点类型Attr, Document, DocumentFragment, Entity, Notation,返回null.<br>  如果当还没有被插入到DOM树中,则该节点的parentNode属性也返回null.</p>
+</li>
+<li><p>parentElement // 当前节点的<strong>父元素</strong>,没有则返回null</p>
+</li>
+<li><p>firstChild // 当前节点的第一个子 节点(可能是标签之间的空白)</p>
+</li>
+<li><p>firstElementChild // 当前节点的第一个子 <strong>元素节点</strong>(ie9+)</p>
+</li>
+<li><p>lastChild // 当前节点的最后一个子节点</p>
+</li>
+<li><p>lastElementChild // 当前节点的最后一个子<strong>元素节点</strong></p>
+</li>
+<li><p>previousSibling // 当前节点的前一个兄弟节点</p>
+</li>
+<li><p>previousElementSibling // 获取元素节点的上一个兄弟节点</p>
+</li>
+<li><p>nextSibling // 紧跟在当前节点后面的第一个兄弟节点</p>
+</li>
+<li><p>nextElementSibling // 获取元素节点的下一个兄弟节点</p>
+</li>
+</ul>
+<h6 id="node方法"><a href="#node方法" class="headerlink" title="node方法"></a>node方法</h6><ul>
+<li>主要方法</li>
+</ul>
+<ol>
+<li><p><code>cloneNode(deep)</code>; // 返回节点的副本，deep为<strong>true</strong>表示深度克隆(后代节点也克隆)</p>
+</li>
+<li><p><code>appendChild(node)</code> // 追加新的节点到当前节点中（插入后作为最后一个节点）</p>
+</li>
+<li><p><code>removeChild(node)</code> // 删除指定的子节点</p>
+</li>
+<li><p><code>insertBefore(newNode,oldNode)</code> // 在指定子节点之前插入新的子节点</p>
+</li>
+<li><p><code>replaceChild(newChild,oldChild)</code> // 替换节点</p>
+</li>
+<li><p><code>hasChildNodes()</code>          // 当前节点有无子节点</p>
+</li>
+<li><p><code>contains(node)</code>             // 判断是否包含指定子节点</p>
+</li>
+<li><p><code>isEqualNode(node)</code>        //  检查两个节点是否（完全）相等</p>
+</li>
+<li><p><code>normalize()</code> // 规范化当前节点和它的后代节点</p>
+<pre><code>在一个&quot;规范化&quot;后的DOM树中，不存在一个空的文本节点，或者两个相邻的文本节点</code></pre></li>
+<li><p><code>node.compareDocumentPosition(otherNode)</code> // 比较当前节点与指定节点的位置关系，返回不同的掩码<br>1 不在同一文档</p>
+<pre><code>2 otherNode在node之前
+4 otherNode在node之后
+8 otherNode包含node
+20(16) node包含otherNode</code></pre></li>
+</ol>
+<ul>
+<li>childNode相关<br><code>ChildNode.replace()</code> // 替换节点<br><code>ChildNode.remove()</code> // 将ChildNode从其父节点的子节点列表中移除<br><code>ChildNode.before()</code> // 在当前标签(节点)的前面插入新的节点<br><code>ChildNode.after()</code> // 在当前标签(节点)的后面插入新的节点</li>
+</ul>
+<h6 id="document属性"><a href="#document属性" class="headerlink" title="document属性"></a>document属性</h6><p>document.documentElement 当前文档的<code>&lt;html&gt;</code>节点<br>document.head // 当前文档的<code>&lt;head&gt;</code>节点<br>document.body // 当前文档的<code>&lt;body&gt;</code>节点<br>childElementCount //指定子元素个数(ie9+)</p>
+<p>document.activeElement // 当前文档中获得<strong>焦点</strong>的那个元素。<br>document.links // 具有 href 属性值的 <code>&lt;area&gt;</code> 元素与 <code>&lt;a&gt;</code> 元素的集合<br>document.forms // 页面中所有<strong>表单元素</strong>的集合<br>document.images // 页面中所有<strong>图片</strong>元素的集合<br>document.embeds // 网页中所有嵌入对象的集合<br>document.scripts // 当前文档的所有脚本的集合<br>document.styleSheets // 当前网页的所有样式表的集合</p>
+<p>document.defaultView // 当前文档对象所在的window对象<br>document.doctype // 当前文档关联的文档类型定义(DTD)</p>
+<p>document.URL // 当前文档的URL地址<br>document.cookie // 用来操作Cookie[读写]<br>document.title // 当前文档的标题<br>document.domain // 当前文档的域名<br>document.referrer // 当前文档的<strong>访问来源</strong><br>document.location // 获取location对象，提供与URL相关的信息<br>document.readyState // 当前文档的状态<br>document.designMode // 控制当前文档是否可编辑[读写]<br>document.compatMode // 返回浏览器处理文档的模式<br>document.documentURI // 当前文档的URI地址<br>document.lastModified // 当前文档最后修改的时间戳<br>document.characterSet // 当前文档的字符集，比如UTF-8等</p>
+<h6 id="document方法"><a href="#document方法" class="headerlink" title="document方法"></a>document方法</h6><p>open() // 用于新建并打开一个文档<br>close() // 关闭open方法所新建的文档<br>write() // 用于向当前文档写入内容<br>writeIn() // 用于向当前文档写入内容，尾部添加换行符<br>document.createEvent(type) // 创建事件对象<br>document.dispatchEvent(event) // 触发事件<br>document.addEventListener() // 注册事件监听<br>document.removeEventListener() // 注销事件</p>
+<p><code>document.createElement(tagName)</code> // 创建元素节点<br><code>document.createTextNode(text)</code> // 创建文本节点<br><code>document.createAttribute(name)</code> // 创建属性节点<br><code>document.createDocumentFragment()</code> // 生成一个DocumentFragment对象<br>document.elementFromPoint(x,y) // 返回位于页面指定位置最上层的Element子节点</p>
+<h6 id="属性与属性节点"><a href="#属性与属性节点" class="headerlink" title="属性与属性节点"></a>属性与属性节点</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">属性 和 属性节点</span><br><span class="line">	属性直接保存到标签身上,属性节点保存到attributes上</span><br><span class="line">	操作与访问</span><br><span class="line">		属性: .</span><br><span class="line">		属性节点: setAttribute/getAttribute /                              hasAttribute()/removeAttribute()</span><br><span class="line"></span><br><span class="line">属性节点: 非布尔值用attribute</span><br><span class="line">	 布尔值用property</span><br></pre></td></tr></table></figure>
+
+<h6 id="dom操作css"><a href="#dom操作css" class="headerlink" title="dom操作css"></a>dom操作css</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">1.修改样式(有且仅有这一种方式)</span><br><span class="line">	1. 元素.style.样式名 = &quot;样式值&quot;</span><br><span class="line">	2. 通过className | classList(add,remove,toggle,contains)</span><br><span class="line">2.读取元素的样式</span><br><span class="line">	a.语法: 元素.style.样式名;</span><br><span class="line">		这种方法只能读取&lt;内联样式&gt;,无法读取样式表中的样式</span><br><span class="line">	b.语法: 元素.currentStyle.样式名(ie678)</span><br><span class="line">		读取当前元素&lt;显示的样式&gt;</span><br><span class="line">		 &lt;如果没有设置width,会返回auto&gt;</span><br><span class="line">	c. window方法,可以直接用,不支持ie8及以下</span><br><span class="line">		var obj = getComputedStyle(元素,null);//返回一个对象,对象中封装了元素对应的样式</span><br><span class="line">		obj.样式名;</span><br><span class="line">		&lt;如果获取的样式没有设置,则会获取&lt;真实的值&gt;&gt;</span><br></pre></td></tr></table></figure>
+
+<h6 id="HTMLCollection-与-NodeList"><a href="#HTMLCollection-与-NodeList" class="headerlink" title="HTMLCollection 与 NodeList"></a>HTMLCollection 与 NodeList</h6><ul>
+<li><p>querySelectorAll与getElementsBy系列区别</p>
+<ol>
+<li><code>querySelectorAll</code>属于W3C中的Selectors API规范,而<code>getElementsBy</code>系列属于W3C DOM规范</li>
+<li><code>querySelectorAll</code>方法接受参数是CSS选择符,当传入字符串不符合CSS选择符规范时会抛出异常,<code>getElementsBy</code>系列只接受单一的参数</li>
+<li><code>querySelectorAll</code>返回的是不变(<strong>静态</strong>)的节点列表,<code>getElementsBy</code>系列返回的是<strong>动态</strong>节点</li>
+<li><code>getElementsBy</code><strong>性能</strong>较好</li>
+<li><code>querySelectorAll</code>返回值是一个<code>NodeList</code>, <code>getElementsBy</code>返回值是一个<code>HTMLCollection</code></li>
+</ol>
+</li>
+<li><p>HTMLCollection与NodeList区别</p>
+<ol>
+<li>HTMLCollection是元素节点集合,而NodeList是节点集合(包含任何类型的节点)</li>
+<li>node.children 和 node.getElementsByXXX 返回 HTMLCollection，而node.childNodes，querySelectorAll返回的是 NodeList 。</li>
+</ol>
+</li>
+</ul>
+<h5 id="事件的绑定"><a href="#事件的绑定" class="headerlink" title="事件的绑定"></a>事件的绑定</h5><ul>
+<li><p><code>元素.onEvent = function(){}</code>;  //只能绑定<strong>单个</strong>同类型处理函数</p>
+<pre><code>注销:  元素.onEvent = null;</code></pre></li>
+<li><p><code>元素.addEventListener(type,callback,boolean)</code>(不支持ie8及以下浏览器) </p>
+<pre><code> //可以为一个事件绑定多个处理函数(先绑定先执行)
+注销: 元素.removeEventListener(a,b);
+如果要**捕获**事件,那么只能通过事件监听的方式处理
+    a: 默认false,表示冒泡,true表示捕获(IE8及以下的浏览器没有捕获阶段)</code></pre></li>
+<li><p><code>元素.attachEvent(type,callback)</code>(ie8及以下浏览器)</p>
+<pre><code>//可以为一个事件绑定多个处理函数(后绑定先执行)
+注销事件: 元素.dispatchEvent()
+this为window对象</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">//只需判断一次用哪种方法添加事件(高阶函数)</span><br><span class="line">const addEvent = (function()&#123;</span><br><span class="line">	if (window.addEventListener) &#123;</span><br><span class="line">		return function (type, el, fn, capture) &#123;</span><br><span class="line">			el.addEventListener(type, fn, capture);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	else if(window.attachEvent)&#123;</span><br><span class="line">		return function (type, el, fn) &#123;</span><br><span class="line">			el.attachEvent(&apos;on&apos; + type, function()&#123;</span><br><span class="line">				fn.call(el);</span><br><span class="line">			&#125;);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h6 id="事件的默认行为"><a href="#事件的默认行为" class="headerlink" title="事件的默认行为"></a>事件的默认行为</h6><ul>
+<li><p>部分默认行为</p>
+<ol>
+<li>超链接默认跳转页面行为</li>
+<li>submit默认提交数据至页面功能</li>
+</ol>
+</li>
+<li><p>如何取消<br>  <code>event.preventDefault()</code>;<br>  可以使用<code>Event.cancelable</code>来检查该事件是否支持取消</p>
+</li>
+<li><p><code>return false</code>; 做了什么<br>  <code>event.preventDefault();</code><br>  <code>event.stopPropagation();</code><br>  停止回调函数执行并立即返回。</p>
+</li>
+</ul>
+<h5 id="事件的传播"><a href="#事件的传播" class="headerlink" title="事件的传播"></a>事件的传播</h5><ul>
+<li>微软公司认为事件应该由内向外传播<pre><code>也就是当前事件触发时,应该先触发当前元素上的事件,然后再向当前元素上的祖先元素上传播,</code></pre></li>
+<li>网景公司认为事件应该由外向内传播<pre><code>也就是当前事件触发时,应该先触发当前元素上的最外层的祖先上的事件,然后再向内传播给后代元素(捕获阶段)</code></pre></li>
+<li>W3C综合了两个公司的方案,将事件传播分成了三个阶段<pre><code>1. **捕获**阶段: 
+       在捕获阶段从最外层的祖先元素,向目标元素进行事件的捕获,但是默认会不会触发事件</code></pre><ol start="2">
+<li><strong>目标</strong>阶段:<pre><code>事件捕获到目标元素,开始在目标元素上触发事件</code></pre></li>
+<li><strong>冒泡</strong>阶段:<pre><code>事件从目标元素向祖先元素传递,依次出发祖先元素上的事件</code></pre></li>
+</ol>
+</li>
+</ul>
+<h5 id="事件委托"><a href="#事件委托" class="headerlink" title="事件委托"></a>事件委托</h5><ul>
+<li><p>事件委托: 把一个元素响应事件（<code>click、keydown......</code>）的函数委托到另一个元素</p>
+</li>
+<li><p>利用<strong>冒泡</strong>的原理，把事件加到父元素或祖先元素上，触发执行效果。</p>
+</li>
+<li><p>举个例子，比如一个宿舍的同学同时快递到了，一种方法就是他们都傻傻地一个个去领取，还有一种方法就是把这件事情委托给宿舍长，让一个人出去拿好所有快递，然后再根据收件人一一分发给每个宿舍同学；</p>
+</li>
+<li><p>优点</p>
+<ol>
+<li>减少内存消耗</li>
+<li>动态绑定事件</li>
+</ol>
+</li>
+<li><p>基本实现</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 给父层元素绑定事件</span></span><br><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">'list'</span>).addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> event = e || <span class="built_in">window</span>.event;</span><br><span class="line">  <span class="keyword">var</span> target = event.target || event.srcElement;</span><br><span class="line">  <span class="comment">// 判断是否匹配目标元素</span></span><br><span class="line">  <span class="keyword">if</span> (target.nodeName.toLocaleLowerCase === <span class="string">'li'</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'the content is: '</span>, target.innerHTML);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>精确匹配<br><code>ele.matches()  //参数为选择器规则//ie9+</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">//matches polyfill解决兼容性问题</span><br><span class="line">if (!Element.prototype.matches) &#123;</span><br><span class="line">  Element.prototype.matches =</span><br><span class="line">    Element.prototype.matchesSelector ||</span><br><span class="line">    Element.prototype.mozMatchesSelector ||</span><br><span class="line">    Element.prototype.msMatchesSelector ||</span><br><span class="line">    Element.prototype.oMatchesSelector ||</span><br><span class="line">    Element.prototype.webkitMatchesSelector ||</span><br><span class="line">    function(s) &#123;</span><br><span class="line">      var matches = (this.document || this.ownerDocument).querySelectorAll(s),</span><br><span class="line">      i = matches.length;</span><br><span class="line">      while (--i &gt;= 0 &amp;&amp; matches.item(i) !== this) &#123;&#125;</span><br><span class="line">      return i &gt; -1;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>局限性</p>
+<ol>
+<li>focus和blur之类的事件本身没有冒泡机制,所以无法委托</li>
+<li>mousemove、mouseout这样的事件本身,虽然有事件冒泡,但性能消耗高,不适合事件委托</li>
+</ol>
+</li>
+</ul>
+<h5 id="常见事件"><a href="#常见事件" class="headerlink" title="常见事件"></a>常见事件</h5><h6 id="1-UI事件"><a href="#1-UI事件" class="headerlink" title="1. UI事件"></a>1. UI事件</h6><ul>
+<li><code>load</code></li>
+<li><code>resize</code>   不同浏览器触发机制不同(FireFox)</li>
+<li><code>scroll</code>   可通过<code>scrollLeft</code>和<code>scrollTop</code>来监控该变化</li>
+</ul>
+<h6 id="2-鼠标和滚轮事件"><a href="#2-鼠标和滚轮事件" class="headerlink" title="2. 鼠标和滚轮事件"></a>2. 鼠标和滚轮事件</h6><ul>
+<li>click: 当被点击(或者按下键盘回车键)的时候触发.(发生在<code>mousedown</code>和<code>mouseup</code>之后)</li>
+<li>dbclick: 双击</li>
+<li>mousedown: 当用户按下任意鼠标键的时候触发。</li>
+<li>mouseup: 当用户释放鼠标按钮的时候触发。</li>
+<li>mouseenter: 当鼠标移入到元素范围内的时候触发，该事件不冒泡且<strong>对后代元素没影响</strong>。</li>
+<li>mouseleave: 当鼠标移出到元素范围内的时候触发，该事件不冒泡且对后代元素没影响。</li>
+<li>mousemove: 当鼠标在元素内部移动时重复触发。</li>
+<li>mouseover: 当鼠标移入到元素范围内的时候触发，<strong>对后代元素有影响</strong>。<br>  当从父元素进入到后代元素时,会先触发mouseout然后触发mouseover</li>
+<li>mouseout: 当鼠标移出到元素范围内的时候触发，对后代元素有影响。</li>
+<li>mousewheel: 当用户通过鼠标滚轮与页面交互滚动页面的时候触发。</li>
+</ul>
+<h6 id="3-焦点事件"><a href="#3-焦点事件" class="headerlink" title="3. 焦点事件"></a>3. 焦点事件</h6><ul>
+<li>blur</li>
+<li>focus<br>  ele.focus();  //自动获取焦点(方法)</li>
+</ul>
+<h6 id="4-键盘和文本事件"><a href="#4-键盘和文本事件" class="headerlink" title="4. 键盘和文本事件"></a>4. 键盘和文本事件</h6><ul>
+<li><code>keydown</code>: 当用户按下键盘上的任意键时触发，按住不放则重复触发。</li>
+<li>keypress: 当用户按下键盘上的字符键的时候触发，按住不放则重复触发。<br>  Webkit-based 浏览器（如 Google Chrome 及 Safari）不会触发方向键的 keypress 事件。<br>  Firefox 不会触发如 SHIFT 键等修改键的 keypress 事件。</li>
+<li><code>keyup</code>: 当用户释放键盘上按键的时候触发。<br>  keydown -&gt; keypress -&gt; keyup<br>  keydown和keyup只对输入框有用</li>
+<li><code>input</code>: 在文本插入文本框之前触发input事件，是对keypress的补充。<br>  任何可以获得焦点的元素都能够触发keypress事件，而只有可编辑区域才能触发Input事件。</li>
+<li>change: 在文本框内容改变(敲击回车键)的时候触发。(主要用于复选框或单选框中)</li>
+<li>select: 在文本被选中的时候触发。</li>
+<li>reset: 当点击重置按钮的时候被触发。</li>
+<li>submit: 表单提交的时候被触发。 </li>
+</ul>
+<h6 id="5-自定义事件"><a href="#5-自定义事件" class="headerlink" title="5.自定义事件"></a>5.自定义事件</h6><ul>
+<li><p><code>Event</code></p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200530145721785.png" alt="image-20200530145721785"></p>
+</li>
+<li><p><code>CustomEvent</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// 1. 注册自定义事件,并返回事件对象</span><br><span class="line">var event = document.createEvent(&apos;Events&apos;);  //ie:createEventObject</span><br><span class="line">event.initEvent(&apos;jump&apos;,true,true)   //事件对象使用前必须经过初始化init,非标准,不建议使用</span><br><span class="line">//或var event = new CustomEvent(...);</span><br><span class="line"></span><br><span class="line">// 2. 为事件添加回调函数</span><br><span class="line">inner.addEventListener(&quot;jump&quot;, function(e) &#123;</span><br><span class="line">console.log(e.detail);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">btn.onclick = function() &#123;</span><br><span class="line">// 3. 派发事件</span><br><span class="line">inner.dispatchEvent(event);    //ie:fireEvent()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h5 id="event对象"><a href="#event对象" class="headerlink" title="event对象"></a>event对象</h5><ul>
+<li><p>当事件的响应函数触发时,浏览器每次会将一个事件对象作为实参传递进响应函数</p>
+<pre><code>* 在事件中封装了当前事件相关的一切信息</code></pre></li>
+<li><p>获取event</p>
+<ol>
+<li>通过参数传入响应函数</li>
+<li>兼容处理<code>event = event | window.event;  //ie8及之前event通过window对象获取</code></li>
+</ol>
+</li>
+<li><p>方法</p>
+<ol>
+<li><code>stopPropagation() //阻止事件冒泡</code>        <code>cancalBubble = true; //IE</code></li>
+<li><code>preventDefault()  //取消事件的默认操作</code>  <code>return false; //IE</code> </li>
+<li><code>stopImmedaitePropagation()  //阻止事件冒泡,同时将该元素同类型事件の冒泡也阻止了</code></li>
+</ol>
+</li>
+<li><p>属性</p>
+</li>
+</ul>
+<ol>
+<li><p>type: 获取事件类型</p>
+</li>
+<li><p><code>target</code>: 触发当前事件的(最接近)元素 || <code>srcElement</code>(ie8-)</p>
+<p><code>currentTarget</code>：定义当前事件的元素</p>
+</li>
+<li><p>鼠标事件属性<br> <code>button</code>触发事件的鼠标按键</p>
+<pre><code>( 0: 左键   1:滚轮    2: 右键   3: 浏览器后退     4: 浏览器前进)</code></pre><p> buttons 如果按下键为多个，则返回值等于所有按键对应数值进行或(|)运算的结果。</p>
+<pre><code>(0  : 无   1  : 左键 2  : 右键 4  : 滚轮/中键 8  : “浏览器后退”16 : “浏览器前进”)</code></pre><p> which (0: 无 1: 左键 2: 中间滚轮 3: 右键)</p>
+</li>
+<li><p><code>clientX/Y</code> 相对于<strong>文档</strong>的水平/垂直坐标(忽略页面滚动)<br> <code>pageX/Y</code>   相对于<strong>文档</strong>的x（水平）坐标(ie9+)(<strong>包括页面滚动</strong>)<br> <code>offsetX/Y</code>     鼠标相对对于当前元素padding-box的水平垂直偏移(火狐39+)(包含滚动)<br> <code>screenX/Y</code>   相对于<strong>浏览器</strong>坐标系的水平偏移量</p>
+</li>
+<li><p>键盘事件属性<br> <code>keyCode   //按键ASCII值 (number类型)  || which</code><br> <code>key</code><br> <code>code   //物理键</code><br> <code>altKey</code><br> <code>shiftKey</code><br> <code>ctrlKey</code><br> <code>metaKey</code></p>
+</li>
+<li><p>其他<br> <code>timeStamp   //从启动到事件发生的时间戳</code></p>
+</li>
+</ol>
+<h6 id="兼容"><a href="#兼容" class="headerlink" title="兼容"></a>兼容</h6><ul>
+<li><p>滚动条距离<br>  chrome认为浏览器的滚动条是body的 : <code>document.body.scrollTop</code><br>  火狐等认为滚动条是html的:<code>document.documentElement.scrollTop</code></p>
+</li>
+<li><p>鼠标滚轮<br>  event.wheelDelta</p>
+<pre><code>向上为正,向下为负</code></pre><p>  火狐: <code>event.detail</code></p>
+<pre><code>向上为负,向下为正</code></pre></li>
+<li><p>滚轮事件<br>  onmousewheel<br>  火狐中:DOMMouseScroll,且需要addEventListener()函数来绑定</p>
+</li>
+</ul>
+<h5 id="2-BOM"><a href="#2-BOM" class="headerlink" title="2.BOM"></a>2.BOM</h5><ul>
+<li>BOM:浏览器对象模型： 用来操作浏览器<h6 id="window"><a href="#window" class="headerlink" title="window"></a>window</h6></li>
+<li>代表整个浏览器的窗口,同时也是网页中的全局对象<pre><code>1. 属性: 
+    `innerWidth` `innerHeight` 网页可视区高度/宽度(只读)
+    `outerWidth` `outerHeight` 浏览器窗口高度/宽度(只读)(跨浏览器差异)
+        获取页面视口推荐`document.documentElement.clientWidth`
+    `scrollX` `scrollY`水平/垂直方向滚动像素值(只读)
+2. 方法：
+    `scrollTo(x,y)` 滚动至指定位置
+    `scrollBy(x,y)` 相对当前位置滚动
+3. 事件：
+    `load`: 监听页面的加载,加载完成后执行回调函数
+    `resize`: 监听页面的`innerWidth/innerHeight` 
+    `scroll`: 监听页面的滚动</code></pre></li>
+</ul>
+<h6 id="location"><a href="#location" class="headerlink" title="location"></a>location</h6><ul>
+<li>代表浏览器的地址栏(信息),通过该对象可以获取地址栏信息,或者操作浏览器跳转页面</li>
+<li>既是window对象的属性,又是document对象的属性</li>
+<li>属性</li>
+</ul>
+<ol>
+<li><code>href</code>:当前页面的完整URL<br> 可以改为一个完整路径/相对路径,并且会生成相应的历史记录</li>
+<li><code>hash</code>: url地址中/#后面的数值(与请求相关)<br> 修改hash属性会在历史记录中生成一条新记录(ie7-不生成)</li>
+<li><code>host</code>: 服务器名称和端口号</li>
+<li><code>protocal</code>: 协议(包含”:”)</li>
+<li><code>hostname</code>: 不带端口号的服务器名称 </li>
+<li><code>pathname</code>: URL中的目录或文件名</li>
+<li><code>port</code>:端口号/空串</li>
+<li><code>origin</code>:协议+主机地址+端口</li>
+<li><code>search</code>:查询字符串(以?开头)</li>
+</ol>
+<ul>
+<li>方法</li>
+</ul>
+<ol start="2">
+<li><code>assign(&quot;地址&quot;)</code> : 跳转页面,并生成一条历史记录<pre><code>修改`window.location`或`location.href`(最常用)与直接调用`assign()`效果一样</code></pre></li>
+<li><code>replace(&quot;&quot;)</code>:跳转页面,但是<strong>不生成历史记录</strong>,无法回退</li>
+<li><code>reload()</code>:重新加载当前页面,并清空缓存(火狐不会,需手动传入一个true参数)<pre><code>`reload(): 重新加载(有可能从缓存中加载)`
+`reload(true)`:从服务器重新加载
+位于`reload()`之后的代码可能会/不会执行，这取决于网络延迟和系统资源等因素(最后放最后一行)</code></pre></li>
+</ol>
+<h6 id="navigetor"><a href="#navigetor" class="headerlink" title="navigetor"></a>navigetor</h6><ul>
+<li><p>代表当前浏览器的信息,通过该对象可识别不同的浏览器<br>  由于历史原因,大部分属性都不能帮我们识别浏览器<br>  一般我们只会使用userAgent来判断浏览器信息的内容</p>
+<pre><code>chrome:`chrome` 火狐: `firefox` IE10及以下: `msie`</code></pre><p>  ie: 可以通过一些特有的信息判断</p>
+<pre><code>比如: ActiveXObject(不能通过if(window.ActiveXObject)直接判断,因为ie11耍小动作,始终返回false)</code></pre><p>  修正代码: <code>if(&quot;ActiveXObject&quot; in window){}</code></p>
+</li>
+<li><p>属性</p>
+<ol>
+<li><code>plugins</code>浏览器中安装的插件信息的数组(ie×)(P213)<br> <code>name / description / filename / length(插件所处理的MIME类型)</code><br> <code>new ActiveXObject(name) 不报错则说明安装了插件</code><br> <code>plugins.refresh(b)刷新plugins以反映最新安装插件</code><br> <code>b为true表示重新加载包含插件的所有页面</code><h6 id="history"><a href="#history" class="headerlink" title="history"></a>history</h6></li>
+</ol>
+</li>
+<li><p>代表浏览器的历史纪录,可以通过该对象来操作浏览器的历史纪录<br>  由于隐私原因,该对象不能获取具体的历史纪录,只能操作浏览器向前或向后翻页<br>  而且只在当次访问有效</p>
+</li>
+<li><p><code>popstate</code>事件会在浏览页面历史时触发</p>
+</li>
+<li><p><code>pushstate</code></p>
+</li>
+<li><p>length:历史记录数量</p>
+<pre><code>对于加载到窗口/标签页中的第一个页面而言,length = 0</code></pre></li>
+<li><p>back();回退到上一个页面（back(0)会刷新浏览器）</p>
+</li>
+<li><p>forward();跳转到下一个页面</p>
+</li>
+<li><p>go(i);//i为一次跳转的页面(负数表示向前回退)<br>  i为字符串时,浏览器会跳转到历史记录中包含该字符串的第一个位置(可能前进也可能后退)</p>
+</li>
+</ul>
+<h6 id="screen"><a href="#screen" class="headerlink" title="screen"></a>screen</h6><ul>
+<li>代表用户的屏幕信息,通过该对象可以获取到用户的显示器的相关信息</li>
+</ul>
+<h6 id="定时器"><a href="#定时器" class="headerlink" title="定时器"></a>定时器</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">window中定时器应用</span><br><span class="line">	/**提取移动函数</span><br><span class="line">	 * obj：移动的元素</span><br><span class="line">	 * attr：要执行动画的样式</span><br><span class="line">	 * target:目的地的left值(只允许为正)</span><br><span class="line">	 * step: 单步距离</span><br><span class="line">	 * callback:动画执行完毕后调用的回调函数</span><br><span class="line">	 */</span><br><span class="line">	function move(obj,attr,target,step,callback) &#123;</span><br><span class="line">		//关闭当前元素的上一个定时器</span><br><span class="line">	    clearInterval(obj.timer);</span><br><span class="line">	</span><br><span class="line">	    //获取元素目前位置,判断移动方向左or右</span><br><span class="line">	    var current = parseInt(getStyle(obj, attr));</span><br><span class="line">	    if(current &gt; target)</span><br><span class="line">	    &#123;</span><br><span class="line">	        step = -step;</span><br><span class="line">	    &#125;</span><br><span class="line">	</span><br><span class="line">	    //向执行动画的对象中添加一个timer属性,用来保存该对象的定时器的标识</span><br><span class="line">	    obj.timer = setInterval(function () &#123;</span><br><span class="line">	        var oldValue = parseInt(getStyle(obj, attr));</span><br><span class="line">	        var newValue = oldValue + step;</span><br><span class="line">	</span><br><span class="line">	        //当速度为正 且 新值大于target时,会超线,因此将其值修改为target</span><br><span class="line">	        //当速度为负 且 新值小于target时,会超线,因此将其值修改为target</span><br><span class="line">	        if ((step &lt; 0 &amp;&amp; newValue &lt; target) || (step &gt; 0 &amp;&amp; newValue &gt; target)) &#123;</span><br><span class="line">	            newValue = target;</span><br><span class="line">	        &#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	        obj.style[attr] = newValue + &quot;px&quot;;</span><br><span class="line">	</span><br><span class="line">	        //到达800时,关闭定时器,div停止移动</span><br><span class="line">	        if (newValue === target) &#123;</span><br><span class="line">		        //关闭当前定时器</span><br><span class="line">	            clearInterval(obj.timer);</span><br><span class="line">	            //动画执行完毕,如果有回调函数则调用回调函数</span><br><span class="line">	            callback &amp;&amp; callback();</span><br><span class="line">	        &#125;</span><br><span class="line">	    &#125;, 10);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="拖拽"><a href="#拖拽" class="headerlink" title="拖拽"></a>拖拽</h5><ol>
+<li>鼠标在拖拽元素上按下时，开始拖拽<code>mousedown</code></li>
+<li>鼠标移动时元素跟着移动<code>mousemove</code></li>
+<li>鼠标松开时，元素固定在当前位置<code>mouseup</code></li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css">        <span class="selector-class">.box</span> &#123;</span></span><br><span class="line">            width: 100px;</span><br><span class="line">            height: 100px;</span><br><span class="line">            background-color: sandybrown;</span><br><span class="line">            position: absolute;</span><br><span class="line">        &#125;</span><br><span class="line">        body &#123;</span><br><span class="line">            height: 1000px;</span><br><span class="line">            overflow: scroll;</span><br><span class="line">            position: relative;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> box = <span class="built_in">document</span>.getElementsByClassName(<span class="string">'box'</span>)[<span class="number">0</span>]</span></span><br><span class="line"></span><br><span class="line"><span class="javascript">        box.onmousedown = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span></span><br><span class="line">            e = e || event;</span><br><span class="line">            box.setCapture &amp;&amp; box.setCapture();</span><br><span class="line"></span><br><span class="line"><span class="javascript">            <span class="comment">//防止页面滚动后 元素位置 偏上、左</span></span></span><br><span class="line"><span class="javascript">            <span class="keyword">let</span> sLeft = <span class="built_in">document</span>.documentElement.scrollLeft;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">let</span> sTop = <span class="built_in">document</span>.documentElement.scrollTop;</span></span><br><span class="line">            </span><br><span class="line"><span class="javascript">            <span class="comment">//防止鼠标一放上去就移至左上角：鼠标相对元素left = 鼠标X - 元素offsetLeft</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">//如果有滚动条，则该值为负，需加上滚动高/宽度</span></span></span><br><span class="line"><span class="javascript">            <span class="keyword">let</span> oLeft = e.clientX - (box.offsetLeft - sLeft);</span></span><br><span class="line"><span class="javascript">            <span class="keyword">let</span> oTop = e.clientY - (box.offsetTop - sTop);</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="javascript">            <span class="comment">//不能给box绑定`mousemove`事件，因为在你移动时鼠标一不小心就会移出元素的范围</span></span></span><br><span class="line"><span class="javascript">            <span class="built_in">document</span>.onmousemove = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span></span><br><span class="line">                e = e || event;</span><br><span class="line"><span class="javascript">                <span class="keyword">let</span> left = e.clientX - oLeft + sLeft</span></span><br><span class="line"><span class="javascript">                <span class="keyword">let</span> top = e.clientY - oTop + sTop</span></span><br><span class="line">                </span><br><span class="line"><span class="javascript">                box.style.left = left + <span class="string">'px'</span></span></span><br><span class="line"><span class="javascript">                box.style.top = top + <span class="string">'px'</span></span></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"><span class="javascript">            <span class="built_in">document</span>.onmouseup = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="built_in">document</span>.onmousemove = <span class="built_in">document</span>.onmouseup = <span class="literal">null</span>;</span></span><br><span class="line">                box.releaseCapture &amp;&amp; box.releaseCapture();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"><span class="javascript">            <span class="comment">//IE8又出来作妖</span></span></span><br><span class="line"><span class="javascript">            <span class="keyword">return</span> <span class="literal">false</span>;</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        /*</span><br><span class="line">            setCapture：捕获所有元素の与鼠标按下相关的事件，且不在原元素上触发</span><br><span class="line">        */</span><br><span class="line">        </span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="轮播图"><a href="#轮播图" class="headerlink" title="轮播图"></a>轮播图</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">    &lt;style type=&quot;text/css&quot;&gt;</span><br><span class="line">        *&#123;</span><br><span class="line">            margin:0;</span><br><span class="line">            padding: 0;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        #outer&#123;</span><br><span class="line">            width: 520px;</span><br><span class="line">            height: 333px;</span><br><span class="line">            margin: 50px auto;</span><br><span class="line">            background-color: darkorange;</span><br><span class="line">            padding: 10px 0;</span><br><span class="line">            position: relative;</span><br><span class="line">            overflow: hidden;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        #outer #imgList&#123;</span><br><span class="line">            list-style: none;</span><br><span class="line">            /*直接设置width ,会将width写死,后面再添加图片会很麻烦*/</span><br><span class="line">            /*通过js代码设置width*/</span><br><span class="line">            /*width: 3615px;*/</span><br><span class="line"></span><br><span class="line">            /*由于整个ul要左移,开启绝对定位*/</span><br><span class="line">            position: absolute;</span><br><span class="line">            /*设置偏移量*/</span><br><span class="line">            /*每移动520px,就会显示下一张图片*/</span><br><span class="line">            /*left: -520px;*/</span><br><span class="line">        &#125;</span><br><span class="line">        #outer #imgList li&#123;</span><br><span class="line">            float: left;</span><br><span class="line">            margin: 0 10px;</span><br><span class="line">        &#125;</span><br><span class="line">        #outer #imgList li img&#123;</span><br><span class="line">            width: 500px;</span><br><span class="line">            height: 333px;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        #navDiv&#123;</span><br><span class="line">            position: absolute;</span><br><span class="line">            bottom: 15px;</span><br><span class="line">            /*设置left,比较死,用js设置*/</span><br><span class="line">            /*left: 197px;*/</span><br><span class="line">        &#125;</span><br><span class="line">        #navDiv a&#123;</span><br><span class="line">            float: left;</span><br><span class="line">            width: 15px;</span><br><span class="line">            height: 15px;</span><br><span class="line">            background-color: deeppink;</span><br><span class="line">            margin: 0 5px;</span><br><span class="line">            opacity: 0.5;</span><br><span class="line">            filter: alpha(opacity=50);</span><br><span class="line">        &#125;</span><br><span class="line">        #navDiv a:hover&#123;</span><br><span class="line">            background-color: black;</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;/style&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">            window.onload = function () &#123;</span><br><span class="line">                //获取imgList</span><br><span class="line">                var imgList = document.getElementById(&quot;imgList&quot;);</span><br><span class="line">                //获取页面中所有的img</span><br><span class="line">                var imgArr = document.getElementsByTagName(&quot;img&quot;);</span><br><span class="line">                //设置imgList宽度</span><br><span class="line">                imgList.style.width = 520 * imgArr.length + &quot;px&quot;;</span><br><span class="line"></span><br><span class="line">                //设置导航居中</span><br><span class="line">                var navDiv = document.getElementById(&quot;navDiv&quot;);</span><br><span class="line">                var outer = document.getElementById(&quot;outer&quot;);</span><br><span class="line">                navDiv.style.left = (outer.offsetWidth - navDiv.offsetWidth)/2+&quot;px&quot;;</span><br><span class="line"></span><br><span class="line">                //默认显示图片的索引</span><br><span class="line">                var index = 0;</span><br><span class="line"></span><br><span class="line">                var aArr = document.getElementsByTagName(&quot;a&quot;);</span><br><span class="line"></span><br><span class="line">                aArr[index].style.backgroundColor = &quot;black&quot;;</span><br><span class="line"></span><br><span class="line">                for (let i = 0; i &lt; aArr.length; i++) &#123;</span><br><span class="line"></span><br><span class="line">                    //关闭自动切换定时器</span><br><span class="line">                    clearInterval(timer);</span><br><span class="line"></span><br><span class="line">                    //为每个超链接对象添加一个num属性,标识当前索引</span><br><span class="line">                    aArr[i].num = i;</span><br><span class="line"></span><br><span class="line">                    aArr[i].onclick = function () &#123;</span><br><span class="line">                        //获取点击超链接的索引</span><br><span class="line">                        index = this.num;</span><br><span class="line">                        //切换图片</span><br><span class="line">                        /*imgList.style.left = -(index * 520) +&quot;px&quot;;*/</span><br><span class="line"></span><br><span class="line">                        //修改正在选中的a</span><br><span class="line">                        setA();</span><br><span class="line">                        //设置切换图片动画效果</span><br><span class="line">                        move(imgList,&quot;left&quot;,-index * 520,10,function () &#123;</span><br><span class="line">                            //动画执行完毕,开启自动切换图片</span><br><span class="line">                           /* autoChange();*/</span><br><span class="line">                        &#125;);</span><br><span class="line">                    &#125;;</span><br><span class="line">                &#125;</span><br><span class="line">                var timer;</span><br><span class="line"></span><br><span class="line">                //执行: 自动切换图片</span><br><span class="line">                autoChange();</span><br><span class="line"></span><br><span class="line">                //创建方法: 设置选中的a</span><br><span class="line">                function setA() &#123;</span><br><span class="line"></span><br><span class="line">                    //判断当前索引是否为最后一张</span><br><span class="line">                    if(index === imgArr.length -1)</span><br><span class="line">                    &#123;</span><br><span class="line">                        index = 0;</span><br><span class="line"></span><br><span class="line">                        //此时显示的最后一张,而最后一张和第一张是一模一样</span><br><span class="line">                        //通过CSS将最后一张切换为第一张</span><br><span class="line">                        imgList.style.left = 0+&quot;px&quot;;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    for (let i = 0; i &lt; aArr.length; i++) &#123;</span><br><span class="line">                        //1.将所有a的backgroundColor设置为原始的红色</span><br><span class="line">                        //问题: 内联样式优先级&gt;样式表</span><br><span class="line">                        //解决: 将该值设置为&quot;&quot;,去除内联样式,从而使样式表中の样式生效</span><br><span class="line">                        aArr[i].style.backgroundColor = &quot;&quot;;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    //将选中的a设置为黑色</span><br><span class="line">                    aArr[index].style.backgroundColor = &quot;black&quot;;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                //创建一个函数,用来开启自动切换图片</span><br><span class="line">                function  autoChange() &#123;</span><br><span class="line"></span><br><span class="line">                    //开启定时器,定时切换图片</span><br><span class="line">                    timer = setInterval(function () &#123;</span><br><span class="line">                        //索引自增</span><br><span class="line">                        index++;</span><br><span class="line"></span><br><span class="line">                        index %= imgArr.length;</span><br><span class="line"></span><br><span class="line">                        //切换图片</span><br><span class="line">                        move(imgList,&quot;left&quot;,-520*index,20,function () &#123;</span><br><span class="line">                            //修改导航按钮</span><br><span class="line">                            setA();</span><br><span class="line">                        &#125;);</span><br><span class="line">                    &#125;,3000);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;;</span><br><span class="line"></span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;div id=&quot;outer&quot;&gt;</span><br><span class="line">        &lt;ul id=&quot;imgList&quot;&gt;</span><br><span class="line">            &lt;li&gt;&lt;img src=&quot;../imgs/1.png&quot;&gt;&lt;/li&gt;</span><br><span class="line">            &lt;li&gt;&lt;img src=&quot;../imgs/2.png&quot;&gt;&lt;/li&gt;</span><br><span class="line">            &lt;li&gt;&lt;img src=&quot;../imgs/3.png&quot;&gt;&lt;/li&gt;</span><br><span class="line">            &lt;li&gt;&lt;img src=&quot;../imgs/4.png&quot;&gt;&lt;/li&gt;</span><br><span class="line">            &lt;li&gt;&lt;img src=&quot;../imgs/5.png&quot;&gt;&lt;/li&gt;</span><br><span class="line">            &lt;li&gt;&lt;img src=&quot;../imgs/1.png&quot;&gt;&lt;/li&gt;</span><br><span class="line">        &lt;/ul&gt;</span><br><span class="line">        &lt;div id=&quot;navDiv&quot;&gt;</span><br><span class="line">            &lt;a href=&quot;javaScript:;&quot;&gt;&lt;/a&gt;</span><br><span class="line">            &lt;a href=&quot;javaScript:;&quot;&gt;&lt;/a&gt;</span><br><span class="line">            &lt;a href=&quot;javaScript:;&quot;&gt;&lt;/a&gt;</span><br><span class="line">            &lt;a href=&quot;javaScript:;&quot;&gt;&lt;/a&gt;</span><br><span class="line">            &lt;a href=&quot;javaScript:;&quot;&gt;&lt;/a&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+</div></article></div></main><footer><div class="paginator"><a href="/2019/08/01/html-css/H5/" class="prev">PREV</a><a href="/2019/07/25/html-css/Less &amp; Sass/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2019/08/01/js/JS基础/';
+var disqus_title = 'JS基础';
+var disqus_url = 'https://turing5467.github.io/2019/08/01/js/JS基础/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

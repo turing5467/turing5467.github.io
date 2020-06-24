@@ -5,53 +5,63 @@
 <li>ppi：一英寸显示屏上的像素点个数</li>
 <li>dpi：打印机在单位面积上打印的墨点数</li>
 </ul>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width"</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 保证在移动端设备中，页面宽度与屏幕宽度相等 --&gt;</span></span><br></pre></td></tr></table></figure>
-
+<blockquote>
+<p>理想视口：</p>
 <ol>
-<li>百分比布局</li>
-<li>rem布局</li>
-<li>vw</li>
-<li>Media Query</li>
+<li><p><code>&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width&quot;&gt;</code></p>
+</li>
+<li><p><code>&lt;meta name=&quot;viewport&quot; content=&quot;initial-scale=1.0&quot;&gt;</code></p>
+</li>
 </ol>
-<h3 id="百分比布局"><a href="#百分比布局" class="headerlink" title="百分比布局"></a>百分比布局</h3><ul>
-<li><p>所有需要动态调整的元素宽高采用百分比，字号固定像素</p>
-</li>
-<li><p>问题</p>
+<p>width和initial-scale同时存在取较大值</p>
+</blockquote>
+<ol>
+<li><p>百分比布局</p>
 <ul>
-<li>由于文字固定大小，文字占位在不同设备中不尽相同</li>
+<li>固定屏幕为理想视口宽度</li>
+<li>水平百分比布局（部分也可以使用弹性布局）</li>
+<li>少量的媒体查询设置字体</li>
 </ul>
+<p>适用于：不管浏览器如何变化，<strong>高度不变</strong>，宽度自适应</p>
 </li>
-</ul>
-<h3 id="rem布局"><a href="#rem布局" class="headerlink" title="rem布局"></a>rem布局</h3><ul>
-<li><p>通过计算或者JS获取 设备像素/CSS像素 的比例，确定<strong>根元素的字体像素</strong>，然后所有单位根据根元素字体像素进行rem设置。</p>
-</li>
-<li><p>阿里的lib-flexible解决方案实际上就是利用了这个方式，通过给<code>html</code>标签绑定<code>font-size</code>和<code>data-dpr</code>来进行页面的适配</p>
+<li><p>rem布局</p>
 <ul>
-<li><p>方案将整个页面宽度分成100份，则每10个单位宽度作为1rem</p>
-</li>
-<li><p>假设设计稿为750px的，那么1rem代表75px，每次转换时只需要将设计稿的像素值/75 就可以得到相应的rem值</p>
-</li>
-<li><p>由于每个设备的可视宽度不同，所以根节点的字体大小是不固定的，需要通过<code>document.documentElement.style.fontSize = window.innerWidth/10 + &#39;px&#39;</code></p>
-</li>
-<li><p>然后写页面代码时只需要将 原始像素值/基准值 就能得到对应的rem值</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@function</span> px2rem($px)</span><br><span class="line">    <span class="variable">@return</span> ($px / $unit-px) * <span class="number">1rem</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>接着进行文字大小适配</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@mixin</span> font-dpr($font-size)</span><br></pre></td></tr></table></figure>
+<li><p>rem的大小取值：根据页面的dpr进行动态改变</p>
+<ul>
+<li>1rem = 100px</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//需配合媒体查询</span><br><span class="line">@<span class="keyword">media</span> screen and (min-width: <span class="number">320px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;<span class="attribute">font-size</span>: <span class="number">32px</span>&#125;</span><br><span class="line">&#125;</span><br><span class="line">@<span class="keyword">media</span> screen and (min-width: <span class="number">480px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;<span class="attribute">font-size</span>: <span class="number">48px</span>&#125;</span><br><span class="line">&#125;</span><br><span class="line">@<span class="keyword">media</span> screen and (min-width: <span class="number">640px</span>) &#123;</span><br><span class="line">    <span class="selector-tag">html</span> &#123;<span class="attribute">font-size</span>: <span class="number">64px</span>&#125;</span><br><span class="line">&#125;</span><br><span class="line">//假设设计稿宽度为640，那么接下来只需要将元素的尺寸除以64</span><br></pre></td></tr></table></figure>
 
-
+<ul>
+<li>1rem = 1/10 * 理想视口宽度</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//动态计算并设置html元素的font-size值</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">doc, win</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> docEle = doc.documentElement;</span><br><span class="line">    <span class="keyword">let</span>  event = <span class="string">"onorientationchange"</span> <span class="keyword">in</span> <span class="built_in">window</span> ? <span class="string">"orientationchange"</span>: <span class="string">"resize"</span>;</span><br><span class="line">    <span class="keyword">let</span> fn = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">let</span> width = docEle.clientWidth;</span><br><span class="line">        width &amp;&amp; (<span class="built_in">document</span>.style.fontSize = <span class="number">100</span> * (width / <span class="number">640</span>) + <span class="string">"px"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    win.addEventListener(evt, fn, <span class="literal">false</span>);</span><br><span class="line">    doc.addEventListener(<span class="string">"DOMContentLoaded, fn false);</span></span><br><span class="line"><span class="string">&#125;)(document, window)</span></span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
+<p>适用于：浏览器宽度变化时，元素宽度与高度随之发生变化</p>
 </li>
-</ul>
-<h3 id="vw布局"><a href="#vw布局" class="headerlink" title="vw布局"></a>vw布局</h3><ul>
-<li>100vw = 当前设备的可见视口宽度</li>
-</ul>
-<h3 id="媒体查询"><a href="#媒体查询" class="headerlink" title="媒体查询"></a>媒体查询</h3><ul>
-<li>通过断点来进行不同宽度区间的设备样式适配</li>
-</ul>
-</div></article></div></main><footer><div class="paginator"><a href="/2020/01/14/面试/浏览器/" class="prev">PREV</a><a href="/2019/12/24/面试/js/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+<li><p>缩放页面方案</p>
+<p>固定设计稿的宽度开发 + 根据设备宽度适配缩放</p>
+<p>可使用的库：</p>
+<ol>
+<li><p><a href="https://github.com/amfe/lib-flexible/" target="_blank" rel="noopener">amfe-flexible</a> ：正常写px，会自动转化成rem的形式 </p>
+</li>
+<li><p><a href="https://github.com/imochen/hotcss" target="_blank" rel="noopener">hotcss</a>：模仿vw，将整屏做了栅格化，分成16个rem</p>
+<ol>
+<li><p>引入<code>hotcss.js</code></p>
+</li>
+<li><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* px2rem.js */</span></span><br><span class="line">@<span class="keyword">function</span> px2rem($px)&#123;</span><br><span class="line">	@<span class="keyword">return</span> $px*<span class="number">320</span>/$designWidth/<span class="number">20</span> + rem;</span><br><span class="line">&#125;</span><br><span class="line">//单尺寸设计图：定义设计图宽度</span><br><span class="line">$designWidth: 750;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#container</span>&#123;</span><br><span class="line">	<span class="attribute">font-size</span>: <span class="number">12px</span> ;</span><br><span class="line">	[data-dpr="2"] &amp;&#123;</span><br><span class="line">		<span class="selector-tag">font-size</span>: 24<span class="selector-tag">px</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="selector-attr">[data-dpr="3"]</span> &amp;&#123;</span><br><span class="line">		<span class="attribute">font-size</span>: <span class="number">36px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="built_in">px2rem</span>(250);</span><br><span class="line">    <span class="attribute">height</span>: <span class="built_in">px2rem</span>(250);</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#194</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>vw布局</p>
+</li>
+</ol>
+<p>- </p>
+</div></article></div></main><footer><div class="paginator"><a href="/2020/01/13/面试/代码手写题/" class="prev">PREV</a><a href="/2019/12/10/工程化/微信小程序/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
 var disqus_identifier = '2019/12/26/html-css/移动端布局/';
 var disqus_title = '移动端布局';
 var disqus_url = 'https://turing5467.github.io/2019/12/26/html-css/移动端布局/';

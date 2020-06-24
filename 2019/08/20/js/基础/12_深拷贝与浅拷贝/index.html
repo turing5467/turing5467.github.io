@@ -1,0 +1,69 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 浅拷贝与深拷贝(JS) · 快乐的图小灵</title><meta name="description" content="浅拷贝与深拷贝(JS) - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">浅拷贝与深拷贝(JS)</h1><div class="post-info">Aug 20, 2019</div><div class="post-content"><h2 id="03-深拷贝与浅拷贝"><a href="#03-深拷贝与浅拷贝" class="headerlink" title="03_深拷贝与浅拷贝"></a>03_深拷贝与浅拷贝</h2><ul>
+<li>浅拷贝: 获取的副本与原来的数据存在共享问题<ul>
+<li>深拷贝: 获得的副本和原来的数据没有共享的问题</li>
+</ul>
+</li>
+</ul>
+<h3 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h3><pre><code>* </code></pre><p>直接赋值</p>
+<ul>
+<li>循环拷贝:<br>引用类型属性值存在共享问题<ul>
+<li><code>Object.assign(target, source...)</code><br>拷贝第一层的基本类型值，以及第一层的引用类型地址。</li>
+</ul>
+</li>
+</ul>
+<h3 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h3><h4 id="01-JSON序列化和反序列化"><a href="#01-JSON序列化和反序列化" class="headerlink" title="01- JSON序列化和反序列化"></a>01- JSON序列化和反序列化</h4><ul>
+<li>JSON.parse(JSON.stringify(source))<ol>
+<li>把对象|数组转换为JSON字符串</li>
+<li>把JSON字符串转换为JavaScript对象|数组</li>
+</ol>
+<ul>
+<li>缺陷:</li>
+</ul>
+<ol>
+<li>无法拷贝值为undefined的属性</li>
+<li>正则对象拷贝后为空对象{}</li>
+<li>日期对象的拷贝后为字符串</li>
+<li>无法拷贝函数</li>
+</ol>
+</li>
+</ul>
+<h4 id="02-for…in循环递归"><a href="#02-for…in循环递归" class="headerlink" title="02_for…in循环递归"></a>02_for…in循环递归</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepCopy</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> target = &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> obj) &#123;</span><br><span class="line">    	<span class="keyword">if</span> (<span class="keyword">typeof</span> obj[key] === <span class="string">'object'</span> &amp;&amp; obj[key]) &#123;</span><br><span class="line">   			target[key] = deepCopy(obj[key]);</span><br><span class="line">    	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    		target[key] = obj[key];</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line"> 	<span class="keyword">return</span> target;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>缺陷<ol>
+<li>数组拷贝后变为对象</li>
+<li>日期对象拷贝后为空对象{}</li>
+<li>正则对象拷贝后为空对象{}</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//改进后...</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepCopy</span>(<span class="params">source</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> target = <span class="built_in">Array</span>.isArray(source) ? [] : &#123;&#125;;</span><br><span class="line">    <span class="keyword">var</span> Con = source.constructor;</span><br><span class="line">    <span class="keyword">switch</span> (Con) &#123;</span><br><span class="line">    	<span class="keyword">case</span> <span class="built_in">RegExp</span>:</span><br><span class="line">    		target = <span class="keyword">new</span> <span class="built_in">RegExp</span>(source);</span><br><span class="line">    		<span class="keyword">break</span>;</span><br><span class="line">    	<span class="keyword">case</span> <span class="built_in">Date</span>:</span><br><span class="line">     		target = <span class="keyword">new</span> <span class="built_in">Date</span>(source.getTime());</span><br><span class="line">    		<span class="keyword">break</span>;</span><br><span class="line">    	&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> source) &#123;</span><br><span class="line">    	target[key] = isObject(source[key]) ?</span><br><span class="line">     	deepClone(source[key], hash) : source[key];</span><br><span class="line">     &#125;</span><br><span class="line">    <span class="keyword">return</span> target;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="03-环"><a href="#03-环" class="headerlink" title="03_环"></a>03_环</h4><ul>
+<li>环: 对象循环引用，导致自己成为一个闭环<ul>
+<li>利用上述方法深拷贝时,会有爆栈问题<code>Maximum call stack size exceeded</code></li>
+<li>解决1. es6<br>思路:使用一个WeakMap结构存储已经被拷贝的对象，每一次进行拷贝的时候就先向WeakMap查询该对象是否已经被拷贝，如果已经被拷贝则取出该对象并返回</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepClone</span>(<span class="params">source, hash = new WeakMap(</span>)) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (hash.has(source)) &#123;</span><br><span class="line">    	<span class="keyword">return</span> hash.get(source)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> Con = source.constructor;</span><br><span class="line">    <span class="keyword">switch</span> (Con) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">RegExp</span>:</span><br><span class="line">        	target = <span class="keyword">new</span> <span class="built_in">RegExp</span>(source);</span><br><span class="line">        	<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">Date</span>:</span><br><span class="line">        	target = <span class="keyword">new</span> <span class="built_in">Date</span>(source.getTime());</span><br><span class="line">        	<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">        	target = <span class="keyword">new</span> Con();</span><br><span class="line">        	hash.set(source, target);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> source) &#123;</span><br><span class="line">    	target[key] = isObject(source[key]) ?</span><br><span class="line">    	deepClone(source[key], hash) : source[key];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> target;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>坑<ol>
+<li>如何拷贝原型链上的属性</li>
+<li>如何拷贝不可枚举属性</li>
+<li>如何拷贝Error对象</li>
+</ol>
+</li>
+</ul>
+<h3 id="顶顶版本"><a href="#顶顶版本" class="headerlink" title="顶顶版本"></a>顶顶版本</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> deepClone = <span class="function">(<span class="params">source, wm = <span class="keyword">new</span> <span class="built_in">WeakMap</span></span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (source == <span class="literal">null</span>) <span class="keyword">return</span> source; <span class="comment">//null</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> source !== <span class="string">"object"</span>) <span class="keyword">return</span> source; <span class="comment">//基本数据类型</span></span><br><span class="line">    <span class="keyword">if</span> (source <span class="keyword">instanceof</span> <span class="built_in">Date</span>) <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Date</span>(source); <span class="comment">//Date类型</span></span><br><span class="line">    <span class="keyword">if</span> (source <span class="keyword">instanceof</span> <span class="built_in">RegExp</span>) <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">RegExp</span>(source); <span class="comment">//正则</span></span><br><span class="line">    <span class="keyword">if</span> (wm.has(source)) <span class="keyword">return</span> wm.get(source); <span class="comment">//wm中存在引用,则返回引用</span></span><br><span class="line">    <span class="keyword">let</span> target = <span class="keyword">new</span> source.constructor;</span><br><span class="line">    wm.set(source, target); <span class="comment">//保存引用类型至weakMap</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> source) &#123;</span><br><span class="line">		<span class="keyword">if</span> (source.hasOwnProperty(key)) </span><br><span class="line">            target[key] = deepClone(source[key], wm);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> target;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</div></article></div></main><footer><div class="paginator"><a href="/2019/08/20/js/你不知道的JS/02_对象/" class="prev">PREV</a><a href="/2019/08/19/js/你不知道的JS/01_闭包/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2019/08/20/js/基础/12_深拷贝与浅拷贝/';
+var disqus_title = '浅拷贝与深拷贝(JS)';
+var disqus_url = 'https://turing5467.github.io/2019/08/20/js/基础/12_深拷贝与浅拷贝/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

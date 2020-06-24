@@ -1,0 +1,86 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 前端性能优化--懒加载 · 快乐的图小灵</title><meta name="description" content="前端性能优化--懒加载 - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">前端性能优化--懒加载</h1><div class="post-info">May 14, 2020</div><div class="post-content"><h3 id="懒加载"><a href="#懒加载" class="headerlink" title="懒加载"></a>懒加载</h3><ul>
+<li>优点：提高前端性能，图片按需加载，减轻服务器负担，<strong>提高页面加载速度</strong>，减少带宽</li>
+</ul>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>图片加载是由src值引起的，当对src赋值时浏览器会请求图片资源。</p>
+<p>基于这个，我们可以利用html5的属性<code>data-xxx</code>来保存图片的路径</p>
+<p>当我们需要加载图片的时候才将data-xxx的值赋予src，就能实现图片的按需加载，也就是懒加载了。</p>
+<h3 id="jquery中的懒加载"><a href="#jquery中的懒加载" class="headerlink" title="jquery中的懒加载"></a>jquery中的懒加载</h3><ul>
+<li><p>最基础的懒加载：获取全部数据，但只有图片做到了懒加载</p>
+<p>适用于PC端图片处理</p>
+</li>
+</ul>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200514194236585.png" alt="image-20200514194236585"></p>
+<ul>
+<li><p>分页 + 懒加载：每次获取n条数据，同时数据中的图片进行懒加载处理。</p>
+<p>适用于移动端图片处理</p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200514204127386.png" alt="image-20200514204127386"></p>
+</li>
+</ul>
+<h3 id="Vue中实现懒加载"><a href="#Vue中实现懒加载" class="headerlink" title="Vue中实现懒加载"></a>Vue中实现懒加载</h3><ol>
+<li><p>安装插件：<code>npm i vue-lazyload --save-dev</code></p>
+</li>
+<li><p>引入并使用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> VueLazyload <span class="keyword">from</span> <span class="string">'vue-lazyload'</span>;</span><br><span class="line"><span class="comment">//Vue.use(VueLazyload);或</span></span><br><span class="line">Vue.use(VueLazyload, &#123;</span><br><span class="line">  preLoad: <span class="number">1.3</span>,</span><br><span class="line">  error: <span class="string">'dist/error.png'</span>,</span><br><span class="line">  loading: <span class="string">'dist/loading.gif'</span>,</span><br><span class="line">  attempt: <span class="number">1</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>属性</li>
+</ul>
+<p><img src="https://ae01.alicdn.com/kf/Ued40af5be8d24f09977887975d337886K.png" alt></p>
+</li>
+<li><p>修改图片显示方式 （将 :src 属性直接改为v-lazy） </p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">v-lazy</span>=<span class="string">"'/static/img/' + item.productImage"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<blockquote>
+<p> <code>&lt;img&gt;</code>必须加上<code>key</code>，并且<code>key</code>是要唯一的，不然可能造成图片不刷新的问题 </p>
+</blockquote>
+<h3 id="react中实现懒加载"><a href="#react中实现懒加载" class="headerlink" title="react中实现懒加载"></a>react中实现懒加载</h3><ol>
+<li><p>安装<a href="https://www.npmjs.com/package/react-lazyload" target="_blank" rel="noopener">react-lazy-load</a>： <code>npm install --save react-lazyload</code></p>
+</li>
+<li><p>引入并使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import LazyLoad from &apos;react-lazyload&apos;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;LazyLoad height=&#123;200&#125; overflow=&#123;true&#125; once&gt;</span><br><span class="line">    &lt;img src=&quot;tiger.jpg&quot; /&gt;</span><br><span class="line">&lt;/LazyLoad&gt;</span><br></pre></td></tr></table></figure>
+
+<p>说明：</p>
+<ul>
+<li>height：单个图片试图高度</li>
+<li>offset：距离多少进行预加载</li>
+<li>once：一旦加载了该组件，就不再检测滚动/调整大小事件。（可提高性能，对图片和单一组件有用）</li>
+<li>overflow： If lazy loading components inside a overflow container, set this to <code>true</code>. Also make sure a <code>position</code> property other than <code>static</code> has been set to your overflow container. </li>
+<li>scroll（默认：true）：是否响应scroll事件</li>
+<li>resize（默认：false）：是否响应resize事件</li>
+<li>debounce、throttle：提供数值，表示要等待多少毫秒</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><p>如果希望所有组件默认延迟加载，可以这样写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import &#123; lazyload &#125; from &apos;react-lazyload&apos;;</span><br><span class="line"> </span><br><span class="line">@lazyload(&#123;</span><br><span class="line">  height: 200,</span><br><span class="line">  once: true,</span><br><span class="line">  offset: 100</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">class MyComponent extends React.Component &#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    return &lt;div&gt;this component is lazyloaded by default!&lt;/div&gt;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h3 id="微信小程序图片懒加载"><a href="#微信小程序图片懒加载" class="headerlink" title="微信小程序图片懒加载"></a>微信小程序图片懒加载</h3><ul>
+<li><p>原理</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">element.getBoundingClientRect().top &lt;= <span class="built_in">document</span>.documentElement.clientHeight </span><br><span class="line">    ? 显示 </span><br><span class="line">	: 默认</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p> 小程序里面有个<code>onPageScroll</code>函数，是用来监听页面的滚动的。<br>还有个<code>getSystemInfo</code>函数，可以获取获取系统信息，里面包含屏幕的高度。 </p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">&lt;view wx:<span class="keyword">for</span>=<span class="string">"&#123;&#123;list&#125;&#125;"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">'item item-&#123;&#123;index&#125;&#125;&gt;</span></span><br><span class="line"><span class="string">    &lt;image src="&#123;&#123;item.show ? item.src : item.def&#125;&#125;"&gt;&lt;/image&gt;</span></span><br><span class="line"><span class="string">&lt;/view&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">//-----------------------------</span></span><br><span class="line"><span class="string">Page(&#123;</span></span><br><span class="line"><span class="string">    //...</span></span><br><span class="line"><span class="string">    lazyload() &#123;</span></span><br><span class="line"><span class="string">    const this_ = this;</span></span><br><span class="line"><span class="string">    let heroList = this.data.heroList;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    console.log(this_._observer)</span></span><br><span class="line"><span class="string">    this_._observer &amp;&amp; this_._observer.disconnect()</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    let observer = wx.createIntersectionObserver(this, &#123;</span></span><br><span class="line"><span class="string">      // 阈值设置少，避免触发过于频繁导致性能问题</span></span><br><span class="line"><span class="string">      thresholds: [1],</span></span><br><span class="line"><span class="string">      // 监听多个对象</span></span><br><span class="line"><span class="string">      observeAll: true</span></span><br><span class="line"><span class="string">    &#125;);</span></span><br><span class="line"><span class="string">    observer.relativeToViewport(&#123;</span></span><br><span class="line"><span class="string">      bottom: 0</span></span><br><span class="line"><span class="string">    &#125;).observe('</span>.hero-image<span class="string">', (ret) =&gt; &#123;</span></span><br><span class="line"><span class="string">      console.log(ret)</span></span><br><span class="line"><span class="string">      if (ret.intersectionRatio &gt; 0) &#123;</span></span><br><span class="line"><span class="string">        let index = ret.dataset.index</span></span><br><span class="line"><span class="string">        heroList[index].show = true;</span></span><br><span class="line"><span class="string">        this_.setData(&#123; heroList &#125;);</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">    &#125;)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    this_._observer = observer;</span></span><br><span class="line"><span class="string">  </span></span><br><span class="line"><span class="string">  &#125;,</span></span><br><span class="line"><span class="string">&#125;)</span></span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<p>  <a href="https://github.com/Ortonzhang/simple-code/blob/master/javascript/lazyload-miniprogram/pages/index/index.js" target="_blank" rel="noopener">完整代码</a></p>
+<p>   <a href="https://developers.weixin.qq.com/miniprogram/dev/api/wxml/IntersectionObserver.html" target="_blank" rel="noopener">https://developers.weixin.qq.com/miniprogram/dev/api/wxml/IntersectionObserver.html</a> </p>
+</div></article></div></main><footer><div class="paginator"><a href="/2020/05/15/node/web-socket/" class="prev">PREV</a><a href="/2020/04/19/面试/React/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2020/05/14/js/性能优化/懒加载/';
+var disqus_title = '前端性能优化--懒加载';
+var disqus_url = 'https://turing5467.github.io/2020/05/14/js/性能优化/懒加载/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

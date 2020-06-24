@@ -1,0 +1,70 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> ES6 编程风格 · 快乐的图小灵</title><meta name="description" content="ES6 编程风格 - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">ES6 编程风格</h1><div class="post-info">Aug 31, 2019</div><div class="post-content"><h2 id="ES6编程风格"><a href="#ES6编程风格" class="headerlink" title="ES6编程风格"></a>ES6编程风格</h2><ol>
+<li><p><code>let const</code>取代<code>var</code></p>
+</li>
+<li><p>字符串一律使用单引号<code>&#39;&#39;</code>或反引号</p>
+</li>
+<li><p>使用数组对变量赋值时，优先使用解构赋值</p>
+<p>函数参数/返回值如果是对象的成员，，优先使用解构赋值</p>
+</li>
+</ol>
+<h3 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h3><ol>
+<li><p>单行对象，最后一个成员不以<code>,</code>结尾</p>
+<p>多行对象，最后一个成员以<code>,</code>结尾</p>
+</li>
+<li><p>对象尽量静态化，一旦定义，就不得随意添加新的属性。</p>
+<p>如果添加属性不可避免，要使用 Object.assign 方法。   </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = &#123; <span class="attr">x</span>: <span class="literal">null</span> &#125;;</span><br><span class="line">a.x = <span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对象的属性和方法，尽量采用简洁表达法</p>
+</li>
+</ol>
+<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><ol>
+<li>使用扩展运算符拷贝数组</li>
+<li>使用<code>Array.from</code>，将类数组转为数组</li>
+</ol>
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><ol>
+<li><p>立即执行函数写出箭头函数的形式.</p>
+</li>
+<li><p>需要函数表达式的场合，尽量用箭头函数代替。</p>
+</li>
+<li><p>箭头函数取代<code>bind</code>，不应再用<code>_self _this that</code>绑定<code>this</code></p>
+</li>
+<li><p>简单的、单行的、<strong>不会复用</strong>的函数，建议采用箭头函数。   </p>
+<p> 如果函数体较为复杂，行数较多，还是应该采用传统的函数写法。   </p>
+</li>
+<li><p>所有配置项都应该集中在一个对象，放在最后一个参数，<strong>布尔值</strong>不可以直接作为参数。   </p>
+</li>
+<li><p>不要在函数体内使用<code>arguments</code>变量，使用rest元素运算符<code>...</code>代替</p>
+</li>
+<li><p>使用默认值语法设置函数参数的默认值。</p>
+</li>
+</ol>
+<h3 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h3><ol>
+<li><code>import</code>取代<code>require</code></li>
+<li><code>export</code>取代<code>module.exports</code></li>
+<li>如果模块只有一个输出值，就使用 <code>export default</code></li>
+<li>如果模块默认输出一个<strong>函数</strong>，函数名的<strong>首字母小写</strong>。   </li>
+<li>如果模块默认输出一个<strong>对象</strong>，对象名的<strong>首字母大写</strong>。   </li>
+</ol>
+<h3 id="class"><a href="#class" class="headerlink" title="class"></a>class</h3><ol>
+<li><p>总是用<code>class</code>，取代需要prototype的操作。   </p>
+</li>
+<li><p>使用 <code>extends</code> 实现继承   </p>
+</li>
+</ol>
+<h3 id="Map结构"><a href="#Map结构" class="headerlink" title="Map结构"></a>Map结构</h3><ul>
+<li><p>注意区分Object和Map，只有模拟现实世界的实体对象时，才使用Object。</p>
+<p>如果只是需要 key: value 的数据结构，使用Map结构。因为Map有内建的<strong>遍历机制</strong>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">of</span> map.keys()) &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(key);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> value <span class="keyword">of</span> map.values()) &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> item <span class="keyword">of</span> map.entries()) &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(item[<span class="number">0</span>], item[<span class="number">1</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2019/09/01/工程化/Git/" class="prev">PREV</a><a href="/2019/08/23/js/基础/14_高阶函数/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2019/08/31/js/es6/编程风格/';
+var disqus_title = 'ES6 编程风格';
+var disqus_url = 'https://turing5467.github.io/2019/08/31/js/es6/编程风格/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

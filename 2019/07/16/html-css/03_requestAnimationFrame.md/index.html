@@ -1,0 +1,147 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> requestAnamationFrame详解 · 快乐的图小灵</title><meta name="description" content="requestAnamationFrame详解 - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">requestAnamationFrame详解</h1><div class="post-info">Jul 16, 2019</div><div class="post-content"><ul>
+<li><p><a href="https://juejin.im/post/5d6d4e196fb9a06aed713cef" target="_blank" rel="noopener">参考文章</a></p>
+</li>
+<li><p>html5 提供一个专门用于请求动画的 API，即 <code>requestAnimationFrame</code></p>
+</li>
+</ul>
+<h3 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h3><blockquote>
+<ul>
+<li>HTML5 新增加的 API，类似于 setTimeout 定时器</li>
+<li>window 对象的一个方法，window.requestAnimationFrame</li>
+<li>浏览器专门为动画提供的 API，让 DOM 动画、Canvas 动画、SVG 动画、WebGL 动画等有一个<strong>统一的刷新机制</strong></li>
+</ul>
+</blockquote>
+<h3 id="做什么"><a href="#做什么" class="headerlink" title="做什么"></a>做什么</h3><blockquote>
+<ul>
+<li>浏览器重绘频率一般会和显示器的刷新率保持同步。</li>
+<li>大多数浏览器采取 W3C 规范的建议，浏览器的渲染页面的标准帧率也为 60FPS（frames/ per second）</li>
+</ul>
+</blockquote>
+<ul>
+<li><p><strong>按帧对网页进行重绘</strong>。该方法告诉浏览器希望执行动画并请求浏览器在下一次重绘之前调用回调函数来更新动画</p>
+</li>
+<li><p>由系统来决定回调函数的执行时机</p>
+</li>
+</ul>
+<pre><code>显示器有固定的刷新频率（60Hz 或 75Hz），也就是说，每秒最多只能重绘 60 次或 75 次，requestAnimationFrame 的基本思想让页面重绘的频率与这个刷新频率保持同步</code></pre><h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><blockquote>
+<p> 动画帧请求回调函数列表：每个 Document 都有一个动画帧请求回调函数列表，该列表可以看成是由<code>&lt;handle, callback&gt;</code>元组组成的集合。</p>
+<ul>
+<li>handle 是一个整数，唯一地标识了元组在列表中的位置，cancelAnimationFrame()可以通过它停止动画<ul>
+<li>callback 是一个无返回值的、形参为一个时间值的函数（该时间值为由浏览器传入的从 1970 年 1 月 1 日到当前所经过的毫秒数）。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>刚开始该列表为空。</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>当页面被最小化或者被切换成后台标签页时，页面为不可见，浏览器会触发一个<code>visibilitychange</code>事件，并设置<code>document.hidden</code>属性为`true<pre><code>`* </code></pre></li>
+<li>当页面切换到显示状态，页面变为可见，同时触发一个<code>visibilitychange</code>事件，设置<code>document.hidden</code>属性为<code>false</code></li>
+</ul>
+</blockquote>
+<ul>
+<li><p>调用操作。与setTimeout相似，但是不需要设置间隔时间，使用一个回调函数作为参数，返回一个大于 0 的整数</p>
+<p><code>requestAnimationFrame(callback)</code></p>
+<ul>
+<li><p>参数<code>callback</code>，是一个回调函数，在下次重新绘制动画时调用。</p>
+<p>该回调函数接收唯一<strong>参数</strong>，是一个高精度时间戳（performance.now()），指触发回调函数的当前时间（不用手动传入）</p>
+</li>
+<li><p><strong>返回值</strong>是一个long型的非零整数，是requestAnimationFrame回调函数列表中唯一的标识，表示定时器的编号，无其他意义</p>
+</li>
+</ul>
+</li>
+<li><p>取消操作：<code>cancelAnimationFrame(handle)</code></p>
+<ul>
+<li>参数是调用<code>requestAnimationFrame</code>时的返回值</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>浏览器执行过程</p>
+<ol>
+<li>首先判断document.hidden属性是否为true（页面是否可见），页面处于可见状态才会执行后面步骤</li>
+<li>浏览器清空上一轮的动画函数</li>
+<li><code>requestAnimationFrame</code>将回调函数追加到动画帧请求回调函数列表的末尾<br>当执行requestAnimationFrame(callback)的时候，不会立即调用 callback 函数，只是将其放入队列。每个回调函数都有一个布尔标识<code>cancelled</code>，该标识初始值为<code>false</code>，并且对外不可见。<ol start="4">
+<li>当浏览器再执行列表中的回调函数的时候，判断每个元组的 callback 的<code>cancelled</code>，如果为<code>false</code>，则执行<code>callback</code><br>当页面可见并且动画帧请求回调函数列表不为空，浏览器会定期将这些回调函数加入到浏览器 UI 线程的队列中</li>
+<li>当调用<code>cancelAnimationFrame(handle</code>)时，浏览器会设置该 <code>handle</code>指向的回调函数的<code>cancelled</code>为<code>true</code>。</li>
+<li></li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>递归调用。要想实现一个完整的动画，应该在回调函数中递归调用回调函数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">let</span> rafId = <span class="literal">null</span>;  <span class="comment">//动画标识</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">jump</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 动画没有执行完，则递归渲染</span></span><br><span class="line">   <span class="keyword">if</span> (count &lt; <span class="number">50</span>) &#123;</span><br><span class="line">      count++;</span><br><span class="line">      <span class="comment">// 渲染下一帧</span></span><br><span class="line">      rafId = requestAnimationFrame(jump);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 渲染第一帧</span></span><br><span class="line">requestAnimationFrame(jump);           <span class="comment">//cancelAnimationFrame(refId)</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+</li>
+</ul>
+<h4 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h4><ul>
+<li>国际惯例 caniuse</li>
+<li>MDN(window.requestAnimationFrame)</li>
+<li>现代浏览器版本包括移动端基本支持，难免使用祖传版本，所以还是要进行下优雅降级处理</li>
+</ul>
+<p>在浏览器初次加载的时候执行下面的代码即可。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 使用 Date.now 获取时间戳性能比使用 new Date().getTime 更高效</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">Date</span>.now)</span><br><span class="line">        <span class="built_in">Date</span>.now = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Date</span>().getTime();</span><br><span class="line">        &#125;;</span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="meta">"use strict"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> vendors = [<span class="string">"webkit"</span>, <span class="string">"moz"</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; vendors.length &amp;&amp; !<span class="built_in">window</span>.requestAnimationFrame; ++i) &#123;</span><br><span class="line">        <span class="keyword">var</span> vp = vendors[i];</span><br><span class="line">        <span class="built_in">window</span>.requestAnimationFrame = <span class="built_in">window</span>[vp + <span class="string">"RequestAnimationFrame"</span>];</span><br><span class="line">        <span class="built_in">window</span>.cancelAnimationFrame =</span><br><span class="line">        <span class="built_in">window</span>[vp + <span class="string">"CancelAnimationFrame"</span>] ||</span><br><span class="line">        <span class="built_in">window</span>[vp + <span class="string">"CancelRequestAnimationFrame"</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 上面方法都不支持的情况，以及IOS6的设备</span></span><br><span class="line">    <span class="comment">// 使用 setTimeout 模拟实现</span></span><br><span class="line">    <span class="keyword">if</span> (</span><br><span class="line">        /iP(ad|hone|od).*OS <span class="number">6</span>/.test(<span class="built_in">window</span>.navigator.userAgent) ||</span><br><span class="line">        !<span class="built_in">window</span>.requestAnimationFrame ||</span><br><span class="line">        !<span class="built_in">window</span>.cancelAnimationFrame</span><br><span class="line">    ) &#123;</span><br><span class="line">        <span class="keyword">var</span> lastTime = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 和通过时间戳实现节流功能的函数相似</span></span><br><span class="line">        <span class="built_in">window</span>.requestAnimationFrame = <span class="function"><span class="keyword">function</span>(<span class="params">callback</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> now = <span class="built_in">Date</span>.now();</span><br><span class="line">            <span class="keyword">var</span> nextTime = <span class="built_in">Math</span>.max(lastTime + <span class="number">16</span>, now);</span><br><span class="line">            <span class="comment">// 实际上第1帧是不准确的，首次nextTime - now = 0</span></span><br><span class="line">            <span class="keyword">return</span> setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                callback((lastTime = nextTime));</span><br><span class="line">            &#125;, nextTime - now);</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="built_in">window</span>.cancelAnimationFrame = clearTimeout;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+<h4 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h4><p><code>requestAnimationFrame</code>采用系统时间间隔，保持最佳绘制效率。不会因为间隔时间过短，造成过度绘制，增加开销；也不会因为间隔时间过长，使动画卡顿。</p>
+<h5 id="a-提升性能，防止掉帧"><a href="#a-提升性能，防止掉帧" class="headerlink" title="a.提升性能，防止掉帧"></a>a.提升性能，防止掉帧</h5><blockquote>
+<ul>
+<li>浏览器 UI 线程：浏览器让执行 JavaScript 和更新用户界面（包括重绘和回流）共用同一个单线程，称为“浏览器 UI 线程”</li>
+<li>浏览器 UI 线程的工作基于一个简单的队列系统，任务会被保存到队列中直到进程空闲。一旦空闲，队列中的下一个任务就被重新提取出来并运行。这些任务要么是运行 JavaScript 代码，要么执行 UI 更新。</li>
+</ul>
+</blockquote>
+<ul>
+<li><p>通过setTimeout实现动画</p>
+<p>setTimeout通过设置一个间隔时间不断改变图像，达到动画效果。该方法在一些低端机上会出现卡顿、抖动现象。这种现象一般有两个原因：</p>
+<ol>
+<li><p>setTimeout的执行时间并不是确定的。</p>
+</li>
+<li><p>刷新频率受屏幕分辨率和屏幕尺寸影响，不同设备的屏幕刷新率可能不同，setTimeout只能设置固定的时间间隔，这个时间和屏幕刷新间隔可能不同</p>
+<ul>
+<li>以上两种情况都会导致setTimeout的执行步调和屏幕的刷新步调不一致，从而引起丢帧现象</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li>使用 requestAnimationFrame 执行动画，最大优势是<strong>能保证回调函数在屏幕每一次刷新间隔中只被执行一次，这样就不会引起丢帧，动画也就不会卡顿</strong></li>
+</ul>
+<h5 id="b-节约资源，节省电源"><a href="#b-节约资源，节省电源" class="headerlink" title="b. 节约资源，节省电源"></a>b. 节约资源，节省电源</h5><ul>
+<li>使用 setTimeout 实现的动画，当页面被隐藏或最小化时，定时器setTimeout仍在<strong>后台执行</strong>动画任务，此时刷新动画是完全没有意义的（实际上 FireFox/Chrome 浏览器对定时器做了优化：页面闲置时，如果时间间隔小于 1000ms，则停止定时器，与requestAnimationFrame行为类似。如果时间间隔&gt;=1000ms，定时器依然在后台执行）</li>
+</ul>
+<ul>
+<li>使用requestAnimationFrame，当页面处于未激活的状态下，该页面的屏幕刷新任务会被系统暂停。当页面被激活时，动画<strong>从上次停留的地方继续执行，节约 CPU 开销</strong>。</li>
+</ul>
+<h5 id="c-函数节流"><a href="#c-函数节流" class="headerlink" title="c. 函数节流"></a>c. 函数节流</h5><ul>
+<li>一个刷新间隔内函数执行多次时没有意义的，因为显示器每 16.7ms 刷新一次，多次绘制并不会在屏幕上体现出来</li>
+</ul>
+<ul>
+<li>在高频事件（resize，scroll等）中，使用requestAnimationFrame可以防止在一个刷新间隔内发生多次函数执行，这样保证了流畅性，也节省了函数执行的开销</li>
+<li>某些情况下可以直接使用requestAnimationFrame替代 Throttle 函数，都是限制回调函数执行的频率</li>
+</ul>
+<h4 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h4><ul>
+<li>简单的进度条动画</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loadingBar</span>(<span class="params">ele</span>) </span>&#123;</span><br><span class="line"><span class="comment">// 使用闭包保存定时器的编号</span></span><br><span class="line">   <span class="keyword">let</span> handle;</span><br><span class="line">   <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// 每次触发将进度清空</span></span><br><span class="line">      ele.style.width = <span class="string">"0"</span>;</span><br><span class="line">      <span class="comment">// 开始动画前清除上一次的动画定时器</span></span><br><span class="line">      <span class="comment">// 否则会开启多个定时器</span></span><br><span class="line">      cancelAnimationFrame(handle);</span><br><span class="line">      <span class="comment">// 回调函数</span></span><br><span class="line">      <span class="keyword">let</span> _progress = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">         <span class="keyword">let</span> eleWidth = <span class="built_in">parseInt</span>(ele.style.width);</span><br><span class="line">         <span class="keyword">if</span> (eleWidth &lt; <span class="number">200</span>) &#123;</span><br><span class="line">            ele.style.width = <span class="string">`<span class="subst">$&#123;eleWidth + <span class="number">5</span>&#125;</span>px`</span>;</span><br><span class="line">            handle = requestAnimationFrame(_progress);</span><br><span class="line">         &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            cancelAnimationFrame(handle);</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;;</span><br><span class="line">      handle = requestAnimationFrame(_progress);</span><br><span class="line">   &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<pre><code>* </code></pre><p>添加缓动效果，实现一个元素块按照三阶贝塞尔曲线的ease-in-out缓动特效参数运动。如何使用 Javascript 实现缓动特效</p>
+<blockquote>
+<p> 缓动动画：指定动画效果在执行时的速度，使其看起来更加真实。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">* @param &#123;HTMLElement&#125; ele 元素节点</span></span><br><span class="line"><span class="comment">* @param &#123;number&#125; change 改变量</span></span><br><span class="line"><span class="comment">* @param &#123;number&#125; duration 动画持续时长</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">moveBox</span>(<span class="params">ele, change, duration</span>) </span>&#123;</span><br><span class="line">      <span class="comment">// 使用闭包保存定时器标识</span></span><br><span class="line">      <span class="keyword">let</span> handle;</span><br><span class="line">      <span class="comment">// 返回动画函数</span></span><br><span class="line">      <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">          <span class="comment">// 开始时间</span></span><br><span class="line">          <span class="keyword">let</span> startTime = performance.now();</span><br><span class="line">          <span class="comment">// 防止启动多个定时器</span></span><br><span class="line">          cancelAnimationFrame(handle);</span><br><span class="line">          <span class="comment">// 回调函数</span></span><br><span class="line">          <span class="function"><span class="keyword">function</span> <span class="title">_animation</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">          <span class="comment">// 这一帧开始的时间</span></span><br><span class="line">              <span class="keyword">let</span> current = performance.now();</span><br><span class="line">              <span class="keyword">let</span> eleTop = ele.offsetLeft;</span><br><span class="line">              <span class="comment">// 这一帧内元素移动的距离</span></span><br><span class="line">              <span class="keyword">let</span> left = change *easeInOutCubic((current - startTime) / duration);</span><br><span class="line">              ele.style.left = <span class="string">`<span class="subst">$&#123;~~left&#125;</span>px`</span>;</span><br><span class="line">              <span class="comment">// 判断动画是否执行完</span></span><br><span class="line">              <span class="keyword">if</span> ((current - startTime) / duration &lt; <span class="number">1</span>) &#123;</span><br><span class="line">                handle = requestAnimationFrame(_animation);</span><br><span class="line">              &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                cancelAnimationFrame(handle);</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="comment">// 第一帧开始</span></span><br><span class="line">          handle = requestAnimationFrame(_animation);</span><br><span class="line">      &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">* 三阶贝塞尔曲线ease-in-out</span></span><br><span class="line"><span class="comment">* @param &#123;number&#125; k</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">easeInOutCubic</span>(<span class="params">k</span>) </span>&#123;</span><br><span class="line">  	<span class="keyword">return</span> (k *= <span class="number">2</span>) &lt; <span class="number">1</span> ? <span class="number">0.5</span> * k * k * k : <span class="number">0.5</span> * ((k -= <span class="number">2</span>) * k * k + <span class="number">2</span>);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+</div></article></div></main><footer><div class="paginator"><a href="/2019/07/20/html-css/02_input/" class="prev">PREV</a><a href="/2019/07/15/html-css/00_css开发技巧/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2019/07/16/html-css/03_requestAnimationFrame.md/';
+var disqus_title = 'requestAnamationFrame详解';
+var disqus_url = 'https://turing5467.github.io/2019/07/16/html-css/03_requestAnimationFrame.md/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

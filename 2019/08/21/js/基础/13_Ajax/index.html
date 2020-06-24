@@ -1,0 +1,262 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Ajax · 快乐的图小灵</title><meta name="description" content="Ajax - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Ajax</h1><div class="post-info">Aug 21, 2019</div><div class="post-content"><p>@(js)</p>
+<p>[toc]</p>
+<p><a href="https://juejin.im/post/587f8dbd570c3522011c0f59" target="_blank" rel="noopener">Ajax入门</a></p>
+<h3 id="15-Ajax"><a href="#15-Ajax" class="headerlink" title="15_Ajax"></a>15_Ajax</h3><ul>
+<li>异步JavaScript和XML(Asynchronous Javascript And XML)</li>
+<li>对页面的请求以异步方式发送到服务器,服务器在后台处理请求,与此同时用户继续浏览页面并与页面交互</li>
+</ul>
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ul>
+<li>优点<ol>
+<li><strong>无刷新</strong>更新数据,提高用户体验</li>
+<li><strong>异步</strong>与服务器通信,提升Web程序的性能</li>
+<li><strong>前后端负载均衡</strong>,减轻服务器和带宽的负担</li>
+<li>界面与应用分离</li>
+</ol>
+</li>
+<li>缺点<ol>
+<li>前进后退功能被破坏</li>
+<li>AJAX的安全问题</li>
+<li>对搜索引擎的支持度不够(引擎爬⾍还不能理解JS引起变化数据的内容);</li>
+</ol>
+</li>
+</ul>
+<h4 id="XMLHttpRequest对象"><a href="#XMLHttpRequest对象" class="headerlink" title="XMLHttpRequest对象"></a>XMLHttpRequest对象</h4><ul>
+<li>浏览器脚本(客户端)与服务器的中间人(ie7+)<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">IE: new ActiveXObject(&quot;Msxml2.XMLHTTP.3.0&quot;);   //不同版本&quot;&quot;中内容不一样</span><br><span class="line">其它: new XMLHttpRequest();</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200517155928130.png" alt="image-20200517155928130"><br><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200517155934021.png" alt="image-20200517155934021"></p>
+<h5 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h5><ul>
+<li><code>onreadystatechange</code>: 当readyState属性改变时触发。</li>
+<li><code>readySate</code> HTTP请求的状态<br>  当一个 <code>xhr</code>初次创建时，这个属性的值从 0 开始，直到接收到完整的 HTTP 响应，这个值增加到 4</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">值</th>
+<th align="center">状态</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">0</td>
+<td align="center">UNSENT</td>
+<td align="center">对象已创建或已被 <code>abort()</code> 方法重置。</td>
+</tr>
+<tr>
+<td align="left">1</td>
+<td align="center">OPENED</td>
+<td align="center"><code>open()</code>已调用</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="center">HEADERS_RECEIVED</td>
+<td align="center"><code>send()</code> 方法已经被调用，并且头部和状态已经可获得。</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="center">LOADING</td>
+<td align="center">下载中； responseText 属性已经包含部分数据。</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="center">DONE</td>
+<td align="center">HTTP响应已完全接收(响应头+响应体)</td>
+</tr>
+</tbody></table>
+<ul>
+<li><code>status</code>HTTP请求的状态</li>
+<li><code>statusText</code> HTTP请求的状态信息</li>
+<li><code>responseText</code>  <strong>响应体</strong>,  服务器响应的字符串形式。</li>
+</ul>
+<h5 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h5><ul>
+<li><p><code>abort()</code><br>  取消异步请求(<code>readyState</code>重置为0)</p>
+</li>
+<li><p><code>SetRequestHeader(header, value)</code> 设置请求头信息</p>
+<pre><code>放在open()与send()中间,一般用于POST请求设置请求头信息 
+`xhr.setRequestHeader(&quot;Content-type&quot;, &quot;application/x-www-form-urlencoded&quot;)`
+默认情况下，当发送AJAX请求时，会附带以下头部信息：
+        Accept：浏览器能够处理的内容类型；
+        Accept-Charset: 浏览器能够显示的字符集；
+        Accept-Encoding：浏览器能够处理的压缩编码；
+        Accept-Language：浏览器当前设置的语言；
+        Connection：浏览器与服务器之间连接的类型；
+        Cookie：当前页面设置的任何Cookie；
+        Host：发出请求的页面所在的域；
+        Referer：发出请求的页面URI；
+        User-Agent：浏览器的用户代理字符串；</code></pre></li>
+<li><p>a<code>getResponseHeader(attr)</code>返回指定的 HTTP 响应头部的值。</p>
+</li>
+<li><p>b<code>getAllResponseHeaders()</code> 返回HTTP响应头部信息<br>  如果没有接收到这个头部或readyState&lt;3,则返回null</p>
+</li>
+<li><p><code>open(method, url, async=true, username=null, password=null)</code> 初始化一个请求;<br> 如果是本地代码, 使用 <code>openRequest()</code>方法代替.<br> 重复调用相当于<code>abort()</code></p>
+</li>
+<li><p><code>send([请求主体])</code> 发送请求</p>
+<p>  ​    </p>
+<h5 id="ajax与setTimeout排队问题"><a href="#ajax与setTimeout排队问题" class="headerlink" title="ajax与setTimeout排队问题"></a>ajax与setTimeout排队问题</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ajax</span>(<span class="params">url, method</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">    xhr.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;	<span class="comment">//只有写在这里才可以有1,2,3,4</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.readyState);</span><br><span class="line">    &#125;</span><br><span class="line">    xhr.onloadstart = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;	<span class="comment">////只有写在这里才触发</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'onloadStart'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    xhr.open(method, url, <span class="literal">true</span>);</span><br><span class="line">    xhr.setRequestHeader(<span class="string">'Cache-Control'</span>, <span class="number">3600</span>);</span><br><span class="line">    xhr.send();</span><br><span class="line">    </span><br><span class="line">    xhr.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'onload'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> timer = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'setTimeout'</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">ajax(<span class="string">'https://user-gold-cdn.xitu.io/2017/3/15/c6eacd7c2f4307f34cd45e93885d1cb6.png'</span>, <span class="string">'GET'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'log'</span>);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200517155910052.png" alt="image-20200517155910052"></p>
+<ul>
+<li>打印结果：a =&gt; onloadstart =&gt; log =&gt;setTimeout =&gt; 2 =&gt; 3 = &gt; 4 =&gt;load</li>
+<li>结论: readyState=1的回调与onloadstart的回调是<strong>同步</strong>的</li>
+</ul>
+<h3 id="GET-POST"><a href="#GET-POST" class="headerlink" title="GET/POST"></a>GET/POST</h3><ul>
+<li>GET: 提交的参数以<strong>查询字符串</strong>的方式跟在请求URL后,安全性较低,大小一般限制在2KB</li>
+<li>POST: 参数存放在<strong>请求体</strong>中进行提交,安全性较高,尺寸无限制</li>
+</ul>
+<h3 id="1-form表单提交"><a href="#1-form表单提交" class="headerlink" title="1.form表单提交"></a>1.form表单提交</h3><h4 id="1-1form表单发送请求"><a href="#1-1form表单发送请求" class="headerlink" title="1.1form表单发送请求"></a>1.1form表单发送请求</h4><ol>
+<li>设置请求路径<code>action</code></li>
+<li>设置请求方法<code>method</code></li>
+<li>请求参数以键值对方式传输</li>
+<li>客户端接收参数</li>
+</ol>
+<h4 id="1-2form表单上传文件"><a href="#1-2form表单上传文件" class="headerlink" title="1.2form表单上传文件"></a>1.2form表单上传文件</h4><ol>
+<li>设置请求路径</li>
+<li>设置请求方法(只能是<code>POST</code>)</li>
+<li>设置参数<code>&lt;input type=&quot;file&quot; name=&quot;fname&quot;&gt;</code></li>
+<li>设置form的enctype属性<code>&lt;form enctype=&quot;multipart/form-data&quot;</code></li>
+<li>客户端接收</li>
+</ol>
+<blockquote>
+<p>默认文件上传到服务器之后会被保存到临时路径里,随时可能会被删除<br>如果想要保存客户端上传文件,需要通过代码主动处理</p>
+</blockquote>
+<ul>
+<li>wampserver默人文件大小限制为2m,若要修改<br><img src="./1567475724681.png" alt="Alt text"></li>
+</ul>
+<h3 id="2-ajax提交请求"><a href="#2-ajax提交请求" class="headerlink" title="2.ajax提交请求"></a>2.ajax提交请求</h3><h4 id="2-1-ajax发送GET请求"><a href="#2-1-ajax发送GET请求" class="headerlink" title="2.1 ajax发送GET请求"></a>2.1 ajax发送GET请求</h4><ol>
+<li>创建请求对象<code>const xhr = new XMLHttpRequest()</code></li>
+<li>设置请求对象<code>xhr.open(&#39;GET&#39;,带有查询字符串的url,true)</code><pre><code>url中查询字符串必须使用`encodeURIComponent()`进行编码</code></pre></li>
+<li>发送网络请求 <code>xhr.send()</code></li>
+<li>监听网络请求的状态<code>xhr.onreadystatechange 或 xhr.onload</code><ol start="5">
+<li>问题处理 <blockquote>
+<p>缓存数据处理(时间戳   |   随机数)<br>中文参数处理(<code>encodeURI(url)</code>)<br>请求超时处理(<code>setTimeout + abort()</code>)</p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ol>
+<h4 id="2-2ajax发送POST请求"><a href="#2-2ajax发送POST请求" class="headerlink" title="2.2ajax发送POST请求"></a>2.2ajax发送POST请求</h4><ul>
+<li>用于向服务器发送应该被保存的数据，因此POST请求天然比GET请求多需要一份需要被保存的数据。</li>
+</ul>
+<ol>
+<li>创建请求对象</li>
+<li>设置请求对象,请求方法为POST<code>xhr.open(&#39;POST&#39;,null,true)</code></li>
+<li>设置请求头参数<br> <code>setRequestHeader(&quot;Content-type&quot;,&quot;application/x-www-form-urlencoded&quot;)</code></li>
+<li>发送网络请求(参数为查询字符串对象,保存至<code>FormData</code>对象中)<br> <code>xhr.send(&quot;查询字符串&quot;)  //无查询字符串则传入null占位</code></li>
+<li>监听网络请求状态</li>
+<li>解析服务器返回的数据</li>
+<li>问题处理<blockquote>
+<p>请求超时处理(<code>setTimeout + abort()</code>)</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="XMLHttpRequest-2级"><a href="#XMLHttpRequest-2级" class="headerlink" title="XMLHttpRequest 2级"></a>XMLHttpRequest 2级</h3><h4 id="1-FormData-类型"><a href="#1-FormData-类型" class="headerlink" title="1.FormData 类型"></a>1.FormData 类型</h4><ul>
+<li><p>·FormData·是XMLHttpRequest 2级为我们提供的新的数据类型（构造函数）(ie10+)</p>
+</li>
+<li><p>应用:  </p>
+</li>
+</ul>
+<ol>
+<li><p>POST请求提交表单数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 提取表单数据</span><br><span class="line">let data1 = new FormData(document.forms[0])</span><br><span class="line">let data2 = new FormData(document.forms.namedItem(&quot;&quot;))</span><br><span class="line">//formData发送POST请求会非常方便，只需把实例对象作为send方法的参数提交就可以</span><br><span class="line">xhr.send(data1);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>文件上传（图片，视频，音频等）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let fd = new FormData(document.forms[0]);</span><br><span class="line">let xhr = new XMLHttpRequest();</span><br><span class="line">xhr.open(&quot;post&quot;, &apos;php/02_upload.php&apos;, true);</span><br><span class="line">xhr.send(fd);</span><br><span class="line">xhr.onload = function(p) &#123;</span><br><span class="line">    console.log(p);</span><br><span class="line">    console.log(xhr.responseText);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<blockquote>
+<p>若使用jQuery库,需要设置<code>contentType: false</code>,<code>processData: false</code>,</p>
+</blockquote>
+<ul>
+<li>方法</li>
+</ul>
+<ol>
+<li><code>append(k,v)  //可以为一个属性设置多个值</code>  </li>
+<li><code>set(k,v)</code></li>
+<li><code>forEach(fn(value,key))  //遍历formData</code></li>
+<li><code>get(k)</code></li>
+<li><code>getAll(k)  //获取指定属性的所有值</code></li>
+<li><code>has(k)</code></li>
+<li><code>delete(k)</code></li>
+<li><code>keys()</code></li>
+<li><code>values()</code></li>
+</ol>
+<h4 id="2-超时设定"><a href="#2-超时设定" class="headerlink" title="2.超时设定"></a>2.超时设定</h4><ul>
+<li><code>timeout</code> 超时时间<br>  0不生效<br>  <strong>字符串</strong>中全为数字,则转为数字,否则不生效<br>  <strong>对象</strong>能转化为数字,则转化,反之不生效</li>
+<li><code>ontimeout</code> 超时 事件</li>
+<li>浏览器兼容性：<br>  IE 10+ 与其他浏览器均支持<br>  IE Mobile 10+ 与其他浏览器均支持</li>
+</ul>
+<h4 id="3-ovrerideMimeType"><a href="#3-ovrerideMimeType" class="headerlink" title="3.ovrerideMimeType()"></a>3.ovrerideMimeType()</h4><ul>
+<li><p>将响应数据以指定类型方式解读</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const xhr = new XMLHttpRequest()</span><br><span class="line">xhr.open(&quot;get&quot;, &quot;example.php&quot;, true)</span><br><span class="line">xhr.overrideMimeType(&quot;text/xml&quot;) // 强迫浏览器将响应数据以指定类型方式解读</span><br><span class="line">xhr.send(null);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>浏览器兼容性：<br>  IE 7+ 与其他浏览器均支持<br>  Firefox Mobile，Chrome for Android 均支持，其余浏览器未知</p>
+</li>
+</ul>
+<h4 id="4-进度事件"><a href="#4-进度事件" class="headerlink" title="4. 进度事件"></a>4. 进度事件</h4><h5 id="4-1progress"><a href="#4-1progress" class="headerlink" title="4.1progress"></a>4.1progress</h5><ul>
+<li><p><code>progress</code>：在接收响应期间(<code>readyState=3</code>)持续不断地触发(需要在<code>open()</code>前调用)(IE10+)<br>  实现加载<strong>进度条</strong>效果<br>  默认传入一个<code>ProgressEvent</code>事件进度对象，它的属性</p>
+<pre><code>1. lengthComputable
+2. loaded: 目前接收字节数
+3. total: 根据Content-Length响应头部确定的预期字节数</code></pre></li>
+<li><p><code>upload</code> </p>
+<blockquote>
+<p>必须写在open与send之间</p>
+<pre><code>默认返回一个 `XMLHttpRequestUpload` 对象, 用于**上传资源.** 
+XMLHttpRequestUpload(有以下方法)
+    onloadstart `onprogress` onabort onerreo onload ontimeout onloaded</code></pre></blockquote>
+</li>
+</ul>
+<h5 id="4-2load"><a href="#4-2load" class="headerlink" title="4.2load"></a>4.2load</h5><ul>
+<li><code>loadstart</code>：在接收到响应数据的第一个字节时触发<pre><code>(`readySate= 1`之后,`readySate=2`之前触发)</code></pre>  桌面端：除 Safari Mobile 未知外，其他浏览器均支持<br>  移动端：除 Safari Mobile 未知外，其他浏览器均支持</li>
+<li><code>load</code>：监听网络请求是否完成(<code>readySate= 4</code> 之后触发)<br>  桌面端：IE7+ 与其他浏览器均支持<br>  移动端：Chrome for Android，Edge，Firefox Mobile支持，其余浏览器未知</li>
+<li><code>loadend</code>：在通信完成或者触发error，abort或load事件后触发；<br>  所有浏览器不支持</li>
+<li><code>error</code>：在请求发生错误时触发；(IE Mobile不支持)<h5 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h5></li>
+<li><code>responseType</code>响应类型<pre><code>`arraybuffer`  `blob`  `document`  `json`  `text`</code></pre></li>
+<li><code>responseURL</code> ajax请求最终的URL</li>
+</ul>
+<h3 id="jquery"><a href="#jquery" class="headerlink" title="jquery"></a>jquery</h3><h4 id="ajax"><a href="#ajax" class="headerlink" title="$.ajax({})"></a>$.ajax({})</h4><ul>
+<li><code>$.ajax({})  //参数为一个对象,对象中属性有</code></li>
+</ul>
+<ol>
+<li>url</li>
+<li>type：请求方式，GET(默认)、POST</li>
+<li>data：要发送的数据(对象或查询字符串)<br> <code>$(&quot;form&quot;).serialize()</code>  //序列化(返回查询字符串)</li>
+<li>dataType：将设置服务器返回的数据类型<br> <code>xml</code>: 将服务器端返回的内容转换成xml格式<br> <code>text</code>: 将服务器端返回的内容转换成普通文本格式<br> <code>html</code>: 将服务器端返回的内容转换成普通文本格式，在插入DOM中时，如果包含JavaScript标签，则会尝试去执行。<br> <code>script</code> 尝试将返回值当作JavaScript去执行，然后再将服务器端返回的内容转换成普通文本格式<br> <code>json</code>: 将服务器端返回的内容进行反序列化处理(<code>json字符串 -&gt; js对象</code>)<br> <code>jsonp</code>: JSONP 格式使用 JSONP 形式调用函数时，如 “myurl?callback=?” jQuery 将自动替换 ? 为正确的函数名，以执行回调函数</li>
+<li>success：成功之后执行的回调函数(全局)</li>
+<li>error：失败之后执行的回调函数(全局)</li>
+<li>complete：完成之后执行的回调函数(全局)</li>
+<li>beforeSend：发送请求前执行的函数(全局)</li>
+<li>async：是否异步</li>
+<li>timeout：设置请求超时时间（毫秒）<br>其他.<br>headers：请求头<br>contentType：即将发送信息至服务器的内容编码类型(默认: “application/x-www-form-urlencoded; charset=UTF-8”)<br>accepts：通过请求头发送给服务器，告诉服务器当前客户端课接受的数据类型</li>
+</ol>
+<h4 id="get-xx"><a href="#get-xx" class="headerlink" title="$.get/xx"></a>$.get/xx</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">1. jQuery.get(...)</span><br><span class="line">              url: 待载入页面的URL地址</span><br><span class="line">             data: 待发送 Key/value 参数。</span><br><span class="line">          success: 载入成功时回调函数。</span><br><span class="line">         dataType: 返回内容格式，xml, json,  script, text, html</span><br><span class="line"></span><br><span class="line">2.jQuery.post(...)</span><br><span class="line">              url: 待载入页面的URL地址</span><br><span class="line">             data: 待发送 Key/value 参数</span><br><span class="line">          success: 载入成功时回调函数(参数为responseText)</span><br><span class="line">         dataType: 返回内容格式，xml, json,  script, text, html</span><br><span class="line"></span><br><span class="line">3.load(uel,callback)  加载HTML文档并插入元素</span><br><span class="line">3.$.getJSON(...) 通过 GET 请求载入 JSON 数据。</span><br><span class="line">              url: 待载入页面的URL地址</span><br><span class="line">             data: 待发送 Key/value 参数。</span><br><span class="line">          success: 载入成功时回调函数。参数为json数组/对象</span><br><span class="line"></span><br><span class="line">4.$.getScript(...) 通过 GET 请求载入并执行 JavaScript 数据。</span><br><span class="line">              url: 待载入页面的URL地址</span><br><span class="line">             data: 待发送 Key/value 参数。</span><br><span class="line">          success: 载入成功时回调函数。参数为js文档</span><br></pre></td></tr></table></figure>
+
+<h4 id="网络监听"><a href="#网络监听" class="headerlink" title="网络监听"></a>网络监听</h4><ul>
+<li><p><code>$.when($.ajax1,$.ajax2).then()</code></p>
+</li>
+<li><p><code>ajaxStart(Fn)</code> 监听页面中的第一次网络请求开始(只触发一次)</p>
+</li>
+<li><p><code>ajaxStop(Fn)</code> 监听页面中的最后一次网络请求结束(请求开始)</p>
+</li>
+<li><p><code>ajaxSend()</code> 监听页面中の每个网络请求 开始发送</p>
+</li>
+<li><p><code>ajaxComplete()</code> 监听页面中の每个网络请求 请求结束</p>
+<blockquote>
+<p>若不想被<code>ajaxSend / ajaxComplete</code>监听,发送请求时添加配置项<code>global:false</code></p>
+</blockquote>
+</li>
+<li><p><code>ajaxSetup([options])</code>设置全局<code>ajax</code>默认选项</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$.ajaxSetup(&#123;</span><br><span class="line">  url: &quot;/xmlhttp/&quot;,</span><br><span class="line">  global: false,</span><br><span class="line">  type: &quot;POST&quot;</span><br><span class="line">&#125;);</span><br><span class="line">$.ajax(&#123; data: myData &#125;);</span><br></pre></td></tr></table></figure></li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2019/08/21/js/你不知道的JS/03_this/" class="prev">PREV</a><a href="/2019/08/20/js/你不知道的JS/02_对象/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2019/08/21/js/基础/13_Ajax/';
+var disqus_title = 'Ajax';
+var disqus_url = 'https://turing5467.github.io/2019/08/21/js/基础/13_Ajax/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

@@ -1,28 +1,44 @@
 <!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Webpack入门 · 快乐的图小灵</title><meta name="description" content="Webpack入门 - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Webpack入门</h1><div class="post-info">Oct 13, 2019</div><div class="post-content"><h2 id="webpack"><a href="#webpack" class="headerlink" title="webpack"></a>webpack</h2><ul>
-<li>webpack可以从npm下载第三方模块，并能够使用于浏览器/前端</li>
-<li>webpack是一个模块打包器<br>  在它看来，所有的资源文件都会作为模块处理，它将根据模块的依赖关系进行静态分析，生成相应的静态资源<br>  <img src="http://webpack.github.io/assets/what-is-webpack.png" alt="Alt text"></li>
-<li>箭头指向为其所依赖的模块：<code>a =&gt; b   a依赖b</code></li>
-<li>核心概念：<pre><code>1. entry    `文件夹 src`</code></pre><ol start="2">
+<li><p>本质上，<em>webpack</em> 是一个现代 JavaScript 应用程序的静态模块打包器。</p>
+<p>当 webpack 处理应用程序时，它会递归地构建一个<strong>依赖关系图</strong>，其中包含应用程序需要的每个模块，然后将所有这些模块打包成一个或多个 <em>bundle</em>。 </p>
+</li>
+<li><p>webpack可以从npm下载第三方模块，并能够使用于浏览器/前端</p>
+</li>
+<li><p>webpack是一个模块打包器</p>
+<p>  在它看来，所有的资源文件都会作为模块处理，它将根据模块的依赖关系进行静态分析，生成相应的静态资源<br><img src="http://webpack.github.io/assets/what-is-webpack.png" alt="Alt text"></p>
+</li>
+<li><p>箭头指向为其所依赖的模块：<code>a =&gt; b   a依赖b</code></p>
+</li>
+<li><p>核心概念：</p>
+<ol>
+<li>entry    <code>文件夹 src</code></li>
 <li>output <code>文件夹 dist</code></li>
 <li>loader</li>
 <li>plugins<br> 完成一些loader不能完成的功能，可在配置文件的<code>plugins</code>选项中指定</li>
 <li>Chunk：coding split的产物，我们可以对一些代码打包成一个单独的chunk，比如某些公共模块，去重，更好的利用缓存。或者按需加载某些功能模块，优化加载时间。</li>
 </ol>
 </li>
-<li>配置文件(默认)：<code>webpack.config.js</code>是一个node模块，返回一个json格式的配置信息对象</li>
+<li><p>配置文件(默认)：<code>webpack.config.js</code>是一个node模块，返回一个json格式的配置信息对象</p>
+</li>
 </ul>
 <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><ul>
-<li><code>npm init -y</code> <pre><code>`&quot;start&quot;: &quot;webpack --config webpack.config.js`</code></pre></li>
-<li><code>cnpm i webpack --save-dev</code><br>  <code>cnpm i webpack-cli  --save-dev</code><br>  以及其它依赖</li>
+<li><p><code>npm init -y</code> </p>
+<p><code>&quot;start&quot;: &quot;webpack --config webpack.config.js</code></p>
+</li>
+<li><p><code>cnpm i webpack --save-dev</code></p>
+<p><code>cnpm i webpack-cli  --save-dev</code> 以及其它依赖</p>
+</li>
+</ul>
+<ul>
 <li>编译打包应用<ol>
 <li>入口: <code>src/js/entry.js</code><pre><code>编写业务逻辑，文件中可通过`require`命令引入第三方模块</code></pre></li>
 <li>主应用: <code>dist/index.html</code><pre><code>`&lt;script type=&quot;&quot; src=&quot;bundle.js&quot;&gt;&lt;/script&gt;`</code></pre></li>
-<li>编译<code>webpack.config.js</code><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    mode: <span class="string">'production'</span>,  <span class="comment">//production &amp; development(压缩js) &amp; none</span></span><br><span class="line">    entry: <span class="string">'./src/index.js'</span>,</span><br><span class="line">    output: &#123;</span><br><span class="line">        filename: <span class="string">'bundle.js'</span>,</span><br><span class="line">        path: path.resolve(__dirname, <span class="string">'dist'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-</li>
+<li>编译<code>webpack.config.js</code></li>
 </ol>
 </li>
 </ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    mode: <span class="string">'production'</span>,  <span class="comment">//production &amp; development(压缩js) &amp; none</span></span><br><span class="line">    entry: <span class="string">'./src/index.js'</span>,</span><br><span class="line">    output: &#123;</span><br><span class="line">        filename: <span class="string">'bundle.js'</span>,</span><br><span class="line">        path: path.resolve(__dirname, <span class="string">'dist'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
 <p>​                4. <code>npm start</code></p>
 <h3 id="配置文件解析"><a href="#配置文件解析" class="headerlink" title="配置文件解析"></a>配置文件解析</h3><blockquote>
 <p>spa：单页web应用</p>
@@ -35,9 +51,11 @@
 <li><p><code>entry</code>: 代表入口，webpack会找到该文件进行解析</p>
 </li>
 <li><p><code>output</code></p>
-<pre><code>1. `path` 必须使用绝对路径
- 2. `filename` 输出文件名
- 3. `publicPath`知道如何寻找资源</code></pre><ul>
+<pre><code>1. `path` 必须使用绝对路径</code></pre><ol start="2">
+<li><code>filename</code> 输出文件名</li>
+<li><code>publicPath</code>知道如何寻找资源</li>
+</ol>
+<ul>
 <li>多入口配置</li>
 </ul>
 </li>
@@ -57,9 +75,12 @@
 <h4 id="loader"><a href="#loader" class="headerlink" title="loader"></a>loader</h4><p><a href="https://www.webpackjs.com/loaders/" target="_blank" rel="noopener">loader</a></p>
 <ul>
 <li><p>webpack本身只能加载<code>js/json</code>模块，如果要加载其它类型的文件，就要使用相应的<code>loader</code>进行转换/加载进出口文件</p>
-<pre><code>1. `test:` 正则表达式，匹配文件名
-      2. `use`: 一个数组，里面放需要执行的loader，**倒序**执行，**从右至左**。
-        3. `exclude`: 正则表达式，**取消匹配**node_modules里面的文件</code></pre></li>
+<ol>
+<li><p><code>test:</code> 正则表达式，匹配文件名</p>
+<pre><code>   2. `use`: 一个数组，里面放需要执行的loader，**倒序**执行，**从右至左**。
+3. `exclude`: 正则表达式，**取消匹配**node_modules里面的文件</code></pre></li>
+</ol>
+</li>
 </ul>
 <blockquote>
 <p>raw-loader  css-loader style-loader</p>

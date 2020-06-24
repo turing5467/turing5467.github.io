@@ -1,0 +1,166 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> JS语言精粹 · 快乐的图小灵</title><meta name="description" content="JS语言精粹 - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">JS语言精粹</h1><div class="post-info">Aug 2, 2019</div><div class="post-content"><h2 id="JavaScript语言精粹"><a href="#JavaScript语言精粹" class="headerlink" title="JavaScript语言精粹"></a>JavaScript语言精粹</h2><h3 id="二-语法"><a href="#二-语法" class="headerlink" title="二.语法"></a>二.语法</h3><ul>
+<li><p>数字</p>
+<ol>
+<li>内部为64位浮点数</li>
+<li>1 和 1.0 是同样的值</li>
+<li>支持指数10 2e4 -&gt; 20000</li>
+<li>Infinity: 1.7976931333486231570e+308</li>
+</ol>
+</li>
+<li><p>字符串</p>
+<ol>
+<li>所有字符都是16位</li>
+<li>没有字符类型</li>
+<li>转义: \</li>
+<li>“\uoooo” 16进制表示的字符码位</li>
+<li><code>.length</code></li>
+</ol>
+</li>
+<li><p>运算优先级</p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200517145126095.png" alt="image-20200517145126095"></p>
+</li>
+<li><p>函数</p>
+<pre><code>* </code></pre><p>函数字面量定义了函数值</p>
+</li>
+</ul>
+<h3 id="三-对象"><a href="#三-对象" class="headerlink" title="三.对象"></a>三.对象</h3><ul>
+<li><p>简单类型: 数字 字符串 布尔值 null undefined<br><code>虽然拥有方法,但是是不可变的</code></p>
+</li>
+<li><p>其他: 对象</p>
+<blockquote>
+<p>对象：可变的键控集合<br>对象是属性的容器 对象可以包含其它对象<br>属性: 名字 + 值 名字: 任意字符串(包含空串) 属性值: 除undefined的任意值<br>js包含原型链特性,允许对象继承另一对象的属性,正确使用它能减少对象初始化的时间和内存消耗</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="3-1对象字面量"><a href="#3-1对象字面量" class="headerlink" title="3.1对象字面量"></a>3.1对象字面量</h4><ul>
+<li>包围在一对花括号中的零或多个”键值”对</li>
+<li>可以出现在任何允许表达式出现的地方</li>
+<li>如果<code>键</code>是一个合法标识符且不是保留字,则不强制用<code>”“</code>括住<br><code>first-name</code>这样的,必须用<code>&quot;&quot;</code>括起来</li>
+</ul>
+<h4 id="3-2检索"><a href="#3-2检索" class="headerlink" title="3.2检索"></a>3.2检索</h4><pre><code>* </code></pre><p>如果键是一个合法标识符且不是保留字,则object.键</p>
+<ul>
+<li>[“键”]</li>
+<li>|| //填充默认值 var status = flight || “unknown”</li>
+<li>&amp;&amp; //避免错误 flight.equipment &amp;&amp; flight.equipment.model</li>
+</ul>
+<h4 id="3-3-引用"><a href="#3-3-引用" class="headerlink" title="3.3 引用"></a>3.3 引用</h4><pre><code>* </code></pre><p>对象通过引用传递,它们永远不会被拷贝</p>
+<h4 id="3-4-原型"><a href="#3-4-原型" class="headerlink" title="3.4 原型"></a>3.4 原型</h4><ul>
+<li><p>当我们尝试获取对象的某个属性值,且该对象没有此属性名,那么js会试着从原型对象中回去属性值,如果原型对象也没有,那么再从它的原型中寻找,依次类推,直到到达object.prototype.</p>
+<ul>
+<li>如果完全不存在与原型链中,返回undefined</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>这一过程: 委托</li>
+</ul>
+<h4 id="3-5反射"><a href="#3-5反射" class="headerlink" title="3.5反射"></a>3.5反射</h4><ul>
+<li>typeof 确定对象的类型 (原型链中的任何一个属性都会产生一个值)</li>
+<li>hasOwnProperty(“”) 检查对象独有的属性(不检查原型链)</li>
+</ul>
+<h4 id="3-6枚举"><a href="#3-6枚举" class="headerlink" title="3.6枚举"></a>3.6枚举</h4><pre><code>* </code></pre><p>for in遍历一个对象的所有属性名<br>    *<br>有必要过滤掉你不想要的内容: hasOwnProperty() or typeof过滤器<br>    *<br>for in无法保证属性的顺序</p>
+<h4 id="3-7-删除"><a href="#3-7-删除" class="headerlink" title="3.7 删除"></a>3.7 删除</h4><ul>
+<li>delete 运算符可以用来删除对象的属性 //无法删除var出来的变量<ul>
+<li>不会触及原型链中的任何对象</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>通过delete 可能会让原型链中的属性暴露出来</li>
+</ul>
+<h4 id="3-8减少全局变量污染"><a href="#3-8减少全局变量污染" class="headerlink" title="3.8减少全局变量污染"></a>3.8减少全局变量污染</h4><ul>
+<li><p>全局变量: 削弱了程序的灵活性</p>
+<ul>
+<li>最小化使用全局变量的方法: 在应用中只创建一个全局变量</li>
+</ul>
+</li>
+<li><p>并将该变量变成应用容器</p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200517145650249.png" alt="image-20200517145650249"></p>
+</li>
+<li><p>好处: 降低与其它应用程序、组件或类库之间产生糟糕的相互影响的可能性</p>
+</li>
+<li><p>另一种方式: 闭包</p>
+</li>
+</ul>
+<h3 id="四-函数"><a href="#四-函数" class="headerlink" title="四.函数"></a>四.函数</h3><h4 id="4-1-函数对象"><a href="#4-1-函数对象" class="headerlink" title="4.1 函数对象"></a>4.1 函数对象</h4><pre><code>* </code></pre><p>连接到Function.prototype(&amp;链接到object.prototype)</p>
+<h4 id="4-2-函数字面量"><a href="#4-2-函数字面量" class="headerlink" title="4.2 函数字面量"></a>4.2 函数字面量</h4><ul>
+<li><code>function(){ 函数体 }</code><ul>
+<li>通过函数字面量创建的函数对象包含一个链接到上下文的连接: <strong>闭包</strong></li>
+</ul>
+</li>
+</ul>
+<h4 id="4-3-调用"><a href="#4-3-调用" class="headerlink" title="4.3 调用"></a>4.3 调用</h4><pre><code>* </code></pre><p>调用一个函数将暂停当前函数的执行,传递控制权和参数给新函数</p>
+<ul>
+<li>除声明时定义的形式参数,每个函数接收两个附加的参数: this和arguments</li>
+<li>this在面向对象编程中非常重要,它的值取决于调用的模式</li>
+</ul>
+<h4 id="调用模式"><a href="#调用模式" class="headerlink" title="调用模式"></a>调用模式</h4><ul>
+<li>方法调用模式<br>当函数被保存为对象的属性时,我们称它为方法<br>方法被调用时,this被绑定为该对象<br>通过this获取所属对象上下文的方法 : 公共方法</li>
+<li>函数调用模式<br>当一个函数并非一个对象的属性时..<br>this被绑定到全局对象</li>
+<li>构造器调用模式<br>new func()调用,将创建一个隐藏连接到该函数的prototype成员的新对象<br>this被绑定到那个新对象</li>
+<li>apply调用模式<br>函数.apply(arg1,arg2)<br>arg1: 将被绑定给this的值<br>arg2: array-like对象,拥有length属性,但缺少数组方法</li>
+</ul>
+<h4 id="4-4-递归"><a href="#4-4-递归" class="headerlink" title="4.4 递归"></a>4.4 递归</h4><pre><code>* </code></pre><p>直接或间接地调用自身</p>
+<h4 id="4-5-闭包"><a href="#4-5-闭包" class="headerlink" title="4.5 闭包"></a>4.5 闭包</h4><p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200517145951802.png" alt="image-20200517145951802"></p>
+<h4 id="4-6-回调函数"><a href="#4-6-回调函数" class="headerlink" title="4.6 回调函数"></a>4.6 回调函数</h4><pre><code>* </code></pre><p>异步: 当服务器的响应到达时被调用的函数</p>
+<ul>
+<li>异步函数立即返回,这样客户端不会被阻塞</li>
+<li>异步函数在收到响应时调用.</li>
+</ul>
+<h4 id="4-7-模块"><a href="#4-7-模块" class="headerlink" title="4.7 模块"></a>4.7 模块</h4><pre><code>* </code></pre><p>模块：一个提供接口却隐藏状态与实现的函数或对象</p>
+<h4 id="4-8-级联"><a href="#4-8-级联" class="headerlink" title="4.8 级联"></a>4.8 级联</h4><pre><code>* </code></pre><p>一条单独的语句中一次调用同一个对象的很多方法</p>
+<ul>
+<li>级联可以表现出具备很强表现力的接口,它能够帮助控制那种构造试图一次做要多事情的接口的趋势</li>
+</ul>
+<h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><h4 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h4><pre><code>* </code></pre><p>通过构造一个有用的对象开始,接着构造更多个该对象类的对象</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 选择某个对象作为指定对象的原型 */</span></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">typeof</span> <span class="built_in">Object</span>.beget !== <span class="string">'function'</span>)&#123;</span><br><span class="line">    <span class="built_in">Object</span>.beget = <span class="function"><span class="keyword">function</span>(<span class="params">o</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> F = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line">        F.prototype = o;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> next_batman = <span class="built_in">Object</span>.beget(batman);</span><br></pre></td></tr></table></figure>
+
+<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><h4 id="数组字面量"><a href="#数组字面量" class="headerlink" title="数组字面量"></a>数组字面量</h4><ul>
+<li><code>var arr = [4,5,6,7]</code></li>
+<li>第一个值获得属性名’0’,以此类推<br>附: 对象字面量 var obj = {‘a’:’a’,…};</li>
+</ul>
+<h4 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h4><pre><code>1. `delete arr[i] //移除数组中元素,但数组长度不变`
+2. `splice(index,howmany,elements...);`</code></pre><h4 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h4><p><code>for( var i = 0; i &lt; arr.length; i++) {...}</code><br><code>for of</code></p>
+<h4 id="混淆"><a href="#混淆" class="headerlink" title="混淆"></a>混淆</h4><ul>
+<li>数组与对象<ol>
+<li>当属性名时小而连续的整数时,使用数组</li>
+<li>其它…使用对象<br><code>type of 数组/对象 === object</code></li>
+</ol>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//自定义判断数组函数</span></span><br><span class="line">isArray = <span class="function"><span class="keyword">function</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> value &amp;&amp; <span class="comment">// 排除非null和其他假的值</span></span><br><span class="line">		<span class="keyword">typeof</span> value ===<span class="string">'object'</span> &amp;&amp; <span class="comment">// 对象/数组/null</span></span><br><span class="line">		<span class="keyword">typeof</span> value.length ===<span class="string">'number'</span> &amp;&amp; <span class="comment">//排除对象</span></span><br><span class="line">		<span class="keyword">typeof</span> value.splice ===<span class="string">'function'</span> &amp;&amp; <span class="comment">//是否包含splice方法</span></span><br><span class="line">        !(value.propertyIsEnumerable(<span class="string">'length'</span>)); <span class="comment">//所有数组&amp;为false</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h4><ul>
+<li>方法存储在Array.prototype中的函数</li>
+</ul>
+<h3 id="正则"><a href="#正则" class="headerlink" title="正则"></a>正则</h3><h4 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h4><ul>
+<li><p>标志<br><code>g: 全局匹配</code><br><code>i: 忽略字符大小写</code><br><code>m: 多行(^和$匹配行结束符)</code></p>
+</li>
+<li><p>对象属性<br><code>global</code><br><code>ignoreCase</code><br><code>multiline</code><br><code>lastIndex : 下一次exec匹配开始的索引.(初始为0)</code><br><code>source : 正则表达式源代码文本</code></p>
+</li>
+<li><p>正则表达式因子<br><code>需要转义的字符: \ / [] {} ? + * | . ^ &amp;</code></p>
+</li>
+</ul>
+<ul>
+<li><p>分组</p>
+<ol>
+<li><p>捕获型: 包围在圆括号中的正则表达式</p>
+</li>
+<li><p>非捕获型: <code>(?:</code>前缀, 仅做简单的匹配,并不会捕获所匹配文本<br>微弱的性能优势, 不会干扰捕获型分组的编码</p>
+</li>
+<li><p>向前正向匹配:<code>(?=</code>前缀<br>在这个组匹配后,文本将倒回到它开始的地方,实际上并不匹配任何东西</p>
+</li>
+<li><p>向前负向匹配: <code>(?!</code>前缀,只有匹配失败时才进行匹配</p>
+</li>
+</ol>
+</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2019/08/11/js/基础/00_js开发技巧/" class="prev">PREV</a><a href="/2019/08/01/html-css/H5/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2019/08/02/js/基础/js语言精粹/';
+var disqus_title = 'JS语言精粹';
+var disqus_url = 'https://turing5467.github.io/2019/08/02/js/基础/js语言精粹/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

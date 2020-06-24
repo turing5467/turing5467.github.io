@@ -1,0 +1,90 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 你不知道的JS--this · 快乐的图小灵</title><meta name="description" content="你不知道的JS--this - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">你不知道的JS--this</h1><div class="post-info">Aug 21, 2019</div><div class="post-content"><h2 id="02-this"><a href="#02-this" class="headerlink" title="02_this"></a>02_this</h2><h3 id="1-this是什么"><a href="#1-this是什么" class="headerlink" title="1 this是什么"></a>1 this是什么</h3><ul>
+<li><p><code>this</code> 在任何情况下都不指向函数的<strong>词法作用域</strong>。</p>
+</li>
+<li><p>this 的绑定和函数声明的位置没有任何关系，只取决于<strong>函数的调用方式</strong>。</p>
+</li>
+<li><p>当一个函数<strong>被调用</strong>时，会创建一个<strong>活动记录</strong>（有时候也称为执行上下文）。</p>
+</li>
+<li><p>这个记录会包含函数在哪里被调用（<strong>调用栈</strong>）、函数的<strong>调用方法</strong>、传入的<strong>参数</strong>等信息。<code>this</code> 就是记录中的一个属性，会在函数执行的过程中用到。</p>
+</li>
+</ul>
+<h3 id="2-this解析"><a href="#2-this解析" class="headerlink" title="2 this解析"></a>2 this解析</h3><h4 id="绑定规则"><a href="#绑定规则" class="headerlink" title="绑定规则"></a>绑定规则</h4><p>(默认/隐式/显式/new绑定)</p>
+<h5 id="1-默认绑定"><a href="#1-默认绑定" class="headerlink" title="1.默认绑定"></a>1.默认绑定</h5><ul>
+<li><p>函数调用方式: 独立函数调用</p>
+</li>
+<li><p>可以把这条规则看作是无法应用其他规则时的默认规则。</p>
+</li>
+<li><p>当函数<strong>运行</strong>在非严格模式时,默认绑定指向全局对象</p>
+</li>
+<li><p>严格模式时,全局对象将无法使用默认绑定，因此 this 会绑定 到 undefined。</p>
+</li>
+</ul>
+<h5 id="2-隐式绑定"><a href="#2-隐式绑定" class="headerlink" title="2.隐式绑定"></a>2.隐式绑定</h5><ul>
+<li><p>当函数引用含有<strong>上下文对象</strong>,隐式绑定规则会把函数调用中的 this 绑定到这个上下文对象。</p>
+</li>
+<li><p>对象属性引用链中只有<strong>最后一层</strong>会影响调用位置。</p>
+</li>
+<li><p>隐式绑定的函数易丢失绑定对象(如<code>bar = obj.foo; bar();</code>)</p>
+</li>
+<li><p>虽然 bar 是 obj.foo 的一个引用，但是实际上，它引用的是 foo 函数本身，因此此时的 bar() 其实是一个不带任何修饰的函数调用，因此应用了默认绑定。</p>
+</li>
+</ul>
+<h5 id="3-显式绑定"><a href="#3-显式绑定" class="headerlink" title="3.显式绑定"></a>3.显式绑定</h5><ul>
+<li><p>通过<code>call()</code>或<code>apply()</code>方法修改this的绑定对象</p>
+</li>
+<li><p>显式绑定无法解决丢失绑定的问题(解决: 硬绑定)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//解决1</span><br><span class="line">var bar = function() &#123; foo.call( obj ); &#125;;</span><br><span class="line">//解决2 bind()</span><br><span class="line">var bar = foo.bind(obj)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>bind()功能之一就是可以将参数传递给下层的参数(这种技术成为”部分应用”,是”柯里化的一种”)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function foo(p1,p2) &#123;</span><br><span class="line">	this.val = p1 + p2; </span><br><span class="line">&#125;</span><br><span class="line">// 之所以使用 null 是因为在本例中我们并不关心硬绑定的 this 是什么 </span><br><span class="line">// 反正使用 new 时 this 会被修改</span><br><span class="line">var bar = foo.bind( null, &quot;p1&quot; );</span><br><span class="line">var baz = new bar( &quot;p2&quot; ); </span><br><span class="line">baz.val; // p1p2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>硬绑定缺点<br>  降低函数的灵活性,无法通过隐式/显式绑定来修改this</p>
+</li>
+</ul>
+<h5 id="4-new绑定"><a href="#4-new绑定" class="headerlink" title="4.new绑定"></a>4.new绑定</h5><ul>
+<li>函数调用方式: 构造函数调用</li>
+<li>new绑定会将新创建的对象绑定到this<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function New() &#123; </span><br><span class="line">    // 1、获得构造函数，同时删除 arguments 中第一个参数</span><br><span class="line">    var Con = [].shift.call(arguments);</span><br><span class="line">    if (Con.prototype !== null) &#123; </span><br><span class="line">        // 2、创建一个空的对象并链接到原型，obj 可以访问构造函数原型中的属性</span><br><span class="line">        var obj = Object.create(Con.prototype);</span><br><span class="line">    &#125; </span><br><span class="line">    // 3、绑定 this 实现继承，obj 可以访问到构造函数中的属性</span><br><span class="line">    var ret = Con.apply(obj,auguments); </span><br><span class="line">    if ((typeof ret === &quot;object&quot; || typeof ret === &quot;function&quot;) &amp;&amp; ret !== null) &#123; </span><br><span class="line">         // 4、优先返回构造函数返回的对象</span><br><span class="line">        return ret;</span><br><span class="line">    &#125; </span><br><span class="line">    return obj; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="2-3判断步骤"><a href="#2-3判断步骤" class="headerlink" title="2.3判断步骤"></a>2.3判断步骤</h4><ul>
+<li>优先级: new 绑定 &gt; 显式绑定 &gt; 隐式绑定 &gt; 默认绑定 </li>
+</ul>
+<ol>
+<li>函数是否new绑定,是则this绑定新创建的对象</li>
+<li>函数是否通过call、apply或硬绑定调用,是则this绑定指定的对象</li>
+<li>函数是否在某个上下文对象中调用,是则绑定上下文对象</li>
+<li>若都不是,则使用默认绑定,严格模式,this绑定undefined,否则绑定到全局对象</li>
+</ol>
+<h4 id="2-4-绑定例外"><a href="#2-4-绑定例外" class="headerlink" title="2.4 绑定例外"></a>2.4 绑定例外</h4><h5 id="2-4-1被忽略的this"><a href="#2-4-1被忽略的this" class="headerlink" title="2.4.1被忽略的this"></a>2.4.1被忽略的this</h5><ul>
+<li>将null或undefined传入call、apply或bind,这些值在调用时会被忽略,实际应用的是<strong>默认绑定</strong>规则</li>
+<li>这种方式会把this绑定到全局对象,将可能会导致bug</li>
+<li>解决<br>  更安全的<code>this</code><ol>
+<li><code>var ø = Object.create(null)</code>创建一个空的非委托的对象,这样任何对this的操作都不会对全局对象产生任何影响<br>(注: <code>Object.create(null)</code>和<code>{}</code>很像,但前者并不会创建<code>Object.prototype</code>这个委托)</li>
+</ol>
+</li>
+</ul>
+<h5 id="2-4-2-软绑定"><a href="#2-4-2-软绑定" class="headerlink" title="2.4.2 软绑定"></a>2.4.2 软绑定</h5><ul>
+<li>硬绑定: 把 this 强制绑定到指定的对象，防止函数调用应用默认绑定规则。</li>
+<li>软绑定: 给默认绑定指定一个全局对象和 undefined 以外的值，实现和硬绑定相 同的效果，同时保留隐式绑定或者显式绑定修改 this 的能力。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">if (!Function.prototype.softBind) &#123;</span><br><span class="line">    Function.prototype.softBind = function(obj) &#123;</span><br><span class="line">        var fn = this; //获取上下文对象</span><br><span class="line">        // 捕获所有 curried 参数</span><br><span class="line">        var curried = [].slice.call(arguments, 1);</span><br><span class="line">        var bound = function() &#123;</span><br><span class="line">            return fn.apply((!this || this === (window || global)) ? </span><br><span class="line">            obj : this, </span><br><span class="line">            curried.concat.apply(curried, arguments));</span><br><span class="line">        &#125;;</span><br><span class="line">        bound.prototype = Object.create(fn.prototype);</span><br><span class="line">        return bound;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="2-5this词法"><a href="#2-5this词法" class="headerlink" title="2.5this词法"></a>2.5this词法</h4><ul>
+<li>箭头函数不适用this的4种绑定规则,而是根据定义时の外层作用域来决定this</li>
+</ul>
+<ol>
+<li>箭头函数不绑定this，箭头函数中的this相当于<strong>普通变量</strong>。</li>
+<li>箭头函数的this寻值行为亦与普通变量相同，在<strong>作用域</strong>中逐级寻找。</li>
+<li>箭头函数的this无法通过<code>bind，call，apply</code>来直接修改（可以间接修改）。</li>
+<li>通过改变<code>外部作用域中this的指向</code>可以改变箭头函数的this。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">       /** * 非严格模式 */</span><br><span class="line"></span><br><span class="line">       var name = &apos;window&apos;</span><br><span class="line"></span><br><span class="line">       function Person(name) &#123;</span><br><span class="line">           this.name = name;</span><br><span class="line">           this.show1 = function() &#123;</span><br><span class="line">               console.log(this.name);</span><br><span class="line">           &#125;;</span><br><span class="line">           this.show2 = () =&gt; console.log(this.name);</span><br><span class="line">           this.show3 = function() &#123;</span><br><span class="line">               return function() &#123;</span><br><span class="line">                   console.log(this.name);</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;;</span><br><span class="line">           this.show4 = function() &#123;</span><br><span class="line">               return () =&gt; console.log(this.name);</span><br><span class="line">           &#125;;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       var personA = new Person(&apos;personA&apos;);</span><br><span class="line">       var personB = new Person(&apos;personB&apos;);</span><br><span class="line"></span><br><span class="line">       personA.show1() //personA 隐式绑定</span><br><span class="line">       personA.show1.call(personB) //PersonB 隐式绑定</span><br><span class="line"></span><br><span class="line">       personA.show2() //personA 隐式绑定</span><br><span class="line">       personA.show2.call(personB) //personA 箭头函数绑定 this指向外层作用域, 即PersonA</span><br><span class="line"></span><br><span class="line">       personA.show3()() //window 默认绑定</span><br><span class="line">       personA.show3().call(personB) //personB 显式绑定</span><br><span class="line">       personA.show3.call(personB)() //window 默认绑定</span><br><span class="line"></span><br><span class="line">       personA.show4()() //personA 箭头函数绑定 this指向外层作用域,即PersonA</span><br><span class="line">       personA.show4().call(personB) //personA  箭头函数绑定 this指向外层作用域,即PersonA</span><br><span class="line">       personA.show4.call(personB)() //personB 箭头函数绑定 this指向外层作用域,外层作用域this显式绑定personB</span><br><span class="line"></span><br><span class="line">//严格模式下,执行到默认绑定处会报错Uncaught TypeError: Cannot read property &apos;name&apos; of undefined</span><br></pre></td></tr></table></figure></div></article></div></main><footer><div class="paginator"><a href="/2019/08/22/js/基础/15_call、apply、bind/" class="prev">PREV</a><a href="/2019/08/21/js/基础/13_Ajax/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2019/08/21/js/你不知道的JS/03_this/';
+var disqus_title = '你不知道的JS--this';
+var disqus_url = 'https://turing5467.github.io/2019/08/21/js/你不知道的JS/03_this/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

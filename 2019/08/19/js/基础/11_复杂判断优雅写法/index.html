@@ -1,0 +1,68 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 复杂判断优雅写法(JS) · 快乐的图小灵</title><meta name="description" content="复杂判断优雅写法(JS) - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">复杂判断优雅写法(JS)</h1><div class="post-info">Aug 19, 2019</div><div class="post-content"><p><a href="https://juejin.im/post/5bdfef86e51d453bf8051bf8" target="_blank" rel="noopener">原文链接</a></p>
+<p>if/else<br>    2.<br>switch<br>    3.<br>一元判断时：存到Object里<br>    4.<br>一元判断时：存到Map里<br>    5.<br>多元判断时：将condition拼接成字符串存到Object里<br>    6.<br>多元判断时：将condition拼接成字符串存到Map里<br>    7.<br>多元判断时：将condition存为Object存到Map里<br>    8.<br>多元判断时：将condition写作正则存到Map里</p>
+<p>先看一段代码</p>
+<p>javascript/**</p>
+<ul>
+<li>按钮点击事件</li>
+<li>@param {number} status 活动状态：1 开团进行中 2 开团失败 3 商品售罄 4 开团成功 5 系统取消</li>
+<li>/<br>const onButtonClick = (status)=&gt;{<br>if(status == 1){<br>sendLog(‘processing’)<br>jumpTo(‘IndexPage’)<br>}else if(status == 2){<br>sendLog(‘fail’)<br>jumpTo(‘FailPage’)<br>}else if(status == 3){<br>sendLog(‘fail’)<br>jumpTo(‘FailPage’)<br>}else if(status == 4){<br>sendLog(‘success’)<br>jumpTo(‘SuccessPage’)<br>}else if(status == 5){<br>sendLog(‘cancel’)<br>jumpTo(‘CancelPage’)<br>}else {<br>sendLog(‘other’)<br>jumpTo(‘Index’)<br>}<br>}<br>复制代码<br>通过代码可以看到这个按钮的点击逻辑：根据不同活动状态做两件事情，发送日志埋点和跳转到对应页面，大家可以很轻易的提出这段代码的改写方案，switch出场：</li>
+</ul>
+<p>javascript/**</p>
+<ul>
+<li>按钮点击事件</li>
+<li>@param {number} status 活动状态：1 开团进行中 2 开团失败 3 商品售罄 4 开团成功 5 系统取消</li>
+<li>/<br>const onButtonClick = (status)=&gt;{<br>switch (status){<br>case 1:<br>sendLog(‘processing’)<br>jumpTo(‘IndexPage’)<br>break<br>case 2:<br>case 3:<br>sendLog(‘fail’)<br>jumpTo(‘FailPage’)<br>break<br>case 4:<br>sendLog(‘success’)<br>jumpTo(‘SuccessPage’)<br>break<br>case 5:<br>sendLog(‘cancel’)<br>jumpTo(‘CancelPage’)<br>break<br>default:<br>sendLog(‘other’)<br>jumpTo(‘Index’)<br>break<br>}<br>}<br>复制代码<br>嗯，这样看起来比if/else清晰多了，细心的同学也发现了小技巧，case 2和case 3逻辑一样的时候，可以省去执行语句和break，则case 2的情况自动执行case 3的逻辑。<br>这时有同学会说，还有更简单的写法：</li>
+</ul>
+<p>javascriptconst actions = {<br>‘1’: [‘processing’,’IndexPage’],<br>‘2’: [‘fail’,’FailPage’],<br>‘3’: [‘fail’,’FailPage’],<br>‘4’: [‘success’,’SuccessPage’],<br>‘5’: [‘cancel’,’CancelPage’],<br>‘default’: [‘other’,’Index’],<br>}<br>/**</p>
+<ul>
+<li>按钮点击事件</li>
+<li>@param {number} status 活动状态：1开团进行中 2开团失败 3 商品售罄 4 开团成功 5 系统取消</li>
+<li>/<br>const onButtonClick = (status)=&gt;{<br>let action = actions[status] || actions[‘default’],<br>logName = action[0],<br>pageName = action[1]<br>sendLog(logName)<br>jumpTo(pageName)<br>}<br>复制代码<br>上面代码确实看起来更清爽了，这种方法的聪明之处在于：将判断条件作为对象的属性名，将处理逻辑作为对象的属性值，在按钮点击的时候，通过对象属性查找的方式来进行逻辑判断，这种写法特别适合一元条件判断的情况。<br>是不是还有其他写法呢？有的：</li>
+</ul>
+<p>javascriptconst actions = new Map([<br>[1, [‘processing’,’IndexPage’]],<br>[2, [‘fail’,’FailPage’]],<br>[3, [‘fail’,’FailPage’]],<br>[4, [‘success’,’SuccessPage’]],<br>[5, [‘cancel’,’CancelPage’]],<br>[‘default’, [‘other’,’Index’]]<br>])<br>/**</p>
+<ul>
+<li>按钮点击事件</li>
+<li>@param {number} status 活动状态：1 开团进行中 2 开团失败 3 商品售罄 4 开团成功 5 系统取消</li>
+<li>/<br>const onButtonClick = (status)=&gt;{<br>let action = actions.get(status) || actions.get(‘default’)<br>sendLog(action[0])<br>jumpTo(action[1])<br>}<br>复制代码<br>这样写用到了es6里的Map对象，是不是更爽了？Map对象和Object对象有什么区别呢？<ol>
+<li>一个对象通常都有自己的原型，所以一个对象总有一个”prototype”键。</li>
+<li>一个对象的键只能是字符串或者Symbols，但一个Map的键可以是任意值。</li>
+<li>你可以通过size属性很容易地得到一个Map的键值对个数，而对象的键值对个数只能手动确认。</li>
+</ol>
+</li>
+</ul>
+<p>我们需要把问题升级一下，以前按钮点击时候只需要判断status，现在还需要判断用户的身份：</p>
+<p>javascript/**</p>
+<ul>
+<li>按钮点击事件</li>
+<li>@param {number} status 活动状态：1开团进行中 2开团失败 3 开团成功 4 商品售罄 5 有库存未开团</li>
+<li>@param {string} identity 身份标识：guest客态 master主态</li>
+<li>/<br>const onButtonClick = (status,identity)=&gt;{<br>if(identity == ‘guest’){<br>if(status == 1){<br>//do sth<br>}else if(status == 2){<br>//do sth<br>}else if(status == 3){<br>//do sth<br>}else if(status == 4){<br>//do sth<br>}else if(status == 5){<br>//do sth<br>}else {<br>//do sth<br>}<br>}else if(identity == ‘master’) {<br>if(status == 1){<br>//do sth<br>}else if(status == 2){<br>//do sth<br>}else if(status == 3){<br>//do sth<br>}else if(status == 4){<br>//do sth<br>}else if(status == 5){<br>//do sth<br>}else {<br>//do sth<br>}<br>}<br>}<br>复制代码<br>原谅我不写每个判断里的具体逻辑了，因为代码太冗长了。<br>原谅我又用了if/else，因为我看到很多人依然在用if/else写这种大段的逻辑判断。<br>从上面的例子我们可以看到，当你的逻辑升级为二元判断时，你的判断量会加倍，你的代码量也会加倍，这时怎么写更清爽呢？</li>
+</ul>
+<p>javascriptconst actions = new Map([<br>[‘guest_1’, ()=&gt;{/<em>do sth</em>/}],<br>[‘guest_2’, ()=&gt;{/<em>do sth</em>/}],<br>[‘guest_3’, ()=&gt;{/<em>do sth</em>/}],<br>[‘guest_4’, ()=&gt;{/<em>do sth</em>/}],<br>[‘guest_5’, ()=&gt;{/<em>do sth</em>/}],<br>[‘master_1’, ()=&gt;{/<em>do sth</em>/}],<br>[‘master_2’, ()=&gt;{/<em>do sth</em>/}],<br>[‘master_3’, ()=&gt;{/<em>do sth</em>/}],<br>[‘master_4’, ()=&gt;{/<em>do sth</em>/}],<br>[‘master_5’, ()=&gt;{/<em>do sth</em>/}],<br>[‘default’, ()=&gt;{/<em>do sth</em>/}],<br>])</p>
+<p>/**</p>
+<ul>
+<li>按钮点击事件</li>
+<li>@param {string} identity 身份标识：guest客态 master主态</li>
+<li>@param {number} status 活动状态：1 开团进行中 2 开团失败 3 开团成功 4 商品售罄 5 有库存未开团</li>
+<li>/<br>const onButtonClick = (identity,status)=&gt;{<br>let action = actions.get(<code>${identity}_${status}</code>) || actions.get(‘default’)<br>action.call(this)<br>}<br>复制代码<br>上述代码核心逻辑是：把两个条件拼接成字符串，并通过以条件拼接字符串作为键，以处理函数作为值的Map对象进行查找并执行，这种写法在多元条件判断时候尤其好用。<br>当然上述代码如果用Object对象来实现也是类似的：</li>
+</ul>
+<p>javascriptconst actions = {<br>‘guest_1’:()=&gt;{/<em>do sth</em>/},<br>‘guest_2’:()=&gt;{/<em>do sth</em>/},<br>//….<br>}</p>
+<p>const onButtonClick = (identity,status)=&gt;{<br>let action = actions[<code>${identity}_${status}</code>] || actions[‘default’]<br>action.call(this)<br>}<br>复制代码<br>如果有些同学觉得把查询条件拼成字符串有点别扭，那还有一种方案，就是用Map对象，以Object对象作为key：</p>
+<p>javascriptconst actions = new Map([<br>[{identity:’guest’,status:1},()=&gt;{/<em>do sth</em>/}],<br>[{identity:’guest’,status:2},()=&gt;{/<em>do sth</em>/}],<br>//…<br>])</p>
+<p>const onButtonClick = (identity,status)=&gt;{<br>let action = […actions].filter(([key,value])=&gt;(key.identity == identity &amp;&amp; key.status == status))<br>action.forEach(([key,value])=&gt;value.call(this))<br>}<br>复制代码<br>是不是又高级了一点点？<br>这里也看出来Map与Object的区别，Map可以用任何类型的数据作为key。<br>我们现在再将难度升级一点点，假如guest情况下，status1-4的处理逻辑都一样怎么办，最差的情况是这样：</p>
+<p>javascriptconst actions = new Map([<br>[{identity:’guest’,status:1},()=&gt;{/* functionA <em>/}],<br>[{identity:’guest’,status:2},()=&gt;{/</em> functionA <em>/}],<br>[{identity:’guest’,status:3},()=&gt;{/</em> functionA <em>/}],<br>[{identity:’guest’,status:4},()=&gt;{/</em> functionA <em>/}],<br>[{identity:’guest’,status:5},()=&gt;{/</em> functionB */}],<br>//…<br>])<br>复制代码<br>好一点的写法是将处理逻辑函数进行缓存：</p>
+<p>javascriptconst actions = ()=&gt;{<br>const functionA = ()=&gt;{/<em>do sth</em>/}<br>const functionB = ()=&gt;{/<em>do sth</em>/}<br>return new Map([<br>[{identity:’guest’,status:1},functionA],<br>[{identity:’guest’,status:2},functionA],<br>[{identity:’guest’,status:3},functionA],<br>[{identity:’guest’,status:4},functionA],<br>[{identity:’guest’,status:5},functionB],<br>//…<br>])<br>}</p>
+<p>const onButtonClick = (identity,status)=&gt;{<br>let action = […actions()].filter(([key,value])=&gt;(key.identity == identity &amp;&amp; key.status == status))<br>action.forEach(([key,value])=&gt;value.call(this))<br>}<br>复制代码<br>这样写已经能满足日常需求了，但认真一点讲，上面重写了4次functionA还是有点不爽，假如判断条件变得特别复杂，比如identity有3种状态，status有10种状态，那你需要定义30条处理逻辑，而往往这些逻辑里面很多都是相同的，这似乎也是笔者不想接受的，那可以这样实现:</p>
+<p>javascriptconst actions = ()=&gt;{<br>const functionA = ()=&gt;{/<em>do sth</em>/}<br>const functionB = ()=&gt;{/<em>do sth</em>/}<br>return new Map([<br>[/^guest_[1-4]$/,functionA],<br>[/^guest_5$/,functionB],<br>//…<br>])<br>}</p>
+<p>const onButtonClick = (identity,status)=&gt;{<br>let action = […actions()].filter(([key,value])=&gt;(key.test(<code>${identity}_${status}</code>)))<br>action.forEach(([key,value])=&gt;value.call(this))<br>}<br>复制代码<br>这里Map的优势更加凸显，可以用正则类型作为key了，这样就有了无限可能，假如需求变成，凡是guest情况都要发送一个日志埋点，不同status情况也需要单独的逻辑处理，那我们可以这样写:</p>
+<p>javascriptconst actions = ()=&gt;{<br>const functionA = ()=&gt;{/<em>do sth</em>/}<br>const functionB = ()=&gt;{/<em>do sth</em>/}<br>const functionC = ()=&gt;{/<em>send log</em>/}<br>return new Map([<br>[/^guest_[1-4]$/,functionA],<br>[/^guest_5$/,functionB],<br>[/^guest_.*$/,functionC],<br>//…<br>])<br>}</p>
+<p>const onButtonClick = (identity,status)=&gt;{<br>let action = […actions()].filter(([key,value])=&gt;(key.test(<code>${identity}_${status}</code>)))<br>action.forEach(([key,value])=&gt;value.call(this))<br>}<br>复制代码<br>也就是说利用数组循环的特性，符合正则条件的逻辑都会被执行，那就可以同时执行公共逻辑和单独逻辑，因为正则的存在，你可以打开想象力解锁更多的玩法，本文就不赘述了。总结<br>本文已经教你了8种逻辑判断写法，包括：<br>    1.<br>if/else<br>    2.<br>switch<br>    3.<br>一元判断时：存到Object里<br>    4.<br>一元判断时：存到Map里<br>    5.<br>多元判断时：将condition拼接成字符串存到Object里<br>    6.<br>多元判断时：将condition拼接成字符串存到Map里<br>    7.<br>多元判断时：将condition存为Object存到Map里<br>    8.<br>多元判断时：将condition写作正则存到Map里</p>
+</div></article></div></main><footer><div class="paginator"><a href="/2019/08/19/js/你不知道的JS/01_闭包/" class="prev">PREV</a><a href="/2019/08/18/js/基础/10_同源&amp;跨域/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2019/08/19/js/基础/11_复杂判断优雅写法/';
+var disqus_title = '复杂判断优雅写法(JS)';
+var disqus_url = 'https://turing5467.github.io/2019/08/19/js/基础/11_复杂判断优雅写法/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
