@@ -305,7 +305,7 @@
 </ol>
 <p>浏览器拿到数字签名后，会使用<strong>浏览器本地内置</strong>的CA公钥解开数字证书并验证，从而拿到正确的公钥。由于非对称加密性能低下，拿到公钥以后，客户端会随机生成一个对称密钥，使用这个公钥加密并发送给服务端，服务端用自己的私钥解开对称密钥，此后的加密连接就通过这个对称密钥进行对称加密。</p>
 <p>综上所述，HTTPS在<strong>验证阶段</strong>使用<code>非对称加密+第三方认证+数字签名</code>获取正确的公钥，获取到正确的公钥后以<code>对称加密</code>的方式通信</p>
-</div></article></div></main><footer><div class="paginator"><a href="/2020/02/04/工程化/混合开发/" class="prev">PREV</a><a href="/2020/01/16/面试/js/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+</div></article></div></main><footer><div class="paginator"><a href="/2020/02/04/工程化/混合开发/" class="prev">上一篇</a><a href="/2020/01/16/面试/js/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
 var disqus_identifier = '2020/01/17/面试/HTTP/';
 var disqus_title = '面试题--HTTP';
 var disqus_url = 'https://turing5467.github.io/2020/01/17/面试/HTTP/';
