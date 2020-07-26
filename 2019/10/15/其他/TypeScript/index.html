@@ -7,20 +7,9 @@
 </li>
 <li><p><strong>数组</strong>：<code>Array&lt;number&gt;</code> 或<code>number[]</code></p>
 </li>
-<li><p><strong>元组</strong>类型允许表示一个已知元素数量和类型的<strong>数组</strong>，各元素的类型可以<strong>不同</strong></p>
+<li><p><code>any</code> 表示<strong>任何类型</strong></p>
 </li>
-<li><p>枚举(<code>enum</code>：可以定义一些有名字的<strong>数字常量</strong>，索引默认从0递增</p>
-<p>可以从枚举值到枚举名进行<strong>反向映射</strong>。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//ts</span></span><br><span class="line">enum Color &#123;Red = <span class="number">1</span>,Green = <span class="number">2</span>,Blue = <span class="number">4</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//js</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">Color</span>) </span>&#123;</span><br><span class="line">    Color[Color[<span class="string">"Red"</span>] = <span class="number">1</span>] = <span class="string">"Red"</span>; <span class="comment">//Color['red']=1; Color[1]='red'</span></span><br><span class="line">    Color[Color[<span class="string">"Green"</span>] = <span class="number">2</span>] = <span class="string">"Green"</span>;</span><br><span class="line">    Color[Color[<span class="string">"Blue"</span>] = <span class="number">4</span>] = <span class="string">"Blue"</span>;</span><br><span class="line">&#125;)(Color || (Color = &#123;&#125;));</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ol>
-<ol start="7">
-<li><p><code>any</code> 表示任何类型</p>
-</li>
-<li><p><code>void</code> 表示没有任何类型,只能赋予<code>null</code>和<code>undefined</code>，一般用于无返回值的函数</p>
+<li><p><code>void</code> 表示没有任何类型,只能赋予<code>null</code>和<code>undefined</code>，一般用于<strong>无返回值的函数</strong></p>
 </li>
 <li><p><code>null</code> 和<code>undefined</code></p>
 </li>
@@ -31,7 +20,16 @@
 </li>
 </ol>
 <ul>
-<li><p>类型断言<code>assert</code>：可以用来手动指定一个值的类型</p>
+<li><p>联合类型</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> myFavoriteNumber: <span class="built_in">string</span> | <span class="built_in">number</span>;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<blockquote>
+<p> 如果在定义时，明确变量的指定类型，那么TypeScript会根据初始值推测出一个类型，这就是<strong>类型推论</strong>。如果没有初始值，会被推断为<code>any</code></p>
+</blockquote>
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><ul>
+<li><p>类型<strong>断言</strong><code>assert</code>：可以用来手动指定一个值的类型</p>
 <ol>
 <li><p>尖括号语法：<code>&lt;string&gt;variable</code></p>
 </li>
@@ -45,11 +43,106 @@
 </li>
 </ul>
 </li>
-<li><p>泛型：函数中的变量的类型与传入参数的类型相同</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//声明泛型的两种方式</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">gen_func1</span>&lt;<span class="title">T</span>&gt;(<span class="params">arg: T</span>): <span class="title">T</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> arg;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> gen_func2: &lt;T&gt;<span class="function">(<span class="params">arg: T</span>) =&gt;</span> T = <span class="function"><span class="keyword">function</span> (<span class="params">arg</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> arg;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//调用方式</span></span><br><span class="line">gen_func1&lt;<span class="built_in">string</span>&gt;(<span class="string">'Hello world'</span>);</span><br><span class="line">gen_func2(<span class="string">'Hello world'</span>);</span><br><span class="line"><span class="comment">// 第二种调用方式可省略类型参数，因为编译器会根据传入参数来自动识别对应的类型。</span></span><br></pre></td></tr></table></figure>
+<li><p>函数 </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//箭头函数写法</span></span><br><span class="line"><span class="keyword">let</span> add = (a:number,<span class="attr">b</span>:number) :<span class="function"><span class="params">number</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><p>泛型约束</p>
+<li><p>函数可选参数：参数名后，<code>:</code>前写<code>?</code></p>
+<blockquote>
+<p>注意：可选参数必须位于参数列表的最后。</p>
+</blockquote>
+</li>
+<li><p>参数默认值：<code>形参名称 : 参数类型 = 默认值</code></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="自定义类型"><a href="#自定义类型" class="headerlink" title="自定义类型"></a>自定义类型</h3><ol>
+<li><p><code>interface</code></p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> SearchFunc &#123;</span><br><span class="line">  (source: <span class="built_in">string</span>, subString: <span class="built_in">string</span>): <span class="built_in">boolean</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//默认类型：&lt;T = string&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><p><code>type</code>：创建自定义类型或已有类型别名</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Name = <span class="built_in">string</span>;</span><br><span class="line"><span class="keyword">type</span> NameResolver = <span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">string</span>;</span><br><span class="line"><span class="keyword">type</span> NameOrResolver = Name | NameResolver;</span><br><span class="line"></span><br><span class="line"><span class="comment">//字符串字面量类型</span></span><br><span class="line"><span class="keyword">type</span> EventNames = <span class="string">'click'</span> | <span class="string">'scroll'</span> | <span class="string">'mousemove'</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>相同点：</p>
+<ul>
+<li>都可以用来描述一个对象或函数</li>
+<li>都允许继承，且可相互继承</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//对象</span></span><br><span class="line"><span class="keyword">interface</span> User &#123;</span><br><span class="line">    name: <span class="built_in">string</span></span><br><span class="line">    age: <span class="built_in">number</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> User = &#123;</span><br><span class="line">    name: <span class="built_in">string</span></span><br><span class="line">    age: <span class="built_in">number</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//函数</span></span><br><span class="line"><span class="keyword">interface</span> SetUser &#123;</span><br><span class="line">	(name: <span class="built_in">string</span>, age: <span class="built_in">number</span>): <span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> SetUser = (name: <span class="built_in">string</span>, age: <span class="built_in">number</span>): <span class="built_in">void</span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> Name_1 &#123;</span><br><span class="line">	name: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> Name_2 = &#123;</span><br><span class="line">    name:<span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//interface继承interface / type</span></span><br><span class="line"><span class="keyword">interface</span> User <span class="keyword">extends</span> [<span class="keyword">interface</span> | type] &#123;</span><br><span class="line">	age: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//type继承type / interface</span></span><br><span class="line"><span class="keyword">type</span> User = [<span class="keyword">interface</span> | type] &amp; &#123;</span><br><span class="line">    age:<span class="built_in">number</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>不同点</p>
+<ol>
+<li><p><code>type</code>可以而<code>interface</code>不可以</p>
+<ul>
+<li><p>声明基本类型别名，联合类型，元组等类型</p>
+</li>
+<li><p>可以使用<code>typeof</code>获取实例的类型进行赋值</p>
+</li>
+<li><p><code>| keyof</code>等</p>
+</li>
+</ul>
+</li>
+<li><p><code>interface</code>可以而<code>type</code>不行</p>
+<ul>
+<li>声明合并</li>
+<li><strong>可选</strong>属性：属性后跟<code>?</code></li>
+<li><strong>只读</strong>属性：前用<code>readonly</code></li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>元组：数组合并了相同类型的对象，而元组（Tuple）<strong>合并了不同类型的对象</strong>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> tom: [string, number];</span><br><span class="line">tom[<span class="number">0</span>] = <span class="string">'Tom'</span>;</span><br><span class="line">tom[<span class="number">1</span>] = <span class="number">25</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>枚举(enum)：用于取值被限定在一定范围内的场景。</p>
+<p>可以定义一些有名字的<strong>数字常量</strong>，索引默认从0递增</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//ts</span></span><br><span class="line"><span class="keyword">enum</span> Days &#123;Sun, Mon, Tue, Wed, Thu, Fri, Sat&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//js</span></span><br><span class="line"><span class="keyword">var</span> Days;</span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">Days</span>) </span>&#123;</span><br><span class="line">    Days[Days[<span class="string">"Sun"</span>] = <span class="number">0</span>] = <span class="string">"Sun"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Mon"</span>] = <span class="number">1</span>] = <span class="string">"Mon"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Tue"</span>] = <span class="number">2</span>] = <span class="string">"Tue"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Wed"</span>] = <span class="number">3</span>] = <span class="string">"Wed"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Thu"</span>] = <span class="number">4</span>] = <span class="string">"Thu"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Fri"</span>] = <span class="number">5</span>] = <span class="string">"Fri"</span>;</span><br><span class="line">    Days[Days[<span class="string">"Sat"</span>] = <span class="number">6</span>] = <span class="string">"Sat"</span>;</span><br><span class="line">&#125;)(Days || (Days = &#123;&#125;));</span><br></pre></td></tr></table></figure>
+
+<p>可以从枚举值到枚举名进行<strong>反向映射</strong>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//ts</span></span><br><span class="line">enum Color &#123;Red = <span class="string">'1'</span>,Green = <span class="number">2</span>,Blue = <span class="number">4</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//js</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">Color</span>) </span>&#123;</span><br><span class="line">    Color[Color[<span class="string">"Red"</span>] = <span class="string">'1'</span>] = <span class="string">"Red"</span>; <span class="comment">//Color['red']='1';</span></span><br><span class="line">    Color[Color[<span class="string">"Green"</span>] = <span class="number">2</span>] = <span class="string">"Green"</span>;</span><br><span class="line">    Color[Color[<span class="string">"Blue"</span>] = <span class="number">4</span>] = <span class="string">"Blue"</span>;</span><br><span class="line">&#125;)(Color || (Color = &#123;&#125;));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>类：</p>
+<ul>
+<li>public</li>
+<li>private：修饰的属性或方法是私有的，<strong>不能在</strong>声明它的类的<strong>外部访问</strong></li>
+<li>protected：和 <code>private</code> 类似，区别是它在<strong>子类</strong>中也是允许被访问的<ul>
+<li>当构造函数修饰为 <code>protected</code> 时，该类只允许被继承</li>
+</ul>
+</li>
+<li>readonly：位置在其它访问修饰符之后</li>
+<li>abstract：定义抽象类和其中的抽象方法<ul>
+<li>抽象类不允许被实例化</li>
+<li>抽象类中的抽象方法必须被子类实现</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>class 门  =&gt; class 防盗门  &lt;&lt; interface报警器</p>
+<p>类实现（implements）接口</p>
+<p>接口继承（extends）接口    </p>
+<p>类继承类</p>
+</blockquote>
+</li>
+<li><p>泛型</p>
+<p><strong>泛型</strong>：在定义函数、接口或类的时候，不预先指定具体的类型，而在<strong>使用的时候再指定类型</strong>的一种特性。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//声明泛型的两种方式</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">gen_func1</span>&lt;<span class="title">T</span>&gt;(<span class="params">arg: T</span>): <span class="title">T</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> arg;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//fn_name:&lt;T&gt;(param: T) =&gt; T = function()&#123;&#125;</span></span><br><span class="line"><span class="keyword">let</span> gen_func2: &lt;T&gt;<span class="function">(<span class="params">arg: T</span>) =&gt;</span> T = <span class="function"><span class="keyword">function</span> (<span class="params">arg</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> arg;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>(不同于箭头函数的<code>=&gt;</code>)在 TypeScript 的类型定义中，<code>=&gt;</code> 用来表示函数的定义，左边是输入类型，需要用括号括起来，右边是输出类型。</p>
+</li>
+<li><p><strong>泛型约束</strong></p>
 <ul>
 <li><p><code>extends</code>     </p>
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> hasLengthP&#123;</span><br><span class="line">  length: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//约束传入参数必须具有length属性</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>&lt;<span class="title">T</span> <span class="title">extends</span> <span class="title">hasLengthP</span>&gt;(<span class="params">arg:T</span>):<span class="title">T</span></span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">"打印length值 = "</span> + arg.length);</span><br><span class="line">	<span class="keyword">return</span> arg</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -61,75 +154,10 @@
 </li>
 </ul>
 </li>
-</ul>
+</ol>
 <pre><code>- `keyof` 索引类型查询操作符。
 
-  `keyof T`产生的类型是T的**属性所属类型**构成的**联合类型**。</code></pre><ul>
-<li><p>函数 </p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//箭头函数写法</span></span><br><span class="line"><span class="keyword">let</span> add = (a:number,<span class="attr">b</span>:number) :<span class="function"><span class="params">number</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ul>
-<ul>
-<li><p>函数可选参数：参数后跟<code>?</code></p>
-<blockquote>
-<p>注意：可选参数必须位于参数列表的最后。</p>
-</blockquote>
-</li>
-<li><p>参数默认值：<code>形参名称 : 参数类型 = 默认值</code></p>
-</li>
-</ul>
-<h3 id="自定义类型"><a href="#自定义类型" class="headerlink" title="自定义类型"></a>自定义类型</h3><pre><code>1. `interface`
- 2. `type`</code></pre><ul>
-<li><p>相同点：</p>
-<ol>
-<li><p>都可以用来描述一个对象或函数</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//对象</span></span><br><span class="line"><span class="keyword">interface</span> User &#123;</span><br><span class="line">    name: <span class="built_in">string</span></span><br><span class="line">    age: <span class="built_in">number</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> User = &#123;</span><br><span class="line">    name: <span class="built_in">string</span></span><br><span class="line">    age: <span class="built_in">number</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//函数</span></span><br><span class="line"><span class="keyword">interface</span> SetUser &#123;</span><br><span class="line">	(name: <span class="built_in">string</span>, age: <span class="built_in">number</span>): <span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> SetUser = (name: <span class="built_in">string</span>, age: <span class="built_in">number</span>): <span class="built_in">void</span>;</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ol>
-</li>
-</ul>
-<ol start="2">
-<li><p>都允许继承，且可相互继承</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">interface</span> Name_1 &#123;</span><br><span class="line">	name: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> Name_2 = &#123;</span><br><span class="line">    name:<span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//interface继承interface / type</span></span><br><span class="line"><span class="keyword">interface</span> User <span class="keyword">extends</span> [<span class="keyword">interface</span> | type] &#123;</span><br><span class="line">	age: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//type继承type / interface</span></span><br><span class="line"><span class="keyword">type</span> User = [<span class="keyword">interface</span> | type] &amp; &#123;</span><br><span class="line">    age:<span class="built_in">number</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ol>
-<ul>
-<li><p>不同点</p>
-<ol>
-<li><code>type</code>可以而<code>interface</code>不可以<ul>
-<li>声明基本类型别名，联合类型，元组等类型</li>
-<li>可以使用<code>typeof</code>获取实例的类型进行赋值</li>
-<li><code>| keyof</code>等</li>
-</ul>
-</li>
-<li><code>interface</code>可以而<code>type</code>不行<ul>
-<li>声明合并</li>
-<li>可选属性：后跟<code>?</code></li>
-<li>只读属性：前用<code>readonly</code></li>
-</ul>
-</li>
-</ol>
-</li>
-</ul>
-<h3 id="实现与继承"><a href="#实现与继承" class="headerlink" title="实现与继承"></a>实现与继承</h3><ol>
-<li><code>implements</code> 明确的强制一个类去符合某种契约</li>
-<li><code>extends</code> 继承父类</li>
-</ol>
-<h3 id="访问修饰符"><a href="#访问修饰符" class="headerlink" title="访问修饰符"></a>访问修饰符</h3><ul>
-<li><code>public</code>默认</li>
-<li><code>private</code> 无法被外部访问</li>
-<li><code>protected</code>只能在子类中访问</li>
-</ul>
-</div></article></div></main><footer><div class="paginator"><a href="/2019/10/15/js框架/vue/Vue/" class="prev">PREV</a><a href="/2019/10/14/数据库/MySQL/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+  `keyof T`产生的类型是T的**属性所属类型**构成的**联合类型**。</code></pre></div></article></div></main><footer><div class="paginator"><a href="/2019/10/15/js框架/vue/Vue/" class="prev">PREV</a><a href="/2019/10/14/数据库/MySQL/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
 var disqus_identifier = '2019/10/15/其他/TypeScript/';
 var disqus_title = 'typescript入门';
 var disqus_url = 'https://turing5467.github.io/2019/10/15/其他/TypeScript/';

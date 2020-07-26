@@ -1,0 +1,185 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> moment库学习 · 快乐的图小灵</title><meta name="description" content="moment库学习 - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">moment库学习</h1><div class="post-info">Jul 25, 2020</div><div class="post-content"><h2 id="moment"><a href="#moment" class="headerlink" title="moment"></a>moment</h2><ul>
+<li><p><a href="http://momentjs.cn/docs/" target="_blank" rel="noopener">文档</a></p>
+</li>
+<li><p>在Node和浏览器中均可工作 </p>
+</li>
+<li><p>moment原型通过<code>moment.fn</code>公开。  如果要添加自己的函数，则可以在其中放置它们。 </p>
+</li>
+</ul>
+<h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> now = moment();  <span class="comment">// 获取当前的日期时间，相当于moment(new Date())</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">moment(<span class="string">'1998-7-12'</span>);  <span class="comment">//注意传入有效的时间格式</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//moment(number) 通过传入时间戳来创建moment</span></span><br><span class="line">moment(<span class="number">1318781876406</span>)</span><br><span class="line"><span class="comment">//如果要传入秒数，可以使用moment.unix(stamp)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//moment(Date)传入Date对象来创建moment对象，date对象的更改不会影响moment对象</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// moment(_i, _f) 使用指定格式解析字符串</span></span><br><span class="line">moment(<span class="string">'1998-7-12'</span>, <span class="string">'YYYY-M-DD'</span>);  </span><br><span class="line"></span><br><span class="line"><span class="comment">// moment(_i, _f, true) 使moment使用严格的解析：_i与_f格式完全匹配，返回moment对象，通过isValid拿到匹配结果</span></span><br><span class="line">moment(<span class="string">"2-25-1995"</span>, <span class="string">"MM-DD-YYYY"</span>, <span class="literal">true</span>).isValid(); 	<span class="comment">//false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 解析胶合的小时和分钟</span></span><br><span class="line">moment(<span class="string">"123"</span>, <span class="string">"hmm"</span>).format(<span class="string">"HH:mm"</span>) === <span class="string">"01:23"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//多个格式(你只知道它可能是多种格式之一)</span></span><br><span class="line">moment(<span class="string">"12-25-1995"</span>, [<span class="string">"MM-DD-YYYY"</span>, <span class="string">"YYYY-MM-DD"</span>]);</span><br><span class="line"></span><br><span class="line"><span class="comment">//moment(obj)：可以通过指定对象中的某些单位来创建 moment。</span></span><br><span class="line">moment(&#123; <span class="attr">y</span>: <span class="number">2010</span>, <span class="attr">M</span>: <span class="number">3</span>, <span class="attr">d</span>: <span class="number">5</span>, <span class="attr">h</span>: <span class="number">15</span>, <span class="attr">m</span>: <span class="number">10</span>, <span class="attr">s</span>: <span class="number">3</span>, <span class="attr">ms</span>: <span class="number">123</span>&#125;);</span><br><span class="line">moment(&#123; <span class="attr">year</span>: <span class="number">2010</span>, <span class="attr">month</span>: <span class="number">3</span>, <span class="attr">day</span>: <span class="number">5</span>, <span class="attr">hour</span>: <span class="number">15</span>, <span class="attr">minute</span>: <span class="number">10</span>, <span class="attr">second</span>: <span class="number">3</span>, <span class="attr">millisecond</span>: <span class="number">123</span>&#125;); </span><br><span class="line"></span><br><span class="line"><span class="comment">//moment([year, month, day, hour?, minute?, second?, millisecond?] 同上</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>克隆moment对象：<code>m2 = moment(moment1)</code> 或 <code>m2 = moment1.clone()</code></li>
+</ul>
+<h3 id="取值-赋值"><a href="#取值-赋值" class="headerlink" title="取值/赋值"></a>取值/赋值</h3><blockquote>
+<p>moment支持链式调用</p>
+</blockquote>
+<ul>
+<li><p>moment使用重载的getter和setter方法，带参数调用则作为setter，不带则为getter</p>
+</li>
+<li><p>函数名：<code>millisecond</code>、<code>second</code>、<code>minute</code>、<code>hour</code>、<code>date</code>、<code>day</code>、<code>weekday</code>（0为星期一）、<code>isoWeekday</code>（1为星期一）、<code>dayOfYear</code>、<code>month</code>（0为1月）、<code>year</code></p>
+</li>
+<li><p>如果设置值超出范围，会响应冒泡。</p>
+</li>
+<li><p><code>get(str)</code>：参数支持year、month、date、hour、minute、second、millisecond，不区分大小写，且支持复数形式和缩写形式。</p>
+<p><code>set(str, value)</code>同上</p>
+</li>
+</ul>
+<ul>
+<li><code>max</code>、<code>min</code>返回传入日期里最大/小的值，参数可为moment、string、date、Array</li>
+</ul>
+<ul>
+<li><p><code>add(number, unit)</code>或<code>add({unit: number})</code>：通过增加时间改变原始的moment</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">moment().add(<span class="number">7</span>, <span class="string">'days'</span>);</span><br><span class="line">moment().add(<span class="number">7</span>, <span class="string">'d'</span>);</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">键</th>
+<th align="left">快捷键</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">years</td>
+<td align="left">y</td>
+</tr>
+<tr>
+<td align="left">quarters</td>
+<td align="left">Q</td>
+</tr>
+<tr>
+<td align="left">months</td>
+<td align="left">M</td>
+</tr>
+<tr>
+<td align="left">weeks</td>
+<td align="left">w</td>
+</tr>
+<tr>
+<td align="left">days</td>
+<td align="left">d</td>
+</tr>
+<tr>
+<td align="left">hours</td>
+<td align="left">h</td>
+</tr>
+<tr>
+<td align="left">minutes</td>
+<td align="left">m</td>
+</tr>
+<tr>
+<td align="left">seconds</td>
+<td align="left">s</td>
+</tr>
+<tr>
+<td align="left">milliseconds</td>
+<td align="left">ms</td>
+</tr>
+</tbody></table>
+<p><code>subtract()</code>为减去时间，用法同上</p>
+</li>
+</ul>
+<ul>
+<li><p><code>startOf()</code>： 通过将原始的 moment 设置为时间单位的开头来对其进行更改。 </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">moment().startOf(<span class="string">'year'</span>);    <span class="comment">// 设置为今年一月1日上午 12:00</span></span><br><span class="line">moment().startOf(<span class="string">'day'</span>);     <span class="comment">// 设置为今天上午 12:00</span></span><br><span class="line"></span><br><span class="line">moment().startOf(<span class="string">'hour'</span>);    <span class="comment">// 设置为当前时间，但是 0 分钟、0 秒钟、0 毫秒</span></span><br><span class="line">moment().startOf(<span class="string">'minute'</span>);  <span class="comment">// 设置为当前时间，但是 0 秒钟、0 毫秒</span></span><br><span class="line">moment().startOf(<span class="string">'second'</span>);  <span class="comment">// 与 moment().milliseconds(0); 相同</span></span><br></pre></td></tr></table></figure>
+
+<p><code>endOf</code>：同上</p>
+</li>
+</ul>
+<h3 id="显示"><a href="#显示" class="headerlink" title="显示"></a>显示</h3><ul>
+<li><p><code>format(_f)</code>： 接受一串令牌并将其替换为其相应的值。 </p>
+<p><a href="http://momentjs.cn/docs/#/displaying/" target="_blank" rel="noopener">令牌见</a></p>
+<p>要转义格式字符串中的字符，可以将字符包在方括号中</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">moment().format(<span class="string">'[今天] dddd'</span>); <span class="comment">// '今天 Sunday'</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p><code>fromNow(bool)</code>：显示时间间隔</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">moment([<span class="number">2016</span>, <span class="number">0</span>, <span class="number">29</span>]).fromNow();     <span class="comment">// 4 years ago</span></span><br><span class="line">moment([<span class="number">2016</span>, <span class="number">0</span>, <span class="number">29</span>]).fromNow(<span class="literal">true</span>); <span class="comment">// 4 years</span></span><br></pre></td></tr></table></figure>
+
+<p><code>toNow</code>与之相反</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">moment([<span class="number">2016</span>, <span class="number">0</span>, <span class="number">29</span>]).toNow();  <span class="comment">// in 4 years</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p><code>from(moment)</code>：显示当前日期与传入参数的事件时间间隔</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">moment(<span class="string">'1998-07-12'</span>).from(moment()) <span class="comment">//22 years ago</span></span><br></pre></td></tr></table></figure>
+
+<p><code>to(moment)</code></p>
+</li>
+<li><p><code>m1.diff(m2)</code>获取以毫秒为单位的差异。如过要获取其他度量单位中的差异，将该度量作为第二个参数传入。（m1 - m2）</p>
+<p>第三个参数表示是否将结果截断为整数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">moment(<span class="string">'1998-07-12'</span>).diff(moment(), <span class="string">'days'</span>);	<span class="comment">//8050</span></span><br><span class="line">moment(<span class="string">'1998-07-12'</span>).diff(moment(), <span class="string">'years'</span>, <span class="literal">true</span>);	<span class="comment">//-22.03955368752489</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>valueOf()</code>：返回时间戳</p>
+</li>
+<li><p><code>unix()</code>：输出Unix时间戳，单位为s</p>
+</li>
+<li><p><code>daysInMonth()</code>：返回当月天数</p>
+</li>
+<li><p><code>toDate()</code>：获取原生Date对象的副本</p>
+</li>
+<li><p><code>toArray()</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">moment().toArray() <span class="comment">//[2020, 6, 26, 17, 16, 33, 444]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>toObejct()</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">moment.toObject();  <span class="comment">// &#123;years: 2020, months: 6, date: 26, hours: 17, minutes: 17, seconds: 47, milliseconds: 470&#125;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="判断"><a href="#判断" class="headerlink" title="判断"></a>判断</h3><ul>
+<li><p><code>m1.isBefore(m2)</code>检查m1是否在m2之前</p>
+</li>
+<li><p><code>isSame</code></p>
+</li>
+<li><p><code>isAfter</code></p>
+</li>
+<li><p><code>isSameOrBefore</code></p>
+</li>
+<li><p><code>isSameOrAfter</code></p>
+</li>
+<li><p><code>isBetween(m1, m2, unit)</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">moment(<span class="string">'2010-10-20'</span>).isBetween(<span class="string">'2010-10-19'</span>, <span class="string">'2010-10-25'</span>); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line">moment(<span class="string">'2010-10-20'</span>).isBetween(<span class="string">'2010-10-19'</span>, <span class="literal">undefined</span>); <span class="comment">// true, 因为 moment(undefined) 等效于 moment()</span></span><br><span class="line"></span><br><span class="line">moment(<span class="string">'2010-10-20'</span>).isBetween(<span class="string">'2010-01-01'</span>, <span class="string">'2012-01-01'</span>, <span class="string">'year'</span>); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>isLeapYear</code>是否为闰年 </p>
+</li>
+<li><p><code>moment.isMoment(m1)</code>：检查变量是否为moment对象</p>
+</li>
+<li><p><code>moment.isDate(d1)</code></p>
+</li>
+</ul>
+<h3 id="国际化"><a href="#国际化" class="headerlink" title="国际化"></a>国际化</h3><ul>
+<li><p><code>moment.locale(str)</code>设置语言环境(全局)</p>
+</li>
+<li><p><code>moment().locale(str)</code>设置语言环境(局部)</p>
+</li>
+<li><p>加载语言环境（浏览器）</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"moment.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"locale/fr.js"</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"locale/pt.js"</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  moment.locale(<span class="string">'fr'</span>);  <span class="comment">// 设置默认/全局的语言环境。</span></span></span><br><span class="line"><span class="javascript">  <span class="comment">// ...</span></span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>获取当前语言环境下月份或工作日的列表</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">moment.months();</span><br><span class="line"><span class="comment">// ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]</span></span><br><span class="line"></span><br><span class="line">moment.monthsShort()</span><br><span class="line"><span class="comment">// ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]</span></span><br><span class="line"></span><br><span class="line">moment.weekdays()</span><br><span class="line"><span class="comment">// ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]</span></span><br><span class="line">moment.weekdaysShort()</span><br><span class="line"><span class="comment">// ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]</span></span><br><span class="line">moment.weekdaysMin()</span><br><span class="line"><span class="comment">// ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2020/07/26/其他/Gauge-Taiko/" class="prev">PREV</a><a href="/2020/07/03/日报/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2020/07/25/js/库/moment/';
+var disqus_title = 'moment库学习';
+var disqus_url = 'https://turing5467.github.io/2020/07/25/js/库/moment/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
