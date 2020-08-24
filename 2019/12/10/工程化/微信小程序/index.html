@@ -207,11 +207,21 @@
 </ul>
 </li>
 </ul>
-<h4 id="视频"><a href="#视频" class="headerlink" title="视频"></a>视频</h4><ul>
-<li><code>&lt;video&gt;</code><ul>
+<h4 id="音视频"><a href="#音视频" class="headerlink" title="音视频"></a>音视频</h4><ul>
+<li><p><code>&lt;video&gt;</code></p>
+<ul>
 <li>src、duration、autoplay、loop、muted</li>
 </ul>
 </li>
+<li><p><code>&lt;audio&gt;</code></p>
+</li>
+</ul>
+<h4 id="地图"><a href="#地图" class="headerlink" title="地图"></a>地图</h4><ul>
+<li><a href="https://developers.weixin.qq.com/miniprogram/dev/component/map.html" target="_blank" rel="noopener">map</a></li>
+</ul>
+<h4 id="画布"><a href="#画布" class="headerlink" title="画布"></a>画布</h4><ul>
+<li>canvas</li>
+<li>相关API：<code>wx.createContext</code>、<code>wx.drawCanvas</code></li>
 </ul>
 <h4 id="自定义组件"><a href="#自定义组件" class="headerlink" title="自定义组件"></a>自定义组件</h4><ul>
 <li><p>components文件夹 -&gt; 组建文件夹 -&gt; 输入组件名 -&gt; 自动生成四个对应文件</p>
@@ -230,8 +240,276 @@
 </ul>
 </li>
 </ul>
-<h4 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//服务端请求</span></span><br><span class="line">wx.request(&#123;</span><br><span class="line">    url: <span class="string">''</span>,</span><br><span class="line">    success() &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//保留当前页面，跳转到应用内的某个页面，使用wx.navigateBack可以返回到原页面。</span></span><br><span class="line">wx.navigateTo(&#123;</span><br><span class="line">    url: <span class="string">'../hero_detail/hero_detail?id='</span>+id,</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">- wx.getSystemInfo(&#123;success()&#123;&#125;&#125;)</span><br><span class="line">- wx.createSelectorQuery()</span><br><span class="line">- wx.createIntersectionObserver()</span><br></pre></td></tr></table></figure>
+<h3 id="API"><a href="#API" class="headerlink" title="API"></a>API</h3><h4 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h4><h5 id="系统"><a href="#系统" class="headerlink" title="系统"></a>系统</h5><ul>
+<li><code>wx.getSystemInfoSync()</code>获取系统信息的同步版本</li>
+<li><code>wx.getSystemInfo()</code>获取系统信息，包括品牌、型号、相册、照相机权限等</li>
+</ul>
+<h5 id="小程序"><a href="#小程序" class="headerlink" title="小程序"></a>小程序</h5><ul>
+<li><code>wx.getLaunchOptionsSync</code>：获取小程序启动时的参数，包括路径，场景值，query参数及来源信息</li>
+<li><code>wx.getEnterOptionsSync</code>：同上</li>
+</ul>
+<h5 id="应用级事件"><a href="#应用级事件" class="headerlink" title="应用级事件"></a>应用级事件</h5><ul>
+<li><a href="https://developers.weixin.qq.com/miniprogram/dev/api/base/app/app-event/wx.onUnhandledRejection.html" target="_blank" rel="noopener">wx.onUnhandledRejection</a></li>
+<li><a href="https://developers.weixin.qq.com/miniprogram/dev/api/base/app/app-event/wx.onThemeChange.html" target="_blank" rel="noopener">wx.onThemeChange</a></li>
+<li><a href="https://developers.weixin.qq.com/miniprogram/dev/api/base/app/app-event/wx.onPageNotFound.html" target="_blank" rel="noopener">wx.onPageNotFound</a></li>
+<li><a href="https://developers.weixin.qq.com/miniprogram/dev/api/base/app/app-event/wx.onError.html" target="_blank" rel="noopener">wx.onError</a></li>
+<li><a href="https://developers.weixin.qq.com/miniprogram/dev/api/base/app/app-event/wx.onAudioInterruptionEnd.html" target="_blank" rel="noopener">wx.onAudioInterruptionEnd</a></li>
+<li><a href="https://developers.weixin.qq.com/miniprogram/dev/api/base/app/app-event/wx.onAudioInterruptionBegin.html" target="_blank" rel="noopener">wx.onAudioInterruptionBegin</a></li>
+<li><a href="https://developers.weixin.qq.com/miniprogram/dev/api/base/app/app-event/wx.onAppShow.html" target="_blank" rel="noopener">wx.onAppShow</a></li>
+<li><a href="https://developers.weixin.qq.com/miniprogram/dev/api/base/app/app-event/wx.onAppHide.html" target="_blank" rel="noopener">wx.onAppHide</a></li>
+<li><a href="https://developers.weixin.qq.com/miniprogram/dev/api/base/app/app-event/wx.offUnhandledRejection.html" target="_blank" rel="noopener">wx.offUnhandledRejection</a></li>
+<li><a href="https://developers.weixin.qq.com/miniprogram/dev/api/base/app/app-event/wx.offThemeChange.html" target="_blank" rel="noopener">wx.offThemeChange</a></li>
+<li><a href="https://developers.weixin.qq.com/miniprogram/dev/api/base/app/app-event/wx.offPageNotFound.html" target="_blank" rel="noopener">wx.offPageNotFound</a></li>
+<li><a href="https://developers.weixin.qq.com/miniprogram/dev/api/base/app/app-event/wx.offError.html" target="_blank" rel="noopener">wx.offError</a></li>
+<li><a href="https://developers.weixin.qq.com/miniprogram/dev/api/base/app/app-event/wx.offAudioInterruptionEnd.html" target="_blank" rel="noopener">wx.offAudioInterruptionEnd</a></li>
+<li><a href="https://developers.weixin.qq.com/miniprogram/dev/api/base/app/app-event/wx.offAudioInterruptionBegin.html" target="_blank" rel="noopener">wx.offAudioInterruptionBegin</a></li>
+<li><a href="https://developers.weixin.qq.com/miniprogram/dev/api/base/app/app-event/wx.offAppShow.html" target="_blank" rel="noopener">wx.offAppShow</a></li>
+<li><a href="https://developers.weixin.qq.com/miniprogram/dev/api/base/app/app-event/wx.offAppHide.html" target="_blank" rel="noopener">wx.offAppHide</a></li>
+</ul>
+<h5 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h5><ul>
+<li><code>console</code></li>
+</ul>
+<h5 id="定时器"><a href="#定时器" class="headerlink" title="定时器"></a>定时器</h5><ul>
+<li><code>setInterval</code>、<code>clearInterval</code></li>
+<li><code>setTimeout</code>、<code>clearTimeout</code></li>
+</ul>
+<h5 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h5><ul>
+<li><code>env</code></li>
+</ul>
+<h4 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h4><ul>
+<li><code>wx.switchTab</code>： 跳转到 tabBar 页面，并关闭其他所有非 tabBar 页面 <ul>
+<li>参数：<code>url</code>、<code>success</code>、<code>fail</code>、<code>complete</code></li>
+</ul>
+</li>
+<li><code>wx.reLaunch</code>： 关闭所有页面，打开到应用内的某个页面 </li>
+<li><code>wx.redirectTo</code>： 关闭当前页面，跳转到应用内的某个<code>非tabbar</code>页面。</li>
+<li><code>wx.navigateTo</code>： 保留当前页面，跳转到应用内的某个<code>非tabbar</code>页面。</li>
+<li><code>wx.navigateBack</code>： 关闭当前页面，返回上一页面或多级页面。可通过 <a href="https://developers.weixin.qq.com/miniprogram/dev/reference/api/getCurrentPages.html" target="_blank" rel="noopener">getCurrentPages</a> 获取当前的页面栈，决定需要返回几层。 </li>
+</ul>
+<h4 id="界面"><a href="#界面" class="headerlink" title="界面"></a>界面</h4><ul>
+<li><p><code>wx.showToast</code>：显示消息提示框</p>
+</li>
+<li><p>参数：<code>{title, icon, image, duration, mask, success, fail, complete}</code></p>
+</li>
+<li><p><code>wx.showModal</code>：显示模态对话框</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">wx.showModal(&#123;</span><br><span class="line">    title: <span class="string">'确认删除英雄？'</span>,</span><br><span class="line">    content: <span class="string">'你确认删除英雄吗，删除后不可恢复'</span>,</span><br><span class="line">    success(res) &#123;</span><br><span class="line">        <span class="keyword">if</span> (res.confirm) &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'用户点击确定'</span>)</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (res.cancel) &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'用户点击取消'</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>wx.showLoading</code>：显示loading提示框， 需主动调用 <code>wx.hideLoading</code> 才能关闭提示框 </p>
+</li>
+<li><p><code>wx.showActionSheet</code>：显示操作菜单</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">wx.showActionSheet(&#123;</span><br><span class="line">    itemList: [<span class="string">'苹果'</span>, <span class="string">'香蕉'</span>, <span class="string">'橙子'</span>],</span><br><span class="line">    success(res) &#123;</span><br><span class="line">        <span class="comment">// 点击按钮序号 0 1 2</span></span><br><span class="line">        <span class="built_in">console</span>.log(res.tapIndex)</span><br><span class="line">    &#125;,</span><br><span class="line">    fail(res) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(res.errMsg)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>wx.showNavigationBarLoading({success})</code>显示导航栏加载图标</p>
+<p>​    <code>wx.hideNavigationBarLoading</code>隐藏导航栏加载图标</p>
+</li>
+<li><p><code>wx.setNavigationBarTitle({title})</code>设置当前页面标题</p>
+</li>
+<li><p><code>wx.setNavigationBarColor({frontColor, backgroungColor, animation})</code></p>
+</li>
+<li><p><code>wx.showTabBarRedDot({index})</code>显示tab某一项右上角的红点(idnex从0开始)</p>
+<ul>
+<li><code>wx.hideTabBarRedDot({index})</code></li>
+</ul>
+</li>
+<li><p><code>wx.setTabBarStyle({color, selectedColor, backgroundColor, borderStyle})</code>设置tabBar样式</p>
+</li>
+<li><p><code>wx.setTabBarBadge({index, text})</code>为 tabBar 某一项的右上角添加文本</p>
+<p><code>wx.removeTabBarBadge({index})</code></p>
+</li>
+<li><p><code>wx.startPullDownRefresh</code>：触发下拉刷新动画（真机才起作用）</p>
+</li>
+<li><p><code>wx.pageScrollTo({scrollTop, duration, selector})</code>：将页面滚动到目标位置</p>
+</li>
+<li><p><code>wx.createAnimation({duration, timingFunction, delay, transformOrigin})</code>：创建一个动画示例。</p>
+</li>
+<li><p><code>wx.nextTick</code>： 延迟一部分操作到下一个<strong>时间片</strong>再执行。 </p>
+</li>
+<li><p><code>wx.onKeyboardHeightChange(callback)</code>：监听键盘高度变化回调</p>
+<ul>
+<li><code>wx.offKeyboardHeightChange</code>：取消监听</li>
+</ul>
+</li>
+<li><p><code>wx.hideKeyBoard</code>：手动调用接口收起键盘</p>
+</li>
+</ul>
+<h4 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h4><ul>
+<li><code>wx.request({url, method, data, header, timeout, success})</code></li>
+<li><code>wx.downloadFile({url, header, timeout, filePath})</code>：下载文件</li>
+<li><code>wx.uploadFile({url, filePath, name, header, formData, timeout})</code>：上传文件</li>
+<li><code>webSocket</code>协议<ul>
+<li><code>wx.connectSocket</code>：连接ws</li>
+<li><code>wx.sendSocketMessage</code>：通过ws发送数据</li>
+<li><code>wx.closeSocket</code>：关闭ws</li>
+<li><code>wx.onSocketOpen</code>：监听连接打开</li>
+<li><code>wx.onSocketMessage</code></li>
+<li><code>wx.onSocketError</code></li>
+<li><code>wx.onSocketClose</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="数据缓存"><a href="#数据缓存" class="headerlink" title="数据缓存"></a>数据缓存</h4><ul>
+<li><p><code>wx.setStorage({key, data})</code>：数据存储至本地缓存（data 只支持原生类型、Date、及能够通过<code>JSON.stringify</code>序列化的对象。 ）</p>
+<ul>
+<li><code>wx.removeStorage({key})</code>：清楚指定key的本地缓存</li>
+<li><code>wx.clearStorage</code>：清楚所有本地缓存</li>
+</ul>
+</li>
+<li><p><code>wx.getStorage({key})</code>： 从本地缓存中异步获取指定 key 的内容 </p>
+</li>
+<li><p><code>wx.getStorageInfo</code>：获取当前storage的相关信息</p>
+</li>
+</ul>
+<h4 id="媒体"><a href="#媒体" class="headerlink" title="媒体"></a>媒体</h4><ul>
+<li><p>地图：</p>
+</li>
+<li><p>图片：</p>
+<ul>
+<li><p><code>wx.saveImageToPhotosAlbum({filePath})</code>：保存图片到系统相册</p>
+</li>
+<li><p><code>wx.previewMedia({sources, current})</code>：预览图片和视频</p>
+</li>
+<li><p><code>wx.previewImage({urls, current})</code>： 在新页面中全屏预览图片。预览的过程中用户可以进行保存图片、发送给朋友等操作。 </p>
+</li>
+<li><p><code>wx.getImageInfo({src, success})</code>：获取图片信息</p>
+</li>
+<li><p>success参数：width、height、path、orientation、type</p>
+</li>
+<li><p><code>wx.compressImage({src, quality})</code>压缩图片</p>
+</li>
+<li><p><code>wx.chooseMessageFile({count, type, extension})</code>： 从客户端会话选择文件。 </p>
+</li>
+<li><p><code>wx.chooseImage({count, sizeType, sourceType})</code>： 从本地相册选择图片或使用相机拍照。 </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">onChangeAvatar()&#123;</span><br><span class="line">   wx.chooseImage(&#123;</span><br><span class="line">     count: <span class="number">1</span>,</span><br><span class="line">     sizeType: [<span class="string">'original'</span>, <span class="string">'compressed'</span>], <span class="comment">//正常或压缩</span></span><br><span class="line">     sourceType: [<span class="string">'album'</span>, <span class="string">'camera'</span>],  <span class="comment">// 照相机或相册</span></span><br><span class="line">     success: <span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">       <span class="keyword">this</span>.setData(&#123;</span><br><span class="line">         avatarUrl: res.tempFilePaths[<span class="number">0</span>]</span><br><span class="line">         <span class="comment">// 该路径为临时路径，下一次进入小程序时无法访问</span></span><br><span class="line">         <span class="comment">// 如需访问，需要上传至服务器</span></span><br><span class="line">       &#125;)</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;)</span><br><span class="line"> &#125;,</span><br></pre></td></tr></table></figure>
 
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">image</span> </span></span><br><span class="line"><span class="tag">	<span class="attr">class</span>=<span class="string">"userinfo-avatar"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">src</span>=<span class="string">"&#123;&#123;avatarUrl&#125;&#125;"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">bindtap</span>=<span class="string">"onChangeAvatar"</span></span></span><br><span class="line"><span class="tag">&gt;</span><span class="tag">&lt;/<span class="name">image</span>&gt;</span></span><br><span class="line">// 背景图貌似不起作用，所以换成src属性</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>视频：</p>
+<ul>
+<li><code>wx.saveVideoToPhotosAlbum({filePath})</code>： 保存视频到系统相册。 </li>
+<li><code>wx.openVideoEditor({filePath})</code>：打开视频编辑器</li>
+<li><code>wx.getVideoInfo({src})</code>：获取视频详细信息</li>
+<li><code>wx.createVideoContext</code>：</li>
+<li><code>wx.compressVideo({src, quality,})</code>：压缩视频</li>
+<li><code>wx.chooseVideo</code>：拍摄视频或从手机相册选视频</li>
+<li><code>wx.chooseMedia</code>： 拍摄或从手机相册中选择图片或视频。 </li>
+</ul>
+</li>
+<li><p>音频</p>
+</li>
+<li><p><code>wx.stopVoice</code>、<code>wx.playVoice</code>、<code>wx.pauceVoice</code></p>
+</li>
+<li><p>背景音乐</p>
+<ul>
+<li><p><code>wx.playBackgroundAudio</code>、<code>wx.pauseBackgroundAudio</code>、<code>wx.stopBackgroundAudio</code>、<code>wx.seekBackgroundAudio</code></p>
+</li>
+<li><p><code>wx.onBackgroundAudioStop</code>、<code>wx.onBackgroundAudioPlay</code>、<code>wx.onBackgroundAudioPauce</code></p>
+</li>
+<li><p><code>wx.getBackgroundAudioPlayerState</code>：获取后台音乐播放状态</p>
+</li>
+</ul>
+</li>
+<li><p>实时音视频？</p>
+<ul>
+<li><code>wx.createLivePusherContext</code></li>
+<li><code>wx.createLivePlayerContext</code></li>
+</ul>
+</li>
+<li><p>录音</p>
+<ul>
+<li><code>wx.startRecord({success(tempFilePath)})</code>：开始录音，超过一分钟或离开小程序自动结束录音</li>
+<li><code>wx.stopRecord</code></li>
+</ul>
+</li>
+<li><p>相机</p>
+</li>
+<li><p><code>wx.createCameraContext</code></p>
+</li>
+<li><p>富文本</p>
+</li>
+<li><p>音视频合成</p>
+</li>
+<li><p>实时语音</p>
+</li>
+<li><p>画面录制器</p>
+</li>
+<li><p>视频解码器</p>
+</li>
+</ul>
+<h4 id="位置"><a href="#位置" class="headerlink" title="位置"></a>位置</h4><ul>
+<li><code>wx.getLocation</code>：获取当前地理位置、速度。</li>
+<li><code>wx.chooseLocation</code>：打开地图选择位置</li>
+<li><code>wx.openLocation</code>： 使用微信内置地图查看位置 </li>
+</ul>
+<h4 id="转发"><a href="#转发" class="headerlink" title="转发"></a>转发</h4><h4 id="画布-1"><a href="#画布-1" class="headerlink" title="画布"></a>画布</h4><h4 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h4><ul>
+<li><p><code>wx.saveFile</code>：保存文件到本地</p>
+</li>
+<li><p><code>wx.saveFileToDisk</code>：保存文件到磁盘，仅支持PC端</p>
+</li>
+<li><p><code>wx.getFileInfo</code></p>
+</li>
+</ul>
+<h4 id="开放接口"><a href="#开放接口" class="headerlink" title="开放接口"></a>开放接口</h4><ul>
+<li><p>登录</p>
+<ul>
+<li><code>wx.login</code>： 调用接口获取登录凭证（code）。  通过凭证进而换取用户登录态信息 。</li>
+<li><code>wx.checkLogin</code>：检查登录态是否过期</li>
+</ul>
+</li>
+<li><p>小程序跳转</p>
+<ul>
+<li><code>wx.navigateToMiniProgram({appId, path})</code>：打开一个小程序</li>
+<li><code>wx.navigateBackMiniProgram({extraData})</code>： 返回到上一个小程序。  上一个小程序可在 <code>App.onShow</code> 中获取到<code>extraData</code>数据。 </li>
+</ul>
+</li>
+<li><p>小程序信息</p>
+<ul>
+<li><code>wx.getAccountInfoSync</code></li>
+</ul>
+</li>
+<li><p>授权</p>
+<ul>
+<li><p><code>wx.openSetting</code>：打开设置界面，引导用户开始授权</p>
+</li>
+<li><p><code>wx.getSetting</code>：获取授权状态</p>
+</li>
+<li><p><code>wx.auhtorize({scope, success})</code>：在调用需授权 API 之前，提前向用户发起授权请求。</p>
+<blockquote>
+<p> <code>wx.authorize({scope: &quot;scope.userInfo&quot;})</code>，不会弹出授权窗口，请使用 <code>&lt;button class=&quot;userinfo-nickname&quot;&gt;&lt;/button&gt;</code></p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"userinfo"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">image</span> </span></span><br><span class="line"><span class="tag">           <span class="attr">class</span>=<span class="string">"userinfo-avatar"</span></span></span><br><span class="line"><span class="tag">           <span class="attr">src</span>=<span class="string">"&#123;&#123;avatarUrl&#125;&#125;"</span></span></span><br><span class="line"><span class="tag">           <span class="attr">bindtap</span>=<span class="string">"onChangeAvatar"</span></span></span><br><span class="line"><span class="tag">           &gt;</span><span class="tag">&lt;/<span class="name">image</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"userinfo-nickname-wrapper"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"userinfo-nickname"</span> <span class="attr">bindtap</span>=<span class="string">"onGetOpenid"</span>&gt;</span>欢迎来到我的小程序<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">view</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">open-type</span>=<span class="string">"getUserInfo"</span> <span class="attr">bindtap</span>=<span class="string">"getUserInfo"</span>&gt;</span>获取用户信息	<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">getUserInfo() &#123;</span><br><span class="line">    wx.getSetting(&#123;</span><br><span class="line">      success: <span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (res.authSetting[<span class="string">'scope.userInfo'</span>]) &#123;</span><br><span class="line">          wx.getUserInfo(&#123;</span><br><span class="line">            success: <span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">              <span class="keyword">this</span>.setData(&#123;</span><br><span class="line">                avatarUrl: res.userInfo.avatarUrl</span><br><span class="line">              &#125;)</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;)</span><br><span class="line">    </span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+<p>  获取用户信息：<code>wx.getUserInfo</code></p>
+<ul>
+<li><p>支付</p>
+</li>
+<li><p>发起微信支付：<code>wx.requestPayment</code></p>
+</li>
+<li><p>地址</p>
+<ul>
+<li>获取用户收货地址：<code>wx.chooseAddress</code></li>
+</ul>
+</li>
+<li><p>拉取 H5领取红包封面页</p>
+<ul>
+<li><code>wx.showRedPackage({url})</code></li>
+</ul>
+</li>
+</ul>
 <h3 id="云开发"><a href="#云开发" class="headerlink" title="云开发"></a>云开发</h3><ol>
 <li>创建云开发环境</li>
 </ol>
@@ -243,7 +521,7 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 云函数入口文件</span></span><br><span class="line"><span class="keyword">const</span> cloud = <span class="built_in">require</span>(<span class="string">'wx-server-sdk'</span>)</span><br><span class="line"></span><br><span class="line">cloud.init()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 云函数入口函数</span></span><br><span class="line">exports.main = <span class="keyword">async</span> (event, context) =&gt; &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    sum: event.a + event.b</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>调用云函数</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">wx.cloud.callFunction(&#123;</span><br><span class="line">  <span class="comment">// 云函数名称</span></span><br><span class="line">  name: <span class="string">'add'</span>,</span><br><span class="line">  <span class="comment">// 传给云函数的参数,服务端通过event.xx获取</span></span><br><span class="line">  data: &#123;</span><br><span class="line">  &#125;,</span><br><span class="line">  success: <span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(res.result.sum) <span class="comment">// 3</span></span><br><span class="line">  &#125;,</span><br><span class="line">  fail: <span class="built_in">console</span>.error</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">wx.cloud.callFunction(&#123;</span><br><span class="line">  <span class="comment">// 云函数名称</span></span><br><span class="line">  name: <span class="string">'add'</span>,</span><br><span class="line">  <span class="comment">// 传给云函数的参数,服务端通过event.xx获取</span></span><br><span class="line">  data: &#123;&#125;,</span><br><span class="line">  success: <span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(res.result.sum) <span class="comment">// 3</span></span><br><span class="line">  &#125;,</span><br><span class="line">  fail: <span class="built_in">console</span>.error</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 
 </li>
@@ -253,7 +531,7 @@
 </ol>
 <h4 id="云函数操作数据库"><a href="#云函数操作数据库" class="headerlink" title="云函数操作数据库"></a>云函数操作数据库</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> db = cloud.database()</span><br><span class="line"></span><br><span class="line">exports.main = <span class="keyword">async</span> (event, context) =&gt; &#123;</span><br><span class="line">  <span class="keyword">await</span> db.collection(<span class="string">'Orders'</span>).add(&#123;</span><br><span class="line">    data: event,</span><br><span class="line">    success(res) &#123; <span class="comment">//成功打印消息</span></span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'3'</span>, res)</span><br><span class="line">    &#125;,</span><br><span class="line">    fail(res) &#123; <span class="comment">//存入数据库失败</span></span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'订单存入数据库操作失败'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    sum:event,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h4 id="ap"><a href="#ap" class="headerlink" title="ap"></a>ap</h4></div></article></div></main><footer><div class="paginator"><a href="/2019/12/26/html-css/移动端布局/" class="prev">上一篇</a><a href="/2019/11/11/js/库/styled-components/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+<h4 id="ap"><a href="#ap" class="headerlink" title="ap"></a>ap</h4></div></article></div></main><footer><div class="paginator"><a href="/2019/12/26/html-css/移动端布局/" class="prev">PREV</a><a href="/2019/11/11/js框架/react/antd/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
 var disqus_identifier = '2019/12/10/工程化/微信小程序/';
 var disqus_title = '微信小程序';
 var disqus_url = 'https://turing5467.github.io/2019/12/10/工程化/微信小程序/';
