@@ -93,6 +93,46 @@
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> nana <span class="keyword">from</span> <span class="string">'../../static/nana.jpg'</span></span><br><span class="line">&lt;Image src=&#123;nana&#125; width=<span class="string">"100px"</span> /&gt;</span><br></pre></td></tr></table></figure>
 
+<h4 id="Hooks"><a href="#Hooks" class="headerlink" title="Hooks"></a>Hooks</h4><p><a href="https://taro-docs.jd.com/taro/docs/hooks" target="_blank" rel="noopener">链接</a></p>
+<ul>
+<li>在 Taro 中使用 Hooks API 很简单，Taro 的专有 Hooks（例如 <code>usePageScroll</code>, <code>useReachBottom</code>）从 <code>@tarojs/taro</code> 中引入，框架自己的 Hooks 从对应的框架引入。 </li>
+</ul>
+<ol>
+<li><p><code>useDidShow</code>：等同于<code>componentDidShow</code>生命周期</p>
+</li>
+<li><p><code>useDidHide</code>：等同于<code>componentDidHide</code>生命周期</p>
+</li>
+<li><p><code>usePullDownRefresh</code>： 等同于 <code>onPullDownRefresh</code> 页面生命周期钩子 </p>
+</li>
+<li><p><code>useReachBottom</code>： 等同于 <code>onReachBottom</code> 页面生命周期钩子 </p>
+</li>
+<li><p><code>usePageScroll</code>： 等同于 <code>onPageScroll</code> 页面生命周期钩子 </p>
+</li>
+<li><p><code>useResize</code>： 等同于 <code>onResize</code> 页面生命周期钩子 </p>
+</li>
+<li><p><code>useShareAppMessage</code>： 等同于 <code>onShareAppMessage</code> 页面生命周期钩子 ，使用此 Hook 时必须在<code>page.config.js</code>配置<code>enableShareAppMessage: true</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Index</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  useShareAppMessage(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (res.from === <span class="string">'button'</span>) &#123;</span><br><span class="line">      <span class="comment">// 来自页面内转发按钮</span></span><br><span class="line">      <span class="built_in">console</span>.log(res.target)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      title: <span class="string">'自定义转发标题'</span>,</span><br><span class="line">      path: <span class="string">'/page/user?id=123'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// page.config.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  enableShareAppMessage: <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="8">
+<li><p><code>useTabItemTap</code>：等同于 <code>onTabItemTap</code> 页面生命周期钩子</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">useTabItemTap(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(item.index)</span><br><span class="line">  <span class="built_in">console</span>.log(item.pagePath)</span><br><span class="line">  <span class="built_in">console</span>.log(item.text)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>useRouter</code></p>
+</li>
+<li><p><code>useReady</code>： 等同于页面的 <code>onReady</code> 生命周期钩子。 </p>
+</li>
+<li><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">useTabItemTap(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(item.index)</span><br><span class="line">  <span class="built_in">console</span>.log(item.pagePath)</span><br><span class="line">  <span class="built_in">console</span>.log(item.text)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+</li>
+</ol>
 <h3 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h3><ul>
 <li>跳转：<ol>
 <li><code>navigateTo({url})</code>： 保留当前页面，跳转到应用内的某个页面。但是不能跳到 tabbar 页面。 （若需要传参，参数写在url末尾）</li>
@@ -113,7 +153,7 @@
 <h3 id="数据请求"><a href="#数据请求" class="headerlink" title="数据请求"></a>数据请求</h3><ul>
 <li><code>Taro.request({url, })</code>：返回一个Promise对象，可以<code>then</code></li>
 </ul>
-</div></article></div></main><footer><div class="paginator"><a href="/2020/08/08/其他/上传文件流程/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+</div></article></div></main><footer><div class="paginator"><a href="/2020/08/30/Java/Java/" class="prev">PREV</a><a href="/2020/08/08/其他/上传文件流程/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
 var disqus_identifier = '2020/08/23/工程化/Taro/';
 var disqus_title = 'Taro';
 var disqus_url = 'https://turing5467.github.io/2020/08/23/工程化/Taro/';

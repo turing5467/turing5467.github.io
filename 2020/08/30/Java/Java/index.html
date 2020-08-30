@@ -1,0 +1,56 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Java入门 · 快乐的图小灵</title><meta name="description" content="Java入门 - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Java入门</h1><div class="post-info">Aug 30, 2020</div><div class="post-content"><h2 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h2><h3 id="Win10环境搭建"><a href="#Win10环境搭建" class="headerlink" title="Win10环境搭建"></a>Win10环境搭建</h3><ul>
+<li><p>jdk安装地址：<a href="https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html" target="_blank" rel="noopener">https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html</a></p>
+</li>
+<li><p>配置<strong>系统</strong>环境变量</p>
+<ul>
+<li><p>新增<code>Java_Home</code>：jdk安装路径，如<code>D:\Program Files\jdk1.8.0_206</code></p>
+</li>
+<li><p>点击<code>Path</code>：点击编辑文本，最前面加<code>%Java_Home%\bin;%Java_Home%\jre\bin;</code></p>
+</li>
+<li><p>新增<code>CLASSPATH</code>：值为<code>.;%Java_Home%\bin;%Java_Home%\lib\dt.jar;%Java_Home%\lib\tools.jar</code></p>
+</li>
+</ul>
+</li>
+<li><p>检测是否安装成功</p>
+<ul>
+<li><code>Win + r</code> =&gt; <code>cmd</code> =&gt; <code>javac</code> + <code>java</code> =&gt; 有一堆命令出来则表示安装成功</li>
+</ul>
+</li>
+<li><p>安装IDEA，开始写代码吧</p>
+</li>
+</ul>
+<h4 id="maven"><a href="#maven" class="headerlink" title="maven"></a>maven</h4><ul>
+<li><p>安装：<a href="http://maven.apache.org/，选择`.bin.zip`版本" target="_blank" rel="noopener">http://maven.apache.org/，选择`.bin.zip`版本</a></p>
+</li>
+<li><p>解压</p>
+</li>
+<li><p>新建一个文件夹，用作maven仓库</p>
+</li>
+<li><p>打开<code>conf/setting.xml</code></p>
+<p><code>&lt;settings&gt;</code>下添加一行<code>&lt;localRepository&gt;maven仓库地址&lt;/localRepository&gt;</code></p>
+<p><code>&lt;mirrons&gt;</code>下添加一段（配置阿里云镜像）</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">　　<span class="tag">&lt;<span class="name">id</span>&gt;</span>alimaven<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">　　<span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>central<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">　　<span class="tag">&lt;<span class="name">name</span>&gt;</span>aliyun maven<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">　　<span class="tag">&lt;<span class="name">url</span>&gt;</span>http://maven.aliyun.com/nexus/content/groups/public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置环境变量</p>
+<ul>
+<li><code>MAVEN_HOME</code>：maven安装路径</li>
+<li><code>Path</code>：添加<code>%MAVEN_HOME%\bin</code></li>
+<li>检查是否成功配置：<code>mvn -version</code></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>创建项目：<a href="https://www.cnblogs.com/xihehua/p/9639045.html" target="_blank" rel="noopener">参考</a></p>
+</li>
+<li><p>安装插件：Setting =&gt; plugins =&gt; alibaba java code + lombok</p>
+</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2020/08/23/工程化/Taro/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2020/08/30/Java/Java/';
+var disqus_title = 'Java入门';
+var disqus_url = 'https://turing5467.github.io/2020/08/30/Java/Java/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
