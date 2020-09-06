@@ -1,0 +1,60 @@
+<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 前端性能检测工具 · 快乐的图小灵</title><meta name="description" content="前端性能检测工具 - turing5467"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favi.ico"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://turing5467.github.io/atom.xml" title="快乐的图小灵"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">图小灵的博客</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="https://github.com/turing5467" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">前端性能检测工具</h1><div class="post-info">Sep 6, 2020</div><div class="post-content"><h2 id="性能检测"><a href="#性能检测" class="headerlink" title="性能检测"></a>性能检测</h2><h3 id="插件系列"><a href="#插件系列" class="headerlink" title="插件系列"></a>插件系列</h3><ol>
+<li><p>google插件FeHelper =&gt; 网页性能测</p>
+<p>使用：进入某一页面/刷新页面 =&gt; 点击插件下的<code>网页性能检测</code>，结果如下</p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200906185811326.png" alt="image-20200906185811326"></p>
+</li>
+</ol>
+<p>（DOM树构建时间 = <code>window.performance.domComplete</code> - <code>window.performance.domContentLoadedEventStart</code>）</p>
+<h3 id="window-performance"><a href="#window-performance" class="headerlink" title="window.performance"></a>window.performance</h3><ul>
+<li>此部分参考<a href="https://www.cnblogs.com/libin-1/p/6501951.html" target="_blank" rel="noopener">文章</a></li>
+</ul>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200906190047611.png" alt="image-20200906190047611"></p>
+<ul>
+<li><p><code>memory</code>表示JS对内存的占用。</p>
+</li>
+<li><p><code>navigation</code>：导航相关数据</p>
+</li>
+<li><p><code>timing</code>：最重要的字段，包含了网络、解析等一系列的时间数据</p>
+<ul>
+<li><p><code>domLoading</code>浏览器开始解析html文档的时间节点。其值就等于<code>readyState</code>变为<code>loading</code>的时间节点；</p>
+</li>
+<li><p><code>domContentLoadedEventStart</code>：<code>DOMContentLoaded</code>事件触发的时间节点</p>
+<ul>
+<li>DOM完全加载并解析完毕之后,会触发<code>DOMContentLoaded</code>事件，但不会等待样式文件,图片文件,子框架页面的加载</li>
+</ul>
+</li>
+<li><p><code>domContentLoadedEventEnd</code>：<code>DOMContentLoaded</code>事件完成的时间节点，<strong>此时用户可以对页面进行操作</strong>，也就是jQuery中的domready时间</p>
+</li>
+<li><p><code>domComplete</code>：html文档<strong>完全解析</strong>完毕的时间节点；</p>
+</li>
+<li><p><code>loadEventStart</code>和<code>loadEventEnd</code>分别代表onload事件触发和结束的时间节点</p>
+</li>
+<li><p><code>requestStart</code>代表浏览器<strong>发起请求</strong>的时间节点，请求的方式可以是请求服务器、缓存、本地资源等；</p>
+</li>
+<li><p><code>responseStart</code>和<code>responseEnd</code>分别代表浏览器收到从服务器端（或缓存、本地资源）<strong>响应</strong>回的<strong>第一个</strong>字节和<strong>最后一个</strong>字节数据的时刻</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://images2015.cnblogs.com/blog/595796/201603/595796-20160323172552386-842768536.png" alt="img"></p>
+<ul>
+<li>通过timing计算性能指标<ul>
+<li>DNS查询耗时 = domainLookupEnd - domainLookupStart</li>
+<li>TCP链接耗时 = connectEnd - connectStart</li>
+<li>request请求耗时 = responseEnd - responseStart</li>
+<li>解析dom树耗时 = domComplete - domInteractive</li>
+<li>白屏时间 = domloadng - fetchStart</li>
+<li>domready时间 = domContentLoadedEventEnd - fetchStart</li>
+<li>onload时间 = loadEventEnd - fetchStart</li>
+</ul>
+</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2020/09/06/js框架/react/性能优化/" class="prev">PREV</a><a href="/2020/08/30/Java/Java/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = '2020/09/06/js/性能优化/性能检测/';
+var disqus_title = '前端性能检测工具';
+var disqus_url = 'https://turing5467.github.io/2020/09/06/js/性能优化/性能检测/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2019 - 2020 <a href="https://turing5467.github.io">turing5467</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
